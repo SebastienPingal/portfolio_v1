@@ -8,7 +8,7 @@
     --background: 0 0% 100%;
     --foreground: 20 14.3% 4.1%;
     
-    --card: 0 0% 100%;
+    --card: 0 0% 90%;
     --card-foreground: 20 14.3% 4.1%;
 
     --popover: 0 0% 100%;
@@ -29,7 +29,7 @@
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 60 9.1% 97.8%;
 
-    --border: 20 5.9% 90%;
+    --border: 20 5.9% 80%;
 
     --input: 20 5.9% 90%;
 
@@ -42,7 +42,7 @@
     --background: 20 14.3% 4.1%;
     --foreground: 60 9.1% 97.8%;
 
-    --card: 20 14.3% 4.1%;
+    --card: 20 14.3% 14.1%;
     --card-foreground: 60 9.1% 97.8%;
 
     --popover: 20 14.3% 4.1%;

@@ -38,7 +38,20 @@ const NavigationMenuList = React.forwardRef<
 ))
 NavigationMenuList.displayName = NavigationMenuPrimitive.List.displayName
 
-const NavigationMenuItem = NavigationMenuPrimitive.Item
+const NavigationMenuItem = React.forwardRef<
+  React.ElementRef<typeof NavigationMenuPrimitive.Item>,
+  React.ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Item>
+>(({ className, ...props }, ref) => (
+  <NavigationMenuPrimitive.Item
+    ref={ref}
+    className={cn(
+      "flex gap-4 px-1 py-1 pl-3 w-full rounded",
+      className
+    )}
+    {...props}
+  />
+))
+NavigationMenuItem.displayName = NavigationMenuPrimitive.Item.displayName
 
 const navigationMenuTriggerStyle = cva(
   "group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50"
@@ -77,7 +90,18 @@ const NavigationMenuContent = React.forwardRef<
 ))
 NavigationMenuContent.displayName = NavigationMenuPrimitive.Content.displayName
 
-const NavigationMenuLink = NavigationMenuPrimitive.Link
+// NavigationMenuLink is now a component instead of a direct export from NavigationMenuPrimitive
+const NavigationMenuLink = React.forwardRef<
+  React.ElementRef<typeof NavigationMenuPrimitive.Link>,
+  React.ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Link>
+>(({ className, ...props }, ref) => (
+  <NavigationMenuPrimitive.Link
+    ref={ref}
+    className={cn("flex gap-4 items-center", className)}
+    {...props}
+  />
+))
+NavigationMenuLink.displayName = NavigationMenuPrimitive.Link.displayName
 
 const NavigationMenuViewport = React.forwardRef<
   React.ElementRef<typeof NavigationMenuPrimitive.Viewport>,
