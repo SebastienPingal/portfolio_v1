@@ -1,15 +1,8 @@
-import Image from "next/image";
 
 export default function Home() {
   return (
     <div>
-      Hello World.{" "}
-      <Image
-        src="/images/profile.jpg"
-        alt="Picture of the author"
-        width={500}
-        height={500}
-      />
+      hello
     </div>
   );
 }
