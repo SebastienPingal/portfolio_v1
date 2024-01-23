@@ -14,17 +14,17 @@ import { useState } from 'react'
 
 
 const NavBar = () => {
-  const pathname = usePathname();
+  const pathname = usePathname()
   console.log('pasthththththth', pathname)
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(false)
 
 
   const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
+    setDarkMode(!darkMode)
     if (typeof window !== 'undefined') {
-      document.body.classList.toggle('dark', !darkMode);
+      document.body.classList.toggle('dark', !darkMode)
     }
-  };
+  }
 
   return (
     <>
@@ -95,7 +95,7 @@ const NavBar = () => {
         </NavigationMenuList>
       </NavigationMenu>
     </>
-  );
-};
+  )
+}
 
 export default NavBar

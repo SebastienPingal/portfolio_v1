@@ -29,55 +29,55 @@ const PerlinBackground = () => {
 
 
     function draw() {
-      nt += noiseSpeed;
+      nt += noiseSpeed
       for (var x = 0; x < w; x += dotSize + gap) {
         for (var y = 0; y < h; y += dotSize + gap) {
-          var yn = noise.perlin3(y / noiseScale, x / noiseScale, nt) * 20;
+          var yn = noise.perlin3(y / noiseScale, x / noiseScale, nt) * 20
 
-          ctx.beginPath();
+          ctx.beginPath()
           ctx.fillStyle = `rgba(${255 - yn * 10}, ${255 - yn * 12}, ${255 - yn * 10}, 1)`
           if (shape == 0) {
-            ctx.fillRect(x, y, dotSize, dotSize);
+            ctx.fillRect(x, y, dotSize, dotSize)
           } else if (shape == 1) {
-            ctx.arc(x, y, dotSize / 2, 0, Math.PI * 2);
-            ctx.fill();
+            ctx.arc(x, y, dotSize / 2, 0, Math.PI * 2)
+            ctx.fill()
           } else if (shape == 2) {
-            ctx.moveTo(x + (dotSize / 2), y + dotSize);
-            ctx.lineTo(x, y);
-            ctx.lineTo(x + dotSize, y);
-            ctx.fill();
+            ctx.moveTo(x + (dotSize / 2), y + dotSize)
+            ctx.lineTo(x, y)
+            ctx.lineTo(x + dotSize, y)
+            ctx.fill()
           } else if (shape == 3) {
             if (y % ((gap + dotSize) * 2) == (gap + dotSize)) {
-              ctx.moveTo(x + (dotSize / 2), y);
-              ctx.lineTo(x + dotSize, y + dotSize);
-              ctx.lineTo(x, y + dotSize);
+              ctx.moveTo(x + (dotSize / 2), y)
+              ctx.lineTo(x + dotSize, y + dotSize)
+              ctx.lineTo(x, y + dotSize)
             } else {
-              ctx.moveTo(x + (dotSize / 2), y + dotSize);
-              ctx.lineTo(x, y);
-              ctx.lineTo(x + dotSize, y);
+              ctx.moveTo(x + (dotSize / 2), y + dotSize)
+              ctx.lineTo(x, y)
+              ctx.lineTo(x + dotSize, y)
             }
-            ctx.fill();
+            ctx.fill()
           }
-          ctx.closePath();
+          ctx.closePath()
         }
       }
     }
 
     function clear() {
-      ctx.fillStyle = "rgba(0,0,4,1)";
-      ctx.fillRect(0, 0, w, h);
+      ctx.fillStyle = "rgba(0,0,4,1)"
+      ctx.fillRect(0, 0, w, h)
     };
 
     function lerp(x1, x2, n) {
-      return (1 - n) * x1 + n * x2;
+      return (1 - n) * x1 + n * x2
     }
 
     function render() {
-      clear();
-      draw();
-      requestAnimationFrame(render);
+      clear()
+      draw()
+      requestAnimationFrame(render)
     }
-    render();
+    render()
   }, [])
   return <canvas ref={canvasRef} className='h-full w-full absolute z-0' />
 }
