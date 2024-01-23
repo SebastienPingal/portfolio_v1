@@ -28,7 +28,7 @@ const NavBar = () => {
 
   return (
     <>
-      <NavigationMenu orientation="vertical" className='items-start shadow-inner h-full bg-card'>
+      <NavigationMenu orientation="vertical" className='items-start shadow-inner h-full bg-card:10 backdrop-blur-xl'>
         <NavigationMenuList className='flex flex-col gap-5 items-start w-56 p-2'>
           <div className='text-2xl font-bold'>Sébastien Pingal</div>
           <div className='w-full'>

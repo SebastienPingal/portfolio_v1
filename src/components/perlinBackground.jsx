@@ -18,8 +18,8 @@ const PerlinBackground = () => {
 
     let nt = 0
     let noiseSpeed = 0.005
-    let noiseScale = 200
-    let dotSize = 8
+    let noiseScale = 300
+    let dotSize = 16
     let gap = 0
     let hueBase = 200
     let hueRange = 60
@@ -35,10 +35,7 @@ const PerlinBackground = () => {
           var yn = noise.perlin3(y / noiseScale, x / noiseScale, nt) * 20;
 
           ctx.beginPath();
-          const theme = document.body.classList.contains('dark')
-          ctx.fillStyle = theme
-            ? `rgba(${yn * 10}, ${yn * 10}, ${yn * 10}, 1)`
-            : `rgba(${255 - yn * 10}, ${255 - yn * 10}, ${255 - yn * 10}, 1)`
+          ctx.fillStyle = `rgba(${255 - yn * 10}, ${255 - yn * 12}, ${255 - yn * 10}, 1)`
           if (shape == 0) {
             ctx.fillRect(x, y, dotSize, dotSize);
           } else if (shape == 1) {
