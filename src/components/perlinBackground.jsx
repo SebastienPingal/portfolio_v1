@@ -35,7 +35,10 @@ const PerlinBackground = () => {
           var yn = noise.perlin3(y / noiseScale, x / noiseScale, nt) * 20
 
           ctx.beginPath()
-          ctx.fillStyle = `rgba(${255 - yn * 10}, ${255 - yn * 12}, ${255 - yn * 10}, 1)`
+          const isBlackTheme = document.body.classList.contains('dark')
+          ctx.fillStyle = isBlackTheme 
+            ? `rgba(${yn * 10}, ${yn * 12}, ${yn * 10}, 1)` 
+            : `rgba(${255 - yn * 10}, ${255 - yn * 12}, ${255 - yn * 10}, 1)`
           if (shape == 0) {
             ctx.fillRect(x, y, dotSize, dotSize)
           } else if (shape == 1) {
