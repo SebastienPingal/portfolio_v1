@@ -26,6 +26,12 @@ dependencies:
   next:
     specifier: 14.1.0
     version: 14.1.0(react-dom@18.2.0)(react@18.2.0)
+  noisejs:
+    specifier: ^2.1.0
+    version: 2.1.0
+  pcg-random:
+    specifier: ^2.0.1
+    version: 2.0.1
   react:
     specifier: ^18.2.0
     version: 18.2.0
@@ -2189,6 +2195,10 @@ packages:
     resolution: {integrity: sha512-y10wOWt8yZpqXmOgRo77WaHEmhYQYGNA6y421PKsKYWEK8aW+cqAphborZDhqfyKrbZEN92CN1X2KbafY2s7Yw==}
     dev: true
 
+  /noisejs@2.1.0:
+    resolution: {integrity: sha512-sw39KaUS2YBta6apZ0/H+nnCsUyxT/ZRxgv/HnDxx6pWO2e2nUmWgLhpOaQdlxxkFepIpxDrlXy3fHVx0S3SLg==}
+    dev: false
+
   /normalize-path@3.0.0:
     resolution: {integrity: sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==}
     engines: {node: '>=0.10.0'}
@@ -2335,6 +2345,10 @@ packages:
     resolution: {integrity: sha512-gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw==}
     engines: {node: '>=8'}
     dev: true
+
+  /pcg-random@2.0.1:
+    resolution: {integrity: sha512-uWjSdJoX14aDB7UhJx4977CawZagqihIi+PTUa37WzXc+noPJbJIc03ejYhZlT5b7C1Bo2fhktONLP3KAbRtyA==}
+    dev: false
 
   /picocolors@1.0.0:
     resolution: {integrity: sha512-1fygroTLlHu66zi26VoTDv8yRgm0Fccecssto+MhsZ0D/DGW2sm8E8AjW7NU5VVTRt5GxbeZ5qBuJr+HyLYkjQ==}

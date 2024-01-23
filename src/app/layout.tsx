@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/NavBar";
+import PerlinBackground from "@/components/perlinBackground.jsx";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,9 +18,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={[inter.className, "flex h-screen gap-2"].join(" ")}>
+      <body className={[inter.className, "flex w-screen h-screen gap-2 relative bg-white"].join(" ")}>
         <Navbar />
-        <main className="flex-1 page">{children}</main>
+        <main className="flex-1 page z-10">{children}</main>
+        <PerlinBackground />
       </body>
     </html>
   );

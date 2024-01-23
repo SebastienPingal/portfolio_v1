@@ -6,7 +6,7 @@ import {
   NavigationMenuLink,
   NavigationMenuList
 } from "@/components/ui/navigation-menu"
-import { DownloadCloud, Forklift, Home, MoonIcon, SunIcon } from "lucide-react"
+import { DownloadCloud, Forklift, Forward, Home, MoonIcon, MoveUpRight, SunIcon } from "lucide-react"
 import { usePathname } from "next/navigation"
 
 import Link from 'next/link'
@@ -53,6 +53,32 @@ const NavBar = () => {
               <Link href="/other" legacyBehavior passHref>
                 <NavigationMenuLink>
                   <Forklift className="w-4 h-4" />Benco
+                </NavigationMenuLink>
+              </Link>
+            </NavigationMenuItem>
+          </div>
+          <div className='w-full'>
+            <NavigationMenuItem className="font-bold">
+              Projects
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <Link href="/" legacyBehavior passHref>
+                <NavigationMenuLink className="relative w-full">
+                  <Home className="w-4 h-4" />Aestima-immo<MoveUpRight className="absolute right-0 w-4 h-4" />
+                </NavigationMenuLink>
+              </Link>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <Link href="/docs" legacyBehavior passHref>
+                <NavigationMenuLink className="relative w-full">
+                  <DownloadCloud className="w-4 h-4" />Kafo<MoveUpRight className="absolute right-0 w-4 h-4" />
+                </NavigationMenuLink>
+              </Link>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <Link href="/other" legacyBehavior passHref>
+                <NavigationMenuLink className="relative w-full">
+                  <Forklift className="w-4 h-4" />Cerberes<MoveUpRight className="absolute right-0 w-4 h-4" />
                 </NavigationMenuLink>
               </Link>
             </NavigationMenuItem>
