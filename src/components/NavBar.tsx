@@ -6,17 +6,25 @@ import {
   NavigationMenuLink,
   NavigationMenuList
 } from "@/components/ui/navigation-menu"
-import { DownloadCloud, Forklift, Forward, Home, MoonIcon, MoveUpRight, SunIcon } from "lucide-react"
+import { DownloadCloud, Forklift, Home, MoonIcon, MoveUpRight, SunIcon } from "lucide-react"
 import { usePathname } from "next/navigation"
 
+import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
+
+const KafoWhite = '/Kafo_white.svg'
+const KafoBlack = '/Kafo_black.svg'
+const AestimaWhite = '/aestima_white.svg'
+const AestimaBlack = '/aestima_black.svg'
+const CerberesWhite = '/cerberes_white.svg'
+const CerberesBlack = '/cerberes_black.svg'
+
 
 
 const NavBar = () => {
   const pathname = usePathname()
-  console.log('pasthththththth', pathname)
-  const [darkMode, setDarkMode] = useState(false)
+  const [darkMode, setDarkMode] = useState(true)
 
 
   const toggleDarkMode = () => {
@@ -62,25 +70,19 @@ const NavBar = () => {
               Projects
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <Link href="/" legacyBehavior passHref>
-                <NavigationMenuLink className="relative w-full">
-                  <Home className="w-4 h-4" />Aestima-immo<MoveUpRight className="absolute right-0 w-4 h-4" />
-                </NavigationMenuLink>
-              </Link>
+              <a href="https://aestima-immo.com" target="_blank" rel="noreferrer" className="flex gap-4 items-center relative w-full">
+                <Image src={darkMode ? AestimaWhite : AestimaBlack} alt="Aestima-immo" width={16} height={16} />Aestima-immo<MoveUpRight className="absolute right-0 w-4 h-4" />
+              </a>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <Link href="/docs" legacyBehavior passHref>
-                <NavigationMenuLink className="relative w-full">
-                  <DownloadCloud className="w-4 h-4" />Kafo<MoveUpRight className="absolute right-0 w-4 h-4" />
-                </NavigationMenuLink>
-              </Link>
+              <a href="https://kafo.work" target="_blank" rel="noreferrer" className="flex gap-4 items-center relative w-full">
+                <Image src={darkMode ? KafoWhite : KafoBlack} alt="Kafo" width={16} height={16} />Kafo<MoveUpRight className="absolute right-0 w-4 h-4" />
+              </a>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <Link href="/other" legacyBehavior passHref>
-                <NavigationMenuLink className="relative w-full">
-                  <Forklift className="w-4 h-4" />Cerberes<MoveUpRight className="absolute right-0 w-4 h-4" />
-                </NavigationMenuLink>
-              </Link>
+              <a href="https://cerberes.flamberger.zip" target="_blank" rel="noreferrer" className="flex gap-4 items-center relative w-full">
+                <Image src={darkMode ? CerberesWhite : CerberesBlack} alt="cerberes" width={16} height={16} />Cerberes<MoveUpRight className="absolute right-0 w-4 h-4" />
+              </a>
             </NavigationMenuItem>
           </div>
           <NavigationMenuItem>
