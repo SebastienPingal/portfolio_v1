@@ -16,9 +16,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={[cereal.className, "flex w-screen h-screen gap-2 relative bg-white"].join(" ")}>
+      <body className={[cereal.className, "flex w-screen h-screen gap-2 relative bg-white dark max-w-5xl"].join(" ")}>
         <Navbar />
-        <main className="flex-1 page z-10">{children}</main>
+        <main className="flex-1 page z-10 mt-10">{children}</main>
         <PerlinBackground />
       </body>
     </html>
