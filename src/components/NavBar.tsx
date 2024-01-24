@@ -6,7 +6,7 @@ import {
   NavigationMenuLink,
   NavigationMenuList
 } from "@/components/ui/navigation-menu"
-import { DownloadCloud, Forklift, Home, MoonIcon, MoveUpRight, SunIcon } from "lucide-react"
+import { DownloadCloud, Forklift, Github, Gitlab, Home, Linkedin, MoonIcon, MoveUpRight, SunIcon } from "lucide-react"
 import { usePathname } from "next/navigation"
 
 import Image from 'next/image'
@@ -40,7 +40,7 @@ const NavBar = () => {
         <NavigationMenuList className='flex flex-col gap-5 items-start w-56 p-2'>
           <div className='text-2xl font-extrabold'>Sébastien Pingal</div>
           <div className='w-full'>
-            <NavigationMenuItem className="font-bold">
+            <NavigationMenuItem className="font-extrabold mb-2">
               Me
             </NavigationMenuItem>
             <NavigationMenuItem className={pathname === '/' ? 'bg-popover text-popover-foreground' : ''}>
@@ -66,7 +66,7 @@ const NavBar = () => {
             </NavigationMenuItem>
           </div>
           <div className='w-full'>
-            <NavigationMenuItem className="font-bold">
+            <NavigationMenuItem className="font-extrabold mb-2">
               Projects
             </NavigationMenuItem>
             <NavigationMenuItem>
@@ -82,6 +82,26 @@ const NavBar = () => {
             <NavigationMenuItem>
               <a href="https://cerberes.flamberger.zip" target="_blank" rel="noreferrer" className="flex gap-4 items-center relative w-full">
                 <Image src={darkMode ? CerberesWhite : CerberesBlack} alt="cerberes" width={16} height={16} />Cerberes<MoveUpRight className="absolute right-0 w-4 h-4" />
+              </a>
+            </NavigationMenuItem>
+          </div>
+          <div className='w-full'>
+            <NavigationMenuItem className="font-extrabold mb-2">
+              Online
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <a href="https://www.linkedin.com/in/s%C3%A9bastien-pingal-582795b3/" target="_blank" rel="noreferrer" className="flex gap-4 items-center relative w-full">
+                <Linkedin fill={darkMode ? 'white' : 'black'} className="w-4 h-4" />Linkedin<MoveUpRight className="absolute right-0 w-4 h-4" />
+              </a>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <a href="https://github.com/SebastienPingal" target="_blank" rel="noreferrer" className="flex gap-4 items-center relative w-full">
+                <Github className="w-4 h-4" />GitHub<MoveUpRight className="absolute right-0 w-4 h-4" />
+              </a>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <a href="https://gitlab.com/Brume_" target="_blank" rel="noreferrer" className="flex gap-4 items-center relative w-full">
+                <Gitlab className="w-4 h-4" />Gitlab<MoveUpRight className="absolute right-0 w-4 h-4" />
               </a>
             </NavigationMenuItem>
           </div>
