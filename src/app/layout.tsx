@@ -1,6 +1,8 @@
 import type { Metadata } from "next"
 import { cereal } from './font'
 import "./globals.css"
+import SessionProvider from "./SessionProvider"
+
 import Navbar from "@/components/NavBar"
 import PerlinBackground from "@/components/perlinBackground.jsx"
 
@@ -17,9 +19,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={[cereal.className, "flex w-screen h-screen gap-2 relative bg-white dark"].join(" ")}>
-        <Navbar />
-        <main className="flex-1 page z-10 mt-10 max-w-4xl mx-auto">{children}</main>
-        <PerlinBackground />
+        <SessionProvider>
+          <Navbar />
+          <main className="flex-1 page z-10 mt-10 max-w-4xl mx-auto">{children}</main>
+          <PerlinBackground />
+        </SessionProvider>
       </body>
     </html>
   )

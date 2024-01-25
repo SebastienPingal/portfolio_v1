@@ -7,11 +7,16 @@ import {
   NavigationMenuList
 } from "@/components/ui/navigation-menu"
 import { DownloadCloud, Forklift, Github, Gitlab, Home, Linkedin, MoonIcon, MoveUpRight, SunIcon } from "lucide-react"
+
 import { usePathname } from "next/navigation"
 
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
+import { useSession } from "next-auth/react"
+
+import SigninButton from "./SigninButton"
+import SignoutButton from "./SignoutButton"
 
 const KafoWhite = '/Kafo_white.svg'
 const KafoBlack = '/Kafo_black.svg'
@@ -23,6 +28,7 @@ const CerberesBlack = '/cerberes_black.svg'
 
 
 const NavBar = () => {
+  const session = useSession()
   const pathname = usePathname()
   const [darkMode, setDarkMode] = useState(true)
 
@@ -105,15 +111,29 @@ const NavBar = () => {
               </a>
             </NavigationMenuItem>
           </div>
-          <NavigationMenuItem>
-            <Button onClick={toggleDarkMode} variant='outline'>
-              {darkMode ? (
-                <SunIcon />
+          <div className='w-full'>
+            <NavigationMenuItem>
+              <Button onClick={toggleDarkMode} variant='outline'>
+                {darkMode ? (
+                  <SunIcon />
+                ) : (
+                  <MoonIcon />
+                )}
+              </Button>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              {session.data ? (
+                <div className="flex flex-col gap-2 justify-between items-center w-full">
+                  <Image src={session.data.user?.image || ''} alt="profile" width={64} height={64} className="rounded-full" />
+                  <p>{session.data.user?.name}</p>
+                  <SignoutButton className="w-full" />
+                </div>
               ) : (
-                <MoonIcon />
-              )}
-            </Button>
-          </NavigationMenuItem>
+                <SigninButton className="w-full" />
+              )
+              }
+            </NavigationMenuItem>
+          </div>
         </NavigationMenuList>
       </NavigationMenu>
     </>
