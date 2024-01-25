@@ -17,6 +17,8 @@ import { useSession } from "next-auth/react"
 
 import SigninButton from "./SigninButton"
 import SignoutButton from "./SignoutButton"
+import ThemeToggler from "./ThemeToggler"
+import { useTheme } from "next-themes"
 
 const KafoWhite = '/Kafo_white.svg'
 const KafoBlack = '/Kafo_black.svg'
@@ -30,15 +32,8 @@ const CerberesBlack = '/cerberes_black.svg'
 const NavBar = () => {
   const session = useSession()
   const pathname = usePathname()
-  const [darkMode, setDarkMode] = useState(true)
-
-
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode)
-    if (typeof window !== 'undefined') {
-      document.body.classList.toggle('dark', !darkMode)
-    }
-  }
+  const { theme } = useTheme()
+  const darkMode = theme === 'dark'
 
   return (
     <>
@@ -113,13 +108,7 @@ const NavBar = () => {
           </div>
           <div className='w-full'>
             <NavigationMenuItem>
-              <Button onClick={toggleDarkMode} variant='outline'>
-                {darkMode ? (
-                  <SunIcon />
-                ) : (
-                  <MoonIcon />
-                )}
-              </Button>
+              <ThemeToggler />
             </NavigationMenuItem>
             <NavigationMenuItem>
               {session.data ? (

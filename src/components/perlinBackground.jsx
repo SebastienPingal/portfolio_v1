@@ -1,9 +1,11 @@
 "use client"
 import { Noise } from 'noisejs'
 import { useEffect, useRef } from 'react'
+import { useTheme } from 'next-themes'
 
 const PerlinBackground = () => {
   const canvasRef = useRef(null)
+  const { theme } = useTheme()
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -21,8 +23,6 @@ const PerlinBackground = () => {
     let noiseScale = 300
     let dotSize = 16
     let gap = 0
-    let hueBase = 200
-    let hueRange = 60
     let shape = 0
     let noise = new Noise(Math.random())
 
@@ -35,7 +35,7 @@ const PerlinBackground = () => {
           var yn = noise.perlin3(y / noiseScale, x / noiseScale, nt) * 20
 
           ctx.beginPath()
-          const isBlackTheme = document.body.classList.contains('dark')
+          const isBlackTheme = theme === 'dark'
           ctx.fillStyle = isBlackTheme 
             ? `rgba(${yn * 10}, ${yn * 12}, ${yn * 10}, 1)` 
             : `rgba(${255 - yn * 10}, ${255 - yn * 12}, ${255 - yn * 10}, 1)`
@@ -81,7 +81,8 @@ const PerlinBackground = () => {
       requestAnimationFrame(render)
     }
     render()
-  }, [])
+  }, [theme])
+
   return <canvas ref={canvasRef} className='h-full w-full absolute z-0' />
 }
 
