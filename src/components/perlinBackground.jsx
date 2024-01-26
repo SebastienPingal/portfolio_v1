@@ -1,19 +1,42 @@
 "use client"
-import { Noise } from 'noisejs'
-import { useEffect, useRef } from 'react'
-import { useTheme } from 'next-themes'
+import { Noise } from 'noisejs';
+import { useEffect, useRef, useState } from 'react';
+import { useTheme } from 'next-themes';
 
 const PerlinBackground = () => {
-  const canvasRef = useRef(null)
-  const { theme } = useTheme()
+  const canvasRef = useRef(null);
+  const { theme } = useTheme();
+  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    const canvas = canvasRef.current
-    const ctx = canvas.getContext("2d")
+    setIsMounted(true);
+  }, []);
 
-    // Set canvas size to match the component size
-    canvas.width = canvas.offsetWidth
-    canvas.height = canvas.offsetHeight
+  const isBlackTheme = isMounted && theme === 'dark';
+
+  useEffect(() => {
+    const handleResize = () => {
+      setDimensions({
+        width: window.innerWidth,
+        height: window.innerHeight
+      });
+    };
+
+    window.addEventListener('resize', handleResize);
+    handleResize();
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    const { width, height } = dimensions;
+    canvas.width = width;
+    canvas.height = height;
 
     let w = canvas.width
     let h = canvas.height
@@ -35,7 +58,6 @@ const PerlinBackground = () => {
           var yn = noise.perlin3(y / noiseScale, x / noiseScale, nt) * 20
 
           ctx.beginPath()
-          const isBlackTheme = theme === 'dark'
           ctx.fillStyle = isBlackTheme 
             ? `rgba(${yn * 10}, ${yn * 12}, ${yn * 10}, 1)` 
             : `rgba(${255 - yn * 10}, ${255 - yn * 12}, ${255 - yn * 10}, 1)`
@@ -81,10 +103,9 @@ const PerlinBackground = () => {
       requestAnimationFrame(render)
     }
     render()
-  }, [theme])
+  }, [theme, dimensions]);
 
-  return <canvas ref={canvasRef} className='h-full w-full absolute z-0' />
-}
+  return <canvas ref={canvasRef} className='h-full w-full absolute z-0' />;
+};
 
-export default PerlinBackground
-
+export default PerlinBackground;

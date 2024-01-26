@@ -1,24 +1,22 @@
 "use client"
-import { Button } from "@/components/ui/button"
 import {
   NavigationMenu,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList
 } from "@/components/ui/navigation-menu"
-import { DownloadCloud, Forklift, Github, Gitlab, Home, Linkedin, MoonIcon, MoveUpRight, SunIcon } from "lucide-react"
+import { DownloadCloud, Forklift, Github, Gitlab, Home, Linkedin, MoveUpRight } from "lucide-react"
 
 import { usePathname } from "next/navigation"
 
+import { useSession } from "next-auth/react"
 import Image from 'next/image'
 import Link from 'next/link'
-import { useState } from 'react'
-import { useSession } from "next-auth/react"
 
+import { useTheme } from "next-themes"
 import SigninButton from "./SigninButton"
 import SignoutButton from "./SignoutButton"
 import ThemeToggler from "./ThemeToggler"
-import { useTheme } from "next-themes"
 
 const KafoWhite = '/Kafo_white.svg'
 const KafoBlack = '/Kafo_black.svg'
@@ -107,10 +105,10 @@ const NavBar = () => {
             </NavigationMenuItem>
           </div>
           <div className='w-full'>
-            <NavigationMenuItem>
+            <NavigationMenuItem hover={false}>
               <ThemeToggler />
             </NavigationMenuItem>
-            <NavigationMenuItem>
+            <NavigationMenuItem hover={false}>
               {session.data ? (
                 <div className="flex flex-col gap-2 justify-between items-center w-full">
                   <Image src={session.data.user?.image || ''} alt="profile" width={64} height={64} className="rounded-full" />

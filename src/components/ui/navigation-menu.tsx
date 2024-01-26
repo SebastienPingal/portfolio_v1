@@ -38,14 +38,17 @@ const NavigationMenuList = React.forwardRef<
 ))
 NavigationMenuList.displayName = NavigationMenuPrimitive.List.displayName
 
+type ExtendedNavigationMenuItemProps = React.ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Item> & { hover?: boolean }
+
 const NavigationMenuItem = React.forwardRef<
   React.ElementRef<typeof NavigationMenuPrimitive.Item>,
-  React.ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Item>
->(({ className, ...props }, ref) => (
+  ExtendedNavigationMenuItemProps
+>(({ className, hover = true, ...props }, ref) => (
   <NavigationMenuPrimitive.Item
     ref={ref}
     className={cn(
-      "flex gap-4 px-1 py-1 pl-3 w-full rounded hover:bg-accent hover:text-accent-foreground",
+      "flex gap-4 px-1 py-1 pl-3 w-full rounded",
+      hover && "hover:bg-accent hover:text-accent-foreground",
       className
     )}
     {...props}
