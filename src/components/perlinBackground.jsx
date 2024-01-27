@@ -6,6 +6,8 @@ import { useTheme } from 'next-themes';
 const PerlinBackground = () => {
   const canvasRef = useRef(null);
   const { theme } = useTheme();
+  const animationFrameRef = useRef();
+  const timerRef = useRef();
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
   const [isMounted, setIsMounted] = useState(false);
 
@@ -93,16 +95,27 @@ const PerlinBackground = () => {
       ctx.fillRect(0, 0, w, h)
     };
 
-    function lerp(x1, x2, n) {
-      return (1 - n) * x1 + n * x2
-    }
-
     function render() {
       clear()
-      draw()
-      requestAnimationFrame(render)
-    }
-    render()
+      draw();
+      timerRef.current = setTimeout(() => {
+        animationFrameRef.current = requestAnimationFrame(render);
+      }, 100); // Delay in milliseconds
+    };
+
+    // Start the animation
+    render();
+
+    // Cleanup function
+    return () => {
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+      }
+    };
+
   }, [theme, dimensions]);
 
   return <canvas ref={canvasRef} className='h-full w-full absolute z-0' />;
