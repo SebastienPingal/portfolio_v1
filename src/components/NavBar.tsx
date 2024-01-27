@@ -5,7 +5,7 @@ import {
   NavigationMenuLink,
   NavigationMenuList
 } from "@/components/ui/navigation-menu"
-import { DownloadCloud, Forklift, Github, Gitlab, Home, Linkedin, MoveUpRight } from "lucide-react"
+import { DownloadCloud, FileStack, Forklift, Github, Gitlab, Home, Linkedin, MoveUpRight, PencilRuler } from "lucide-react"
 
 import { usePathname } from "next/navigation"
 
@@ -25,8 +25,6 @@ const AestimaBlack = '/aestima_black.svg'
 const CerberesWhite = '/cerberes_white.svg'
 const CerberesBlack = '/cerberes_black.svg'
 
-
-
 const NavBar = () => {
   const session = useSession()
   const pathname = usePathname()
@@ -38,10 +36,7 @@ const NavBar = () => {
       <NavigationMenu orientation="vertical" className='items-start shadow-inner h-full bg-card:10 backdrop-blur-xl'>
         <NavigationMenuList className='flex flex-col gap-5 items-start w-56 p-2'>
           <div className='text-2xl font-extrabold'>Sébastien Pingal</div>
-          <div className='w-full'>
-            <NavigationMenuItem className="font-extrabold mb-2">
-              Me
-            </NavigationMenuItem>
+          <div className="w-full">
             <NavigationMenuItem className={pathname === '/' ? 'bg-popover text-popover-foreground' : ''}>
               <Link href="/" legacyBehavior passHref>
                 <NavigationMenuLink>
@@ -49,10 +44,15 @@ const NavBar = () => {
                 </NavigationMenuLink>
               </Link>
             </NavigationMenuItem>
+          </div>
+          <div className='w-full'>
+            <NavigationMenuItem className="font-extrabold mb-2">
+              Me
+            </NavigationMenuItem>
             <NavigationMenuItem>
-              <Link href="/docs" legacyBehavior passHref>
+              <Link href="/stack" legacyBehavior passHref>
                 <NavigationMenuLink>
-                  <DownloadCloud className="w-4 h-4" /> Documentation
+                  <PencilRuler className="w-4 h-4" /> Stack
                 </NavigationMenuLink>
               </Link>
             </NavigationMenuItem>
