@@ -1,16 +1,16 @@
 "use client"
 import MdEditor from '@/components/MdEditor'
 import { useEffect, useState } from 'react'
-import { getPostTypes, createPost } from '@/app/actions';
-import { useFormState } from 'react-dom';
-import { PostType } from '@prisma/client';
-import { useSession } from 'next-auth/react';
-import { redirect, useSearchParams } from 'next/navigation';
-import { useRouter } from 'next/navigation';
+import { getPostTypes, createPost } from '@/app/actions'
+import { useFormState } from 'react-dom'
+import { PostType } from '@prisma/client'
+import { useSession } from 'next-auth/react'
+import { redirect, useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 
-import { Input } from '@/components/ui/input';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { Button } from '@/components/ui/button'
 
 const initialStatePostTypes = { postTypes: [] }
 
@@ -69,6 +69,6 @@ const NewPost = () => {
       </Button>
     </form>
   )
-};
+}
 
 export default NewPost
