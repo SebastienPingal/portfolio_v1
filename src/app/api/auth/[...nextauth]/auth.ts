@@ -3,7 +3,7 @@ import type {
   NextApiRequest,
   NextApiResponse,
 } from "next"
-import LinkedInProvider from "next-auth/providers/linkedin";
+import LinkedInProvider from "next-auth/providers/linkedin"
 import { PrismaAdapter } from "@auth/prisma-adapter"
 import { PrismaClient } from "@prisma/client"
 import { Adapter } from "next-auth/adapters"

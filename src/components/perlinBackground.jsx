@@ -1,44 +1,44 @@
 "use client"
-import { Noise } from 'noisejs';
-import { useEffect, useRef, useState } from 'react';
-import { useTheme } from 'next-themes';
+import { Noise } from 'noisejs'
+import { useEffect, useRef, useState } from 'react'
+import { useTheme } from 'next-themes'
 
 const PerlinBackground = () => {
-  const canvasRef = useRef(null);
-  const { theme } = useTheme();
-  const animationFrameRef = useRef();
-  const timerRef = useRef();
-  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
-  const [isMounted, setIsMounted] = useState(false);
+  const canvasRef = useRef(null)
+  const { theme } = useTheme()
+  const animationFrameRef = useRef()
+  const timerRef = useRef()
+  const [dimensions, setDimensions] = useState({ width: 0, height: 0 })
+  const [isMounted, setIsMounted] = useState(false)
 
   useEffect(() => {
-    setIsMounted(true);
-  }, []);
+    setIsMounted(true)
+  }, [])
 
-  const isBlackTheme = isMounted && theme === 'dark';
+  const isBlackTheme = isMounted && theme === 'dark'
 
   useEffect(() => {
     const handleResize = () => {
       setDimensions({
         width: window.innerWidth,
         height: window.innerHeight
-      });
-    };
+      })
+    }
 
-    window.addEventListener('resize', handleResize);
-    handleResize();
+    window.addEventListener('resize', handleResize)
+    handleResize()
 
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
+    const canvas = canvasRef.current
+    if (!canvas) return
 
-    const ctx = canvas.getContext('2d');
-    const { width, height } = dimensions;
-    canvas.width = width;
-    canvas.height = height;
+    const ctx = canvas.getContext('2d')
+    const { width, height } = dimensions
+    canvas.width = width
+    canvas.height = height
 
     let w = canvas.width
     let h = canvas.height
@@ -97,28 +97,28 @@ const PerlinBackground = () => {
 
     function render() {
       clear()
-      draw();
+      draw()
       timerRef.current = setTimeout(() => {
-        animationFrameRef.current = requestAnimationFrame(render);
-      }, 100); // Delay in milliseconds
+        animationFrameRef.current = requestAnimationFrame(render)
+      }, 100) // Delay in milliseconds
     };
 
     // Start the animation
-    render();
+    render()
 
     // Cleanup function
     return () => {
       if (animationFrameRef.current) {
-        cancelAnimationFrame(animationFrameRef.current);
+        cancelAnimationFrame(animationFrameRef.current)
       }
       if (timerRef.current) {
-        clearTimeout(timerRef.current);
+        clearTimeout(timerRef.current)
       }
-    };
+    }
 
-  }, [theme, dimensions]);
+  }, [theme, dimensions])
 
-  return <canvas ref={canvasRef} className='h-full w-full absolute z-0' />;
-};
+  return <canvas ref={canvasRef} className='h-full w-full absolute z-0' />
+}
 
-export default PerlinBackground;
+export default PerlinBackground
