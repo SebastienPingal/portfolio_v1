@@ -20,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={[cereal.className, "flex w-screen h-screen gap-2 relative bg-white"].join(" ")}>
+      <body className={[cereal.className, "flex w-screen h-screen overflow-hidden"].join(" ")}>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
@@ -28,7 +28,7 @@ export default function RootLayout({
         >
           <SessionProvider>
             <Navbar />
-            <main className="flex-1 page z-10 mt-10 max-w-4xl mx-auto px-8">{children}</main>
+            <main className="flex-1 page z-10 mt-10 max-w-4xl mx-auto px-8 pt-2 overflow-auto">{children}</main>
             <PerlinBackground />
           </SessionProvider>
         </ThemeProvider>

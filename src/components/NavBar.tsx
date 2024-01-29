@@ -8,8 +8,9 @@ import {
 import { DownloadCloud, FileStack, Forklift, Github, Gitlab, Home, Linkedin, MoveUpRight, PencilRuler } from "lucide-react"
 
 import { usePathname } from "next/navigation"
-
 import { useSession } from "next-auth/react"
+import { useEffect, useState } from "react"
+
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -29,14 +30,18 @@ const NavBar = () => {
   const session = useSession()
   const pathname = usePathname()
   const { theme } = useTheme()
-  const darkMode = theme === 'dark'
+  const [darkMode, setDarkMode] = useState(false)
+
+  useEffect(() => {
+    setDarkMode(theme === 'dark')
+  }, [theme])
 
   return (
     <>
       <NavigationMenu orientation="vertical" className='items-start shadow-inner h-full bg-card:10 backdrop-blur-xl'>
         <NavigationMenuList className='flex flex-col gap-5 items-start w-56 p-2'>
           <div className='text-2xl font-extrabold'>Sébastien Pingal</div>
-          <div className="w-full">
+  <div className="w-full">
             <NavigationMenuItem className={pathname === '/' ? 'bg-popover text-popover-foreground' : ''}>
               <Link href="/" className="w-full" legacyBehavior passHref>
                 <NavigationMenuLink className="w-full">

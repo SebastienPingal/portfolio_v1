@@ -5,7 +5,7 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
+    --background: 300 55.9% 95%;
     --foreground: 20 14.3% 4.1%;
     
     --card: 300, 30%, 80%;
@@ -17,13 +17,13 @@
     --primary: 300 19% 53%;
     --primary-foreground: 60 9.1% 97.8%;
 
-    --secondary: 60 4.8% 95.9%;
+    --secondary: 120 26% 66%;
     --secondary-foreground: 24 9.8% 10%;
 
     --muted: 60 4.8% 95.9%;
     --muted-foreground: 25 5.3% 44.7%;
 
-    --accent: 300 30% 93%;
+    --accent: 300 50% 80%;
     --accent-foreground: 24 9.8% 10%;
 
     --destructive: 0 84.2% 60.2%;
@@ -31,7 +31,7 @@
 
     --border: 20 5.9% 80%;
 
-    --input: 20 5.9% 90%;
+    --input: 300 45.9% 75%;
 
     --ring: 300, 9%, 53%;
 
@@ -39,7 +39,7 @@
   }
 
   .dark {
-    --background: 20 14.3% 4.1%;
+    --background: 120 16.5% 15.1%;
     --foreground: 60 9.1% 97.8%;
 
     --card: 120, 9%, 35%;
@@ -51,13 +51,13 @@
     --primary: 120 20% 48.2%;
     --primary-foreground: 60 9.1% 97.8%;
 
-    --secondary: 12 6.5% 15.1%;
+    --secondary: 300 36% 26%;
     --secondary-foreground: 60 9.1% 97.8%;
 
     --muted: 12 6.5% 5.1%;
     --muted-foreground: 24 5.4% 63.9%;
 
-    --accent: 120 20% 8.2%;
+    --accent: 120 30% 20%;
     --accent-foreground: 60 9.1% 97.8%;
 
     --destructive: 0 72.2% 50.6%;
@@ -65,9 +65,9 @@
 
     --border: 12 6.5% 15.1%;
 
-    --input: 12 6.5% 15.1%;
+    --input: 120 16.5% 15.1%;
 
-    --ring: 20.5 90.2% 48.2%;
+    --ring: 120 50.2% 48.2%;
   }
 }
 
@@ -78,5 +78,38 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+  h1 {
+    @apply font-bold text-4xl;
+  }
+  h2 {
+    @apply font-semibold text-3xl;
+  }
+  h3 {
+    @apply font-medium text-2xl;
+  }
+  h4 {
+    @apply font-normal text-xl;
+  }
+  h5 {
+    @apply font-normal text-lg;
+  }
+  h6 {
+    @apply font-light text-base;
+  }
+  strong {
+    @apply font-extrabold;
+  }
+  li {
+    @apply list-disc list-inside;
+  }
+  ul {
+    @apply list-disc list-inside;
+  }
+  input, textarea {
+    @apply bg-input;
+  }
+  .markdown a {
+    @apply text-secondary underline;
   }
 }
