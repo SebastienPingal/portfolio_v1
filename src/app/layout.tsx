@@ -7,6 +7,7 @@ import { ThemeProvider } from "./theme-provider"
 
 import Navbar from "@/components/NavBar"
 import PerlinBackground from "@/components/perlinBackground.jsx"
+import { Toaster } from "@/components/ui/toaster"
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -21,6 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={[cereal.className, "flex w-screen h-screen overflow-hidden"].join(" ")}>
+        <Toaster />
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
