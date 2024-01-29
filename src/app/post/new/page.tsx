@@ -11,6 +11,7 @@ import { useRouter } from 'next/navigation'
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Button } from '@/components/ui/button'
+import { useToast } from '@/components/ui/use-toast'
 
 const initialStatePostTypes = { postTypes: [] }
 
@@ -21,6 +22,8 @@ const NewPost = () => {
   const [content, setContent] = useState('### Hello World')
   const [title, setTitle] = useState('')
   const [type, setType] = useState('' as PostType)
+
+  const { toast } = useToast()
 
   const searchParams = useSearchParams()
   const typeQuery = searchParams.get('type')
@@ -41,6 +44,7 @@ const NewPost = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     createPost({ title, content, type })
+    toast({ title: 'Article publié' })
     router.push('/')
   }
 
@@ -49,7 +53,7 @@ const NewPost = () => {
       <Input
         value={title}
         onChange={(e) => setTitle(e.target.value)}
-        placeholder='Entre ici le titre de votre article'
+        placeholder="Titre de l'article"
         className='mb-4'
         required
       />

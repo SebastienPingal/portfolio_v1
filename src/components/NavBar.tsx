@@ -5,10 +5,11 @@ import {
   NavigationMenuLink,
   NavigationMenuList
 } from "@/components/ui/navigation-menu"
-import { DownloadCloud, FileStack, Forklift, Github, Gitlab, Home, Linkedin, MoveUpRight, NotebookPen, PencilRuler } from "lucide-react"
+import { Forklift, Github, Gitlab, Home, Linkedin, MoveUpRight, NotebookPen, PencilRuler } from "lucide-react"
+import { useToast } from "./ui/use-toast"
 
-import { usePathname } from "next/navigation"
 import { useSession } from "next-auth/react"
+import { usePathname } from "next/navigation"
 import { useEffect, useState } from "react"
 
 import Image from 'next/image'
@@ -34,6 +35,7 @@ const NavBar = () => {
   const pathname = usePathname()
   const { theme } = useTheme()
   const [darkMode, setDarkMode] = useState(false)
+  const { toast } = useToast()
 
   const [stateWorkPost, setWorkPosts] = useFormState(getWorkPosts, { posts: [] })
 
