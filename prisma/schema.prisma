@@ -62,7 +62,7 @@ model Post {
 
 model Stack {
   id          String  @id @default(cuid())
-  title       String
+  title       String @unique
   description String
   logo        String
   icon        String?
