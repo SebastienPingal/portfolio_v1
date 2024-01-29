@@ -38,8 +38,8 @@ const NavBar = () => {
           <div className='text-2xl font-extrabold'>Sébastien Pingal</div>
           <div className="w-full">
             <NavigationMenuItem className={pathname === '/' ? 'bg-popover text-popover-foreground' : ''}>
-              <Link href="/" legacyBehavior passHref>
-                <NavigationMenuLink>
+              <Link href="/" className="w-full" legacyBehavior passHref>
+                <NavigationMenuLink className="w-full">
                   <Home className="w-4 h-4" />Home
                 </NavigationMenuLink>
               </Link>
@@ -50,15 +50,15 @@ const NavBar = () => {
               Me
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <Link href="/stack" legacyBehavior passHref>
-                <NavigationMenuLink>
+              <Link href="/stack" className="w-full" legacyBehavior passHref>
+                <NavigationMenuLink className="w-full">
                   <PencilRuler className="w-4 h-4" /> Stack
                 </NavigationMenuLink>
               </Link>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <Link href="/other" legacyBehavior passHref>
-                <NavigationMenuLink>
+              <Link href="/other" className="w-full" legacyBehavior passHref>
+                <NavigationMenuLink className="w-full">
                   <Forklift className="w-4 h-4" />Benco
                 </NavigationMenuLink>
               </Link>
