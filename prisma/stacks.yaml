@@ -6,8 +6,8 @@
   link: "https://reactjs.org/"
 
 - title: "Vue"
-  description: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Vue.js_Logo_2.svg/512px-Vue.js_Logo_2.svg.png"
-  logo: "vue-logo.png"
+  description: "A JavaScript framework for building static and dynamic websites and web applications."
+  logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Vue.js_Logo_2.svg/512px-Vue.js_Logo_2.svg.png"
   icon: ""
   order: 2
   link: "https://vuejs.org/"
