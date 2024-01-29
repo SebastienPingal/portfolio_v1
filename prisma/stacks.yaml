@@ -13,7 +13,7 @@
   link: "https://vuejs.org/"
 
 - title: "Next.js"
-  description: "A JavaScript framework for building static and dynamic websites and web applications."
+  description: "The React Framework for Production."
   logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Nextjs-logo.svg/394px-Nextjs-logo.svg.png"
   icon: ""
   order: 3
