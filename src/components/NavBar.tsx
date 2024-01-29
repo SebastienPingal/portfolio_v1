@@ -5,7 +5,7 @@ import {
   NavigationMenuLink,
   NavigationMenuList
 } from "@/components/ui/navigation-menu"
-import { DownloadCloud, FileStack, Forklift, Github, Gitlab, Home, Linkedin, MoveUpRight, PencilRuler } from "lucide-react"
+import { DownloadCloud, FileStack, Forklift, Github, Gitlab, Home, Linkedin, MoveUpRight, NotebookPen, PencilRuler } from "lucide-react"
 
 import { usePathname } from "next/navigation"
 import { useSession } from "next-auth/react"
@@ -13,6 +13,9 @@ import { useEffect, useState } from "react"
 
 import Image from 'next/image'
 import Link from 'next/link'
+
+import { getWorkPosts } from "@/app/actions"
+import { useFormState } from "react-dom"
 
 import { useTheme } from "next-themes"
 import SigninButton from "./SigninButton"
@@ -32,6 +35,12 @@ const NavBar = () => {
   const { theme } = useTheme()
   const [darkMode, setDarkMode] = useState(false)
 
+  const [stateWorkPost, setWorkPosts] = useFormState(getWorkPosts, { posts: [] })
+
+  useEffect(() => {
+    setWorkPosts()
+  }, [])
+
   useEffect(() => {
     setDarkMode(theme === 'dark')
   }, [theme])
@@ -41,7 +50,7 @@ const NavBar = () => {
       <NavigationMenu orientation="vertical" className='items-start shadow-inner h-full bg-card:10 backdrop-blur-xl'>
         <NavigationMenuList className='flex flex-col gap-5 items-start w-56 p-2'>
           <div className='text-2xl font-extrabold'>Sébastien Pingal</div>
-  <div className="w-full">
+          <div className="w-full">
             <NavigationMenuItem className={pathname === '/' ? 'bg-popover text-popover-foreground' : ''}>
               <Link href="/" className="w-full" legacyBehavior passHref>
                 <NavigationMenuLink className="w-full">
@@ -50,6 +59,7 @@ const NavBar = () => {
               </Link>
             </NavigationMenuItem>
           </div>
+
           <div className='w-full'>
             <NavigationMenuItem className="font-extrabold mb-2">
               Me
@@ -69,6 +79,7 @@ const NavBar = () => {
               </Link>
             </NavigationMenuItem>
           </div>
+
           <div className='w-full'>
             <NavigationMenuItem className="font-extrabold mb-2">
               Projects
@@ -89,6 +100,24 @@ const NavBar = () => {
               </a>
             </NavigationMenuItem>
           </div>
+          {stateWorkPost.posts.length > 0 && (
+            <div className='w-full'>
+              <NavigationMenuItem className="font-extrabold mb-2">
+                Works
+              </NavigationMenuItem>
+              {stateWorkPost.posts.map((post: any) => (
+                <NavigationMenuItem key={post.id}>
+                  <Link href={`/post/${post.title}`} className="w-full" legacyBehavior passHref>
+                    <NavigationMenuLink className="w-full">
+                      <NotebookPen className="w-4 h-4" /> {post.title}
+                    </NavigationMenuLink>
+                  </Link>
+                </NavigationMenuItem>
+              ))}
+            </div>
+          )
+          }
+
           <div className='w-full'>
             <NavigationMenuItem className="font-extrabold mb-2">
               Online
@@ -109,6 +138,7 @@ const NavBar = () => {
               </a>
             </NavigationMenuItem>
           </div>
+
           <div className='w-full'>
             <NavigationMenuItem hover={false}>
               <ThemeToggler />
