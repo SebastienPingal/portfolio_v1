@@ -4,7 +4,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button"
 import Image from 'next/image'
 import { MoveUpRight } from 'lucide-react'
-import { Icon } from '@icons-pack/react-simple-icons'
 
 const StackPage = async () => {
   const techStack = await getStacks()
