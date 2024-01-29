@@ -13,8 +13,8 @@
   link: "https://vuejs.org/"
 
 - title: "Next.js"
-  description: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Nextjs-logo.svg/394px-Nextjs-logo.svg.png"
-  logo: "nextjs-logo.png"
+  description: "A JavaScript framework for building static and dynamic websites and web applications."
+  logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Nextjs-logo.svg/394px-Nextjs-logo.svg.png"
   icon: ""
   order: 3
   link: "https://nextjs.org/"
