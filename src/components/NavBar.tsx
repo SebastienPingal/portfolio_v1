@@ -55,13 +55,14 @@ const NavBar = () => {
     setDarkMode(theme === 'dark')
   }, [theme])
 
-  const handleDelete = async (id: string) => {
-    await deletePost(id)
+  const handleDelete = async (slug: string) => {
+    await deletePost(slug)
     setWorkPosts()
     toast({
       title: 'Post deleted',
       description: 'The post has been deleted',
     })
+    if (pathname === `/work/${slug}`) router.push('/')
   }
 
   return (
@@ -143,7 +144,7 @@ const NavBar = () => {
                             <PopoverContent className="flex flex-col gap-2">
                               <p>Are you sure you want to delete this post ?</p>
                               <PopoverClose className="flex gap-9 justify-center">
-                                <Button onClick={() => handleDelete(post.id)} variant="destructive">Yes</Button>
+                                <Button onClick={() => handleDelete(post.slug)} variant="destructive">Yes</Button>
                                 <Button variant="outline">No</Button>
                               </PopoverClose>
                             </PopoverContent>
