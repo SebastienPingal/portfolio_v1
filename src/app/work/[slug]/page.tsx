@@ -10,8 +10,8 @@ interface pageProps {
 
 const WorkPost = async ({ params }: pageProps) => {
   const slug = params.slug
-  if (!params.slug) notFound()
-  const workPost = await getWorkPost(params.slug)
+  if (!slug) notFound()
+  const workPost = await getWorkPost(slug)
   if (!workPost) notFound()
   const { title, content } = workPost
 

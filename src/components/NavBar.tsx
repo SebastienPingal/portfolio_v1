@@ -7,22 +7,22 @@ import {
 } from "@/components/ui/navigation-menu"
 import {
   Popover,
+  PopoverClose,
   PopoverContent,
-  PopoverTrigger,
-  PopoverClose
+  PopoverTrigger
 } from "@/components/ui/popover"
-import { Button } from "./ui/button"
 import { Forklift, Github, Gitlab, Home, Linkedin, MoveUpRight, NotebookPen, PencilRuler, Plus, Trash } from "lucide-react"
+import { Button } from "./ui/button"
 import { useToast } from "./ui/use-toast"
 
 import { useSession } from "next-auth/react"
-import { redirect, usePathname, useRouter } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { getWorkPosts, deletePost } from "@/app/actions"
+import { deletePost, getWorkPosts } from "@/app/actions"
 import { useFormState } from "react-dom"
 
 import { useTheme } from "next-themes"
@@ -121,7 +121,7 @@ const NavBar = () => {
             </NavigationMenuItem>
           </div>
 
-          {( stateWorkPost.posts.length > 0 || session.data?.user?.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL ) && (
+          {(stateWorkPost.posts.length > 0 || session.data?.user?.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL) && (
             <div className='w-full'>
               <NavigationMenuItem className="font-extrabold mb-2">
                 Works
@@ -134,21 +134,30 @@ const NavBar = () => {
                       <p>{post.title}</p>
                       {session.data && session.data.user?.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL && (
                         // div is needed to prevent the link to be triggered
-                        <div className="absolute right-0" onClick={(e) => e.preventDefault()}>
-                          <Popover>
-                            <PopoverTrigger>
-                              <Button variant="destructive" size="sm">
-                                <Trash className="w-4 h-4" />
+                        <div className="absolute right-0 flex gap-1">
+                          <Link href={`/post/edit/${post.slug}`} className="absolute right-9" legacyBehavior passHref>
+                            <NavigationMenuLink className="w-full">
+                              <Button variant="outline" size="sm">
+                                <PencilRuler className="w-4 h-4" />
                               </Button>
-                            </PopoverTrigger>
-                            <PopoverContent className="flex flex-col gap-2">
-                              <p>Are you sure you want to delete this post ?</p>
-                              <PopoverClose className="flex gap-9 justify-center">
-                                <Button onClick={() => handleDelete(post.slug)} variant="destructive">Yes</Button>
-                                <Button variant="outline">No</Button>
-                              </PopoverClose>
-                            </PopoverContent>
-                          </Popover>
+                            </NavigationMenuLink>
+                          </Link>
+                          <div onClick={(e) => e.preventDefault()}>
+                            <Popover>
+                              <PopoverTrigger>
+                                <Button variant="destructive" size="sm">
+                                  <Trash className="w-4 h-4" />
+                                </Button>
+                              </PopoverTrigger>
+                              <PopoverContent className="flex flex-col gap-2">
+                                <p>Are you sure you want to delete this post ?</p>
+                                <PopoverClose className="flex gap-9 justify-center">
+                                  <Button onClick={() => handleDelete(post.slug)} variant="destructive">Yes</Button>
+                                  <Button variant="outline">No</Button>
+                                </PopoverClose>
+                              </PopoverContent>
+                            </Popover>
+                          </div>
                         </div>
                       )}
                     </NavigationMenuLink>
