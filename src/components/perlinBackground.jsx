@@ -44,7 +44,7 @@ const PerlinBackground = () => {
     let h = canvas.height
 
     let nt = 0
-    let noiseSpeed = 0.005
+    let noiseSpeed = 0.009
     let noiseScale = 300
     let dotSize = 16
     let gap = 0
@@ -100,7 +100,7 @@ const PerlinBackground = () => {
       draw()
       timerRef.current = setTimeout(() => {
         animationFrameRef.current = requestAnimationFrame(render)
-      }, 100) // Delay in milliseconds
+      }, 80) // Delay in milliseconds
     };
 
     // Start the animation
