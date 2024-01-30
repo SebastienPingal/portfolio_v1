@@ -14,7 +14,7 @@ const StackPage = async () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
         {techStack.map((tech, index) => {
           return (
-            <Card key={index} className='w-full'>
+            <Card id={tech.title} key={index} className='w-full'>
               <CardHeader>
                 <CardTitle className='flex gap-3 items-center'>
                   <div className='bg-white/90 w-16 h-16 rounded relative border-2 border-primary/60'>
