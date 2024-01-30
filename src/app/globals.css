@@ -80,7 +80,7 @@
     @apply bg-background text-foreground;
   }
   h1 {
-    @apply font-bold text-4xl;
+    @apply font-extrabold text-4xl;
   }
   h2 {
     @apply font-semibold text-3xl;
