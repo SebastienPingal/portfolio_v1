@@ -21,3 +21,11 @@ export async function getWorkPosts() {
   return { posts }
 }
 
+export async function deletePost(id: string) {
+  return await prisma.post.delete({ where: { id } })
+}
+
+export async function getPost(id: string) {
+  return await prisma.post.findUnique({ where: { id } })
+}
+

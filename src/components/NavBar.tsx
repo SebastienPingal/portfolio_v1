@@ -5,17 +5,24 @@ import {
   NavigationMenuLink,
   NavigationMenuList
 } from "@/components/ui/navigation-menu"
-import { Forklift, Github, Gitlab, Home, Linkedin, MoveUpRight, NotebookPen, PencilRuler } from "lucide-react"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+  PopoverClose
+} from "@/components/ui/popover"
+import { Button } from "./ui/button"
+import { Forklift, Github, Gitlab, Home, Linkedin, MoveUpRight, NotebookPen, PencilRuler, Plus, Trash } from "lucide-react"
 import { useToast } from "./ui/use-toast"
 
 import { useSession } from "next-auth/react"
-import { usePathname } from "next/navigation"
+import { redirect, usePathname, useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { getWorkPosts } from "@/app/actions"
+import { getWorkPosts, deletePost } from "@/app/actions"
 import { useFormState } from "react-dom"
 
 import { useTheme } from "next-themes"
@@ -32,6 +39,7 @@ const CerberesBlack = '/cerberes_black.svg'
 
 const NavBar = () => {
   const session = useSession()
+  const router = useRouter()
   const pathname = usePathname()
   const { theme } = useTheme()
   const [darkMode, setDarkMode] = useState(false)
@@ -46,6 +54,15 @@ const NavBar = () => {
   useEffect(() => {
     setDarkMode(theme === 'dark')
   }, [theme])
+
+  const handleDelete = async (id: string) => {
+    await deletePost(id)
+    setWorkPosts()
+    toast({
+      title: 'Post deleted',
+      description: 'The post has been deleted',
+    })
+  }
 
   return (
     <>
@@ -102,6 +119,7 @@ const NavBar = () => {
               </a>
             </NavigationMenuItem>
           </div>
+
           {stateWorkPost.posts.length > 0 && (
             <div className='w-full'>
               <NavigationMenuItem className="font-extrabold mb-2">
@@ -110,12 +128,43 @@ const NavBar = () => {
               {stateWorkPost.posts.map((post: any) => (
                 <NavigationMenuItem key={post.id}>
                   <Link href={`/post/${post.title}`} className="w-full" legacyBehavior passHref>
-                    <NavigationMenuLink className="w-full">
-                      <NotebookPen className="w-4 h-4" /> {post.title}
+                    <NavigationMenuLink className="w-full relative">
+                      <NotebookPen className="w-4 h-4" />
+                      <p>{post.title}</p>
+                      {session.data && session.data.user?.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL && (
+                        // div is needed to prevent the link to be triggered
+                        <div className="absolute right-0" onClick={(e) => e.preventDefault()}>
+                          <Popover>
+                            <PopoverTrigger>
+                              <Button variant="destructive" size="sm">
+                                <Trash className="w-4 h-4" />
+                              </Button>
+                            </PopoverTrigger>
+                            <PopoverContent className="flex flex-col gap-2">
+                              <p>Are you sure you want to delete this post ?</p>
+                              <PopoverClose className="flex gap-9 justify-center">
+                                <Button onClick={() => handleDelete(post.id)} variant="destructive">Yes</Button>
+                                <Button variant="outline">No</Button>
+                              </PopoverClose>
+                            </PopoverContent>
+                          </Popover>
+                        </div>
+                      )}
                     </NavigationMenuLink>
                   </Link>
                 </NavigationMenuItem>
               ))}
+              {session.data && session.data.user?.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL && (
+                <NavigationMenuItem hover={false} >
+                  <Link href="/post/new?type=WORK" className="w-full" legacyBehavior passHref>
+                    <NavigationMenuLink className="w-full">
+                      <Button variant="outline" className="w-full text-foreground">
+                        <Plus className="w-6 h-6" />
+                      </Button>
+                    </NavigationMenuLink>
+                  </Link>
+                </NavigationMenuItem>
+              )}
             </div>
           )
           }
