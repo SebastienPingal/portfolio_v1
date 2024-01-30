@@ -29,7 +29,7 @@ const MdEditor = ({ md, className, onMdChange }: { md: string; className?: strin
         className='w-full h-96 p-2 rounded shadow-inner resize-y'
       />
       <div style={{ height: textareaHeight }} className='w-full relative overflow-auto p-2 rounded bg-primary/80 text-primary-foreground'>
-        <ReactMarkdown remarkPlugins={[remarkGfm]} className="min-h-40">
+        <ReactMarkdown remarkPlugins={[remarkGfm]} className="flex flex-col gap-3">
           {markdown}
         </ReactMarkdown>
         <Button onClick={() => setIsFlexRow(!isFlexRow)} variant="outline" className='absolute bottom-2 right-2'>

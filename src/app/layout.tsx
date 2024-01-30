@@ -30,7 +30,7 @@ export default function RootLayout({
         >
           <SessionProvider>
             <Navbar />
-            <main className="flex-1 page z-10 mt-10 max-w-4xl mx-auto px-8 pt-2 overflow-auto">{children}</main>
+            <main className="flex-1 page z-10 max-w-4xl mx-auto p-8 overflow-auto">{children}</main>
             <PerlinBackground />
           </SessionProvider>
         </ThemeProvider>

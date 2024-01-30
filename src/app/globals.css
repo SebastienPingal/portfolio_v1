@@ -8,7 +8,7 @@
     --background: 300 55.9% 95%;
     --foreground: 20 14.3% 4.1%;
     
-    --card: 300, 30%, 80%;
+    --card: 300 30% 80%;
     --card-foreground: 20 14.3% 4.1%;
 
     --popover: 0 0% 100%;
@@ -29,7 +29,7 @@
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 60 9.1% 97.8%;
 
-    --border: 20 5.9% 80%;
+    --border: 300 45.9% 85%;
 
     --input: 300 45.9% 75%;
 
@@ -42,7 +42,7 @@
     --background: 120 16.5% 15.1%;
     --foreground: 60 9.1% 97.8%;
 
-    --card: 120, 9%, 35%;
+    --card: 120 9% 35%;
     --card-foreground: 60 9.1% 97.8%;
 
     --popover: 20 14.3% 4.1%;
@@ -111,5 +111,8 @@
   }
   .markdown a {
     @apply text-secondary underline;
+  }
+  .glassPanel {
+    @apply text-lg backdrop-blur-xl p-2 rounded bg-card/20
   }
 }

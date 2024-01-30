@@ -9,15 +9,9 @@ const Card = React.forwardRef<
   <div
     ref={ref}
     className={cn(
-      "rounded-lg backdrop-blur-2xl",
+      "rounded-lg backdrop-blur-xl bg-card/20",
       className
     )}
-    style={{
-      backgroundColor: "hsl(var(--card), 0.3)", // 0.5 is the opacity, adjust as needed
-      backdropFilter: "blur(10px)", // adjust blur radius as needed
-      color: "var(--card-foreground)",
-
-    }}
     {...props}
   />
 ))
