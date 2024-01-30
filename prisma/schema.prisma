@@ -1,6 +1,6 @@
 datasource db {
-  provider = "postgresql"
-  url = env("POSTGRES_PRISMA_URL")
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL")
   directUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
@@ -55,6 +55,7 @@ enum PostType {
 model Post {
   id        String   @id @default(cuid())
   title     String
+  slug      String   @unique
   type      PostType
   content   String
   published Boolean  @default(false)
@@ -62,7 +63,7 @@ model Post {
 
 model Stack {
   id          String  @id @default(cuid())
-  title       String @unique
+  title       String  @unique
   description String
   logo        String
   icon        String?

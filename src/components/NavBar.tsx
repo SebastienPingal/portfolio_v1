@@ -66,7 +66,7 @@ const NavBar = () => {
 
   return (
     <>
-      <NavigationMenu orientation="vertical" className='items-start shadow-inner h-full bg-card:10 backdrop-blur-xl'>
+      <NavigationMenu orientation="vertical" className='items-start shadow-inner h-full bg-card:10  bg-card/20 backdrop-blur-xl'>
         <NavigationMenuList className='flex flex-col gap-5 items-start w-56 p-2'>
           <div className='text-2xl font-extrabold'>Sébastien Pingal</div>
           <div className="w-full">
@@ -120,14 +120,14 @@ const NavBar = () => {
             </NavigationMenuItem>
           </div>
 
-          {stateWorkPost.posts.length > 0 && (
+          {( stateWorkPost.posts.length > 0 || session.data?.user?.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL ) && (
             <div className='w-full'>
               <NavigationMenuItem className="font-extrabold mb-2">
                 Works
               </NavigationMenuItem>
               {stateWorkPost.posts.map((post: any) => (
                 <NavigationMenuItem key={post.id}>
-                  <Link href={`/post/${post.title}`} className="w-full" legacyBehavior passHref>
+                  <Link href={`/work/${post.slug}`} className="w-full" legacyBehavior passHref>
                     <NavigationMenuLink className="w-full relative">
                       <NotebookPen className="w-4 h-4" />
                       <p>{post.title}</p>

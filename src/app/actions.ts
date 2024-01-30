@@ -13,7 +13,16 @@ export async function getPostTypes() {
 }
 
 export async function createPost(data: { title: string, content: string, type: PostType }) {
-  return await prisma.post.create({ data })
+  let slug = data.title.toLowerCase().replace(/ /g, '-')
+  let originalSlug = slug
+  if (await prisma.post.findUnique({ where: { slug } })) {
+    let count = 1
+    while (await prisma.post.findUnique({ where: { slug } })) {
+      slug = `${originalSlug}-${count}`
+      count++
+    }
+  }
+  return await prisma.post.create({ data: { ...data, slug } })
 }
 
 export async function getWorkPosts() {
@@ -25,7 +34,6 @@ export async function deletePost(id: string) {
   return await prisma.post.delete({ where: { id } })
 }
 
-export async function getPost(id: string) {
-  return await prisma.post.findUnique({ where: { id } })
+export async function getWorkPost(slug: string) {
+  return await prisma.post.findUnique({ where: { slug } })
 }
-
