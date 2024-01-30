@@ -1,27 +1,27 @@
 - title: "React"
   description: "A JavaScript library for building user interfaces."
-  logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/512px-React-icon.svg.png"
+  logo: "https://cdn.worldvectorlogo.com/logos/react-2.svg"
   icon: ""
   order: 1
   link: "https://reactjs.org/"
 
 - title: "Vue"
   description: "A JavaScript framework for building static and dynamic websites and web applications."
-  logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Vue.js_Logo_2.svg/512px-Vue.js_Logo_2.svg.png"
+  logo: "https://cdn.worldvectorlogo.com/logos/vue-9.svg"
   icon: ""
   order: 2
   link: "https://vuejs.org/"
 
 - title: "Next.js"
   description: "The React Framework for Production."
-  logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Nextjs-logo.svg/394px-Nextjs-logo.svg.png"
+  logo: "https://cdn.worldvectorlogo.com/logos/next-js.svg"
   icon: ""
   order: 3
   link: "https://nextjs.org/"
 
 - title: "PostGresSql"
   description: "The world's most advanced open source database."
-  logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Postgresql_elephant.svg/langfr-220px-Postgresql_elephant.svg.png"
+  logo: "https://cdn.worldvectorlogo.com/logos/postgresql.svg"
   icon: ""
   order: 4
   link: "https://www.postgresql.org/"
