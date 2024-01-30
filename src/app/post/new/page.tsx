@@ -1,26 +1,16 @@
 "use client"
-import MdEditor from '@/components/MdEditor'
-import { useEffect, useState } from 'react'
-import { getPostTypes, createPost } from '@/app/actions'
-import { useFormState } from 'react-dom'
+import { createPost } from '@/app/actions'
 import { PostType } from '@prisma/client'
 import { useSession } from 'next-auth/react'
-import { redirect, useSearchParams } from 'next/navigation'
-import { useRouter } from 'next/navigation'
+import { redirect, useRouter, useSearchParams } from 'next/navigation'
+import { useEffect, useState } from 'react'
 
-import { Input } from '@/components/ui/input'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Button } from '@/components/ui/button'
+import PostEditor from '@/components/PostEditor'
 import { useToast } from '@/components/ui/use-toast'
-
-const initialStatePostTypes = { postTypes: [] }
 
 const NewPost = () => {
   const router = useRouter()
   const session = useSession()
-  const [results, setPostTypes] = useFormState(getPostTypes, initialStatePostTypes)
-  const [content, setContent] = useState('### Hello World')
-  const [title, setTitle] = useState('')
   const [type, setType] = useState('' as PostType)
 
   const { toast } = useToast()
@@ -37,41 +27,19 @@ const NewPost = () => {
     }
   }, [session.status, session.data])
 
-  useEffect(() => {
-    setPostTypes()
-  }, [])
+  const handleSubmit = (title: string, content: string, type: PostType) => {
+    const createAndRedirect = async () => {
+      const newPost = await createPost({ title, content, type })
+      toast({ title: `Article ${title} publié` })
+      if(type ==="WORK") router.push(`/work/${newPost.slug}`)
+      else router.push(`/post/${newPost.slug}`)
+    }
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    createPost({ title, content, type })
-    toast({ title: 'Article publié' })
-    router.push('/')
+    createAndRedirect()
   }
 
   return (
-    <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
-      <Input
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        placeholder="Titre de l'article"
-        className='mb-4'
-        required
-      />
-      <Select required defaultValue={type} onValueChange={(value) => setType(value as PostType)}>
-        <SelectTrigger>
-          <SelectValue placeholder="Catégorie" />
-        </SelectTrigger>
-        <SelectContent>
-          {results.postTypes.map((postType: any) => (
-            <SelectItem key={postType} value={postType}>{postType}</SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
-      <MdEditor md={content} className='w-full' onMdChange={setContent} />
-      <Button variant='secondary' type='submit'>
-        Publier
-      </Button>
-    </form>
+    <PostEditor initialType={type} handleSubmit={handleSubmit} />
   )
 }
 
