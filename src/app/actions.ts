@@ -25,9 +25,11 @@ export async function createPost(data: { title: string, content: string, type: P
   return await prisma.post.create({ data: { ...data, slug } })
 }
 
-export async function getWorkPosts() {
-  const posts = await prisma.post.findMany({ where: { type: 'WORK' } })
-  return { posts }
+export async function getPosts(type?: PostType) {
+  const posts = type 
+    ? await prisma.post.findMany({ where: { type } })
+    : await prisma.post.findMany()
+  return posts
 }
 
 export async function deletePost(slug: string) {

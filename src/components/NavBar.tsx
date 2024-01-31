@@ -5,25 +5,15 @@ import {
   NavigationMenuLink,
   NavigationMenuList
 } from "@/components/ui/navigation-menu"
-import {
-  Popover,
-  PopoverClose,
-  PopoverContent,
-  PopoverTrigger
-} from "@/components/ui/popover"
-import { Forklift, Github, Gitlab, Home, Linkedin, MoveUpRight, NotebookPen, PencilRuler, Plus, Trash } from "lucide-react"
-import { Button } from "./ui/button"
-import { useToast } from "./ui/use-toast"
+import { Forklift, Github, Gitlab, Home, Linkedin, MoveUpRight, PencilRuler } from "lucide-react"
 
 import { useSession } from "next-auth/react"
-import { usePathname, useRouter } from "next/navigation"
+import { usePathname } from "next/navigation"
 import { useEffect, useState } from "react"
 
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { deletePost, getWorkPosts } from "@/app/actions"
-import { useFormState } from "react-dom"
 
 import { useTheme } from "next-themes"
 import SigninButton from "./SigninButton"
@@ -37,33 +27,18 @@ const AestimaBlack = '/aestima_black.svg'
 const CerberesWhite = '/cerberes_white.svg'
 const CerberesBlack = '/cerberes_black.svg'
 
-const NavBar = () => {
+import { Post } from "@prisma/client"
+import PostSession from "./PostSession"
+
+const NavBar = ({ workPosts, blogPosts }: { workPosts: Post[], blogPosts: Post[] }) => {
   const session = useSession()
-  const router = useRouter()
   const pathname = usePathname()
   const { theme } = useTheme()
   const [darkMode, setDarkMode] = useState(false)
-  const { toast } = useToast()
-
-  const [stateWorkPost, setWorkPosts] = useFormState(getWorkPosts, { posts: [] })
-
-  useEffect(() => {
-    setWorkPosts()
-  }, [])
 
   useEffect(() => {
     setDarkMode(theme === 'dark')
   }, [theme])
-
-  const handleDelete = async (slug: string) => {
-    await deletePost(slug)
-    setWorkPosts()
-    toast({
-      title: 'Post deleted',
-      description: 'The post has been deleted',
-    })
-    if (pathname === `/work/${slug}`) router.push('/')
-  }
 
   return (
     <>
@@ -121,63 +96,13 @@ const NavBar = () => {
             </NavigationMenuItem>
           </div>
 
-          {(stateWorkPost.posts.length > 0 || session.data?.user?.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL) && (
-            <div className='w-full'>
-              <NavigationMenuItem className="font-extrabold mb-2">
-                Works
-              </NavigationMenuItem>
-              {stateWorkPost.posts.map((post: any) => (
-                <NavigationMenuItem key={post.id}>
-                  <Link href={`/work/${post.slug}`} className="w-full" legacyBehavior passHref>
-                    <NavigationMenuLink className="w-full relative">
-                      <NotebookPen className="w-4 h-4" />
-                      <p>{post.title}</p>
-                      {session.data && session.data.user?.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL && (
-                        // div is needed to prevent the link to be triggered
-                        <div className="absolute right-0 flex gap-1">
-                          <Link href={`/post/edit/${post.slug}`} className="absolute right-9" legacyBehavior passHref>
-                            <NavigationMenuLink className="w-full">
-                              <Button variant="outline" size="sm">
-                                <PencilRuler className="w-4 h-4" />
-                              </Button>
-                            </NavigationMenuLink>
-                          </Link>
-                          <div onClick={(e) => e.preventDefault()}>
-                            <Popover>
-                              <PopoverTrigger>
-                                <Button variant="destructive" size="sm">
-                                  <Trash className="w-4 h-4" />
-                                </Button>
-                              </PopoverTrigger>
-                              <PopoverContent className="flex flex-col gap-2">
-                                <p>Are you sure you want to delete this post ?</p>
-                                <PopoverClose className="flex gap-9 justify-center">
-                                  <Button onClick={() => handleDelete(post.slug)} variant="destructive">Yes</Button>
-                                  <Button variant="outline">No</Button>
-                                </PopoverClose>
-                              </PopoverContent>
-                            </Popover>
-                          </div>
-                        </div>
-                      )}
-                    </NavigationMenuLink>
-                  </Link>
-                </NavigationMenuItem>
-              ))}
-              {session.data && session.data.user?.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL && (
-                <NavigationMenuItem hover={false} >
-                  <Link href="/post/new?type=WORK" className="w-full" legacyBehavior passHref>
-                    <NavigationMenuLink className="w-full">
-                      <Button variant="outline" className="w-full text-foreground">
-                        <Plus className="w-6 h-6" />
-                      </Button>
-                    </NavigationMenuLink>
-                  </Link>
-                </NavigationMenuItem>
-              )}
-            </div>
-          )
-          }
+          {(workPosts.length > 0 || session.data?.user?.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL) && (
+            <PostSession posts={workPosts} type="WORK" subSlug="work" title="Works" />
+          )}
+
+          {(blogPosts.length > 0 || session.data?.user?.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL) && (
+            <PostSession posts={blogPosts} type="BLOGPOST" subSlug="blog" title="Writing" />
+          )}
 
           <div className='w-full'>
             <NavigationMenuItem className="font-extrabold mb-2">
