@@ -1,6 +1,7 @@
 'use server'
 import prisma from '@/lib/db'
-import { PostType } from '@prisma/client'
+import { Prisma, PostType } from '@prisma/client'
+
 
 export async function getStacks() {
   return await prisma.stack.findMany()
@@ -43,3 +44,8 @@ export async function updatePost(slug: string, data: { title: string, content: s
 export async function getWorkPost(slug: string) {
   return await prisma.post.findUnique({ where: { slug } })
 }
+
+export async function createStack(stackCreateInput: Prisma.StackCreateInput) {
+  return await prisma.stack.create({ data: stackCreateInput })
+}
+

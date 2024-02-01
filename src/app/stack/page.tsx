@@ -3,15 +3,20 @@ import { getStacks } from '../actions'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import Image from 'next/image'
-import { MoveUpRight } from 'lucide-react'
+import { MoveUpRight, Plus } from 'lucide-react'
+import Link from 'next/link'
+import { auth } from '@/app/api/auth/[...nextauth]/auth'
+
 
 const StackPage = async () => {
+  const session = await auth()
   const techStack = await getStacks()
 
   return (
     <div className="p-5 w-full">
       <h1 className="mb-5">My Tech Stack</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
+
         {techStack.map((tech, index) => {
           return (
             <Card id={tech.title} key={index} className='w-full'>
@@ -34,6 +39,15 @@ const StackPage = async () => {
             </Card>
           )
         })}
+
+        {session?.user && session.user.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL && (
+          <Link href="/stack/new">
+            <Button className='h-full w-full flex flex-col gap-2 items-center'>
+              <h3> Add a tech </h3>
+              <Plus className="h-20 w-20" />
+            </Button>
+          </Link>
+        )}
       </div>
     </div>
   )
