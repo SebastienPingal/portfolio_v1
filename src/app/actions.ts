@@ -49,3 +49,14 @@ export async function createStack(stackCreateInput: Prisma.StackCreateInput) {
   return await prisma.stack.create({ data: stackCreateInput })
 }
 
+export async function getStack(title: string) {
+  return await prisma.stack.findFirst({ where: { title: { equals: title, mode: 'insensitive' } } })
+}
+
+export async function deleteStack(id: string) {
+  return await prisma.stack.delete({ where: { id } })
+}
+
+export async function updateStack(id: string, stackUpdateInput: Prisma.StackUpdateInput) {
+  return await prisma.stack.update({ where: { id }, data: stackUpdateInput })
+}

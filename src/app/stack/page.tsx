@@ -1,11 +1,11 @@
-import React from 'react'
-import { getStacks } from '../actions'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import Image from 'next/image'
-import { MoveUpRight, Plus } from 'lucide-react'
-import Link from 'next/link'
 import { auth } from '@/app/api/auth/[...nextauth]/auth'
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { MoveUpRight, PencilRuler, Plus } from 'lucide-react'
+import Image from 'next/image'
+import Link from 'next/link'
+import { getStacks } from '../actions'
+import PopoverDeleteStack from './PopoverDeleteStack'
 
 
 const StackPage = async () => {
@@ -28,7 +28,7 @@ const StackPage = async () => {
                   <p className='text-2xl'>{tech.title}</p>
                 </CardTitle>
               </CardHeader>
-              <CardContent className='flex flex-col gap-2'>
+              <CardContent className='relative flex flex-col gap-2'>
                 <CardDescription>{tech.description}</CardDescription>
                 <a href={tech.link} target="_blank" rel="noreferrer">
                   <Button className='flex gap-2'>
@@ -36,6 +36,16 @@ const StackPage = async () => {
                   </Button>
                 </a>
               </CardContent>
+              {session?.user && session.user.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL && (
+                <div className='absolute right-2 top-2 flex gap-1'>
+                  <Link href={`/stack/edit/${tech.title.replace(/\s+/g, '-').toLowerCase()}`}>
+                    <Button size='sm' variant="outline">
+                      <PencilRuler className="h-4 w-4" />
+                    </Button>
+                  </Link>
+                  <PopoverDeleteStack stack={tech} />
+                </div>
+              )}
             </Card>
           )
         })}
