@@ -1,6 +1,6 @@
-import { getWorkPost } from '@/app/actions';
-import { notFound } from 'next/navigation';
-import PostUpdator from './PostUpdator';
+import { getWorkPost } from '@/app/actions'
+import { notFound } from 'next/navigation'
+import PostUpdator from './PostUpdator'
 
 interface pageProps {
   params: {

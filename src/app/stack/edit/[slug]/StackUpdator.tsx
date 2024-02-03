@@ -1,10 +1,10 @@
 'use client'
 
-import { updateStack } from "@/app/actions";
-import StackEditor from "@/components/StackEditor";
-import { useToast } from "@/components/ui/use-toast";
-import { Stack } from "@prisma/client";
-import { notFound, useRouter } from "next/navigation";
+import { updateStack } from "@/app/actions"
+import StackEditor from "@/components/StackEditor"
+import { useToast } from "@/components/ui/use-toast"
+import { Stack } from "@prisma/client"
+import { notFound, useRouter } from "next/navigation"
 
 
 const StackUpdator = ({ stack }: { stack: Stack }) => {

@@ -1,6 +1,6 @@
-import { getStack } from '@/app/actions';
-import { notFound } from 'next/navigation';
-import StackUpdator from './StackUpdator';
+import { getStack } from '@/app/actions'
+import { notFound } from 'next/navigation'
+import StackUpdator from './StackUpdator'
 
 interface pageProps {
   params: {
