@@ -76,7 +76,7 @@ const PostSession = ({ posts, subSlug = 'post', type = 'BLOGPOST', title }: { po
         <NavigationMenuItem hover={false} >
           <Link href={`/${subSlug}/new?type=${type}`} className="w-full" legacyBehavior passHref>
             <NavigationMenuLink className="w-full">
-              <Button variant="outline" className="w-full text-foreground">
+              <Button variant="outline"  size='sm' className="w-full text-foreground">
                 <Plus className="w-6 h-6" />
               </Button>
             </NavigationMenuLink>

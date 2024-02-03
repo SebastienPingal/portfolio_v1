@@ -43,7 +43,7 @@ const NavBar = ({ workPosts, blogPosts }: { workPosts: Post[], blogPosts: Post[]
   return (
     <>
       <NavigationMenu orientation="vertical" className='items-start shadow-inner h-full bg-card:10  bg-card/20 backdrop-blur-xl'>
-        <NavigationMenuList className='flex flex-col gap-5 items-start w-56 p-2'>
+        <NavigationMenuList className='flex flex-col gap-1 items-start w-56 p-2'>
           <div className='text-2xl font-extrabold'>Sébastien Pingal</div>
           <div className="w-full">
             <NavigationMenuItem className={pathname === '/' ? 'bg-popover text-popover-foreground' : ''}>
