@@ -66,13 +66,6 @@ const NavBar = ({ workPosts, blogPosts }: { workPosts: Post[], blogPosts: Post[]
                 </NavigationMenuLink>
               </Link>
             </NavigationMenuItem>
-            <NavigationMenuItem>
-              <Link href="/other" className="w-full" legacyBehavior passHref>
-                <NavigationMenuLink className="w-full">
-                  <Forklift className="w-4 h-4" />Benco
-                </NavigationMenuLink>
-              </Link>
-            </NavigationMenuItem>
           </div>
 
           <div className='w-full'>

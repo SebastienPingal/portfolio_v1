@@ -22,10 +22,10 @@ const StackPage = async () => {
             <Card id={tech.title} key={index} className='w-full'>
               <CardHeader>
                 <CardTitle className='flex gap-3 items-center'>
-                  <div className='bg-white/90 w-16 h-16 rounded relative border-2 border-primary/60'>
+                  <div className='bg-white/90 w-16 h-16 rounded relative border-2 border-primary/60 flex-shrink-0'>
                     <Image src={tech.logo} alt={tech.title} fill={true} className='object-contain p-1' />
                   </div>
-                  <p className='text-2xl'>{tech.title}</p>
+                  <p className='text-2xl truncate'>{tech.title}</p>
                 </CardTitle>
               </CardHeader>
               <CardContent className='relative flex flex-col gap-2'>
@@ -51,9 +51,9 @@ const StackPage = async () => {
         })}
 
         {session?.user && session.user.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL && (
-          <Link href="/stack/new">
-            <Button className='h-full w-full flex flex-col gap-2 items-center'>
-              <h3> Add a tech </h3>
+          <Link href="/stack/new" className='h-1/2 w-1/2 flex flex-col gap-2 place-self-center'>
+            <Button className='h-full w-full flex flex-col gap-2 place-self-center'>
+              <h6 className='text-center font-extrabold'> Add a tech</h6>
               <Plus className="h-20 w-20" />
             </Button>
           </Link>

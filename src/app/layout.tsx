@@ -29,7 +29,7 @@ export default async function RootLayout({
         <Toaster />
         <ThemeProvider
           attribute="class"
-          defaultTheme="dark"
+          defaultTheme="light"
           enableSystem
         >
           <SessionProvider>
