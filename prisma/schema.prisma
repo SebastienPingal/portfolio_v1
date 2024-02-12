@@ -53,22 +53,33 @@ enum PostType {
 }
 
 model Post {
-  id        String   @id @default(cuid())
+  id        String        @id @default(cuid())
   title     String
-  slug      String   @unique
+  slug      String        @unique
   type      PostType
   content   String
-  published Boolean  @default(false)
+  published Boolean       @default(false)
+  stacks    StackOnPost[]
 }
 
 model Stack {
-  id          String  @id @default(cuid())
-  title       String  @unique
+  id          String        @id @default(cuid())
+  title       String        @unique
   description String
   logo        String
   icon        String?
   order       Int?
   link        String
+  posts       StackOnPost[]
+}
+
+model StackOnPost {
+  postId  String
+  stackId String
+  post    Post   @relation(fields: [postId], references: [id])
+  stack   Stack  @relation(fields: [stackId], references: [id])
+
+  @@id([postId, stackId])
 }
 
 model VerificationToken {
