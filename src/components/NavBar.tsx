@@ -57,7 +57,7 @@ const NavBar = ({ workPosts, blogPosts, className }: { workPosts: Post[], blogPo
         <div className='w-full'>
           <NavigationMenuItem className="font-extrabold mb-2">
             Me
-          </NavigationMenuItem>
+         </NavigationMenuItem>
           <NavigationMenuItem>
             <Link href="/stack" className="w-full" legacyBehavior passHref>
               <NavigationMenuLink className="w-full">

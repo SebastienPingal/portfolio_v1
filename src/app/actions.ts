@@ -2,11 +2,6 @@
 import prisma from '@/lib/db'
 import { Prisma, PostType } from '@prisma/client'
 
-
-export async function getStacks() {
-  return await prisma.stack.findMany()
-}
-
 export async function getPostTypes() {
   const result: { value: string }[] = await prisma.$queryRaw`SELECT unnest(enum_range(NULL::"PostType")) as value`
   const postTypes = result.map((row: { value: string }) => row.value)
@@ -51,6 +46,10 @@ export async function createStack(stackCreateInput: Prisma.StackCreateInput) {
 
 export async function getStack(title: string) {
   return await prisma.stack.findFirst({ where: { title: { equals: title, mode: 'insensitive' } } })
+}
+
+export async function getStacks() {
+  return await prisma.stack.findMany()
 }
 
 export async function deleteStack(id: string) {

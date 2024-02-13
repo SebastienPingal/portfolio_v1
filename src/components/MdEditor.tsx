@@ -20,21 +20,26 @@ const MdEditor = ({ md, className, onMdChange }: { md: string; className?: strin
     setTextareaHeight(e.currentTarget.style.height)
   }
 
+  const toggleFlexDirection = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault()
+    setIsFlexRow(!isFlexRow)
+  }
+
   return (
-    <div className={`${className} flex flex-col ${isFlexRow ? 'lg:flex-row' : 'lg:flex-col'} gap-3`}>
+    <div className={`${className} relative flex flex-col ${isFlexRow ? 'lg:flex-row' : 'lg:flex-col'} gap-3`}>
       <Textarea
         onChange={handleChange}
         onResize={handleResize}
         defaultValue={markdown}
         className='w-full h-96 p-2 rounded shadow-inner resize-y'
       />
-      <div style={{ height: textareaHeight }} className='w-full relative overflow-auto p-2 rounded bg-primary/80 text-primary-foreground'>
+      <Button onClick={toggleFlexDirection} variant="outline" className='absolute top-2 right-2'>
+        {isFlexRow ? <Rows2 color='hsl(var(--secondary-foreground))' /> : <Columns2 color='hsl(var(--secondary-foreground))' />}
+      </Button>
+      <div style={{ height: textareaHeight }} className='w-full overflow-auto p-2 rounded bg-primary/80 text-primary-foreground'>
         <ReactMarkdown remarkPlugins={[remarkGfm]} className="flex flex-col gap-3">
           {markdown}
         </ReactMarkdown>
-        <Button onClick={() => setIsFlexRow(!isFlexRow)} variant="outline" className='absolute bottom-2 right-2'>
-          {isFlexRow ? <Rows2 color='hsl(var(--secondary-foreground))' /> : <Columns2 color='hsl(var(--secondary-foreground))' />}
-        </Button>
       </div>
     </div>
   )
