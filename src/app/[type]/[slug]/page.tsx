@@ -1,5 +1,5 @@
 import { getWorkPost } from '@/app/actions'
-import StackBadge from '@/components/StackBadge';
+import StackBadge from '@/components/StackBadge'
 import { notFound } from 'next/navigation'
 import ReactMarkdown from 'react-markdown'
 
