@@ -7,7 +7,7 @@ import { useToast } from '@/components/ui/use-toast'
 
 import { useRouter } from 'next/navigation'
 
-import { deleteStack } from '../actions'
+import { deleteStack } from '@/app/actions'
 import { Stack } from '@prisma/client'
 
 const PopoverDeleteStack = ({stack}: {stack: Stack}) => {
