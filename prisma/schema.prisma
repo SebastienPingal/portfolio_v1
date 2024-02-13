@@ -59,7 +59,7 @@ model Post {
   type      PostType
   content   String
   published Boolean       @default(false)
-  stacks    StackOnPost[]
+  stacks  Stack[]  @relation("PostStacks")
 }
 
 model Stack {
@@ -70,16 +70,7 @@ model Stack {
   icon        String?
   order       Int?
   link        String
-  posts       StackOnPost[]
-}
-
-model StackOnPost {
-  postId  String
-  stackId String
-  post    Post   @relation(fields: [postId], references: [id])
-  stack   Stack  @relation(fields: [stackId], references: [id])
-
-  @@id([postId, stackId])
+  posts       Post[]   @relation("PostStacks")
 }
 
 model VerificationToken {
