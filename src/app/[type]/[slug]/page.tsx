@@ -1,6 +1,7 @@
-import ReactMarkdown from 'react-markdown'
 import { getWorkPost } from '@/app/actions'
+import StackBadge from '@/components/StackBadge';
 import { notFound } from 'next/navigation'
+import ReactMarkdown from 'react-markdown'
 
 interface pageProps {
   params: {
@@ -18,6 +19,11 @@ const WorkPost = async ({ params }: pageProps) => {
   return (
     <div className='glassPanel flex flex-col gap-5'>
       <h1 className='font-black'>{title}</h1>
+      <div className='flex gap-3'>
+        {workPost.stacks.map((stack) => (
+          <StackBadge key={stack.id} stack={stack} />
+        ))}
+      </div>
       <div>
         <ReactMarkdown className='flex flex-col gap-3'>{content}</ReactMarkdown>
       </div>

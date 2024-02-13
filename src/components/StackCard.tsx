@@ -8,11 +8,11 @@ import PopoverDeleteStack from './PopoverDeleteStack'
 import { auth } from '@/app/api/auth/[...nextauth]/auth'
 import { Stack } from '@prisma/client'
 
-const StackCard = async ({ stack }: { stack: Stack }) => {
+const StackCard = async ({ stack, className }: { stack: Stack; className?: string }) => {
   const session = await auth()
 
   return (
-    <Card id={stack.title} className='w-full'>
+    <Card id={stack.title} className={`w-full ${className}`}>
       <CardHeader>
         <CardTitle className='flex gap-3 items-center'>
           <div className='bg-white/90 w-16 h-16 rounded relative border-2 border-primary/60 flex-shrink-0'>
