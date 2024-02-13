@@ -1,6 +1,6 @@
 "use client"
 import { createPost } from '@/app/actions'
-import { PostType } from '@prisma/client'
+import { PostType, Prisma } from '@prisma/client'
 import { useSession } from 'next-auth/react'
 import { redirect, useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
@@ -27,11 +27,11 @@ const NewPost = () => {
     }
   }, [session.status, session.data])
 
-  const handleSubmit = (title: string, content: string, type: PostType) => {
+  const handleSubmit = (data: Prisma.PostCreateInput) => {
     const createAndRedirect = async () => {
-      const newPost = await createPost({ title, content, type })
-      toast({ title: `Article ${title} publié` })
-      if(type ==="WORK") router.push(`/work/${newPost.slug}`)
+      const newPost = await createPost(data)
+      toast({ title: `Article ${data.title} publié` })
+      if (type === "WORK") router.push(`/work/${newPost.slug}`)
       else router.push(`/post/${newPost.slug}`)
     }
 

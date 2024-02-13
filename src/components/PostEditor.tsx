@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 
 import { getPostTypes, getStacks } from '@/app/actions'
 import MdEditor from '@/components/MdEditor'
-import { PostType, Stack } from '@prisma/client'
+import { PostType, Prisma, Stack } from '@prisma/client'
 import { useFormState } from 'react-dom'
 
 import { X } from 'lucide-react'
@@ -18,22 +18,36 @@ interface PostEditorProps {
   initialContent?: string
   initialTitle?: string
   initialType?: PostType
-  handleSubmit: (title: string, content: string, type: PostType) => void
+  initialStacks?: Stack[]
+  handleSubmit: (data: Prisma.PostCreateInput | Prisma.PostUpdateInput) => void
 }
 
 const initialStatePostTypes = { postTypes: [] }
 
-const PostEditor: React.FC<PostEditorProps> = ({ initialContent = '### Hello World', initialTitle = '', initialType = '' as PostType, handleSubmit }) => {
+const PostEditor: React.FC<PostEditorProps> = ({
+  initialContent = '### Hello World',
+  initialTitle = '',
+  initialType = '' as PostType,
+  initialStacks = [],
+  handleSubmit
+}) => {
   const [results, setPostTypes] = useFormState(getPostTypes, initialStatePostTypes)
   const [stacks, setStacks] = useFormState(getStacks, [])
   const [content, setContent] = useState(initialContent)
   const [title, setTitle] = useState(initialTitle)
   const [type, setType] = useState(initialType)
-  const [stackList, setStackList] = useState<Stack[]>([])
+  const [stackList, setStackList] = useState<Stack[]>(initialStacks)
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    handleSubmit(title, content, type)
+    handleSubmit({
+      title,
+      content,
+      type,
+      stacks: {
+        connect: stackList.map(stack => ({ id: stack.id })),
+      }
+    })
   }
 
   useEffect(() => {
@@ -58,7 +72,7 @@ const PostEditor: React.FC<PostEditorProps> = ({ initialContent = '### Hello Wor
             className='relative cursor-pointer group hover:opacity-100 opacity-100 transition-opacity duration-200 flex justify-center items-center'
           >
             {stack.title}
-            <X className='absolute h-4 w-4 group-hover:opacity-100 opacity-0 text-destructive' strokeWidth={4}/>
+            <X className='absolute h-4 w-4 group-hover:opacity-100 opacity-0 text-destructive' strokeWidth={4} />
           </Badge>
         ))}
       </div>

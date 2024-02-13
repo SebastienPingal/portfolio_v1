@@ -1,18 +1,26 @@
 'use client'
 
 import { updatePost } from '@/app/actions'
-import { useToast } from '@/components/ui/use-toast'
-import { useRouter } from 'next/navigation'
-import { PostType } from '@prisma/client'
 import PostEditor from '@/components/PostEditor'
+import { useToast } from '@/components/ui/use-toast'
+import { PostType, Prisma, Stack } from '@prisma/client'
+import { useRouter } from 'next/navigation'
 
-const PostUpdator = ({ slug, title, content, type }: { slug: string, title: string, content: string, type: PostType }) => {
+type PostUpdatorProps = {
+  slug: string
+  title: string
+  content: string
+  type: PostType
+  stacks: Stack[]
+}
+
+const PostUpdator = ({ slug, title, content, type, stacks }: PostUpdatorProps) => {
   const router = useRouter()
   const { toast } = useToast()
 
-  const handleSubmit = (title: string, content: string, type: PostType) => {
+  const handleSubmit = (data: Prisma.PostUpdateInput) => {
     const updateAndRedirect = async () => {
-      const updatedPost = await updatePost(slug, { title, content, type })
+      const updatedPost = await updatePost(slug, data)
       if (type === "WORK") router.push(`/work/${updatedPost.slug}`)
       else router.push(`/post/${updatedPost.slug}`)
     }
@@ -22,7 +30,7 @@ const PostUpdator = ({ slug, title, content, type }: { slug: string, title: stri
   }
 
   return (
-    <PostEditor initialContent={content} initialTitle={title} initialType={type} handleSubmit={handleSubmit} />
+    <PostEditor initialStacks={stacks} initialContent={content} initialTitle={title} initialType={type} handleSubmit={handleSubmit} />
   )
 }
 

@@ -32,12 +32,12 @@ export async function deletePost(slug: string) {
   return await prisma.post.delete({ where: { slug } })
 }
 
-export async function updatePost(slug: string, data: { title: string, content: string, type: PostType }) {
+export async function updatePost(slug: string, data: Prisma.PostUpdateInput) {
   return await prisma.post.update({ where: { slug }, data })
 }
 
 export async function getWorkPost(slug: string) {
-  return await prisma.post.findUnique({ where: { slug } })
+  return await prisma.post.findUnique({ where: { slug }, include: { stacks: true } })
 }
 
 export async function createStack(stackCreateInput: Prisma.StackCreateInput) {
