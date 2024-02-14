@@ -16,7 +16,10 @@ const StackCard = async ({ stack, className }: { stack: Stack; className?: strin
       <CardHeader>
         <CardTitle className='flex gap-3 items-center'>
           <div className='bg-white/90 w-16 h-16 rounded relative border-2 border-primary/60 flex-shrink-0'>
-            <Image src={stack.logo} alt={stack.title} fill={true} className='object-contain p-1' />
+            { stack.logo ?
+              <Image src={stack.logo} alt={stack.title} fill={true} className='object-contain p-1' />
+              : <div className='flex items-center justify-center w-full h-full text-4xl text-primary'>{stack.title[0]}</div>
+            }
           </div>
           <p className='text-2xl truncate'>{stack.title}</p>
         </CardTitle>
