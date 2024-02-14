@@ -1,3 +1,5 @@
+import { Stack } from "@prisma/client";
+
 const { PrismaClient } = require('@prisma/client')
 const fs = require('fs')
 const yaml = require('yaml')
@@ -28,8 +30,8 @@ async function main() {
       where: { slug: post.slug },
     });
     if (!existingPost) {
-      const connectedStacks = post.stacks ? post.stacks.map((stackTitle: string) => ({
-        title: stackTitle,
+      const connectedStacks = post.stacks ? post.stacks.map((stack: Stack) => ({
+        title: stack.title,
       })) : [];
 
       await prisma.post.create({
