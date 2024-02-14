@@ -1,0 +1,560 @@
+posts:
+  - id: cls0fp6e200007ep3yxc67rzy
+    title: Burger kingi
+    slug: burger-king
+    type: WORK
+    content: "### Hello World"
+    published: false
+    stacks: []
+  - id: cls1xch30000012ekg8ico93k
+    title: C'est chouette
+    slug: c'est-chouette
+    type: BLOGPOST
+    content: "### Hello World"
+    published: false
+    stacks: []
+  - id: cls0fxuc0000054oha6to1su7
+    title: Ceci est un test
+    slug: ceci-est-un-test
+    type: WORK
+    content: >
+      ---
+
+      __Advertisement :)__
+
+
+      - __[pica](https://nodeca.github.io/pica/demo/)__ - high quality and fast image
+        resize in browser.
+      - __[babelfish](https://github.com/nodeca/babelfish/)__ - developer friendly
+        i18n with plurals support and easy syntax.
+
+      You will like those projects!
+
+
+      ---
+
+
+      # h1 Heading 8-)
+
+      ## h2 Heading
+
+      ### h3 Heading
+
+      #### h4 Heading
+
+      ##### h5 Heading
+
+      ###### h6 Heading
+
+
+
+      ## Horizontal Rules
+
+
+      ___
+
+
+      ---
+
+
+      ***
+
+
+
+      ## Typographic replacements
+
+
+      Enable typographer option to see result.
+
+
+      (c) (C) (r) (R) (tm) (TM) (p) (P) +-
+
+
+      test.. test... test..... test?..... test!....
+
+
+      !!!!!! ???? ,,  -- ---
+
+
+      "Smartypants, double quotes" and 'single quotes'
+
+
+
+      ## Emphasis
+
+
+      **This is bold text**
+
+
+      __This is bold text__
+
+
+      *This is italic text*
+
+
+      _This is italic text_
+
+
+      ~~Strikethrough~~
+
+
+
+      ## Blockquotes
+
+
+
+      > Blockquotes can also be nested...
+
+      >> ...by using additional greater-than signs right next to each other...
+
+      > > > ...or with spaces between arrows.
+
+
+
+      ## Lists
+
+
+      Unordered
+
+
+      + Create a list by starting a line with `+`, `-`, or `*`
+
+      + Sub-lists are made by indenting 2 spaces:
+        - Marker character change forces new list start:
+          * Ac tristique libero volutpat at
+          + Facilisis in pretium nisl aliquet
+          - Nulla volutpat aliquam velit
+      + Very easy!
+
+
+      Ordered
+
+
+      1. Lorem ipsum dolor sit amet
+
+      2. Consectetur adipiscing elit
+
+      3. Integer molestie lorem at massa
+
+
+
+      1. You can use sequential numbers...
+
+      1. ...or keep all the numbers as `1.`
+
+
+      Start numbering with offset:
+
+
+      57. foo
+
+      1. bar
+
+
+
+      ## Code
+
+
+      Inline `code`
+
+
+      Indented code
+
+          // Some comments
+          line 1 of code
+          line 2 of code
+          line 3 of code
+
+
+      Block code "fences"
+
+
+      ```
+
+      Sample text here...
+
+      ```
+
+
+      Syntax highlighting
+
+
+      ``` js
+
+      var foo = function (bar) {
+        return bar++;
+      };
+
+
+      console.log(foo(5));
+
+      ```
+
+
+      ## Tables
+
+
+      | Option | Description |
+
+      | ------ | ----------- |
+
+      | data   | path to data files to supply the data that will be passed into templates. |
+
+      | engine | engine to be used for processing templates. Handlebars is the default. |
+
+      | ext    | extension to be used for dest files. |
+
+
+      Right aligned columns
+
+
+      | Option | Description |
+
+      | ------:| -----------:|
+
+      | data   | path to data files to supply the data that will be passed into templates. |
+
+      | engine | engine to be used for processing templates. Handlebars is the default. |
+
+      | ext    | extension to be used for dest files. |
+
+
+
+      ## Links
+
+
+      [link text](http://dev.nodeca.com)
+
+
+      [link with title](http://nodeca.github.io/pica/demo/ "title text!")
+
+
+      Autoconverted link https://github.com/nodeca/pica (enable linkify to see)
+
+
+
+      ## Images
+
+
+      ![Minion](https://octodex.github.com/images/minion.png)
+
+      ![Stormtroopocat](https://octodex.github.com/images/stormtroopocat.jpg "The Stormtroopocat")
+
+
+      Like links, Images also have a footnote style syntax
+
+
+      ![Alt text][id]
+
+
+      With a reference later in the document defining the URL location:
+
+
+      [id]: https://octodex.github.com/images/dojocat.jpg  "The Dojocat"
+
+
+
+      ## Plugins
+
+
+      The killer feature of `markdown-it` is very effective support of
+
+      [syntax plugins](https://www.npmjs.org/browse/keyword/markdown-it-plugin).
+
+
+
+      ### [Emojies](https://github.com/markdown-it/markdown-it-emoji)
+
+
+      > Classic markup: :wink: :cry: :laughing: :yum:
+
+      >
+
+      > Shortcuts (emoticons): :-) :-( 8-) ;)
+
+
+      see [how to change output](https://github.com/markdown-it/markdown-it-emoji#change-output) with twemoji.
+
+
+
+      ### [Subscript](https://github.com/markdown-it/markdown-it-sub) / [Superscript](https://github.com/markdown-it/markdown-it-sup)
+
+
+      - 19^th^
+
+      - H~2~O
+
+
+
+      ### [\<ins>](https://github.com/markdown-it/markdown-it-ins)
+
+
+      ++Inserted text++
+
+
+
+      ### [\<mark>](https://github.com/markdown-it/markdown-it-mark)
+
+
+      ==Marked text==
+
+
+
+      ### [Footnotes](https://github.com/markdown-it/markdown-it-footnote)
+
+
+      Footnote 1 link[^first].
+
+
+      Footnote 2 link[^second].
+
+
+      Inline footnote^[Text of inline footnote] definition.
+
+
+      Duplicated footnote reference[^second].
+
+
+      [^first]: Footnote **can have markup**
+
+          and multiple paragraphs.
+
+      [^second]: Footnote text.
+
+
+
+      ### [Definition lists](https://github.com/markdown-it/markdown-it-deflist)
+
+
+      Term 1
+
+
+      :   Definition 1
+
+      with lazy continuation.
+
+
+      Term 2 with *inline markup*
+
+
+      :   Definition 2
+
+              { some code, part of Definition 2 }
+
+          Third paragraph of definition 2.
+
+      _Compact style:_
+
+
+      Term 1
+        ~ Definition 1
+
+      Term 2
+        ~ Definition 2a
+        ~ Definition 2b
+
+
+      ### [Abbreviations](https://github.com/markdown-it/markdown-it-abbr)
+
+
+      This is HTML abbreviation example.
+
+
+      It converts "HTML", but keep intact partial entries like "xxxHTMLyyy" and so on.
+
+
+      *[HTML]: Hyper Text Markup Language
+
+
+      ### [Custom containers](https://github.com/markdown-it/markdown-it-container)
+
+
+      ::: warning
+
+      *here be dragons*
+
+      :::
+    published: false
+    stacks: []
+  - id: clslw6ocm0000lb8af7ja0345
+    title: Stack test
+    slug: stack-test
+    type: WORK
+    content: "### Stacko Benco"
+    published: false
+    stacks:
+      - id: clslsxgg700091iczqk2l4fve
+        title: Vite
+        description: Local development server written by Evan You, the creator of Vue.
+          js, and used by default by Vue and for React project templates.
+        logo: https://cdn.worldvectorlogo.com/logos/vitejs.svg
+        icon: ""
+        order: 0
+        link: https://vitejs.dev/
+      - id: clslt1ida000c1iczcqz41mjw
+        title: Xano
+        description: "Xano is front-end agnostic and can power multiple front-ends at
+          the same time. "
+        logo: ""
+        icon: ""
+        order: 0
+        link: https://www.xano.com/
+      - id: clrw3qbwq0001dtn4u8nf2r1y
+        title: Vue
+        description: A progressive JavaScript framework for building user interfaces.
+        logo: https://cdn.worldvectorlogo.com/logos/vue-9.svg
+        icon: null
+        order: 2
+        link: https://vuejs.org/
+stacks:
+  - id: clslsuflv00071iczt54uzr38
+    title: MongoDB
+    description: MongoDB is a non-relational document database that provides support
+      for JSON-like storage.
+    logo: https://cdn.worldvectorlogo.com/logos/mongodb-icon-1.svg
+    icon: ""
+    order: 0
+    link: https://www.mongodb.com/
+  - id: clslsvq1x00081icz3k1o1xm1
+    title: Tailwind
+    description: A utility-first CSS framework packed with classes like flex , pt-4
+      , text-center and rotate-90 that can be composed to build any design,
+      directly in your markup.
+    logo: https://cdn.worldvectorlogo.com/logos/tailwind-css-2.svg
+    icon: ""
+    order: 0
+    link: https://tailwindcss.com/
+  - id: clslsxgg700091iczqk2l4fve
+    title: Vite
+    description: Local development server written by Evan You, the creator of Vue.
+      js, and used by default by Vue and for React project templates.
+    logo: https://cdn.worldvectorlogo.com/logos/vitejs.svg
+    icon: ""
+    order: 0
+    link: https://vitejs.dev/
+  - id: clslsz3mj000a1iczosr22h28
+    title: Pinia
+    description: An entity holding state and business logic that isn't bound to your
+      Component tree.
+    logo: ""
+    icon: ""
+    order: 0
+    link: https://pinia.vuejs.org/
+  - id: clslt19hr000b1iczi97vldj3
+    title: Weweb
+    description: WeWeb is an no-code front-end builder that you can use to build
+      on-top of any back-end.
+    logo: ""
+    icon: ""
+    order: 0
+    link: https://www.weweb.io/
+  - id: clslt1ida000c1iczcqz41mjw
+    title: Xano
+    description: "Xano is front-end agnostic and can power multiple front-ends at
+      the same time. "
+    logo: ""
+    icon: ""
+    order: 0
+    link: https://www.xano.com/
+  - id: clslt383v000d1icz375q37wm
+    title: Shadcn
+    description: Beautifully designed components that you can copy and paste into your apps.
+    logo: ""
+    icon: ""
+    order: 0
+    link: https://ui.shadcn.com/
+  - id: clslt4feb000e1iczh8nchsj6
+    title: Lucide
+    description: Beautiful & consistent icon toolkit
+    logo: ""
+    icon: ""
+    order: 0
+    link: https://lucide.dev
+  - id: clrw2hzrl00007pk9f08dcvd0
+    title: React
+    description: A JavaScript library for building user interfaces.
+    logo: https://cdn.worldvectorlogo.com/logos/react-2.svg
+    icon: null
+    order: 1
+    link: https://react.dev/
+  - id: clrw3qbwq0001dtn4u8nf2r1y
+    title: Vue
+    description: A progressive JavaScript framework for building user interfaces.
+    logo: https://cdn.worldvectorlogo.com/logos/vue-9.svg
+    icon: null
+    order: 2
+    link: https://vuejs.org/
+  - id: clryumtht00002aot3helcb8o
+    title: Next.js
+    description: The React Framework for Production.
+    logo: https://cdn.worldvectorlogo.com/logos/next-js.svg
+    icon: ""
+    order: 3
+    link: https://nextjs.org/
+  - id: clryumthw00012aotpa5n6890
+    title: PostGresSql
+    description: The world's most advanced open source database.
+    logo: https://cdn.worldvectorlogo.com/logos/postgresql.svg
+    icon: ""
+    order: 4
+    link: https://www.postgresql.org/
+  - id: clryumthz00022aotkf9judfk
+    title: Prisma
+    description: Next-generation ORM for Node.js & TypeScript.
+    logo: https://cdn.worldvectorlogo.com/logos/prisma-3.svg
+    icon: https://cdn.worldvectorlogo.com/logos/prisma-3.svg
+    order: 5
+    link: https://www.prisma.io/
+  - id: clslsga0m00001iczdrp0fjld
+    title: Node.js
+    description: Node.js® is an open-source, cross-platform JavaScript runtime environment.
+    logo: https://cdn.worldvectorlogo.com/logos/nodejs.svg
+    icon: ""
+    order: 0
+    link: https://nodejs.org/
+  - id: clslsj5cx00011iczayro3pmx
+    title: Javascript
+    description: JavaScript (JS) is a lightweight interpreted (or just-in-time
+      compiled) programming language with first-class functions.
+    logo: https://cdn.worldvectorlogo.com/logos/logo-javascript.svg
+    icon: ""
+    order: 0
+    link: https://developer.mozilla.org/en-US/docs/Web/JavaScript
+  - id: clslsk0gc00021iczokaalg4o
+    title: Typescript
+    description: TypeScript is JavaScript with syntax for types.
+    logo: https://cdn.worldvectorlogo.com/logos/typescript.svg
+    icon: ""
+    order: 0
+    link: https://www.typescriptlang.org/
+  - id: clslslyec00031iczx36xe5jb
+    title: Puppeteer
+    description: Puppeteer is a Node.js library which provides a high-level API to
+      control Chrome/Chromium over the DevTools Protocol.
+    logo: ""
+    icon: ""
+    order: 0
+    link: https://pptr.dev/
+  - id: clslsp09m00041iczco5fi36i
+    title: Express
+    description: Fast, unopinionated, minimalist web framework for Node.js
+    logo: https://cdn.worldvectorlogo.com/logos/express-109.svg
+    icon: ""
+    order: 0
+    link: https://expressjs.com/
+  - id: clslsr5go00051iczeqpy6a10
+    title: AWS
+    description: "AWS has the services to help you build sophisticated applications
+      with increased flexibility, scalability and reliability "
+    logo: https://cdn.worldvectorlogo.com/logos/aws-2.svg
+    icon: ""
+    order: 0
+    link: https://aws.amazon.com
+  - id: clslss2qo00061icz8qmj2h22
+    title: Python
+    description: Python is a programming language that lets you work quickly and
+      integrate systems more effectively
+    logo: https://cdn.worldvectorlogo.com/logos/python-5.svg
+    icon: ""
+    order: 0
+    link: https://www.python.org/
