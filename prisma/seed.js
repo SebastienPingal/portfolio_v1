@@ -30,7 +30,7 @@ async function main() {
       where: { slug: post.slug },
     });
     if (!existingPost) {
-      const connectedStacks = post.stacks ? post.stacks.map((stack: Stack) => ({
+      const connectedStacks = post.stacks ? post.stacks.map((stack) => ({
         title: stack.title,
       })) : [];
 
