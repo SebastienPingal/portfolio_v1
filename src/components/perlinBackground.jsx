@@ -61,7 +61,7 @@ const PerlinBackground = () => {
 
           ctx.beginPath()
           ctx.fillStyle = isBlackTheme 
-            ? `rgba(${yn * 10}, ${yn * 12}, ${yn * 10}, 1)` 
+            ? `rgba(${Math.max(yn * 10 + 30, 40)}, ${Math.max(yn * 12 + 30, 45)}, ${Math.max(yn * 10 + 30, 40)}, 1)` 
             : `rgba(${255 - yn * 10}, ${255 - yn * 12}, ${255 - yn * 10}, 1)`
           if (shape == 0) {
             ctx.fillRect(x, y, dotSize, dotSize)
