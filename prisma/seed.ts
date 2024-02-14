@@ -1,7 +1,7 @@
-import { PrismaClient } from '@prisma/client';
-import fs from 'fs';
-import yaml from 'yaml';
-import { join } from 'path';
+const { PrismaClient } = require('@prisma/client')
+const fs = require('fs')
+const yaml = require('yaml')
+const { join } = require('path')
 
 const prisma = new PrismaClient();
 
