@@ -13,10 +13,9 @@ const EditPost = async ({ params }: pageProps) => {
   if (!slug) notFound()
   const workPost = await getWorkPost(slug)
   if (!workPost) notFound()
-  const stacks = await getStacks()
 
   return (
-    <PostEditor post={workPost} initialStacks={stacks} />
+    <PostEditor post={workPost} initialStacks={workPost.stacks} />
   )
 }
 

@@ -39,7 +39,7 @@ const PostEditor: React.FC<PostEditorProps> = ({
   const [content, setContent] = useState(post.content)
   const [title, setTitle] = useState(post.title)
   const [type, setType] = useState(post.type)
-  const [stackList, setStackList] = useState<Stack[]>(initialStacks)
+  const [stackList, setStackList] = useState<Stack[]>(initialStacks || [])
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
