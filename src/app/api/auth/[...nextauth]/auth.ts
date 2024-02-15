@@ -31,9 +31,13 @@ export const config = {
           image: profile.picture,
         }
       },
-    })
-  ]
-} satisfies NextAuthOptions
+    }),
+  ],
+  secret: process.env.NEXTAUTH_SECRET, // Add this line
+  jwt: {
+    secret: process.env.JWT_SECRET,
+  },
+} as NextAuthOptions
 
 export function auth(
   ...args:
