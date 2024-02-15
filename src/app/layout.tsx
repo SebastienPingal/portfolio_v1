@@ -20,7 +20,7 @@ import { getPosts } from "./actions"
 
 export const metadata: Metadata = {
   title: "Sébastien Pingal",
-  description: "Sébastien Pingal's personal website",
+  description: "This is the website of Sébastien Pingal the developer fullstack and designer",
 }
 
 export default async function RootLayout({

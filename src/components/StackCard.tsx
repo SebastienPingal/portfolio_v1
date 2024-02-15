@@ -12,7 +12,7 @@ const StackCard = async ({ stack, className }: { stack: Stack; className?: strin
   const session = await auth()
 
   return (
-    <Card id={stack.title} className={`w-full ${className}`}>
+    <Card id={stack.title} className={`max-w-md ${className}`}>
       <CardHeader>
         <CardTitle className='flex gap-3 items-center'>
           <div className='bg-white/90 w-16 h-16 rounded relative border-2 border-primary/60 flex-shrink-0'>
@@ -25,7 +25,7 @@ const StackCard = async ({ stack, className }: { stack: Stack; className?: strin
         </CardTitle>
       </CardHeader>
       <CardContent className='relative flex flex-col gap-2'>
-        <CardDescription>{stack.description}</CardDescription>
+        <CardDescription className={`${stack.description.length > 100 ? 'text-justify' : ''}`}>{stack.description}</CardDescription>
         <a href={stack.link} target="_blank" rel="noreferrer">
           <Button className='flex gap-2'>
             Learn More <MoveUpRight className="w-4 h-4" />

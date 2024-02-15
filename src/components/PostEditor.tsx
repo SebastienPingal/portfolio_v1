@@ -1,10 +1,12 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { createPost, updatePost } from '@/app/actions'
 
-import { getPostTypes, getStacks } from '@/app/actions'
+import { getPostTypes, getStacks, generateSlug } from '@/app/actions'
 import MdEditor from '@/components/MdEditor'
-import { PostType, Prisma, Stack } from '@prisma/client'
+import { PostType, Prisma, Stack, Post } from '@prisma/client'
 import { useFormState } from 'react-dom'
 
 import { X } from 'lucide-react'
@@ -13,41 +15,74 @@ import { Badge } from './ui/badge'
 import { Button } from './ui/button'
 import { Input } from './ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select'
+import { useToast } from './ui/use-toast'
 
 interface PostEditorProps {
-  initialContent?: string
-  initialTitle?: string
-  initialType?: PostType
+  post?: Partial<Post>
   initialStacks?: Stack[]
-  handleSubmit: (data: Prisma.PostCreateInput | Prisma.PostUpdateInput) => void
+  isNew?: boolean
 }
 
 const initialStatePostTypes = { postTypes: [] }
 
 const PostEditor: React.FC<PostEditorProps> = ({
-  initialContent = '### Hello World',
-  initialTitle = '',
-  initialType = '' as PostType,
+  post = { content: '', title: '', type: 'WORK'},
   initialStacks = [],
-  handleSubmit
-}) => {
+  isNew = false,
+}: PostEditorProps) => {
+
+  const { toast } = useToast()
+  const router = useRouter()
+
   const [results, setPostTypes] = useFormState(getPostTypes, initialStatePostTypes)
   const [stacks, setStacks] = useFormState(getStacks, [])
-  const [content, setContent] = useState(initialContent)
-  const [title, setTitle] = useState(initialTitle)
-  const [type, setType] = useState(initialType)
+  const [content, setContent] = useState(post.content)
+  const [title, setTitle] = useState(post.title)
+  const [type, setType] = useState(post.type)
   const [stackList, setStackList] = useState<Stack[]>(initialStacks)
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    handleSubmit({
-      title,
-      content,
-      type,
+    if (!title) return toast({ title: "Le titre est requis" })
+    if (!content) return toast({ title: "Le contenu est requis" })
+    if (!type) return toast({ title: "La catégorie est requise" })
+
+    const data = {
+      title: title!,
+      content: content!,
+      type: type!,
       stacks: {
         connect: stackList.map(stack => ({ id: stack.id })),
       }
-    })
+    }
+    if (isNew) {
+      const slug = await generateSlug(title)
+      handleCreatePost({ ...data, slug })
+    }
+    else handleUpdatePost(data)
+  }
+  
+  const handleCreatePost = (data: Prisma.PostCreateInput) => {
+    const createAndRedirect = async () => {
+      const newPost = await createPost(data)
+      toast({ title: `Article ${data.title} publié` })
+      if (type === "WORK") router.push(`/work/${newPost.slug}`)
+      else router.push(`/post/${newPost.slug}`)
+    }
+
+    createAndRedirect()
+  }
+
+  const handleUpdatePost = (data: Prisma.PostUpdateInput) => {
+    if (!post.slug) return
+    const updateAndRedirect = async () => {
+      const updatedPost = await updatePost(post.slug!, data)
+      if (type === "WORK") router.push(`/work/${updatedPost.slug}`)
+      else router.push(`/post/${updatedPost.slug}`)
+    }
+
+    updateAndRedirect()
+    toast({ title: `Article ${title} publié` })
   }
 
   useEffect(() => {

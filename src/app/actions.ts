@@ -8,8 +8,8 @@ export async function getPostTypes() {
   return { postTypes }
 }
 
-export async function createPost(data: { title: string, content: string, type: PostType }) {
-  let slug = data.title.toLowerCase().replace(/ /g, '-')
+export async function generateSlug(title: string) {
+  let slug = title.toLowerCase().replace(/ /g, '-')
   let originalSlug = slug
   if (await prisma.post.findUnique({ where: { slug } })) {
     let count = 1
@@ -18,11 +18,15 @@ export async function createPost(data: { title: string, content: string, type: P
       count++
     }
   }
-  return await prisma.post.create({ data: { ...data, slug } })
+  return slug
+}
+
+export async function createPost(data: Prisma.PostCreateInput) {
+  return await prisma.post.create({ data })
 }
 
 export async function getPosts(type?: PostType) {
-  const posts = type 
+  const posts = type
     ? await prisma.post.findMany({ where: { type } })
     : await prisma.post.findMany()
   return posts

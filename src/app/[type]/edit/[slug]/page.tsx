@@ -1,6 +1,6 @@
 import { getStacks, getWorkPost } from '@/app/actions'
+import PostEditor from '@/components/PostEditor'
 import { notFound } from 'next/navigation'
-import PostUpdator from './PostUpdator'
 
 interface pageProps {
   params: {
@@ -15,10 +15,8 @@ const EditPost = async ({ params }: pageProps) => {
   if (!workPost) notFound()
   const stacks = await getStacks()
 
-  const { title, content, type } = workPost
-
   return (
-    <PostUpdator slug={slug} title={title} content={content} type={type} stacks={stacks} />
+    <PostEditor post={workPost} initialStacks={stacks} />
   )
 }
 

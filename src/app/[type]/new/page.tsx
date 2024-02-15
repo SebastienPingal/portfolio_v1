@@ -39,7 +39,7 @@ const NewPost = () => {
   }
 
   return (
-    <PostEditor initialType={type} handleSubmit={handleSubmit} />
+    <PostEditor isNew={true} />
   )
 }
 
