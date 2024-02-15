@@ -1,9 +1,8 @@
-import type { Stack } from "@prisma/client"
+const { Stack } = require("@prisma/client")
 const { PrismaClient } = require('@prisma/client')
 const fs = require('fs')
 const yaml = require('yaml')
 const { join } = require('path')
-
 const prisma = new PrismaClient();
 
 async function main() {
@@ -29,7 +28,7 @@ async function main() {
       where: { slug: post.slug },
     });
     if (!existingPost) {
-      const connectedStacks = post.stacks ? post.stacks.map((stack: Stack) => ({
+      const connectedStacks = post.stacks ? post.stacks.map((stack: typeof Stack) => ({
         title: stack.title,
       })) : [];
 
