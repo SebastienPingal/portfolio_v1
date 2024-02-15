@@ -122,7 +122,7 @@ const PostEditor: React.FC<PostEditorProps> = ({
           ))}
         </SelectContent>
       </Select >
-      <MdEditor md={content} className='w-full' onMdChange={setContent} />
+      <MdEditor md={post.content || ''} className='w-full' onMdChange={setContent} />
       <Button variant='secondary' type='submit'>
         Publier
       </Button>
