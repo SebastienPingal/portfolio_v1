@@ -46,6 +46,8 @@ model User {
   accounts      Account[]
   sessions      Session[]
   Comment       Comment[]
+  Like          Like[]
+  Using         Using[]
 }
 
 enum PostType {
@@ -62,6 +64,7 @@ model Post {
   published Boolean   @default(false)
   stacks    Stack[]   @relation("PostStacks")
   Comment   Comment[]
+  Like      Like[]
 }
 
 model Comment {
@@ -74,6 +77,22 @@ model Comment {
   user      User    @relation(fields: [userId], references: [id])
 }
 
+model Like {
+  id     String @id @default(cuid())
+  postId String
+  userId String
+  post   Post   @relation(fields: [postId], references: [id])
+  user   User   @relation(fields: [userId], references: [id])
+}
+
+model Using {
+  id      String @id @default(cuid())
+  stackId String
+  userId  String
+  user    User   @relation(fields: [userId], references: [id])
+  stack   Stack  @relation(fields: [stackId], references: [id])
+}
+
 model Stack {
   id          String  @id @default(cuid())
   title       String  @unique
@@ -83,11 +102,13 @@ model Stack {
   order       Int?
   link        String
   posts       Post[]  @relation("PostStacks")
+  Using       Using[]
 }
 
 model VerificationToken {
   identifier String
   token      String   @unique
   expires    DateTime
+
   @@unique([identifier, token])
 }
