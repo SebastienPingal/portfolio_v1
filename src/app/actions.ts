@@ -49,11 +49,16 @@ export async function createStack(stackCreateInput: Prisma.StackCreateInput) {
 }
 
 export async function getStack(title: string) {
-  return await prisma.stack.findFirst({ where: { title: { equals: title, mode: 'insensitive' } } })
+  return await prisma.stack.findFirst({
+    where: {
+      title: { equals: title, mode: 'insensitive' }
+    },
+    include: { posts: true, users: true }
+  })
 }
 
 export async function getStacks() {
-  return await prisma.stack.findMany()
+  return await prisma.stack.findMany({ include: { posts: true, users: true } })
 }
 
 export async function deleteStack(id: string) {
@@ -62,4 +67,8 @@ export async function deleteStack(id: string) {
 
 export async function updateStack(id: string, stackUpdateInput: Prisma.StackUpdateInput) {
   return await prisma.stack.update({ where: { id }, data: stackUpdateInput })
+}
+
+export async function updateUser(userMail: string, userUpdateInput: Prisma.UserUpdateInput) {
+  return await prisma.user.update({ where: { email: userMail }, data: userUpdateInput })
 }

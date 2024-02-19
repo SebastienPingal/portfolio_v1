@@ -1,14 +1,17 @@
-import React from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import Image from 'next/image'
+
 import { Button } from '@/components/ui/button'
 import { MoveUpRight, PencilRuler } from 'lucide-react'
+
+import { StackExtended } from '@/app/types'
+
+import { auth } from '@/app/api/auth/[...nextauth]/auth'
 import Link from 'next/link'
 import PopoverDeleteStack from './PopoverDeleteStack'
-import { auth } from '@/app/api/auth/[...nextauth]/auth'
-import { Stack } from '@prisma/client'
+import UsingItSection from './UsingItSection'
 
-const StackCard = async ({ stack, className }: { stack: Stack; className?: string }) => {
+const StackCard = async ({ stack, className }: { stack: StackExtended; className?: string }) => {
   const session = await auth()
 
   return (
@@ -16,7 +19,7 @@ const StackCard = async ({ stack, className }: { stack: Stack; className?: strin
       <CardHeader>
         <CardTitle className='flex gap-3 items-center'>
           <div className='bg-white/90 w-16 h-16 rounded relative border-2 border-primary/60 flex-shrink-0'>
-            { stack.logo ?
+            {stack.logo ?
               <Image src={stack.logo} alt={stack.title} fill={true} className='object-contain p-1' />
               : <div className='flex items-center justify-center w-full h-full text-4xl text-primary'>{stack.title[0]}</div>
             }
@@ -31,8 +34,9 @@ const StackCard = async ({ stack, className }: { stack: Stack; className?: strin
             Learn More <MoveUpRight className="w-4 h-4" />
           </Button>
         </a>
+        <UsingItSection stack={stack} userMail={session?.user?.email || ''} usingIt={stack.users.some(user => user.id === session?.user?.id)} />
       </CardContent>
-      {session?.user && session.user.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL && (
+      {session?.user && (
         <div className='absolute right-2 top-2 flex gap-1'>
           <Link href={`/stack/edit/${stack.title.replace(/\s+/g, '-').toLowerCase()}`}>
             <Button size='sm' variant="outline">
