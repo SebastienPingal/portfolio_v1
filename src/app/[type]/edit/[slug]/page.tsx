@@ -1,4 +1,4 @@
-import { getStacks, getWorkPost } from '@/app/actions'
+import { getStacks, getPost } from '@/app/actions'
 import PostEditor from '@/components/PostEditor'
 import { notFound } from 'next/navigation'
 
@@ -11,7 +11,7 @@ interface pageProps {
 const EditPost = async ({ params }: pageProps) => {
   const slug = params.slug
   if (!slug) notFound()
-  const workPost = await getWorkPost(slug)
+  const workPost = await getPost(slug)
   if (!workPost) notFound()
 
   return (
