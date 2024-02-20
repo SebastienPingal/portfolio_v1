@@ -41,7 +41,7 @@ const NavBar = ({ workPosts, blogPosts, className }: { workPosts: Post[], blogPo
   }, [theme])
 
   return (
-    <NavigationMenu orientation="vertical" className={className + ' items-start shadow-inner h-full bg-card/20 backdrop-blur-md'}>
+    <NavigationMenu orientation="vertical" className={className + ' items-start shadow-inner h-full bg-card/20 backdrop-blur-md overflow-auto'}>
       <NavigationMenuList className='flex flex-col gap-1 items-start p-2 w-screen sm:w-56'>
         <div className='text-2xl font-extrabold w-full'>Sébastien Pingal</div>
         <div className="w-full">

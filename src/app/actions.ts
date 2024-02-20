@@ -40,8 +40,14 @@ export async function updatePost(slug: string, data: Prisma.PostUpdateInput) {
   return await prisma.post.update({ where: { slug }, data })
 }
 
-export async function getWorkPost(slug: string) {
-  return await prisma.post.findUnique({ where: { slug }, include: { stacks: { include: { users: true } } } })
+export async function getPost(slug: string) {
+  return await prisma.post.findUnique({
+    where: { slug },
+    include: {
+      stacks: { include: { users: true } },
+      comments: { include: { author: true } }
+    }
+  })
 }
 
 export async function createStack(stackCreateInput: Prisma.StackCreateInput) {
@@ -71,4 +77,8 @@ export async function updateStack(id: string, stackUpdateInput: Prisma.StackUpda
 
 export async function updateUser(userMail: string, userUpdateInput: Prisma.UserUpdateInput) {
   return await prisma.user.update({ where: { email: userMail }, data: userUpdateInput })
+}
+
+export async function createComment(data: Prisma.CommentCreateInput) {
+  return await prisma.comment.create({ data })
 }

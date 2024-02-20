@@ -63,18 +63,18 @@ model Post {
   content   String
   published Boolean   @default(false)
   stacks    Stack[]   @relation("PostStacks")
-  comment   Comment[]
-  like      Like[]
+  comments  Comment[]
+  likes     Like[]
 }
 
 model Comment {
   id        String  @id @default(cuid())
-  postId    String
-  userId    String
+  post      Post    @relation(fields: [postId], references: [id])
+  author    User    @relation(fields: [userId], references: [id])
   content   String
   published Boolean @default(false)
-  post      Post    @relation(fields: [postId], references: [id])
-  user      User    @relation(fields: [userId], references: [id])
+  postId    String
+  userId    String
 }
 
 model Like {
