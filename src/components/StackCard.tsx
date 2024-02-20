@@ -8,10 +8,11 @@ import { StackExtended } from '@/app/types'
 
 import { auth } from '@/app/api/auth/[...nextauth]/auth'
 import Link from 'next/link'
+
 import PopoverDeleteStack from './PopoverDeleteStack'
 import UsingItSection from './UsingItSection'
 
-const StackCard = async ({ stack, className }: { stack: StackExtended; className?: string }) => {
+const StackCard = async ({ stack, className, tooltiped = false }: { stack: StackExtended; className?: string; tooltiped?: boolean }) => {
   const session = await auth()
 
   return (
@@ -34,7 +35,12 @@ const StackCard = async ({ stack, className }: { stack: StackExtended; className
             Learn More <MoveUpRight className="w-4 h-4" />
           </Button>
         </a>
-        <UsingItSection stack={stack} userMail={session?.user?.email || ''} usingIt={stack.users.some(user => user.id === session?.user?.id)} />
+        <UsingItSection
+          stack={stack}
+          userMail={session?.user?.email || ''}
+          usingIt={stack.users.some(user => user.email === session?.user?.email)}
+          tooltiped={tooltiped}
+        />
       </CardContent>
       {session?.user && (
         <div className='absolute right-2 top-2 flex gap-1'>

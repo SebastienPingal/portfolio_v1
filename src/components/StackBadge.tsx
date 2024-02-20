@@ -1,14 +1,15 @@
+import { StackExtended } from '@/app/types'
+
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger
 } from "@/components/ui/tooltip"
-import { Stack } from '@prisma/client'
 import StackCard from './StackCard'
 import { Badge } from './ui/badge'
 
-const StackBadge = ({ stack }: { stack: Stack }) => {
+const StackBadge = ({ stack }: { stack: StackExtended }) => {
   return (
     <TooltipProvider>
       <Tooltip>
@@ -18,7 +19,7 @@ const StackBadge = ({ stack }: { stack: Stack }) => {
           </Badge>
         </TooltipTrigger>
         <TooltipContent>
-          <StackCard stack={stack} />
+          <StackCard stack={stack} tooltiped={true} />
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>

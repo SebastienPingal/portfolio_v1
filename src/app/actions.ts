@@ -41,7 +41,7 @@ export async function updatePost(slug: string, data: Prisma.PostUpdateInput) {
 }
 
 export async function getWorkPost(slug: string) {
-  return await prisma.post.findUnique({ where: { slug }, include: { stacks: true } })
+  return await prisma.post.findUnique({ where: { slug }, include: { stacks: { include: { users: true } } } })
 }
 
 export async function createStack(stackCreateInput: Prisma.StackCreateInput) {

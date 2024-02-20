@@ -9,7 +9,7 @@ import { useState } from "react"
 import { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent } from "./ui/tooltip"
 
 
-const UsingItButton = ({ stack, userMail, usingIt }: { stack: Stack, userMail: string, usingIt: boolean }) => {
+const UsingItButton = ({ stack, userMail, usingIt, tooltiped }: { stack: Stack, userMail: string, usingIt: boolean, tooltiped: boolean }) => {
 
   const router = useRouter()
   const [isUsingIt, setisUsingIt] = useState(usingIt)
@@ -26,18 +26,34 @@ const UsingItButton = ({ stack, userMail, usingIt }: { stack: Stack, userMail: s
   }
 
   return (
-    <TooltipProvider>
-      <Tooltip>
-        <TooltipTrigger asChild>
-          <Button variant="secondary" className='flex w-fit gap-3' onClick={() => { setUsingIt(); triggerUpdate(); }}>
-            {isUsingIt ? <ThumbsDown className="w-4 h-4" /> : <ThumbsUp className="w-4 h-4" />}
-          </Button>
-        </TooltipTrigger>
-        <TooltipContent className="p-1 glassPanel bg-secondary/50">
-          {isUsingIt ? "I'm not using it" : "I'm using it"}
-        </TooltipContent>
-      </Tooltip>
-    </TooltipProvider>
+    <>
+      {!tooltiped ?
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button variant="secondary" className='flex w-fit gap-3' onClick={() => { setUsingIt(); triggerUpdate(); }}>
+                {isUsingIt ? <ThumbsDown className="w-4 h-4" /> : <ThumbsUp className="w-4 h-4" />}
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent className="p-1 glassPanel bg-secondary/50">
+              {isUsingIt ? "I'm not using it" : "I'm using it"}
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+        : <Button variant="secondary" className='flex w-fit gap-3' onClick={() => { setUsingIt(); triggerUpdate(); }}>
+          {isUsingIt ?
+            <div className="flex gap-2 items-center">
+              <ThumbsDown className="w-4 h-4" />
+              <p className="text-xs">I'm not using it</p>
+            </div>
+            : <div className="flex gap-2 items-center">
+              <ThumbsUp className="w-4 h-4" />
+              <p className="text-xs">I'm using it</p>
+            </div>
+          }
+        </Button>
+      }
+    </>
   )
 }
 
