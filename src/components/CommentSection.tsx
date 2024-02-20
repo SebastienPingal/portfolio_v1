@@ -1,4 +1,4 @@
-import { CommentExtended } from '@/app/types';
+import { CommentExtended } from '@/app/types'
 
 import Comment from './Comment'
 import AddComment from './AddComment'
