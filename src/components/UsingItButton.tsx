@@ -31,7 +31,7 @@ const UsingItButton = ({ stack, userMail, usingIt, tooltiped }: { stack: Stack, 
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
-              <Button variant="secondary" className='flex w-fit gap-3' onClick={() => { setUsingIt(); triggerUpdate() }}>
+              <Button variant="secondary" className='flex w-fit gap-3' onClick={() => { setUsingIt()}>
                 {isUsingIt ? <ThumbsDown className="w-4 h-4" /> : <ThumbsUp className="w-4 h-4" />}
               </Button>
             </TooltipTrigger>
@@ -40,7 +40,7 @@ const UsingItButton = ({ stack, userMail, usingIt, tooltiped }: { stack: Stack, 
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
-        : <Button variant="secondary" className='flex w-fit gap-3' onClick={() => { setUsingIt(); triggerUpdate() }}>
+        : <Button variant="secondary" className='flex w-fit gap-3' onClick={() => { setUsingIt()}>
           {isUsingIt ?
             <div className="flex gap-2 items-center">
               <ThumbsDown className="w-4 h-4" />
