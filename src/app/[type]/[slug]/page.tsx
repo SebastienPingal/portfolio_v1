@@ -23,7 +23,7 @@ const WorkPost = async ({ params }: pageProps) => {
     <div className='flex flex-col gap-4'>
       <div className='glassPanel flex flex-col gap-5'>
         <h1 className='font-black'>{title}</h1>
-        <div className='flex gap-3'>
+        <div className={`flex gap-3 flex-wrap ${post.stacks.length > 5 ? 'justify-between' : ''}`}>
           {post.stacks.map((stack) => (
             <StackBadge key={stack.id} stack={stack} />
           ))}
