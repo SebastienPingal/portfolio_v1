@@ -1,10 +1,10 @@
 "use client"
 import { useState } from 'react'
-import ReactMarkdown from 'react-markdown'
-import remarkGfm from 'remark-gfm'
-import { Textarea } from './ui/textarea'
-import { Button } from './ui/button'
+
 import { Columns2, Rows2 } from 'lucide-react'
+import MarkdownInterpreter from './MarkdownInterpreter'
+import { Button } from './ui/button'
+import { Textarea } from './ui/textarea'
 
 const MdEditor = ({ md, className, onMdChange }: { md: string; className?: string; onMdChange: (md: string) => void }) => {
   const [markdown, setMarkdown] = useState(md)
@@ -37,9 +37,7 @@ const MdEditor = ({ md, className, onMdChange }: { md: string; className?: strin
         {isFlexRow ? <Rows2 color='hsl(var(--secondary-foreground))' /> : <Columns2 color='hsl(var(--secondary-foreground))' />}
       </Button>
       <div style={{ height: textareaHeight }} className='w-full overflow-auto p-2 rounded bg-primary/80 text-primary-foreground'>
-        <ReactMarkdown remarkPlugins={[remarkGfm]} className="flex flex-col gap-3">
-          {markdown}
-        </ReactMarkdown>
+        <MarkdownInterpreter className="flex flex-col gap-3" content={markdown} />
       </div>
     </div>
   )

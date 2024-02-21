@@ -1,8 +1,10 @@
 import { getPost } from '@/app/actions'
 import StackBadge from '@/components/StackBadge'
 import { notFound } from 'next/navigation'
-import ReactMarkdown from 'react-markdown'
+
+
 import CommentSection from '@/components/CommentSection'
+import MarkdownInterpreter from '@/components/MarkdownInterpreter'
 
 interface pageProps {
   params: {
@@ -26,9 +28,7 @@ const WorkPost = async ({ params }: pageProps) => {
             <StackBadge key={stack.id} stack={stack} />
           ))}
         </div>
-        <div>
-          <ReactMarkdown className='flex flex-col gap-3'>{content}</ReactMarkdown>
-        </div>
+        <MarkdownInterpreter content={content} />
       </div>
       <CommentSection comments={post.comments} postId={post.id} />
     </div>
