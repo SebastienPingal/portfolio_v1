@@ -22,6 +22,15 @@ export const config = {
       issuer: 'https://www.linkedin.com',
       jwks_endpoint: "https://www.linkedin.com/oauth/openid/jwks",
       async profile(profile) {
+        const user = await prisma.user.findUnique({
+          where: { email: profile.email }
+        })
+        if (user && profile.picture && user.image !== profile.picture) {
+          await prisma.user.update({
+            where: { email: profile.email },
+            data: { image: profile.picture }
+          })
+        }
         return {
           id: profile.sub,
           name: profile.name,
