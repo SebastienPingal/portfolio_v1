@@ -14,7 +14,7 @@ const MarkdownInterpreter = ({ content, className }: { content: string; classNam
     <ReactMarkdown
       remarkPlugins={[remarkGfm]}
       rehypePlugins={[rehypeRaw]}
-      className={'flex flex-col gap-3 ' + className}
+      className={'flex flex-col gap-3 markdown ' + className}
       components={{
         code(props) {
           const { children, className, node, ...rest } = props

@@ -23,7 +23,7 @@
     --muted: 60 4.8% 95.9%;
     --muted-foreground: 25 5.3% 44.7%;
 
-    --accent: 300 50% 80%;
+    --accent: 300 30% 30%;
     --accent-foreground: 24 9.8% 10%;
 
     --destructive: 0 84.2% 60.2%;
@@ -115,4 +115,7 @@
   .glassPanel {
     @apply text-lg backdrop-blur-xl p-2 rounded bg-card/20
   }
+  .markdown a {
+  @apply text-accent underline;
+}
 }
