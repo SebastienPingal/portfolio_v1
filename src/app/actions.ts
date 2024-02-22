@@ -33,7 +33,24 @@ export async function getPosts(type?: PostType) {
 }
 
 export async function deletePost(slug: string) {
-  return await prisma.post.delete({ where: { slug } })
+  const existingPost = await prisma.post.findUnique({
+    where: { slug },
+  })
+
+  if (!existingPost) {
+    // Handle the case where the post does not exist.
+    // For example, you might want to throw an error or return a specific message.
+    throw new Error('Post not found')
+  }
+
+  await prisma.$transaction(async (tx) => {
+    await tx.comment.deleteMany({
+      where: { postId: existingPost.id },
+    })
+    await tx.post.delete({
+      where: { slug },
+    })
+  })
 }
 
 export async function updatePost(slug: string, data: Prisma.PostUpdateInput) {

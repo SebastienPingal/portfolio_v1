@@ -5,7 +5,7 @@ import {
   NavigationMenuLink,
   NavigationMenuList
 } from "@/components/ui/navigation-menu"
-import { Forklift, Github, Gitlab, Home, Linkedin, MoveUpRight, PencilRuler } from "lucide-react"
+import { Github, Gitlab, Home, Linkedin, MoveUpRight, PencilRuler } from "lucide-react"
 
 import { useSession } from "next-auth/react"
 import { usePathname } from "next/navigation"
@@ -57,7 +57,7 @@ const NavBar = ({ workPosts, blogPosts, className }: { workPosts: Post[], blogPo
         <div className='w-full'>
           <NavigationMenuItem className="font-extrabold mb-2">
             Me
-         </NavigationMenuItem>
+          </NavigationMenuItem>
           <NavigationMenuItem className={pathname === '/stack' ? 'bg-accent/40 text-popover-foreground' : ''}>
             <Link href="/stack" className="w-full" legacyBehavior passHref>
               <NavigationMenuLink className="w-full">
