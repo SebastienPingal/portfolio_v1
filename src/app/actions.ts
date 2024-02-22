@@ -1,6 +1,7 @@
 'use server'
 import prisma from '@/lib/db'
 import { Prisma, PostType } from '@prisma/client'
+import { revalidatePath } from 'next/cache'
 
 export async function getPostTypes() {
   const result: { value: string }[] = await prisma.$queryRaw`SELECT unnest(enum_range(NULL::"PostType")) as value`
@@ -51,6 +52,7 @@ export async function deletePost(slug: string) {
       where: { slug },
     })
   })
+  await revalidatePath('/')
 }
 
 export async function updatePost(slug: string, data: Prisma.PostUpdateInput) {
