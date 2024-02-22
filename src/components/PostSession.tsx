@@ -33,7 +33,7 @@ const PostSession = ({ posts, subSlug = 'post', type = 'BLOGPOST', title }: { po
         {title}
       </NavigationMenuItem>
       {posts.map((post: Post) => (
-        <NavigationMenuItem key={post.id}>
+        <NavigationMenuItem key={post.id} className={pathname === `/${subSlug}/${post.slug}` ? 'bg-accent/40 text-popover-foreground' : ''}>
           <Link href={`/${subSlug}/${post.slug}`} className="w-full" legacyBehavior passHref>
             <NavigationMenuLink className="w-full relative">
               <NotebookPen className="w-4 h-4" />

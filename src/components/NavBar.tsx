@@ -45,7 +45,7 @@ const NavBar = ({ workPosts, blogPosts, className }: { workPosts: Post[], blogPo
       <NavigationMenuList className='flex flex-col gap-1 items-start p-2 w-screen sm:w-56'>
         <div className='text-2xl font-extrabold w-full'>Sébastien Pingal</div>
         <div className="w-full">
-          <NavigationMenuItem className={pathname === '/' ? 'bg-popover text-popover-foreground' : ''}>
+          <NavigationMenuItem className={pathname === '/' ? 'bg-accent/40 text-popover-foreground' : ''}>
             <Link href="/" className="w-full" legacyBehavior passHref>
               <NavigationMenuLink className="w-full">
                 <Home className="w-4 h-4" />Home
@@ -58,7 +58,7 @@ const NavBar = ({ workPosts, blogPosts, className }: { workPosts: Post[], blogPo
           <NavigationMenuItem className="font-extrabold mb-2">
             Me
          </NavigationMenuItem>
-          <NavigationMenuItem>
+          <NavigationMenuItem className={pathname === '/stack' ? 'bg-accent/40 text-popover-foreground' : ''}>
             <Link href="/stack" className="w-full" legacyBehavior passHref>
               <NavigationMenuLink className="w-full">
                 <PencilRuler className="w-4 h-4" /> Stack
