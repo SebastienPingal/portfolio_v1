@@ -6,14 +6,18 @@ import { Input } from './ui/input'
 import { Button } from './ui/button'
 import { Copy } from 'lucide-react'
 import Image from 'next/image'
+import { useToast } from './ui/use-toast'
 
 export default function UploadBoy() {
   const inputFileRef = useRef<HTMLInputElement>(null)
   const [blob, setBlob] = useState<PutBlobResult | null>(null)
+  const { toast } = useToast()
+
   const upload = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
     if (!inputFileRef.current?.files) {
-      throw new Error("No file selected")
+      toast({ title: "No file selected" })
+      return
     }
 
     const file = inputFileRef.current.files[0]
@@ -35,7 +39,7 @@ export default function UploadBoy() {
   return (
     <div className="flex flex-col gap-2 bg-secondary/50 p-2 rounded shadow">
       <div className='flex gap-2'>
-        <Input name="file" ref={inputFileRef} type="file" required />
+        <Input name="file" ref={inputFileRef} type="file" />
         <Button type="button" onClick={(e) => { upload(e) }}>Upload</Button>
       </div>
 
@@ -46,7 +50,7 @@ export default function UploadBoy() {
             <Input className='w-full' value={blob.url} readOnly onFocus={(e) => e.target.select()} />
             <Button onClick={(e) => { e.preventDefault(); navigator.clipboard.writeText(blob.url) }}><Copy /></Button>
           </div>
-          <Image src={blob.url} alt="Uploaded image" width={200} height={200}  className='object-contain'/>
+          <Image src={blob.url} alt="Uploaded image" width={200} height={200} className='object-contain' />
         </div>
       )}
     </div>
