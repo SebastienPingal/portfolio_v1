@@ -16,6 +16,7 @@ import { Button } from './ui/button'
 import { Input } from './ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select'
 import { useToast } from './ui/use-toast'
+import UploadBoy from './UploadBoy'
 
 interface PostEditorProps {
   post?: Partial<Post>
@@ -112,6 +113,7 @@ const PostEditor: React.FC<PostEditorProps> = ({
         ))}
       </div>
       <ComboBox stacks={stacks} selectedStacks={stackList} setSelectedStacks={setStackList} />
+      <UploadBoy />
       <Select required defaultValue={type} onValueChange={(value) => setType(value as PostType)}>
         <SelectTrigger>
           < SelectValue placeholder="Catégorie" />

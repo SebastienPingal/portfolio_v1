@@ -40,21 +40,27 @@ export default async function RootLayout({
           enableSystem
         >
           <SessionProvider>
-              <div className="sm:hidden z-20 w-full fixed backdrop-blur-md">
-                <DropdownMenu>
-                  <DropdownMenuTrigger className="h-10 w-full">
-                    <Button className="w-full rounded-none">
-                      <MenuIcon />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent sideOffset={0}>
-                    <Navbar workPosts={workPosts} blogPosts={blogPosts} className="w-screen" />
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </div>
-              <Navbar workPosts={workPosts} blogPosts={blogPosts} className="hidden sm:flex" />
-              <main className="flex-1 page z-10 max-w-4xl sm:mx-auto p-3 sm:p-8 overflow-auto pt-16 sm:pt-8">{children}</main>
-              <PerlinBackground />
+
+            <div className="sm:hidden z-20 w-full fixed backdrop-blur-md">
+              <DropdownMenu>
+                <DropdownMenuTrigger className="h-10 w-full">
+                  <Button className="w-full rounded-none">
+                    <MenuIcon />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent sideOffset={0}>
+                  <Navbar workPosts={workPosts} blogPosts={blogPosts} className="w-screen" />
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+
+            <Navbar workPosts={workPosts} blogPosts={blogPosts} className="hidden sm:flex" />
+
+            <main className="flex-1 page z-10 max-w-4xl sm:mx-auto p-3 sm:p-8 overflow-auto pt-16 sm:pt-8">
+              {children}
+            </main>
+
+            <PerlinBackground />
           </SessionProvider>
         </ThemeProvider>
       </body>
