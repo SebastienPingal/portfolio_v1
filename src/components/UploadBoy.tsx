@@ -1,22 +1,22 @@
 'use client'
 
-import type { PutBlobResult } from '@vercel/blob';
-import { useState, useRef } from 'react';
-import { Input } from './ui/input';
-import { Button } from './ui/button';
-import { Copy } from 'lucide-react';
-import Image from 'next/image';
+import type { PutBlobResult } from '@vercel/blob'
+import { useState, useRef } from 'react'
+import { Input } from './ui/input'
+import { Button } from './ui/button'
+import { Copy } from 'lucide-react'
+import Image from 'next/image'
 
 export default function UploadBoy() {
-  const inputFileRef = useRef<HTMLInputElement>(null);
-  const [blob, setBlob] = useState<PutBlobResult | null>(null);
+  const inputFileRef = useRef<HTMLInputElement>(null)
+  const [blob, setBlob] = useState<PutBlobResult | null>(null)
   const upload = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
+    e.preventDefault()
     if (!inputFileRef.current?.files) {
-      throw new Error("No file selected");
+      throw new Error("No file selected")
     }
 
-    const file = inputFileRef.current.files[0];
+    const file = inputFileRef.current.files[0]
 
     const response = await fetch(
       `/api/image/upload?filename=${file.name}`,
@@ -24,11 +24,11 @@ export default function UploadBoy() {
         method: 'POST',
         body: file,
       },
-    );
+    )
 
-    const newBlob = (await response.json()) as PutBlobResult;
+    const newBlob = (await response.json()) as PutBlobResult
 
-    setBlob(newBlob);
+    setBlob(newBlob)
   }
 
 
@@ -50,5 +50,5 @@ export default function UploadBoy() {
         </div>
       )}
     </div>
-  );
+  )
 }
