@@ -25,8 +25,8 @@ const KafoWhite = '/Kafo_white.svg'
 const KafoBlack = '/Kafo_black.svg'
 const AestimaWhite = '/aestima_white.svg'
 const AestimaBlack = '/aestima_black.svg'
-const CerberesWhite = '/cerberes_white.svg'
-const CerberesBlack = '/cerberes_black.svg'
+const MoneodomusWhite = '/moneodomus_white.png'
+const MoneodomusBlack = '/moneodomus_black.png'
 
 import { Post } from "@prisma/client"
 import PostSession from "./PostSession"
@@ -84,8 +84,8 @@ const NavBar = ({ workPosts, blogPosts, className }: { workPosts: Post[], blogPo
               </a>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <a href="https://cerberes.flamberger.zip" target="_blank" rel="noreferrer" className="flex gap-4 items-center relative w-full">
-                <Image src={darkMode ? CerberesWhite : CerberesBlack} alt="cerberes" width={16} height={16} />Cerberes<MoveUpRight className="absolute right-0 w-4 h-4" />
+              <a href="https://moneodomus.com" target="_blank" rel="noreferrer" className="flex gap-4 items-center relative w-full">
+                <Image src={darkMode ? MoneodomusWhite : MoneodomusBlack} alt="Moneodomus" width={16} height={16} />Moneodomus<MoveUpRight className="absolute right-0 w-4 h-4" />
               </a>
             </NavigationMenuItem>
           </div>
