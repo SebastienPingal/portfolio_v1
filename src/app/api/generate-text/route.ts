@@ -36,7 +36,7 @@ if he asks about stack you can redirect him to the stack page : <a href="/stack"
     console.log('Error:', error, '🚀')
     
     if ((error as any).status === 429) {
-      return NextResponse.json({ text: 'Rate limit exceeded. Please try again later.' }, { status: 429 })
+      return NextResponse.json({ text: 'Sorry I ran out of coffee. I will be back tomorrow. You can browse my work portfolio in the meantime.' }, { status: 429 })
     }
 
     return NextResponse.json({ text: 'Failed to generate text' }, { status: 500 })
