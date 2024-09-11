@@ -43,7 +43,7 @@ export default async function RootLayout({
 
             <div className="sm:hidden z-20 w-full fixed backdrop-blur-md">
               <DropdownMenu>
-                <DropdownMenuTrigger className="h-10 w-full">
+                <DropdownMenuTrigger className="h-10 w-full" asChild >
                   <Button className="w-full rounded-none">
                     <MenuIcon />
                   </Button>

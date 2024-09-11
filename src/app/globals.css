@@ -76,6 +76,9 @@
   * {
     @apply border-border;
   }
+  .talking-logo a {
+    @apply text-accent underline;
+  }
   body {
     @apply bg-background text-foreground;
   }
