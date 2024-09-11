@@ -21,21 +21,25 @@
       "level": "B2 LVL"
     }
   ],
-  "skills": [
-    "Pédagogie",
-    "Psychologie",
-    "Clean Code",
-    "Mathématiques",
-    "Photoshop",
-    "Figma (UX/UI)",
-    "Jest",
-    "PostGreSQL",
-    "Stripe",
-    "TypeScript",
-    "Next",
-    "Vue / Nuxt",
-    "JS / Node.js"
-  ],
+  "skills": {
+    "stack": [
+      { "name": "TypeScript", "rating": 4 },
+      { "name": "Next", "rating": 4 },
+      { "name": "Vue / Nuxt", "rating": 4 },
+      { "name": "JS / Node.js", "rating": 4 },
+      { "name": "PostGreSQL", "rating": 3 },
+      { "name": "Jest", "rating": 3 },
+      { "name": "Stripe", "rating": 3 }
+    ],
+    "other": [
+      { "name": "Pédagogie", "rating": 5 },
+      { "name": "Psychologie", "rating": 4 },
+      { "name": "Clean Code", "rating": 4 },
+      { "name": "Mathématiques", "rating": 4 },
+      { "name": "Photoshop", "rating": 3 },
+      { "name": "Figma (UX/UI)", "rating": 3 }
+    ]
+  },
   "formation": "J'ai suivi diverses formations sur Udemy pour acquérir des connaissances, mais j'ai surtout bénéficié de l'encadrement d'un ami en tant que mentor et des projets que j'ai pu réaliser.",
   "experience": [
     {

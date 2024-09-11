@@ -1,4 +1,4 @@
-import { StackExtended } from '@/app/types'
+import { StackExtended } from '@/types/stack'
 
 import {
   Tooltip,

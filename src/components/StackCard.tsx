@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { MoveUpRight, PencilRuler } from 'lucide-react'
 
-import { StackExtended } from '@/app/types'
+import { StackExtended } from '@/types/stack'
 
 import { auth } from '@/app/api/auth/[...nextauth]/auth'
 import Link from 'next/link'
