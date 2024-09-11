@@ -1,0 +1,83 @@
+{
+  "name": "Sebastien Pingal",
+  "title": "Développeur Fullstack",
+  "contact": {
+    "github": "github.com/SebastienPingal",
+    "email": "sebastien.pingal@gmail.com",
+    "phone": "(+33) 07 77 93 91 02",
+    "location": "Nanterre, France"
+  },
+  "languages": [
+    {
+      "name": "French",
+      "level": "Native language"
+    },
+    {
+      "name": "English",
+      "level": "Fluent"
+    },
+    {
+      "name": "German",
+      "level": "B2 LVL"
+    }
+  ],
+  "skills": [
+    "Pédagogie",
+    "Psychologie",
+    "Clean Code",
+    "Mathématiques",
+    "Photoshop",
+    "Figma (UX/UI)",
+    "Jest",
+    "PostGreSQL",
+    "Stripe",
+    "TypeScript",
+    "Next",
+    "Vue / Nuxt",
+    "JS / Node.js"
+  ],
+  "formation": "J'ai suivi diverses formations sur Udemy pour acquérir des connaissances, mais j'ai surtout bénéficié de l'encadrement d'un ami en tant que mentor et des projets que j'ai pu réaliser.",
+  "experience": [
+    {
+      "title": "CTO",
+      "company": "Moneo Domus",
+      "period": "DEPUIS mars 2024",
+      "responsibilities": [
+        "Création d'un site de gestion de projet from scratch (Next, PostgresSQL, Vercel)",
+        "Design"
+      ]
+    },
+    {
+      "title": "Etrepreneur et dev fullstack",
+      "company": "KAFO",
+      "period": "DEPUIS JANVIER 2023 - JAnvier 2024",
+      "responsibilities": [
+        "Recodage a 100% du front (Vue 3, TS)",
+        "Mise en place d'une map interactive (Mapbox, Javascript)",
+        "Mise en place d'un site en no code (Weweb, Xano, javascript)",
+        "Mise en place de tests unitaire et e2e (Vitest et Cypress",
+        "Structure de la base de donnee (MySql)"
+      ]
+    },
+    {
+      "title": "DEV FullStack",
+      "company": "Art Factory",
+      "period": "DEPUIS novEMBRE 2023",
+      "responsibilities": [
+        "Création d'un site d'événementiel from scratch (Next)"
+      ]
+    },
+    {
+      "title": "DEV FullStack",
+      "company": "Aestima Immo",
+      "period": "DEPUIS SEPTEMBRE 2022",
+      "responsibilities": [
+        "Implementation d'export PDF (scraping avec Puppeteer)",
+        "DataBase setup (MongoDB)",
+        "Maintien du serveur et ajout de fonctionnalité (Node, Vue 2, Express)",
+        "Utilisation de Stripe pour l'implementation des abonnements"
+      ]
+    }
+  ],
+  "about": "Je suis une personne fiable et débrouillarde qui adore les défis. J'ai fait une reconversion professionnelle il y a 2 an pour devenir développeur, après avoir travaillé en tant qu'ingénieur du son, compositeur, et professeur pendant 6 ans. J'ai 2 clients majeurs qui me donnent des missions regulierement. Cependant un tiers de mon temps est disponible pour de nouvelles aventures"
+}

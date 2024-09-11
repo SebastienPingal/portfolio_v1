@@ -21,12 +21,12 @@ import SigninButton from "./SigninButton"
 import SignoutButton from "./SignoutButton"
 import ThemeToggler from "./ThemeToggler"
 
-const KafoWhite = '/Kafo_white.svg'
-const KafoBlack = '/Kafo_black.svg'
-const AestimaWhite = '/aestima_white.svg'
-const AestimaBlack = '/aestima_black.svg'
-const MoneodomusWhite = '/moneodomus_white.png'
-const MoneodomusBlack = '/moneodomus_black.png'
+const KafoWhite = '/img/Kafo_white.svg'
+const KafoBlack = '/img/Kafo_black.svg'
+const AestimaWhite = '/img/aestima_white.svg'
+const AestimaBlack = '/img/aestima_black.svg'
+const MoneodomusWhite = '/img/moneodomus_white.png'
+const MoneodomusBlack = '/img/moneodomus_black.png'
 
 import { Post } from "@prisma/client"
 import PostSession from "./PostSession"

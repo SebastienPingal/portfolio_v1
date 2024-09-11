@@ -6,8 +6,8 @@ import { Input } from './ui/input'
 import { Button } from './ui/button'
 import DOMPurify from 'isomorphic-dompurify'
 
-const MeBlack = '/me_black.svg'
-const MeWhite = '/me_white.svg'
+const MeBlack = '/img/me_black.svg'
+const MeWhite = '/img/me_white.svg'
 
 const TalkingLogo = ({ className }: { className: string }) => {
   const { theme } = useTheme()
