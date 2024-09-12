@@ -1,11 +1,11 @@
 'use client'
 
 import { Progress } from '@/components/ui/progress'
-import React from 'react';
-import { CVProps } from '../../types/CV';
-import Image from 'next/image';
-import { useTheme } from 'next-themes';
-import { Button } from '@/components/ui/button';
+import React from 'react'
+import { CVProps } from '../../types/CV'
+import Image from 'next/image'
+import { useTheme } from 'next-themes'
+import { Button } from '@/components/ui/button'
 
 const CV: React.FC<CVProps> = ({ data }) => {
 
