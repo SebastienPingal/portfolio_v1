@@ -6,6 +6,9 @@ import { CVProps } from '../../types/CV'
 import Image from 'next/image'
 import { useTheme } from 'next-themes'
 import { Button } from '@/components/ui/button'
+import { usePDF } from 'react-to-pdf'
+import { Download } from 'lucide-react'
+
 const MeBlack = '/img/me_black.svg'
 const MeWhite = '/img/me_white.svg'
 
@@ -19,24 +22,40 @@ const CV: React.FC<CVProps> = ({ data }) => {
   );
 
   const { theme } = useTheme()
-  const me = theme === 'light' ? '/img/me_black.svg' : '/img/me_white.svg'
+  const { toPDF, targetRef } = usePDF({ filename: 'CV.pdf' })
 
-  const handlePrint = () => {
-    window.print()
+  const handleExportPDF = () => {
+    const exportColor = theme === 'light' ? '#FFE6FF' : '#282D28'
+    const originalBg = targetRef.current.style.backgroundColor
+    const style = document.createElement('style')
+    style.textContent = `
+    .glassPanel {
+      border-radius: 0 !important;
+    }
+  `
+    document.head.appendChild(style)
+    targetRef.current.style.backgroundColor = exportColor
+    document.body.style.backgroundColor = exportColor
+    toPDF()
+    setTimeout(() => {
+      targetRef.current.style.backgroundColor = originalBg
+      document.body.style.backgroundColor = ''
+      document.head.removeChild(style)
+    }, 500)
   }
 
   const [me, setMe] = useState(MeBlack)
 
   useEffect(() => {
-    setMe( theme === 'light' ? MeBlack : MeWhite)
+    setMe(theme === 'light' ? MeBlack : MeWhite)
   }, [theme])
 
   return (
-    <>
-      <Button onClick={handlePrint}>
-        Convert to pdf
+    <div className='relative'>
+      <Button onClick={handleExportPDF} className='absolute top-5 right-5 z-10'>
+        <Download className='w-4 h-4 mr-2' /> Export to pdf
       </Button>
-      <div className="glassPanel flex flex-col gap-4">
+      <div className="glassPanel flex flex-col gap-4 aspect-[1/1.4134]" ref={targetRef}>
 
         <header className='flex gap-4 items-center ml-8'>
           <Image src={me} alt="Me" width={50} height={50} />
@@ -118,7 +137,7 @@ const CV: React.FC<CVProps> = ({ data }) => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
