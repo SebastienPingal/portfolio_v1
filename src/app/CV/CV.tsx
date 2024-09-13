@@ -1,11 +1,13 @@
 'use client'
 
 import { Progress } from '@/components/ui/progress'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { CVProps } from '../../types/CV'
 import Image from 'next/image'
 import { useTheme } from 'next-themes'
 import { Button } from '@/components/ui/button'
+const MeBlack = '/img/me_black.svg'
+const MeWhite = '/img/me_white.svg'
 
 const CV: React.FC<CVProps> = ({ data }) => {
 
@@ -22,6 +24,12 @@ const CV: React.FC<CVProps> = ({ data }) => {
   const handlePrint = () => {
     window.print()
   }
+
+  const [me, setMe] = useState(MeBlack)
+
+  useEffect(() => {
+    setMe( theme === 'light' ? MeBlack : MeWhite)
+  }, [theme])
 
   return (
     <>
