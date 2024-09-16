@@ -6,7 +6,7 @@ import {
   NavigationMenuLink,
   NavigationMenuList
 } from "@/components/ui/navigation-menu"
-import { Github, Gitlab, Home, Linkedin, MoveUpRight, PencilRuler } from "lucide-react"
+import { FileText, Github, Gitlab, Home, Linkedin, MoveUpRight, PencilRuler } from "lucide-react"
 
 import { useSession } from "next-auth/react"
 import { usePathname } from "next/navigation"
@@ -21,12 +21,12 @@ import SigninButton from "./SigninButton"
 import SignoutButton from "./SignoutButton"
 import ThemeToggler from "./ThemeToggler"
 
-const KafoWhite = '/Kafo_white.svg'
-const KafoBlack = '/Kafo_black.svg'
-const AestimaWhite = '/aestima_white.svg'
-const AestimaBlack = '/aestima_black.svg'
-const MoneodomusWhite = '/moneodomus_white.png'
-const MoneodomusBlack = '/moneodomus_black.png'
+const KafoWhite = '/img/Kafo_white.svg'
+const KafoBlack = '/img/Kafo_black.svg'
+const AestimaWhite = '/img/aestima_white.svg'
+const AestimaBlack = '/img/aestima_black.svg'
+const MoneodomusWhite = '/img/moneodomus_white.png'
+const MoneodomusBlack = '/img/moneodomus_black.png'
 
 import { Post } from "@prisma/client"
 import PostSession from "./PostSession"
@@ -64,6 +64,13 @@ const NavBar = ({ workPosts, blogPosts, className }: { workPosts: Post[], blogPo
               <Link href="/stack" className="w-full" legacyBehavior passHref>
                 <NavigationMenuLink className="w-full">
                   <PencilRuler className="w-4 h-4" /> Stack
+                </NavigationMenuLink>
+              </Link>
+            </NavigationMenuItem>
+            <NavigationMenuItem className={pathname === '/cv' ? 'bg-accent/40 text-popover-foreground' : ''}>
+              <Link href="/cv" className="w-full" legacyBehavior passHref>
+                <NavigationMenuLink className="w-full">
+                  <FileText className="w-4 h-4" /> CV
                 </NavigationMenuLink>
               </Link>
             </NavigationMenuItem>

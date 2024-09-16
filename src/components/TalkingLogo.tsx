@@ -6,8 +6,8 @@ import { Input } from './ui/input'
 import { Button } from './ui/button'
 import DOMPurify from 'isomorphic-dompurify'
 
-const MeBlack = '/me_black.svg'
-const MeWhite = '/me_white.svg'
+const MeBlack = '/img/me_black.svg'
+const MeWhite = '/img/me_white.svg'
 
 const TalkingLogo = ({ className }: { className: string }) => {
   const { theme } = useTheme()
@@ -60,6 +60,7 @@ How can I help you today?`)
         <div className={`relative cursor-pointer transition-transform w-40 h-40 flex-shrink-0 ${isAnimating ? 'animate-wiggle' : ''}`}>
           <Image src={theme === 'dark' ? MeWhite : MeBlack} fill={true} alt='Sébastien' />
         </div>
+
         <div className="flex flex-col gap-2">
           {displayTexts.map((text, index) => (
             <div key={index} className="border glassPanel p-4 rounded-xl">
@@ -68,6 +69,7 @@ How can I help you today?`)
           ))}
         </div>
       </div>
+
       <div className='flex flex-col gap-2'>
         <Input
           type="text"

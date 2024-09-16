@@ -5,6 +5,7 @@
  ## Features
 
  - Dynamic project showcase
+ - AI layer
  - Blog functionality
  - Dark mode support
  - Responsive design

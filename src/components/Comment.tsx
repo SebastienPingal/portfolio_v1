@@ -1,4 +1,4 @@
-import { CommentExtended } from "@/app/types"
+import { CommentExtended } from "@/types/comment"
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar"
 
 const Comment = ({ comment }: { comment: CommentExtended }) => {

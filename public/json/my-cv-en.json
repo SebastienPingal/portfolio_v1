@@ -1,0 +1,126 @@
+{
+  "name": "Sébastien Pingal",
+  "title": "Fullstack Developer",
+  "contact": {
+    "github": "github.com/SebastienPingal",
+    "email": "sebastien.pingal@gmail.com",
+    "phone": "(+33) 07 77 93 91 02",
+    "location": "Nanterre, France"
+  },
+  "languages": [
+    {
+      "name": "French",
+      "level": "Native"
+    },
+    {
+      "name": "English",
+      "level": "Fluent"
+    },
+    {
+      "name": "German",
+      "level": "B2 Level"
+    }
+  ],
+  "skills": {
+    "stack": [
+      {
+        "name": "TypeScript",
+        "rating": 4
+      },
+      {
+        "name": "Next",
+        "rating": 4
+      },
+      {
+        "name": "Vue / Nuxt",
+        "rating": 4
+      },
+      {
+        "name": "JS / Node.js",
+        "rating": 4
+      },
+      {
+        "name": "PostgreSQL",
+        "rating": 3
+      },
+      {
+        "name": "Jest",
+        "rating": 3
+      },
+      {
+        "name": "Stripe",
+        "rating": 3
+      }
+    ],
+    "other": [
+      {
+        "name": "Teaching",
+        "rating": 4
+      },
+      {
+        "name": "Psychology",
+        "rating": 4
+      },
+      {
+        "name": "Clean Code",
+        "rating": 4
+      },
+      {
+        "name": "Mathematics",
+        "rating": 4
+      },
+      {
+        "name": "Photoshop",
+        "rating": 3
+      },
+      {
+        "name": "Figma (UX/UI)",
+        "rating": 3
+      }
+    ]
+  },
+  "education": "I have completed various courses on Udemy to acquire knowledge, but I have mainly benefited from mentorship from a friend and the projects I have been able to work on.",
+  "experience": [
+    {
+      "title": "CTO",
+      "company": "Moneo Domus",
+      "period": "Since March 2024",
+      "responsibilities": [
+        "Creation of a project management website from scratch (Next, PostgreSQL, Vercel)",
+        "Design"
+      ]
+    },
+    {
+      "title": "Entrepreneur and Fullstack Developer",
+      "company": "KAFO",
+      "period": "January 2023 - January 2024",
+      "responsibilities": [
+        "100% recoding of the front-end (Vue 3, TS)",
+        "Implementation of an interactive map (Mapbox, JavaScript)",
+        "Setting up a no-code website (Weweb, Xano, JavaScript)",
+        "Implementation of unit and e2e tests (Vitest and Cypress)",
+        "Database structure design (MySQL)"
+      ]
+    },
+    {
+      "title": "Fullstack Developer",
+      "company": "Art Factory",
+      "period": "Since November 2023",
+      "responsibilities": [
+        "Creation of an event management website from scratch (Next)"
+      ]
+    },
+    {
+      "title": "Fullstack Developer",
+      "company": "Aestima Immo",
+      "period": "Since September 2022",
+      "responsibilities": [
+        "Implementation of PDF export (scraping with Puppeteer)",
+        "Database setup (MongoDB)",
+        "Server maintenance and feature addition (Node, Vue 2, Express)",
+        "Use of Stripe for subscription implementation"
+      ]
+    }
+  ],
+  "about": "I am a reliable and resourceful person who loves challenges. I made a career change 2 years ago to become a developer, after working as a sound engineer, composer, and teacher for 6 years. I have 2 major clients who give me regular assignments. However, a third of my time is available for new adventures."
+}
