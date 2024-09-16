@@ -19,7 +19,7 @@ const CV: React.FC<CVProps> = ({ data, language }) => {
       <h3>{title}</h3>
       {children}
     </section>
-  );
+  )
 
   const { theme } = useTheme()
   const { toPDF, targetRef } = usePDF({ filename: 'CV.pdf' })
@@ -30,7 +30,7 @@ const CV: React.FC<CVProps> = ({ data, language }) => {
     const style = document.createElement('style')
     style.textContent = `
     .glassPanel {
-      border-radius: 0 !important;
+      border-radius: 0 !important
     }
   `
     document.head.appendChild(style)
@@ -138,7 +138,7 @@ const CV: React.FC<CVProps> = ({ data, language }) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default CV;
+export default CV
