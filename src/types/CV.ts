@@ -32,13 +32,14 @@ interface CVData {
       rating: number;
     }[];
   };
-  formation: string;
+  education: string;
   experience: Experience[];
   about: string;
 }
 
 interface CVProps {
   data: CVData;
+  language: string;
 }
 
 export type { CVData, CVProps }

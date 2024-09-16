@@ -1,18 +1,18 @@
 'use client'
 
-import { Progress } from '@/components/ui/progress'
-import React, { useEffect, useState } from 'react'
-import { CVProps } from '../../types/CV'
-import Image from 'next/image'
-import { useTheme } from 'next-themes'
 import { Button } from '@/components/ui/button'
-import { usePDF } from 'react-to-pdf'
+import { Progress } from '@/components/ui/progress'
 import { Download } from 'lucide-react'
+import { useTheme } from 'next-themes'
+import Image from 'next/image'
+import React, { useEffect, useState } from 'react'
+import { usePDF } from 'react-to-pdf'
+import { CVProps } from '../../types/CV'
 
 const MeBlack = '/img/me_black.svg'
 const MeWhite = '/img/me_white.svg'
 
-const CV: React.FC<CVProps> = ({ data }) => {
+const CV: React.FC<CVProps> = ({ data, language }) => {
 
   const Section = ({ title, children }: { title: string, children: React.ReactNode }) => (
     <section className="flex flex-col gap-2 glassPanel">
@@ -53,7 +53,7 @@ const CV: React.FC<CVProps> = ({ data }) => {
   return (
     <div className='relative'>
       <Button onClick={handleExportPDF} className='absolute top-5 right-5 z-10'>
-        <Download className='w-4 h-4 mr-2' /> Export to pdf
+        <Download className='w-4 h-4 mr-2' /> {language === 'en' ? 'Export to pdf' : 'Exporter en pdf'}
       </Button>
       <div className="glassPanel flex flex-col gap-4 aspect-[1/1.4134]" ref={targetRef}>
 
@@ -65,7 +65,7 @@ const CV: React.FC<CVProps> = ({ data }) => {
           </div>
         </header>
 
-        <Section title="À Propos">
+        <Section title={language === 'en' ? 'About me' : 'À propos'}>
           <p className='text-sm text-justify'>{data.about}</p>
         </Section>
 
@@ -81,7 +81,7 @@ const CV: React.FC<CVProps> = ({ data }) => {
               </p>
             </Section>
 
-            <Section title="Langues">
+            <Section title={language === 'en' ? 'Languages' : 'Langues'}>
               <div className='text-sm text-justify'>
                 {data.languages.map((lang, index) => (
                   <p key={index}>{lang.name}: {lang.level}</p>
@@ -89,7 +89,7 @@ const CV: React.FC<CVProps> = ({ data }) => {
               </div>
             </Section>
 
-            <Section title="Technologies">
+            <Section title={language === 'en' ? 'Stack' : 'Technologies'}>
               <div className="flex flex-col gap-1">
                 {data.skills.stack.map((skill, index) => (
                   <div key={index} className='flex flex-col gap-1'>
@@ -100,7 +100,7 @@ const CV: React.FC<CVProps> = ({ data }) => {
               </div>
             </Section>
 
-            <Section title="Autres Compétences">
+            <Section title={language === 'en' ? 'Other skills' : 'Autres Compétences'}>
               <div className="flex flex-col gap-1">
                 {data.skills.other.map((skill, index) => (
                   <div key={index} className='flex flex-col gap-1'>
@@ -114,7 +114,7 @@ const CV: React.FC<CVProps> = ({ data }) => {
           </div>
 
           <div className='flex flex-col gap-4'>
-            <Section title="Expérience Professionnelle">
+            <Section title={language === 'en' ? 'Experiences' : 'Expérience Professionnelle'}>
               {data.experience.map((exp, index) => (
                 <article key={index} className='glassPanel'>
                   <h4 className='text-md'>{exp.title} - {exp.company}</h4>
@@ -130,8 +130,8 @@ const CV: React.FC<CVProps> = ({ data }) => {
               ))}
             </Section>
 
-            <Section title="Formation">
-              <p className='text-sm text-justify'>{data.formation}</p>
+            <Section title={language === 'en' ? 'Education' : 'Formation'}>
+              <p className='text-sm text-justify'>{data.education}</p>
             </Section>
 
           </div>
