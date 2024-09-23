@@ -6,7 +6,7 @@ import {
   NavigationMenuLink,
   NavigationMenuList
 } from "@/components/ui/navigation-menu"
-import { FileText, Github, Gitlab, Home, Linkedin, MoveUpRight, PencilRuler } from "lucide-react"
+import { Github, Gitlab, Home, Linkedin, MoveUpRight, PencilRuler, FileText } from "lucide-react"
 
 import { useSession } from "next-auth/react"
 import { usePathname } from "next/navigation"
@@ -73,8 +73,8 @@ const NavBar = ({ workPosts, blogPosts, className }: { workPosts: Post[], blogPo
                   <FileText className="w-4 h-4" /> CV
                 </NavigationMenuLink>
               </Link>
-            </NavigationMenuItem>
-          </div>
+            </NavigationMenuItem> 
+          </div> 
 
           <div className='w-full'>
             <NavigationMenuItem className="font-extrabold mb-2">

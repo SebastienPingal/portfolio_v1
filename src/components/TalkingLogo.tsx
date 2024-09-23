@@ -16,6 +16,7 @@ const TalkingLogo = ({ className }: { className: string }) => {
   const [displayTexts, setDisplayTexts] = useState<string[]>([])
   const [fullText, setFullText] = useState(`Hey, I'm Sébastien. I am designer, software tinkerer, music maker, and sometimes a teacher.  I am currently working on this website, so it's a bit empty for now.  But I'm glad to finally making some kind of hub for all my projects.
 How can I help you today?`)
+  const [meImage, setMeImage] = useState(MeBlack)
 
   const onSubmit = async () => {
     try {
@@ -54,11 +55,15 @@ How can I help you today?`)
     return () => clearTimeout(timer)
   }, [])
 
+  useEffect(() => {
+    setMeImage(theme === 'dark' ? MeWhite : MeBlack)
+  }, [theme])
+
   return (
     <div className={`${className} flex flex-col gap-8 talking-logo`} >
       <div className="flex gap-2 items-end justify-start">
         <div className={`relative cursor-pointer transition-transform w-40 h-40 flex-shrink-0 ${isAnimating ? 'animate-wiggle' : ''}`}>
-          <Image src={theme === 'dark' ? MeWhite : MeBlack} fill={true} alt='Sébastien' />
+          <Image src={meImage} fill={true} alt='Sébastien' />
         </div>
 
         <div className="flex flex-col gap-2">

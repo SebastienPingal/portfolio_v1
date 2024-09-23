@@ -12,6 +12,7 @@
     "seed": "ts-node prisma/seed.ts"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.27.3",
     "@auth/prisma-adapter": "^1.6.0",
     "@prisma/client": "^5.19.0",
     "@radix-ui/react-avatar": "^1.1.0",
@@ -33,6 +34,7 @@
     "clsx": "^2.1.1",
     "cmdk": "^0.2.1",
     "isomorphic-dompurify": "^2.15.0",
+    "jpeg-js": "^0.4.4",
     "js-yaml": "^4.1.0",
     "lucide-react": "^0.314.0",
     "next": "14.1.0",
@@ -41,6 +43,8 @@
     "noisejs": "^2.1.0",
     "openai": "^4.56.1",
     "pcg-random": "^2.0.1",
+    "pdf-img-convert": "^1.2.1",
+    "pdf-lib": "^1.17.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-markdown": "^9.0.1",
