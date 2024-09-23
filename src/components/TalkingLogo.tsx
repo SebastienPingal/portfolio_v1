@@ -88,7 +88,7 @@ How can I help you today?`)
             }
           }}
         />
-        { userInput && <Button className='w-full' type='button' onClick={onSubmit}>Submit</Button> }
+        {userInput && <Button className='w-full' type='button' onClick={onSubmit}>Submit</Button>}
       </div>
     </div>
   )
