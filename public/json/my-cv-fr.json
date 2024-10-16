@@ -79,22 +79,33 @@
       }
     ]
   },
-  "education": "J'ai suivi diverses formations sur Udemy pour acquérir des connaissances, mais j'ai surtout bénéficié de l'encadrement d'un ami en tant que mentor et des projets que j'ai pu réaliser.",
+  "education": [
+    {
+      "title": "Formations en ligne et mentorat",
+      "place": "Udemy et mentor personnel",
+      "period": "2022 - Présent",
+      "description": [
+        "Suivi de diverses formations sur Udemy pour acquérir des connaissances",
+        "Bénéfice de l'encadrement d'un ami en tant que mentor",
+        "Réalisation de projets personnels pour mettre en pratique les compétences acquises"
+      ]
+    }
+  ],
   "experience": [
     {
       "title": "CTO",
-      "company": "Moneo Domus",
+      "place": "Moneo Domus",
       "period": "Depuis mars 2024",
-      "responsibilities": [
+      "description": [
         "Création d'un site de gestion de projet from scratch (Next, PostgreSQL, Vercel)",
         "Design"
       ]
     },
     {
       "title": "Entrepreneur et dev fullstack",
-      "company": "KAFO",
+      "place": "KAFO",
       "period": "Janvier 2023 - Janvier 2024",
-      "responsibilities": [
+      "description": [
         "Recodage à 100% du front (Vue 3, TS)",
         "Mise en place d'une map interactive (Mapbox, JavaScript)",
         "Mise en place d'un site en no code (Weweb, Xano, JavaScript)",
@@ -104,17 +115,17 @@
     },
     {
       "title": "Dev FullStack",
-      "company": "Art Factory",
+      "place": "Art Factory",
       "period": "Depuis novembre 2023",
-      "responsibilities": [
+      "description": [
         "Création d'un site d'événementiel from scratch (Next)"
       ]
     },
     {
       "title": "Dev FullStack",
-      "company": "Aestima Immo",
+      "place": "Aestima Immo",
       "period": "Depuis septembre 2022",
-      "responsibilities": [
+      "description": [
         "Implémentation d'export PDF (scraping avec Puppeteer)",
         "Setup de la base de données (MongoDB)",
         "Maintien du serveur et ajout de fonctionnalités (Node, Vue 2, Express)",

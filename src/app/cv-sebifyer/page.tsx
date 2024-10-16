@@ -3,11 +3,13 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import React, { useState } from 'react'
 import { useToast } from '@/components/ui/use-toast'
+import CV from '../cv/CV'
+import { CVData as CVDataType } from '@/types/CV'
 
 const CVSebifyerPage: React.FC = () => {
   const [image, setImage] = useState<File | null>(null)
   const { toast } = useToast()
-  const [CVData, setCVData] = useState<JSON | null>(null)
+  const [CVData, setCVData] = useState<CVDataType | null>(null)
   const [language, setLanguage] = useState<string>('en')
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
@@ -38,7 +40,7 @@ const CVSebifyerPage: React.FC = () => {
   }
 
   return (
-    <div className='flex flex-col gap-4 glassPanel'>
+    <div className='flex flex-col gap-4 glassPanel' >
       <h1>CV Sebifyer : make your CV more seb</h1>
       <Input
         type="file"
@@ -49,17 +51,19 @@ const CVSebifyerPage: React.FC = () => {
             setImage(file)
           } else {
             toast({
-              title: 'Image too large',
-              description: 'Your image is too large. Please upload an image smaller than 5MB',
+              title: 'Image trop grande',
+              description: 'Votre image est trop grande. Veuillez uploader une image plus petite que 5MB',
               variant: 'destructive',
             })
           }
         }}
       />
-      {image && <Button type='button' onClick={handleImageUpload}>{isLoading ? 'Uploading...' : 'Upload'}</Button>}
+      {image && <Button type='button' onClick={handleImageUpload}>{isLoading ? 'Uploading...' : 'Upload'}</Button>
+      }
       {image && <p>Image uploaded: {image.name} 📸</p>}
-      {CVData && <p>CV Data: {JSON.stringify(CVData)} 📄</p>}
-    </div>
+      {CVData && <CV data={CVData} language={language} />}
+      {/* {mockCVData && <CV data={mockCVData.cvData} language={mockCVData.language} />} */}
+    </div >
   )
 }
 

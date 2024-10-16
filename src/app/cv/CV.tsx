@@ -12,7 +12,7 @@ import { CVProps } from '../../types/CV'
 const MeBlack = '/img/me_black.svg'
 const MeWhite = '/img/me_white.svg'
 
-const CV: React.FC<CVProps> = ({ data, language }) => {
+const CV: React.FC<CVProps> = ({ data, language = 'en', showMe = false }: CVProps) => {
 
   const Section = ({ title, children }: { title: string, children: React.ReactNode }) => (
     <section className="flex flex-col gap-2 glassPanel">
@@ -50,6 +50,8 @@ const CV: React.FC<CVProps> = ({ data, language }) => {
     setMe(theme === 'light' ? MeBlack : MeWhite)
   }, [theme])
 
+  if (!data) return null
+
   return (
     <div className='relative'>
       <Button onClick={handleExportPDF} className='absolute top-5 right-5 z-10'>
@@ -58,81 +60,106 @@ const CV: React.FC<CVProps> = ({ data, language }) => {
       <div className="glassPanel flex flex-col gap-4 aspect-[1/1.4134]" ref={targetRef}>
 
         <header className='flex gap-4 items-center ml-8'>
-          <Image src={me} alt="Me" width={50} height={50} />
+          {showMe && <Image src={me} alt="Me" width={50} height={50} />}
           <div>
             <h1>{data.name}</h1>
             <p>{data.title}</p>
           </div>
         </header>
 
-        <Section title={language === 'en' ? 'About me' : 'À propos'}>
-          <p className='text-sm text-justify'>{data.about}</p>
-        </Section>
+        {data.about &&
+          <Section title={language === 'en' ? 'About me' : 'À propos'}>
+            <p className='text-sm text-justify'>{data.about}</p>
+          </Section>
+        }
 
 
         <div className='flex gap-4'>
           <div className='flex flex-col gap-4 w-1/4'>
             <Section title="Contact">
-              <p className='text-sm text-justify'>
-                <a href={`https://${data.contact.github}`}>{data.contact.github}</a><br />
-                <a href={`mailto:${data.contact.email}`}>{data.contact.email}</a><br />
-                <a href={`tel:${data.contact.phone}`}>{data.contact.phone}</a><br />
-                <a href={`https://maps.google.com/?q=${data.contact.location}`}>{data.contact.location}</a>
+              <p className='text-sm text-justify flex flex-col gap-1'>
+                {data.contact && data.contact.github && <a href={`https://${data.contact.github}`}>{data.contact.github}</a>}
+                {data.contact && data.contact.email && <a href={`mailto:${data.contact.email}`}>{data.contact.email}</a>}
+                {data.contact && data.contact.phone && <a href={`tel:${data.contact.phone}`}>{data.contact.phone}</a>}
+                {data.contact && data.contact.location && <a href={`https://maps.google.com/?q=${data.contact.location}`}>{data.contact.location}</a>}
               </p>
             </Section>
 
-            <Section title={language === 'en' ? 'Languages' : 'Langues'}>
-              <div className='text-sm text-justify'>
-                {data.languages.map((lang, index) => (
-                  <p key={index}>{lang.name}: {lang.level}</p>
-                ))}
-              </div>
-            </Section>
+            {data.languages && data.languages.length > 0 &&
+              <Section title={language === 'en' ? 'Languages' : 'Langues'}>
+                <div className='text-sm text-justify'>
+                  {data.languages && data.languages.map((lang, index) => (
+                    <p key={index}>{lang.name}: {lang.level}</p>
+                  ))}
+                </div>
+              </Section>
+            }
 
-            <Section title={language === 'en' ? 'Stack' : 'Technologies'}>
-              <div className="flex flex-col gap-1">
-                {data.skills.stack.map((skill, index) => (
-                  <div key={index} className='flex flex-col gap-1'>
-                    <span className="whitespace-nowrap text-sm">{skill.name}</span>
-                    <Progress value={skill.rating * 20} className="w-full h-1" />
-                  </div>
-                ))}
-              </div>
-            </Section>
+            {data.skills && data.skills.stack &&
+              <Section title={language === 'en' ? 'Stack' : 'Technologies'}>
+                <div className="flex flex-col gap-1">
+                  {data.skills && data.skills.stack && data.skills.stack.map((skill, index) => (
+                    <div key={index} className='flex flex-col gap-1'>
+                      <span className="whitespace-nowrap text-sm">{skill.name}</span>
+                      {skill.rating && <Progress value={skill.rating * 20} className="w-full h-1" />}
+                    </div>
+                  ))}
+                </div>
+              </Section>}
 
-            <Section title={language === 'en' ? 'Other skills' : 'Autres Compétences'}>
-              <div className="flex flex-col gap-1">
-                {data.skills.other.map((skill, index) => (
-                  <div key={index} className='flex flex-col gap-1'>
-                    <span className="whitespace-nowrap text-sm">{skill.name}</span>
-                    <Progress value={skill.rating * 20} className="w-full h-1" />
-                  </div>
-                ))}
-              </div>
-            </Section>
+            {data.skills && data.skills.other &&
+              <Section title={language === 'en' ? 'Other skills' : 'Autres Compétences'}>
+                <div className="flex flex-col gap-1">
+                  {data.skills && data.skills.other && data.skills.other.map((skill, index) => (
+                    <div key={index} className='flex flex-col gap-1'>
+                      <span className="whitespace-nowrap text-sm">{skill.name}</span>
+                      {skill.rating && <Progress value={skill.rating * 20} className="w-full h-1" />}
+                    </div>
+                  ))}
+                </div>
+              </Section>
+            }
 
           </div>
 
           <div className='flex flex-col gap-4'>
-            <Section title={language === 'en' ? 'Experiences' : 'Expérience Professionnelle'}>
-              {data.experience.map((exp, index) => (
-                <article key={index} className='glassPanel'>
-                  <h4 className='text-md'>{exp.title} - {exp.company}</h4>
-                  <p className='text-sm uppercase'>{exp.period}</p>
-                  <div className="pl-4">
-                    <div className='text-sm'>
-                      {exp.responsibilities.map((resp, respIndex) => (
-                        <p key={respIndex}>{resp}</p>
-                      ))}
+            {data.experience && data.experience.length > 0 &&
+              <Section title={language === 'en' ? 'Experiences' : 'Expérience Professionnelle'}>
+                {data.experience && data.experience.map((exp, index) => (
+                  <article key={index} className='glassPanel'>
+                    <h4 className='text-md'>{exp.title}</h4>
+                    <p className='text-sm uppercase font-bold'>{exp.place}</p>
+                    <p className='text-sm uppercase'>{exp.period}</p>
+                    <div className="pl-4">
+                      <div className='text-sm'>
+                        {exp.description && exp.description.map((resp, respIndex) => (
+                          <p key={respIndex}>{resp}</p>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                </article>
-              ))}
-            </Section>
+                  </article>
+                ))}
+              </Section>
+            }
 
-            <Section title={language === 'en' ? 'Education' : 'Formation'}>
-              <p className='text-sm text-justify'>{data.education}</p>
-            </Section>
+            {data.education &&
+              <Section title={language === 'en' ? 'Education' : 'Formation'}>
+                {data.education && data.education.map((edu, index) => (
+                  <article key={index} className='glassPanel'>
+                    <h4 className='text-md'>{edu.title}</h4>
+                    <p className='text-sm uppercase font-bold'>{edu.place}</p>
+                    <p className='text-sm uppercase'>{edu.period}</p>
+                    <div className="pl-4">
+                      <div className='text-sm'>
+                        {edu.description && edu.description.map((resp, respIndex) => (
+                          <p key={respIndex}>{resp}</p>
+                        ))}
+                      </div>
+                    </div>
+                  </article>
+                ))}
+              </Section>
+            }
 
           </div>
         </div>

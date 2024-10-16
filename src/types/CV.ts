@@ -1,45 +1,46 @@
 interface Language {
-  name: string;
-  level: string;
+  name: string
+  level: string | null
 }
 
 interface Contact {
-  github: string;
-  email: string;
-  phone: string;
-  location: string;
+  github: string | null
+  email: string | null
+  phone: string | null
+  location: string | null
 }
 
-interface Experience {
-  title: string;
-  company: string;
-  period: string;
-  responsibilities: string[];
+interface Item {
+  title: string | null
+  place: string | null
+  period: string | null
+  description: string[] | null
 }
 
 interface CVData {
-  name: string;
-  title: string;
-  contact: Contact;
-  languages: Language[];
+  name: string | null
+  title: string | null
+  contact: Contact | null
+  languages: Language[] | null
   skills: {
     stack: {
-      name: string;
-      rating: number;
-    }[];
+      name: string
+      rating: number | null
+    }[] | null
     other: {
-      name: string;
-      rating: number;
-    }[];
-  };
-  education: string;
-  experience: Experience[];
-  about: string;
+      name: string
+      rating: number | null
+    }[] | null
+  } | null
+  education: Item[] | null
+  experience: Item[] | null
+  about: string | null
 }
 
 interface CVProps {
-  data: CVData;
-  language: string;
+  data: CVData | null
+  language: string | null
+  showMe?: boolean
 }
 
 export type { CVData, CVProps }

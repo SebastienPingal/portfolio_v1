@@ -15,7 +15,7 @@ const CVPage: React.FC = () => {
         <div className='text-sm text-foreground'>{language === 'en' ? 'English version' : 'Version Française'}</div>
         <Switch onClick={() => setLanguage(language === 'en' ? 'fr' : 'en')} className='h-4'/>
       </div>
-      <CV data={cvData as CVData} language={language} />
+      <CV data={cvData as CVData} language={language} showMe={true} />
     </div>
   )
 }

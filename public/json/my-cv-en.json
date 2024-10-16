@@ -79,22 +79,33 @@
       }
     ]
   },
-  "education": "I have completed various courses on Udemy to acquire knowledge, but I have mainly benefited from mentorship from a friend and the projects I have been able to work on.",
+  "education": [
+    {
+      "title": "Online Courses and Mentorship",
+      "place": "Udemy and Personal Mentorship",
+      "period": "2022 - Present",
+      "description": [
+        "Following various courses on Udemy to acquire knowledge",
+        "Benefiting from the guidance of a friend as a mentor",
+        "Working on projects that have allowed me to apply my skills"
+      ]
+    }
+  ],
   "experience": [
     {
       "title": "CTO",
-      "company": "Moneo Domus",
+      "place": "Moneo Domus",
       "period": "Since March 2024",
-      "responsibilities": [
+      "description": [
         "Creation of a project management website from scratch (Next, PostgreSQL, Vercel)",
         "Design"
       ]
     },
     {
       "title": "Entrepreneur and Fullstack Developer",
-      "company": "KAFO",
+      "place": "KAFO",
       "period": "January 2023 - January 2024",
-      "responsibilities": [
+      "description": [
         "100% recoding of the front-end (Vue 3, TS)",
         "Implementation of an interactive map (Mapbox, JavaScript)",
         "Setting up a no-code website (Weweb, Xano, JavaScript)",
@@ -104,17 +115,17 @@
     },
     {
       "title": "Fullstack Developer",
-      "company": "Art Factory",
+      "place": "Art Factory",
       "period": "Since November 2023",
-      "responsibilities": [
+      "description": [
         "Creation of an event management website from scratch (Next)"
       ]
     },
     {
       "title": "Fullstack Developer",
-      "company": "Aestima Immo",
+      "place": "Aestima Immo",
       "period": "Since September 2022",
-      "responsibilities": [
+      "description": [
         "Implementation of PDF export (scraping with Puppeteer)",
         "Database setup (MongoDB)",
         "Server maintenance and feature addition (Node, Vue 2, Express)",
