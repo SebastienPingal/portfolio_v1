@@ -118,7 +118,7 @@ const PerlinBackground = () => {
 
   }, [theme, dimensions])
 
-  if (!isMounted) return null
+  // if (!isMounted) return null
   return <canvas ref={canvasRef} className='h-full w-full absolute z-0' />
 }
 
