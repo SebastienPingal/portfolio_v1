@@ -19,7 +19,7 @@ export const config = {
       clientId: process.env.LINKEDIN_CLIENT_ID || "",
       clientSecret: process.env.LINKEDIN_CLIENT_SECRET || "",
       authorization: { params: { scope: 'profile email openid' } },
-      issuer: 'https://www.linkedin.com',
+      issuer: 'https://www.linkedin.com/oauth',
       jwks_endpoint: "https://www.linkedin.com/oauth/openid/jwks",
       async profile(profile) {
         const user = await prisma.user.findUnique({
