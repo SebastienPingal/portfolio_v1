@@ -40,15 +40,15 @@
         "rating": 4
       },
       {
+        "name": "AWS",
+        "rating": 4
+      },
+      {
         "name": "PostgreSQL",
         "rating": 3
       },
       {
         "name": "Jest",
-        "rating": 3
-      },
-      {
-        "name": "Stripe",
         "rating": 3
       }
     ],
@@ -110,7 +110,8 @@
         "Mise en place d'une map interactive (Mapbox, JavaScript)",
         "Mise en place d'un site en no code (Weweb, Xano, JavaScript)",
         "Mise en place de tests unitaires et e2e (Vitest et Cypress)",
-        "Structure de la base de données (MySQL)"
+        "Structure de la base de données (MySQL)",
+        "Mise en place d'un serveur de fichiers (AWS S3)"
       ]
     },
     {
@@ -118,7 +119,8 @@
       "place": "Art Factory",
       "period": "Depuis novembre 2023",
       "description": [
-        "Création d'un site d'événementiel from scratch (Next)"
+        "Création d'un site d'événementiel from scratch (Next)",
+        "Mise en place d'un serveur de fichiers (AWS S3)"
       ]
     },
     {
@@ -129,7 +131,8 @@
         "Implémentation d'export PDF (scraping avec Puppeteer)",
         "Setup de la base de données (MongoDB)",
         "Maintien du serveur et ajout de fonctionnalités (Node, Vue 2, Express)",
-        "Utilisation de Stripe pour l'implémentation des abonnements"
+        "Utilisation de Stripe pour l'implémentation des abonnements",
+        "Gestion de l'infrastructure (AWS EC2)"
       ]
     }
   ],
