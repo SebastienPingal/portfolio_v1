@@ -107,7 +107,6 @@
       "period": "January 2023 - January 2024",
       "description": [
         "100% recoding of the front-end (Vue 3, TS)",
-        "Implementation of an interactive map (Mapbox, JavaScript)",
         "Setting up a no-code website (Weweb, Xano, JavaScript)",
         "Implementation of unit and e2e tests (Vitest and Cypress)",
         "Database structure design (MySQL)",
@@ -129,8 +128,7 @@
       "period": "Since September 2022",
       "description": [
         "Implementation of PDF export (scraping with Puppeteer)",
-        "Database setup (MongoDB)",
-        "Server maintenance and feature addition (Node, Vue 2, Express)",
+        "Server maintenance and feature addition (Node, Vue 2, Express, MongoDB)",
         "Use of Stripe for subscription implementation",
         "Infrastructure management (AWS EC2)"
       ]

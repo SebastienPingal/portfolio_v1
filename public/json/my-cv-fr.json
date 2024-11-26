@@ -107,10 +107,8 @@
       "period": "Janvier 2023 - Janvier 2024",
       "description": [
         "Recodage à 100% du front (Vue 3, TS)",
-        "Mise en place d'une map interactive (Mapbox, JavaScript)",
-        "Mise en place d'un site en no code (Weweb, Xano, JavaScript)",
+        "Mise en place d'un site en no code (Weweb, Xano, JavaScript, MySQL)",
         "Mise en place de tests unitaires et e2e (Vitest et Cypress)",
-        "Structure de la base de données (MySQL)",
         "Mise en place d'un serveur de fichiers (AWS S3)"
       ]
     },
@@ -129,8 +127,7 @@
       "period": "Depuis septembre 2022",
       "description": [
         "Implémentation d'export PDF (scraping avec Puppeteer)",
-        "Setup de la base de données (MongoDB)",
-        "Maintien du serveur et ajout de fonctionnalités (Node, Vue 2, Express)",
+        "Maintien du serveur et ajout de fonctionnalités (Node, Vue 2, Express, MongoDB)",
         "Utilisation de Stripe pour l'implémentation des abonnements",
         "Gestion de l'infrastructure (AWS EC2)"
       ]

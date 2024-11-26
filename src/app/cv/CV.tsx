@@ -25,22 +25,32 @@ const CV: React.FC<CVProps> = ({ data, language = 'en', showMe = false }: CVProp
   const { toPDF, targetRef } = usePDF({ filename: 'CV.pdf' })
 
   const handleExportPDF = () => {
-    const exportColor = theme === 'light' ? '#FFE6FF' : '#282D28'
-    const originalBg = targetRef.current.style.backgroundColor
-    const style = document.createElement('style')
-    style.textContent = `
-    .glassPanel {
-      border-radius: 0 !important
+    console.log('handleExportPDF called')
+
+    if (!targetRef.current) {
+      console.error('targetRef is not set')
+      return
     }
-  `
-    document.head.appendChild(style)
+
+    const exportColor = theme === 'light' ? '#FFE6FF' : '#282D28'
+    const exportTextColor = theme === 'light' ? '#000000' : '#E8FFE8'
+    const originalBg = targetRef.current.style.backgroundColor
+    const originalTextColor = targetRef.current.style.color
+
     targetRef.current.style.backgroundColor = exportColor
+    targetRef.current.style.color = exportTextColor
     document.body.style.backgroundColor = exportColor
+
+    console.log('Export styles:', {
+      backgroundColor: targetRef.current.style.backgroundColor,
+      color: targetRef.current.style.color
+    })
+
     toPDF()
     setTimeout(() => {
       targetRef.current.style.backgroundColor = originalBg
+      targetRef.current.style.color = originalTextColor
       document.body.style.backgroundColor = ''
-      document.head.removeChild(style)
     }, 500)
   }
 
@@ -57,9 +67,9 @@ const CV: React.FC<CVProps> = ({ data, language = 'en', showMe = false }: CVProp
       <Button onClick={handleExportPDF} className='absolute top-5 right-5 z-10'>
         <Download className='w-4 h-4 mr-2' /> {language === 'en' ? 'Export to pdf' : 'Exporter en pdf'}
       </Button>
-      <div className="glassPanel flex flex-col gap-4 aspect-[1/1.4134]" ref={targetRef}>
+      <div className="glassPanel flex flex-col gap-2 aspect-[1/1.4134]" ref={targetRef}>
 
-        <header className='flex gap-4 items-center ml-8'>
+        <header className='flex gap-2 items-center ml-8'>
           {showMe && <Image src={me} alt="Me" width={50} height={50} />}
           <div>
             <h1>{data.name}</h1>
@@ -74,8 +84,8 @@ const CV: React.FC<CVProps> = ({ data, language = 'en', showMe = false }: CVProp
         }
 
 
-        <div className='flex gap-4'>
-          <div className='flex flex-col gap-4 w-1/4'>
+        <div className='flex gap-2'>
+          <div className='flex flex-col gap-2 w-1/4'>
             <Section title="Contact">
               <p className='text-sm text-justify flex flex-col gap-1'>
                 {data.contact && data.contact.github && <a href={`https://${data.contact.github}`}>{data.contact.github}</a>}
@@ -122,7 +132,7 @@ const CV: React.FC<CVProps> = ({ data, language = 'en', showMe = false }: CVProp
 
           </div>
 
-          <div className='flex flex-col gap-4'>
+          <div className='flex flex-col gap-2'>
             {data.experience && data.experience.length > 0 &&
               <Section title={language === 'en' ? 'Experiences' : 'Expérience Professionnelle'}>
                 {data.experience && data.experience.map((exp, index) => (
