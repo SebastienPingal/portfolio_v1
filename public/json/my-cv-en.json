@@ -40,15 +40,15 @@
         "rating": 4
       },
       {
+        "name": "AWS",
+        "rating": 4
+      },
+      {
         "name": "PostgreSQL",
         "rating": 3
       },
       {
         "name": "Jest",
-        "rating": 3
-      },
-      {
-        "name": "Stripe",
         "rating": 3
       }
     ],
@@ -110,7 +110,8 @@
         "Implementation of an interactive map (Mapbox, JavaScript)",
         "Setting up a no-code website (Weweb, Xano, JavaScript)",
         "Implementation of unit and e2e tests (Vitest and Cypress)",
-        "Database structure design (MySQL)"
+        "Database structure design (MySQL)",
+        "File server setup (AWS S3)"
       ]
     },
     {
@@ -118,7 +119,8 @@
       "place": "Art Factory",
       "period": "Since November 2023",
       "description": [
-        "Creation of an event management website from scratch (Next)"
+        "Creation of an event management website from scratch (Next)",
+        "File server setup (AWS S3)"
       ]
     },
     {
@@ -129,9 +131,10 @@
         "Implementation of PDF export (scraping with Puppeteer)",
         "Database setup (MongoDB)",
         "Server maintenance and feature addition (Node, Vue 2, Express)",
-        "Use of Stripe for subscription implementation"
+        "Use of Stripe for subscription implementation",
+        "Infrastructure management (AWS EC2)"
       ]
     }
   ],
-  "about": "I am a reliable and resourceful person who loves challenges. I made a career change 2 years ago to become a developer, after working as a sound engineer, composer, and teacher for 6 years. I'm now looking for a new project to dedicate myself to."
+  "about": "Developer with a passion for innovation, I recently created and developed moneodomus.com, a complex web platform for managing real estate projects, allowing collaboration between different actors (agencies, builders, architects). Co-founder of KAFO, a startup dedicated to reducing the isolation of teleworkers, I rely on a previous experience of 6 years in the music industry that has given me a strong ability to adapt and creativity."
 }
