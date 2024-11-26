@@ -50,6 +50,14 @@ model User {
   stack         Stack[]   @relation("UserStacks")
 }
 
+model ExternalLink {
+  id        String    @id @default(cuid())
+  title     String
+  url       String
+  logoWhite String?
+  logoBlack String?
+}
+
 enum PostType {
   WORK
   BLOGPOST

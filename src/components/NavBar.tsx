@@ -24,10 +24,11 @@ const logos = {
   Moneodomus: { white: '/img/moneodomus_white.png', black: '/img/moneodomus_black.png' }
 }
 
-import { Post } from "@prisma/client"
+import { ExternalLink, Post } from "@prisma/client"
 import PostSession from "./PostSession"
+import ExternalLinksSession from "./ExternalLinksSession"
 
-const NavBar = ({ workPosts, blogPosts, className }: { workPosts: Post[], blogPosts: Post[], className?: string }) => {
+const NavBar = ({ workPosts, blogPosts, externalLinks, className }: { workPosts: Post[], blogPosts: Post[], externalLinks: ExternalLink[], className?: string }) => {
   const { data: session } = useSession()
   const pathname = usePathname()
   const { theme } = useTheme()
@@ -70,14 +71,8 @@ const NavBar = ({ workPosts, blogPosts, className }: { workPosts: Post[], blogPo
           </div>
 
           <div className='w-full'>
-            <NavigationMenuItem className="font-extrabold mb-2">Projects</NavigationMenuItem>
-            {Object.entries(logos).map(([name, { white, black }]) => (
-              renderExternalLink(
-                `https://${name.toLowerCase()}.${name === 'Kafo' ? 'work' : 'com'}`,
-                <Image src={darkMode ? white : black} alt={name} width={16} height={16} />,
-                name
-              )
-            ))}
+            <NavigationMenuItem className="font-extrabold mb-2">Liens</NavigationMenuItem>
+            <ExternalLinksSession externalLinks={externalLinks} />
           </div>
 
           {(workPosts.length > 0 || session?.user?.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL) && (

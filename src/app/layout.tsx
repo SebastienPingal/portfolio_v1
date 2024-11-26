@@ -16,7 +16,7 @@ import {
 import { Toaster } from "@/components/ui/toaster"
 
 import { MenuIcon } from "lucide-react"
-import { getPosts } from "./actions"
+import { getPosts, getExternalLinks } from "./actions"
 
 export const metadata: Metadata = {
   title: "Sébastien Pingal",
@@ -30,6 +30,7 @@ export default async function RootLayout({
 }>) {
   const workPosts = await getPosts("WORK")
   const blogPosts = await getPosts("BLOGPOST")
+  const externalLinks = await getExternalLinks()
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={[cereal.className, "flex flex-col sm:flex-row w-screen h-screen overflow-hidden"].join(" ")}>
@@ -49,12 +50,12 @@ export default async function RootLayout({
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent sideOffset={0}>
-                  <Navbar workPosts={workPosts} blogPosts={blogPosts} className="w-screen" />
+                  <Navbar workPosts={workPosts} blogPosts={blogPosts} externalLinks={externalLinks} className="w-screen" />
                 </DropdownMenuContent>
               </DropdownMenu>
             </div>
 
-            <Navbar workPosts={workPosts} blogPosts={blogPosts} className="hidden sm:flex" />
+            <Navbar workPosts={workPosts} blogPosts={blogPosts} externalLinks={externalLinks} className="hidden sm:flex" />
 
             <main className="flex-1 page z-10 max-w-4xl sm:mx-auto p-3 sm:p-8 overflow-auto pt-16 sm:pt-8">
               {children}
