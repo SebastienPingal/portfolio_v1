@@ -51,8 +51,6 @@ const PerlinBackground = () => {
     let shape = 0
     let noise = new Noise(Math.random())
 
-
-
     function draw() {
       nt += noiseSpeed
       for (var x = 0; x < w; x += dotSize + gap) {
@@ -62,7 +60,7 @@ const PerlinBackground = () => {
           ctx.beginPath()
           ctx.fillStyle = isBlackTheme
             ? `rgba(${Math.max(yn * 10 + 30, 40)}, ${Math.max(yn * 12 + 30, 45)}, ${Math.max(yn * 10 + 30, 40)}, 1)`
-            : `rgba(${255 - yn * 10}, ${Math.min(230 - yn * 11, 230)}, ${255 - yn * 10}, 1)`
+            : `rgba(${255 - yn * 10}, ${Math.min(230 - yn * 10, 235)}, ${255 - yn * 10}, 1)`
           if (shape == 0) {
             ctx.fillRect(x, y, dotSize, dotSize)
           } else if (shape == 1) {
