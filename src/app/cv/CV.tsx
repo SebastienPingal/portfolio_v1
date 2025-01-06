@@ -22,7 +22,16 @@ const CV: React.FC<CVProps> = ({ data, language = 'en', showMe = false }: CVProp
   )
 
   const { theme } = useTheme()
-  const { toPDF, targetRef } = usePDF({ filename: 'CV.pdf' })
+
+  const options = {
+    filename: 'CV.pdf',
+    canvas: {
+      mimeType: 'image/jpeg' as 'image/jpeg', // had to add this to fix a type error
+      qualityRatio: 0.98
+    },
+  }
+
+  const { toPDF, targetRef } = usePDF(options)
 
   const handleExportPDF = () => {
     console.log('handleExportPDF called')
@@ -33,7 +42,7 @@ const CV: React.FC<CVProps> = ({ data, language = 'en', showMe = false }: CVProp
     }
 
     const exportColor = theme === 'light' ? '#FFE6FF' : '#282D28'
-    const exportTextColor = theme === 'light' ? '#000000' : '#E8FFE8'
+    const exportTextColor = theme === 'light' ? '#000000' : '#D5FAD5'
     const originalBg = targetRef.current.style.backgroundColor
     const originalTextColor = targetRef.current.style.color
 
