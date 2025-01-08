@@ -1,13 +1,12 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useActionState } from 'react';
 import { useRouter } from 'next/navigation'
 import { createPost, updatePost } from '@/app/actions'
 
 import { getPostTypes, getStacks, generateSlug } from '@/app/actions'
 import MdEditor from '@/components/MdEditor'
 import { PostType, Prisma, Stack, Post } from '@prisma/client'
-import { useFormState } from 'react-dom'
 
 import { X } from 'lucide-react'
 import ComboBox from './ComboBox'
@@ -35,8 +34,8 @@ const PostEditor: React.FC<PostEditorProps> = ({
   const { toast } = useToast()
   const router = useRouter()
 
-  const [results, setPostTypes] = useFormState(getPostTypes, initialStatePostTypes)
-  const [stacks, setStacks] = useFormState(getStacks, [])
+  const [results, setPostTypes] = useActionState(getPostTypes, initialStatePostTypes)
+  const [stacks, setStacks] = useActionState(getStacks, [])
   const [content, setContent] = useState(post.content)
   const [title, setTitle] = useState(post.title)
   const [type, setType] = useState(post.type)

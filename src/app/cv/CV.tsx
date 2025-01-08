@@ -1,186 +1,156 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
-import { Progress } from '@/components/ui/progress'
 import { Download } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
-import { usePDF } from 'react-to-pdf'
 import { CVProps } from '../../types/CV'
+import { PDFRenderer } from '@/components/PDFRenderer'
 
 const MeBlack = '/img/me_black.svg'
 const MeWhite = '/img/me_white.svg'
 
 const CV: React.FC<CVProps> = ({ data, language = 'en', showMe = false }: CVProps) => {
 
-  const Section = ({ title, children }: { title: string, children: React.ReactNode }) => (
+  const Section = ({ title, children }: { title?: string, children: React.ReactNode }) => (
     <section className="flex flex-col gap-2 glassPanel">
-      <h3>{title}</h3>
+      {title && <h3>{title}</h3>}
       {children}
     </section>
   )
 
   const { theme } = useTheme()
-
-  const options = {
-    filename: 'CV.pdf',
-    canvas: {
-      mimeType: 'image/jpeg' as 'image/jpeg', // had to add this to fix a type error
-      qualityRatio: 0.98
-    },
-  }
-
-  const { toPDF, targetRef } = usePDF(options)
-
-  const handleExportPDF = () => {
-    console.log('handleExportPDF called')
-
-    if (!targetRef.current) {
-      console.error('targetRef is not set')
-      return
-    }
-
-    const exportColor = theme === 'light' ? '#FFE6FF' : '#282D28'
-    const exportTextColor = theme === 'light' ? '#000000' : '#D5FAD5'
-    const originalBg = targetRef.current.style.backgroundColor
-    const originalTextColor = targetRef.current.style.color
-
-    targetRef.current.style.backgroundColor = exportColor
-    targetRef.current.style.color = exportTextColor
-    document.body.style.backgroundColor = exportColor
-
-    console.log('Export styles:', {
-      backgroundColor: targetRef.current.style.backgroundColor,
-      color: targetRef.current.style.color
-    })
-
-    toPDF()
-    setTimeout(() => {
-      targetRef.current.style.backgroundColor = originalBg
-      targetRef.current.style.color = originalTextColor
-      document.body.style.backgroundColor = ''
-    }, 500)
-  }
-
   const [me, setMe] = useState(MeBlack)
 
   useEffect(() => {
     setMe(theme === 'light' ? MeBlack : MeWhite)
   }, [theme])
 
+  const [showPDF, setShowPDF] = useState(true)
+
   if (!data) return null
+
+  if (showPDF) {
+    return (
+      <div className="fixed inset-0 z-50 bg-background/80 backdrop-blur-sm">
+        <div className="fixed inset-10">
+          <Button
+            onClick={() => setShowPDF(false)}
+            className="absolute top-2 right-2 z-10"
+          >
+            Close
+          </Button>
+          <PDFRenderer data={data} language={language} />
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className='relative'>
-      <Button onClick={handleExportPDF} className='absolute top-5 right-5 z-10'>
+      <Button
+        onClick={() => setShowPDF(true)}
+        className='absolute top-5 right-5 z-10'
+      >
         <Download className='w-4 h-4 mr-2' /> {language === 'en' ? 'Export to pdf' : 'Exporter en pdf'}
       </Button>
-      <div className="glassPanel flex flex-col gap-2 aspect-[1/1.4134]" ref={targetRef}>
+      <div className="glassPanel flex flex-col gap-2 aspect-[1/1.4134]">
 
-        <header className='flex gap-2 items-center ml-8'>
-          {showMe && <Image src={me} alt="Me" width={50} height={50} />}
+        <header className='flex gap-2 items-center ml-8 justify-between px-4'>
+          <div className='flex gap-2 items-center'>
+            <div className={`relative cursor-pointer transition-transform flex-shrink-0 w-20 h-20`}>
+              {showMe && <Image src={me} alt="Me" fill={true} />}
+            </div>
+            <div>
+              <h1>{data.name}</h1>
+              <p>{data.title}</p>
+            </div>
+          </div>
           <div>
-            <h1>{data.name}</h1>
-            <p>{data.title}</p>
+            <p className='text-sm text-justify flex flex-col gap-1'>
+              {data.contact && data.contact.email && <a href={`mailto:${data.contact.email}`}>{data.contact.email}</a>}
+              {data.contact && data.contact.phone && <a href={`tel:${data.contact.phone}`}>{data.contact.phone}</a>}
+              {data.contact && data.contact.location && <a href={`https://maps.google.com/?q=${data.contact.location}`}>{data.contact.location}</a>}
+              {data.contact && data.contact.github && <a href={`https://${data.contact.github}`}>{data.contact.github}</a>}
+            </p>
           </div>
         </header>
 
-        {data.about &&
+        {/* {data.about &&
           <Section title={language === 'en' ? 'About me' : 'À propos'}>
             <p className='text-sm text-justify'>{data.about}</p>
           </Section>
-        }
+        } */}
 
-
-        <div className='flex gap-2'>
-          <div className='flex flex-col gap-2 w-1/4'>
-            <Section title="Contact">
-              <p className='text-sm text-justify flex flex-col gap-1'>
-                {data.contact && data.contact.github && <a href={`https://${data.contact.github}`}>{data.contact.github}</a>}
-                {data.contact && data.contact.email && <a href={`mailto:${data.contact.email}`}>{data.contact.email}</a>}
-                {data.contact && data.contact.phone && <a href={`tel:${data.contact.phone}`}>{data.contact.phone}</a>}
-                {data.contact && data.contact.location && <a href={`https://maps.google.com/?q=${data.contact.location}`}>{data.contact.location}</a>}
+        <Section title={language === 'en' ? 'Skills' : 'Compétences'}>
+          <div className='text-sm'>
+            {data?.skills?.stack && data.skills.stack.length > 0 && (
+              <p>
+                <span className="font-bold">{language === 'en' ? 'Technical Stack' : 'Stack Technique'}: </span>
+                {data.skills.stack.map((skill, i) => (
+                  `${skill.name}${i < data.skills!.stack!.length - 1 ? ' | ' : ''}`
+                ))}
               </p>
+            )}
+
+            {data?.skills?.other && data.skills.other.length > 0 && (
+              <p>
+                <span className="font-bold">{language === 'en' ? 'Other Skills' : 'Autres Compétences'}: </span>
+                {data.skills.other.map((skill, i) => (
+                  `${skill.name}${i < data.skills!.other!.length - 1 ? ' | ' : ''}`
+                ))}
+              </p>
+            )}
+
+            {data?.languages && data?.languages?.length > 0 && (
+              <p>
+                <span className="font-bold">{language === 'en' ? 'Languages' : 'Langues'}: </span>
+                {data.languages.map((lang, i) => (
+                  `${lang.name} (${lang.level})${i < data.languages!.length - 1 ? ' | ' : ''}`
+                ))}
+              </p>
+            )}
+          </div>
+        </Section>
+
+        <div className='flex flex-col gap-2'>
+          {data.experience && data.experience.length > 0 &&
+            <Section title={language === 'en' ? 'Experiences' : 'Expérience Professionnelle'}>
+              {data.experience && data.experience.map((exp, index) => (
+                <article key={index} className='glassPanel'>
+                  <h4 className='text-md'>{exp.place} - {exp.title}</h4>
+                  <p className='text-sm uppercase'>{exp.period}</p>
+                  <div className="pl-4">
+                    <div className='text-sm'>
+                      {exp.description && exp.description.map((resp, respIndex) => (
+                        <p key={respIndex}>{resp}</p>
+                      ))}
+                    </div>
+                  </div>
+                </article>
+              ))}
             </Section>
+          }
 
-            {data.languages && data.languages.length > 0 &&
-              <Section title={language === 'en' ? 'Languages' : 'Langues'}>
-                <div className='text-sm text-justify'>
-                  {data.languages && data.languages.map((lang, index) => (
-                    <p key={index}>{lang.name}: {lang.level}</p>
-                  ))}
-                </div>
-              </Section>
-            }
-
-            {data.skills && data.skills.stack &&
-              <Section title={language === 'en' ? 'Stack' : 'Technologies'}>
-                <div className="flex flex-col gap-1">
-                  {data.skills && data.skills.stack && data.skills.stack.map((skill, index) => (
-                    <div key={index} className='flex flex-col gap-1'>
-                      <span className="whitespace-nowrap text-sm">{skill.name}</span>
-                      {skill.rating && <Progress value={skill.rating * 20} className="w-full h-1" />}
+          {data.education &&
+            <Section title={language === 'en' ? 'Education' : 'Formation'}>
+              {data.education && data.education.map((edu, index) => (
+                <article key={index} className='glassPanel'>
+                  <h4 className='text-md'>{edu.title}</h4>
+                  <p className='text-sm uppercase'>{edu.period}</p>
+                  <div className="pl-4">
+                    <div className='text-sm'>
+                      {edu.description && edu.description.map((resp, respIndex) => (
+                        <p key={respIndex}>{resp}</p>
+                      ))}
                     </div>
-                  ))}
-                </div>
-              </Section>}
+                  </div>
+                </article>
+              ))}
+            </Section>
+          }
 
-            {data.skills && data.skills.other &&
-              <Section title={language === 'en' ? 'Other skills' : 'Autres Compétences'}>
-                <div className="flex flex-col gap-1">
-                  {data.skills && data.skills.other && data.skills.other.map((skill, index) => (
-                    <div key={index} className='flex flex-col gap-1'>
-                      <span className="whitespace-nowrap text-sm">{skill.name}</span>
-                      {skill.rating && <Progress value={skill.rating * 20} className="w-full h-1" />}
-                    </div>
-                  ))}
-                </div>
-              </Section>
-            }
-
-          </div>
-
-          <div className='flex flex-col gap-2'>
-            {data.experience && data.experience.length > 0 &&
-              <Section title={language === 'en' ? 'Experiences' : 'Expérience Professionnelle'}>
-                {data.experience && data.experience.map((exp, index) => (
-                  <article key={index} className='glassPanel'>
-                    <h4 className='text-md'>{exp.title}</h4>
-                    <p className='text-sm uppercase font-bold'>{exp.place}</p>
-                    <p className='text-sm uppercase'>{exp.period}</p>
-                    <div className="pl-4">
-                      <div className='text-sm'>
-                        {exp.description && exp.description.map((resp, respIndex) => (
-                          <p key={respIndex}>{resp}</p>
-                        ))}
-                      </div>
-                    </div>
-                  </article>
-                ))}
-              </Section>
-            }
-
-            {data.education &&
-              <Section title={language === 'en' ? 'Education' : 'Formation'}>
-                {data.education && data.education.map((edu, index) => (
-                  <article key={index} className='glassPanel'>
-                    <h4 className='text-md'>{edu.title}</h4>
-                    <p className='text-sm uppercase font-bold'>{edu.place}</p>
-                    <p className='text-sm uppercase'>{edu.period}</p>
-                    <div className="pl-4">
-                      <div className='text-sm'>
-                        {edu.description && edu.description.map((resp, respIndex) => (
-                          <p key={respIndex}>{resp}</p>
-                        ))}
-                      </div>
-                    </div>
-                  </article>
-                ))}
-              </Section>
-            }
-
-          </div>
         </div>
       </div>
     </div>
