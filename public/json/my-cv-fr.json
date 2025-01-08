@@ -1,12 +1,33 @@
 {
   "name": "Sébastien Pingal",
   "title": "Développeur Fullstack",
-  "contact": {
-    "github": "github.com/SebastienPingal",
-    "email": "sebastien.pingal@gmail.com",
-    "phone": "(+33) 07 77 93 91 02",
-    "location": "Nanterre, France"
-  },
+  "contact": [
+    {
+      "key": "email",
+      "value": "sebastien.pingal@gmail.com",
+      "link": "mailto:sebastien.pingal@gmail.com"
+    },
+    {
+      "key": "phone",
+      "value": "(+33) 07 77 93 91 02",
+      "link": "tel:+33777939102"
+    },
+    {
+      "key": "location",
+      "value": "Paris, France",
+      "link": "https://www.google.com/maps/place/Paris,+France"
+    },
+    {
+      "key": "github",
+      "value": "github.com/SebastienPingal",
+      "link": "https://github.com/SebastienPingal"
+    },
+    {
+      "key": "linkedin",
+      "value": "linkedin.com/in/sebastienpingal",
+      "link": "https://www.linkedin.com/in/sebastienpingal"
+    }
+  ],
   "languages": [
     {
       "name": "Français",
@@ -93,43 +114,44 @@
   ],
   "experience": [
     {
-      "title": "CTO",
+      "title": "Développeur Full Stack",
       "place": "Moneo Domus",
       "period": "Depuis mars 2024",
       "description": [
-        "Création d'un site de gestion de projet from scratch (Next, PostgreSQL, Vercel)",
-        "Design"
+        "Création et design d'un site de gestion de projet from scratch (Next, PostgreSQL, Vercel) permettant a mon client d'automatiser la gestion de ses projets de rénovation immobilière et ainsi de réduire ses coûts de gestion de 50%"
       ]
     },
     {
-      "title": "Entrepreneur et dev fullstack",
+      "title": "Fondateur, développeur Full Stack et UX/UI Designer",
       "place": "KAFO",
       "period": "Janvier 2023 - Janvier 2024",
       "description": [
-        "Recodage à 100% du front (Vue 3, TS)",
-        "Mise en place d'un site en no code (Weweb, Xano, JavaScript, MySQL)",
-        "Mise en place de tests unitaires et e2e (Vitest et Cypress)",
-        "Mise en place d'un serveur de fichiers (AWS S3)"
+        "Codage d'un site en no code (Weweb, Xano, JavaScript, MySQL) dans un but d'itération rapide et de réduction des coûts de développement",
+        "Recodage à 100% du front (Vue 3, TS) reduisant la latence du site de 80%",
+        "Intégration d'une carte intéractive (Mapbox) indexant des centaines de lieux dans Paris",
+        "Interview de 50 travailleurs en télétravail pour comprendre leurs besoins et leurs pratiques. Ces interviews ont permis de redéfinir l'angle d'attaque de la startup en se concentrant plus sur le coté social et de l'isolement des télétravailleurs que sur le besoin de trouver des lieux acceuillants.",
+        "Tests utilisateurs UX de 20 utilisateurs. Ces test ont permis de comprendre les lacunes de l'application et de streamliner l'expérience utilisateur."
       ]
     },
     {
-      "title": "Dev FullStack",
+      "title": "Développeur Full Stack",
       "place": "Art Factory",
-      "period": "Depuis novembre 2023",
+      "period": "Novembre 2023 - Décembre 2023",
       "description": [
-        "Création d'un site d'événementiel from scratch (Next)",
-        "Mise en place d'un serveur de fichiers (AWS S3)"
+        "Création from scratch d'un site de gestion d'évenements semi privés (Next, PostgreSQL, Vercel). Gain de temps et facilité d'utilisation pour les utilisateurs"
       ]
     },
     {
-      "title": "Dev FullStack",
-      "place": "Aestima Immo",
-      "period": "Depuis septembre 2022",
+      "title": "Développeur FullStack",
+      "place": "Aestima Immo / Simulateur d'investissement immobilier",
+      "period": "Septembre 2022 - Mars 2024",
       "description": [
-        "Implémentation d'export PDF (scraping avec Puppeteer)",
-        "Maintien du serveur et ajout de fonctionnalités (Node, Vue 2, Express, MongoDB)",
-        "Utilisation de Stripe pour l'implémentation des abonnements",
-        "Gestion de l'infrastructure (AWS EC2)"
+        "Implémentation d'export PDF (scraping avec Puppeteer) permettant aux utilisateurs d'exporter les simulations. Cette fonctionnalité a permis de doubler le nombre d'abonnements premium",
+        "Implémentation d'une gestion de d'équipe (agence) et d'un nouvel abonnement.",
+        "Refonte du systeme d'abonnement avec Stripe permettant a mon client de simplifier la gestion de ses abonnements.",
+        "Refonte de l'infrastructure (AWS EC2) permettant de réduire les coûts d'hébergement de 80%",
+        "Refonte du code front (Vue 2) permettant de réduire drastiquement la latence du site (1s -> 100ms)",
+        "Simplification de la mise a jour des différents taux immobiliers et de la gestion des états financiers en permettant a mon client de gérer ses données en autonomie."
       ]
     }
   ],
