@@ -41,7 +41,7 @@ const CV: React.FC<CVProps> = ({ data, language = 'en', showMe = false }: CVProp
           >
             Close
           </Button>
-          <PDFRenderer data={data} language={language} theme={theme || 'light'} />
+          <PDFRenderer data={data} language={language} theme={theme === 'light' ? 'light' : 'dark'} />
         </div>
       </div>
     )

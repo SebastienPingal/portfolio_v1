@@ -4,10 +4,9 @@ interface Language {
 }
 
 interface Contact {
-  github: string | null
-  email: string | null
-  phone: string | null
-  location: string | null
+  key: string
+  value: string | undefined
+  link: string | undefined
 }
 
 interface Item {
@@ -20,7 +19,7 @@ interface Item {
 interface CVData {
   name: string | null
   title: string | null
-  contact: Contact | null
+  contact: Contact[] | null
   languages: Language[] | null
   skills: {
     stack: {

@@ -1,13 +1,13 @@
 'use client'
 
-import { Document, Page, Text, View, StyleSheet, PDFViewer, Font } from '@react-pdf/renderer'
+import { Document, Page, Text, View, StyleSheet, PDFViewer, Font, Link } from '@react-pdf/renderer'
 import { CVProps } from '@/types/CV'
 
 // Define a type for the theme keys
 type ThemeType = 'light' | 'dark';
 
 interface PDFDocumentProps extends CVProps {
-  theme: ThemeType; // Use the ThemeType for the theme prop
+  theme: ThemeType
 }
 
 Font.register({
@@ -155,10 +155,9 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
           <View style={styles.headerRight}>
             {data.contact && (
               <>
-                {data.contact.email && <Text style={styles.contact}>{data.contact.email}</Text>}
-                {data.contact.phone && <Text style={styles.contact}>{data.contact.phone}</Text>}
-                {data.contact.location && <Text style={styles.contact}>{data.contact.location}</Text>}
-                {data.contact.github && <Text style={styles.contact}>{data.contact.github}</Text>}
+                {data.contact.map((contact) => (
+                  contact.value && <Link key={contact.key} style={styles.contact} src={contact.link}>{contact.value}</Link>
+                ))}
               </>
             )}
           </View>
