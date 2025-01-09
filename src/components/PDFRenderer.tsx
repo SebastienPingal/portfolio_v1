@@ -1,7 +1,11 @@
 'use client'
 
-import { Document, Page, Text, View, StyleSheet, PDFViewer, Font, Link } from '@react-pdf/renderer'
+import dynamic from 'next/dynamic'
+import { Document, Page, Text, View, StyleSheet, Font, Link } from '@react-pdf/renderer'
 import { CVProps } from '@/types/CV'
+
+// Dynamically import PDFViewer to ensure it's only used on the client side
+const PDFViewer = dynamic(() => import('@react-pdf/renderer').then(mod => mod.PDFViewer), { ssr: false })
 
 // Define a type for the theme keys
 type ThemeType = 'light' | 'dark';
@@ -41,35 +45,31 @@ Font.register({
   ]
 })
 
-
-
 // Theme colors from your globals.css
 const themeColors = {
   light: {
-    background: '#F4D7F4', // --background: 300 55.9% 95%
-    foreground: '#2E052E', // --foreground: 300 80% 10%
-    card: '#dbbddb', // --card: 300 30% 80%
-    primary: '#9E709E', // --primary: 300 19% 53%
-    secondary: '#92bf92', // --secondary: 120 26% 66%
-    accent: '#633663', // --accent: 300 30% 30%
+    background: '#F4D7F4',
+    foreground: '#2E052E',
+    card: '#dbbddb',
+    primary: '#9E709E',
+    secondary: '#92bf92',
+    accent: '#633663',
   },
   dark: {
-    background: '#202D20', // --background: 120 16.5% 15.1%
-    foreground: '#F1FDF1', // --foreground: 120 80% 97%
-    card: '#2E382E', // --card: 120 9% 35%
-    primary: '#D6F5D6', // --primary: 120 60% 90%
-    secondary: '#BF92BF', // --secondary: 300 26% 66%
-    accent: '#B3CCB3', // --accent: 120 20% 60%
+    background: '#202D20',
+    foreground: '#F1FDF1',
+    card: '#2E382E',
+    primary: '#D6F5D6',
+    secondary: '#BF92BF',
+    accent: '#B3CCB3',
   }
 }
 
 const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
   if (!data) return null
 
-  // Determine the current theme colors
   const currentThemeColors = themeColors[theme] || themeColors.light
 
-  // Update styles to use current theme colors
   const styles = StyleSheet.create({
     page: {
       padding: 20,
@@ -80,10 +80,10 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
     header: {
       flexDirection: 'row',
       justifyContent: 'space-between',
-      marginBottom: 5,
+      marginBottom: 10,
       padding: 5,
       backgroundColor: currentThemeColors.card,
-      borderRadius: 3
+      borderRadius: 3,
     },
     headerLeft: {
       flexDirection: 'column'
@@ -103,7 +103,7 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
       fontWeight: 'bold'
     },
     contact: {
-      fontSize: 10,
+      fontSize: 9,
       color: currentThemeColors.primary
     },
     section: {
@@ -126,7 +126,8 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
       color: currentThemeColors.accent
     },
     experience: {
-      padding: 3
+      padding: 3,
+      marginBottom: 2
     },
     experienceHeader: {
       fontSize: 12,
