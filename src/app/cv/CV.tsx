@@ -37,7 +37,7 @@ const CV: React.FC<CVProps> = ({ data, language = 'en', showMe = false }: CVProp
         <div className="fixed inset-10">
           <Button
             onClick={() => setShowPDF(false)}
-            className="absolute top-2 right-2 z-10"
+            className="absolute top-2 right-36 z-10"
           >
             Close
           </Button>
@@ -69,10 +69,9 @@ const CV: React.FC<CVProps> = ({ data, language = 'en', showMe = false }: CVProp
           </div>
           <div>
             <p className='text-sm text-justify flex flex-col gap-1'>
-              {data.contact && data.contact.email && <a href={`mailto:${data.contact.email}`}>{data.contact.email}</a>}
-              {data.contact && data.contact.phone && <a href={`tel:${data.contact.phone}`}>{data.contact.phone}</a>}
-              {data.contact && data.contact.location && <a href={`https://maps.google.com/?q=${data.contact.location}`}>{data.contact.location}</a>}
-              {data.contact && data.contact.github && <a href={`https://${data.contact.github}`}>{data.contact.github}</a>}
+              {data.contact && data.contact.map((contact) => (
+                contact.value && <a key={contact.key} href={contact.link}>{contact.value}</a>
+              ))}
             </p>
           </div>
         </header>
