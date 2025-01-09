@@ -27,7 +27,7 @@ const CV: React.FC<CVProps> = ({ data, language = 'en', showMe = false }: CVProp
     setMe(theme === 'light' ? MeBlack : MeWhite)
   }, [theme])
 
-  const [showPDF, setShowPDF] = useState(true)
+  const [showPDF, setShowPDF] = useState(false)
 
   if (!data) return null
 

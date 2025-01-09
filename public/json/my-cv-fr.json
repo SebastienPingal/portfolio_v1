@@ -46,31 +46,31 @@
     "stack": [
       {
         "name": "TypeScript",
-        "rating": 4
+        "rating": 5
       },
       {
         "name": "React / Next",
         "rating": 5
       },
       {
-        "name": "Vue / Nuxt",
+        "name": "Node.js",
+        "rating": 5
+      },
+      {
+        "name": "MongoDB",
         "rating": 4
       },
       {
-        "name": "JS / Node.js",
+        "name": "GraphQL",
+        "rating": 2
+      },
+      {
+        "name": "Docker",
         "rating": 4
       },
       {
-        "name": "AWS",
+        "name": "CI/CD (GitLabCI)",
         "rating": 4
-      },
-      {
-        "name": "PostgreSQL",
-        "rating": 3
-      },
-      {
-        "name": "Jest",
-        "rating": 3
       }
     ],
     "other": [
@@ -118,7 +118,9 @@
       "place": "Moneo Domus",
       "period": "Depuis mars 2024",
       "description": [
-        "Création et design d'un site de gestion de projet from scratch (Next, PostgreSQL, Vercel) permettant a mon client d'automatiser la gestion de ses projets de rénovation immobilière et ainsi de réduire ses coûts de gestion de 50%"
+        "Création et design d'un site de gestion de projet from scratch (Next, PostgreSQL, Vercel) permettant a mon client d'automatiser la gestion de ses projets de rénovation immobilière et ainsi de réduire ses coûts de gestion de 50%",
+        "Utilisation de Docker pour le déploiement et la gestion des conteneurs",
+        "Mise en place de pipelines CI/CD avec GitLab pour automatiser les déploiements"
       ]
     },
     {
@@ -128,6 +130,7 @@
       "description": [
         "Codage d'un site en no code (Weweb, Xano, JavaScript, MySQL) dans un but d'itération rapide et de réduction des coûts de développement",
         "Recodage à 100% du front (Vue 3, TS) reduisant la latence du site de 80%",
+        "Mise en place d'une CI/CD avec GitHub Actions permettant des déploiements automatisés et sécurisés du nouveau front",
         "Intégration d'une carte intéractive (Mapbox) indexant des centaines de lieux dans Paris",
         "Interview de 50 travailleurs en télétravail pour comprendre leurs besoins et leurs pratiques. Ces interviews ont permis de redéfinir l'angle d'attaque de la startup en se concentrant plus sur le coté social et de l'isolement des télétravailleurs que sur le besoin de trouver des lieux acceuillants.",
         "Tests utilisateurs UX de 20 utilisateurs. Ces test ont permis de comprendre les lacunes de l'application et de streamliner l'expérience utilisateur."
@@ -149,11 +152,12 @@
         "Implémentation d'export PDF (scraping avec Puppeteer) permettant aux utilisateurs d'exporter les simulations. Cette fonctionnalité a permis de doubler le nombre d'abonnements premium",
         "Implémentation d'une gestion de d'équipe (agence) et d'un nouvel abonnement.",
         "Refonte du systeme d'abonnement avec Stripe permettant a mon client de simplifier la gestion de ses abonnements.",
-        "Refonte de l'infrastructure (AWS EC2) permettant de réduire les coûts d'hébergement de 80%",
+        "Refonte de l'infrastructure (AWS EC2) et conteneurisation avec Docker permettant de réduire les coûts d'hébergement de 80%",
+        "Mise à jour de la CI/CD avec GitHub Actions pour s'adapter à la nouvelle infrastructure AWS",
         "Refonte du code front (Vue 2) permettant de réduire drastiquement la latence du site (1s -> 100ms)",
         "Simplification de la mise a jour des différents taux immobiliers et de la gestion des états financiers en permettant a mon client de gérer ses données en autonomie."
       ]
     }
   ],
-  "about": "Développeur Full Stack passionné par l'innovation, j'ai récemment conçu et développé moneodomus.com une plateforme web complexe de gestion de projets immobiliers, permettant la collaboration entre différents acteurs du secteur (agences, constructeurs, architectes). Co-fondateur de KAFO, une startup dédiée à réduire l'isolement des télétravailleurs, je m'appuie sur une expérience précédente de 6 ans dans l'industrie musicale qui m'a doté d'une forte capacité d'adaptation et de créativité."
+  "about": "Développeur Full Stack passionné par l'innovation, j'ai récemment conçu et développé moneodomus.com une plateforme web complexe de gestion de projets immobiliers, permettant la collaboration entre différents acteurs du secteur (agences, constructeurs, architectes). Co-fondateur de KAFO, une startup dédiée à réduire l'isolement des télétravailleurs, je m'appuie sur une expérience précédente de 6 ans dans l'industrie musicale qui m'a doté d'une forte capacité d'adaptation et de créativité. Je suis à l'aise avec les technologies modernes comme Docker et CI/CD, et je suis toujours prêt à apprendre de nouvelles méthodes et langages."
 }
