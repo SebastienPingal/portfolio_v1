@@ -7,12 +7,13 @@ import CommentSection from '@/components/CommentSection'
 import MarkdownInterpreter from '@/components/MarkdownInterpreter'
 
 interface pageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
-const WorkPost = async ({ params }: pageProps) => {
+const WorkPost = async (props: pageProps) => {
+  const params = await props.params;
   const slug = params.slug
   if (!slug) notFound()
   const post = await getPost(slug)

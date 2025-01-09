@@ -3,12 +3,13 @@ import PostEditor from '@/components/PostEditor'
 import { notFound } from 'next/navigation'
 
 interface pageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
-const EditPost = async ({ params }: pageProps) => {
+const EditPost = async (props: pageProps) => {
+  const params = await props.params;
   const slug = params.slug
   if (!slug) notFound()
   const workPost = await getPost(slug)

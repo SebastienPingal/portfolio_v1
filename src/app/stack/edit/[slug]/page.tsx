@@ -3,12 +3,13 @@ import { notFound } from 'next/navigation'
 import StackUpdator from './StackUpdator'
 
 interface pageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
-const EditStack = async ({ params }: pageProps) => {
+const EditStack = async (props: pageProps) => {
+  const params = await props.params;
   const slug = params.slug
   const stack = await getStack(slug)
   if (!stack) notFound()
