@@ -7,6 +7,7 @@ const nextConfig = {
       { hostname: 'uoeohmz1cojcdmtr.public.blob.vercel-storage.com' },
     ],
   },
+  transpilePackages: ['@react-pdf/renderer'],
   experimental: {
     serverComponentsExternalPackages: ['pdf-img-convert'],
     outputFileTracingIncludes: {

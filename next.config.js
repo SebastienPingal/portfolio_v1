@@ -1,1 +1,0 @@
-transpilePackages: ['@react-pdf/renderer'] 
