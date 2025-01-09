@@ -8,12 +8,12 @@ import MarkdownInterpreter from '@/components/MarkdownInterpreter'
 
 interface pageProps {
   params: Promise<{
-    slug: string;
+    slug: string
   }>;
 }
 
 const WorkPost = async (props: pageProps) => {
-  const params = await props.params;
+  const params = await props.params
   const slug = params.slug
   if (!slug) notFound()
   const post = await getPost(slug)

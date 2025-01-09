@@ -4,12 +4,12 @@ import StackUpdator from './StackUpdator'
 
 interface pageProps {
   params: Promise<{
-    slug: string;
-  }>;
+    slug: string
+  }>
 }
 
 const EditStack = async (props: pageProps) => {
-  const params = await props.params;
+  const params = await props.params
   const slug = params.slug
   const stack = await getStack(slug)
   if (!stack) notFound()
