@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState, useActionState } from 'react';
+import { useEffect, useState, useActionState } from 'react'
 import { useRouter } from 'next/navigation'
 import { createPost, updatePost } from '@/app/actions'
 
