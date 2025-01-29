@@ -25,12 +25,12 @@ export const CVHeader: React.FC<CVHeaderProps> = ({
       </div>
       <div>
         <Input
-          value={data.name}
+          value={data.name || ''}
           onChange={(e) => onEdit({ name: e.target.value })}
           className="text-2xl font-bold"
         />
         <Input
-          value={data.title}
+          value={data.title || ''}
           onChange={(e) => onEdit({ title: e.target.value })}
         />
       </div>
