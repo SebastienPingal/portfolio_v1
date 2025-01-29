@@ -5,14 +5,13 @@ import { Download } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
-import { CVProps } from '../../types/CV'
+import { CVData } from '@/types/CV'
 import { PDFRenderer } from '@/components/PDFRenderer'
 
 const MeBlack = '/img/me_black.svg'
 const MeWhite = '/img/me_white.svg'
 
-const CV: React.FC<CVProps> = ({ data, language = 'en', showMe = false }: CVProps) => {
-
+const CV: React.FC<{ data: CVData; language?: string; showMe?: boolean }> = ({ data, language = 'en', showMe = false }) => {
   const Section = ({ title, children }: { title?: string, children: React.ReactNode }) => (
     <section className="flex flex-col gap-2 glassPanel">
       {title && <h3>{title}</h3>}

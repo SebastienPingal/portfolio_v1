@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { Anthropic } from '@anthropic-ai/sdk'
-import myCV from '../../../../public/json/my-cv-fr.json'
+import { frenchCV as myCV } from '../../../../public/json/my-cv-fr'
 import pdf2img from 'pdf-img-convert'
 
 export async function POST(req: NextRequest) {

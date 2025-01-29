@@ -170,13 +170,35 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
           {data.skills?.stack && (
             <View style={styles.skillsRow}>
               <Text style={styles.skillLabel}>{language === 'en' ? 'Technical Stack' : 'Stack Technique'}: </Text>
-              <Text>{data.skills.stack.map(skill => skill.name).join(' | ')}</Text>
+              <Text>
+                {data.skills.stack.map((skill, i) => (
+                  <Text key={i}>
+                    {skill.rating === 5 ? (
+                      <Text style={{fontWeight: 'extrabold'}}>{skill.name}</Text>
+                    ) : (
+                      skill.name
+                    )}
+                    {i < data.skills!.stack!.length - 1 ? ' | ' : ''}
+                  </Text>
+                ))}
+              </Text>
             </View>
           )}
           {data.skills?.other && (
             <View style={styles.skillsRow}>
               <Text style={styles.skillLabel}>{language === 'en' ? 'Other Skills' : 'Autres Compétences'}: </Text>
-              <Text>{data.skills.other.map(skill => skill.name).join(' | ')}</Text>
+              <Text>
+                {data.skills.other.map((skill, i) => (
+                  <Text key={i}>
+                    {skill.rating === 5 ? (
+                      <Text style={{fontWeight: 'extrabold'}}>{skill.name}</Text>
+                    ) : (
+                      skill.name
+                    )}
+                    {i < data.skills!.other!.length - 1 ? ' | ' : ''}
+                  </Text>
+                ))}
+              </Text>
             </View>
           )}
           {data.languages && (
