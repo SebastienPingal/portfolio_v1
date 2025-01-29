@@ -40,7 +40,7 @@ model User {
   name          String?
   firstname     String?
   lastname      String?
-  email         String?   @unique
+  email         String   @unique
   emailVerified DateTime?
   image         String?
   accounts      Account[]
@@ -48,6 +48,7 @@ model User {
   comment       Comment[]
   like          Like[]
   stack         Stack[]   @relation("UserStacks")
+  cvs           CV[]
 }
 
 model ExternalLink {
@@ -111,4 +112,16 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model CV {
+  id        String   @id @default(cuid())
+  title     String
+  data      Json
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([title, userId])
 }

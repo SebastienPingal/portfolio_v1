@@ -1,24 +1,35 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
-import { Download } from 'lucide-react'
+import { Download, Plus, Trash2, Edit } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import { CVData } from '@/types/CV'
 import { PDFRenderer } from '@/components/PDFRenderer'
+import { Input } from '@/components/ui/input'
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
+import { Textarea } from '@/components/ui/textarea'
+import { getStacks } from '@/app/actions'
+import { Stack } from '@prisma/client'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { ExperienceSection } from './components/ExperienceSection'
+import { EducationSection } from './components/EducationSection'
+import { Section } from './components/Section'
+import { EducationForm } from './components/EducationForm'
+import { SkillsSection } from './components/SkillsSection'
+import { ExperienceForm, ExperienceFormData } from './components/ExperienceForm'
+import { EducationFormData } from './components/EducationForm'
 
 const MeBlack = '/img/me_black.svg'
 const MeWhite = '/img/me_white.svg'
 
-const CV: React.FC<{ data: CVData; language?: string; showMe?: boolean }> = ({ data, language = 'en', showMe = false }) => {
-  const Section = ({ title, children }: { title?: string, children: React.ReactNode }) => (
-    <section className="flex flex-col gap-2 glassPanel">
-      {title && <h3>{title}</h3>}
-      {children}
-    </section>
-  )
-
+const CV: React.FC<{
+  data: CVData
+  language?: string
+  showMe?: boolean
+  onDataChange?: (data: CVData) => void
+}> = ({ data, language = 'en', showMe = false, onDataChange }) => {
   const { theme } = useTheme()
   const [me, setMe] = useState(MeBlack)
 
@@ -27,6 +38,112 @@ const CV: React.FC<{ data: CVData; language?: string; showMe?: boolean }> = ({ d
   }, [theme])
 
   const [showPDF, setShowPDF] = useState(false)
+  const [editingExp, setEditingExp] = useState<ExperienceFormData | null>(null)
+  const [availableStacks, setAvailableStacks] = useState<Stack[]>([])
+  const [showExpDialog, setShowExpDialog] = useState(false)
+  const [editingEdu, setEditingEdu] = useState<EducationFormData | null>(null)
+  const [showEduDialog, setShowEduDialog] = useState(false)
+
+  useEffect(() => {
+    const loadStacks = async () => {
+      const stacks = await getStacks()
+      setAvailableStacks(stacks)
+    }
+    loadStacks()
+  }, [])
+
+  const handleEdit = (newData: Partial<CVData>) => {
+    if (onDataChange) {
+      onDataChange({
+        ...data,
+        ...newData
+      })
+    }
+  }
+
+  const handleContactEdit = (index: number, field: 'value' | 'link', value: string) => {
+    if (!onDataChange || !data.contact) return
+
+    const newContacts = [...data.contact]
+    newContacts[index] = {
+      ...newContacts[index],
+      [field]: value
+    }
+
+    handleEdit({ contact: newContacts })
+  }
+
+  const handleAddExperience = (formData: ExperienceFormData) => {
+    if (!onDataChange) return
+
+    const newExperience = {
+      place: formData.place,
+      title: formData.title,
+      period: formData.period,
+      description: formData.description
+    }
+
+    handleEdit({
+      experience: [...(data.experience || []), newExperience]
+    })
+    setShowExpDialog(false)
+  }
+
+  const handleEditExperience = (index: number, formData: ExperienceFormData) => {
+    if (!onDataChange || !data.experience) return
+
+    const updatedExperiences = [...data.experience]
+    updatedExperiences[index] = {
+      ...updatedExperiences[index],
+      ...formData
+    }
+
+    handleEdit({ experience: updatedExperiences })
+    setEditingExp(null)
+  }
+
+  const handleDeleteExperience = (index: number) => {
+    if (!onDataChange || !data.experience) return
+
+    const updatedExperiences = data.experience.filter((_, i) => i !== index)
+    handleEdit({ experience: updatedExperiences })
+  }
+
+  const handleAddEducation = (formData: EducationFormData) => {
+    if (!onDataChange) return
+
+    const newEducation = {
+      title: formData.title,
+      period: formData.period,
+      description: formData.description,
+      place: '' // Add a default or appropriate value for 'place'
+    }
+
+    handleEdit({
+      education: [...(data.education || []), newEducation]
+    })
+    setShowEduDialog(false)
+  }
+
+  const handleEditEducation = (index: number, formData: EducationFormData) => {
+    if (!onDataChange || !data.education) return
+
+    const updatedEducation = [...data.education]
+    updatedEducation[index] = {
+      ...updatedEducation[index],
+      ...formData
+    }
+
+    handleEdit({ education: updatedEducation })
+    setEditingEdu(null)
+  }
+
+  const handleDeleteEducation = (index: number) => {
+    if (!onDataChange || !data.education) return
+
+    const updatedEducation = data.education.filter((_, i) => i !== index)
+    handleEdit({ education: updatedEducation })
+  }
 
   if (!data) return null
 
@@ -62,14 +179,35 @@ const CV: React.FC<{ data: CVData; language?: string; showMe?: boolean }> = ({ d
               {showMe && <Image src={me} alt="Me" fill={true} />}
             </div>
             <div>
-              <h1>{data.name}</h1>
-              <p>{data.title}</p>
+              <Input
+                value={data.name ?? ''}
+                onChange={(e) => handleEdit({ name: e.target.value })}
+                className="text-2xl font-bold"
+              />
+              <Input
+                value={data.title ?? ''}
+                onChange={(e) => handleEdit({ title: e.target.value })}
+              />
             </div>
           </div>
           <div>
             <p className='text-sm text-justify flex flex-col gap-1'>
-              {data.contact && data.contact.map((contact) => (
-                contact.value && <a key={contact.key} href={contact.link}>{contact.value}</a>
+              {data.contact && data.contact.map((contact, index) => (
+                contact.value && (
+                  <div key={contact.key} className="flex gap-2">
+                    <Input
+                      value={contact.value}
+                      onChange={(e) => handleContactEdit(index, 'value', e.target.value)}
+                      className="text-sm"
+                    />
+                    <Input
+                      value={contact.link}
+                      onChange={(e) => handleContactEdit(index, 'link', e.target.value)}
+                      className="text-sm"
+                      placeholder="Link"
+                    />
+                  </div>
+                )
               ))}
             </p>
           </div>
@@ -81,76 +219,90 @@ const CV: React.FC<{ data: CVData; language?: string; showMe?: boolean }> = ({ d
           </Section>
         } */}
 
-        <Section title={language === 'en' ? 'Skills' : 'Compétences'}>
-          <div className='text-sm'>
-            {data?.skills?.stack && data.skills.stack.length > 0 && (
-              <p>
-                <span className="font-bold">{language === 'en' ? 'Technical Stack' : 'Stack Technique'}: </span>
-                {data.skills.stack.map((skill, i) => (
-                  `${skill.name}${i < data.skills!.stack!.length - 1 ? ' | ' : ''}`
-                ))}
-              </p>
-            )}
-
-            {data?.skills?.other && data.skills.other.length > 0 && (
-              <p>
-                <span className="font-bold">{language === 'en' ? 'Other Skills' : 'Autres Compétences'}: </span>
-                {data.skills.other.map((skill, i) => (
-                  `${skill.name}${i < data.skills!.other!.length - 1 ? ' | ' : ''}`
-                ))}
-              </p>
-            )}
-
-            {data?.languages && data?.languages?.length > 0 && (
-              <p>
-                <span className="font-bold">{language === 'en' ? 'Languages' : 'Langues'}: </span>
-                {data.languages.map((lang, i) => (
-                  `${lang.name} (${lang.level})${i < data.languages!.length - 1 ? ' | ' : ''}`
-                ))}
-              </p>
-            )}
-          </div>
-        </Section>
+        <SkillsSection 
+          data={data}
+          language={language}
+          availableStacks={availableStacks}
+          onEdit={handleEdit}
+        />
 
         <div className='flex flex-col gap-2'>
           {data.experience && data.experience.length > 0 &&
-            <Section title={language === 'en' ? 'Experiences' : 'Expérience Professionnelle'}>
-              {data.experience && data.experience.map((exp, index) => (
-                <article key={index} className='glassPanel'>
-                  <h4 className='text-md'>{exp.place} - {exp.title}</h4>
-                  <p className='text-sm uppercase'>{exp.period}</p>
-                  <div className="pl-4">
-                    <div className='text-sm'>
-                      {exp.description && exp.description.map((resp, respIndex) => (
-                        <p key={respIndex}>{resp}</p>
-                      ))}
-                    </div>
-                  </div>
-                </article>
-              ))}
-            </Section>
+            <ExperienceSection
+              data={data}
+              language={language}
+              showExpDialog={showExpDialog}
+              setShowExpDialog={setShowExpDialog}
+              editingExp={editingExp}
+              setEditingExp={setEditingExp}
+              onAddExperience={handleAddExperience}
+              onEditExperience={handleEditExperience}
+              onDeleteExperience={handleDeleteExperience}
+            />
           }
 
           {data.education &&
-            <Section title={language === 'en' ? 'Education' : 'Formation'}>
-              {data.education && data.education.map((edu, index) => (
-                <article key={index} className='glassPanel'>
-                  <h4 className='text-md'>{edu.title}</h4>
-                  <p className='text-sm uppercase'>{edu.period}</p>
-                  <div className="pl-4">
-                    <div className='text-sm'>
-                      {edu.description && edu.description.map((resp, respIndex) => (
-                        <p key={respIndex}>{resp}</p>
-                      ))}
-                    </div>
-                  </div>
-                </article>
-              ))}
-            </Section>
+            <EducationSection
+              data={data}
+              language={language}
+              showEduDialog={showEduDialog}
+              setShowEduDialog={setShowEduDialog}
+              editingEdu={editingEdu}
+              setEditingEdu={setEditingEdu}
+              onAddEducation={handleAddEducation}
+              onEditEducation={handleEditEducation}
+              onDeleteEducation={handleDeleteEducation}
+            />
           }
 
         </div>
       </div>
+
+      {/* Edit Experience Dialog */}
+      <Dialog open={!!editingExp} onOpenChange={(open) => !open && setEditingExp(null)}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Edit Experience</DialogTitle>
+          </DialogHeader>
+          {editingExp && (
+            <ExperienceForm
+              initialData={editingExp}
+              onSubmit={(formData) => {
+                const index = data.experience?.findIndex(
+                  exp => exp.place === editingExp.place && exp.title === editingExp.title
+                )
+                if (index !== undefined && index !== -1) {
+                  handleEditExperience(index, formData)
+                }
+              }}
+              onCancel={() => setEditingExp(null)}
+            />
+          )}
+        </DialogContent>
+      </Dialog>
+
+      {/* Add Education Edit Dialog after Experience Edit Dialog */}
+      <Dialog open={!!editingEdu} onOpenChange={(open) => !open && setEditingEdu(null)}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Edit Education</DialogTitle>
+          </DialogHeader>
+          {editingEdu && (
+            <EducationForm
+              initialData={editingEdu}
+              onSubmit={(formData) => {
+                const index = data.education?.findIndex(
+                  edu => edu.title === editingEdu.title
+                )
+                if (index !== undefined && index !== -1) {
+                  handleEditEducation(index, formData)
+                }
+              }}
+              onCancel={() => setEditingEdu(null)}
+            />
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }

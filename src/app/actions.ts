@@ -2,6 +2,11 @@
 import prisma from '@/lib/db'
 import { Prisma, PostType } from '@prisma/client'
 import { revalidatePath } from 'next/cache'
+import { CVData } from '@/types/CV'
+
+export async function getUser(data: Prisma.UserWhereUniqueInput) {
+  return await prisma.user.findUnique({ where: data })
+}
 
 export async function getPostTypes() {
   const result: { value: string }[] = await prisma.$queryRaw`SELECT unnest(enum_range(NULL::"PostType")) as value`
@@ -120,4 +125,76 @@ export async function updateUser(userMail: string, userUpdateInput: Prisma.UserU
 
 export async function createComment(data: Prisma.CommentCreateInput) {
   return await prisma.comment.create({ data })
+}
+
+/* CV PRESETS */
+
+interface CVPresetData {
+  title: string
+  data: CVData
+}
+
+export async function saveCVPreset(userId: string, title: string, data: CVData) {
+  const existingPreset = await prisma.cV.findUnique({
+    where: {
+      title_userId: {
+        title,
+        userId
+      }
+    }
+  })
+
+  if (existingPreset) {
+    return await prisma.cV.update({
+      where: {
+        id: existingPreset.id
+      },
+      data: {
+        data: data as any // Type assertion needed due to Prisma Json type
+      }
+    })
+  }
+
+  return await prisma.cV.create({
+    data: {
+      title,
+      data: data as any, // Type assertion needed due to Prisma Json type
+      userId
+    }
+  })
+}
+
+export async function getCVPresets(userId: string) {
+  return await prisma.cV.findMany({
+    where: { userId },
+    orderBy: { updatedAt: 'desc' },
+    select: {
+      id: true,
+      title: true,
+      data: true,
+      updatedAt: true
+    }
+  })
+}
+
+export async function deleteCVPreset(id: string, userId: string) {
+  return await prisma.cV.delete({
+    where: { 
+      id,
+      userId
+    }
+  })
+}
+
+export async function updateCVPreset(id: string, userId: string, data: Partial<CVPresetData>) {
+  return await prisma.cV.update({
+    where: { 
+      id,
+      userId
+    },
+    data: {
+      ...data,
+      data: data.data as any // Type assertion needed due to Prisma Json type
+    }
+  })
 }
