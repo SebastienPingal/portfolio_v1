@@ -82,7 +82,7 @@ export default function ModelChooser() {
           <span>🔎 Rechercher un modèle...</span>
         </Button>
 
-        <CommandDialog open={open} onOpenChange={setOpen} title="Recherche de véhicule">
+        <CommandDialog open={open} onOpenChange={setOpen}>
           <CommandInput
             placeholder="Rechercher une marque ou un modèle..."
             onValueChange={setSearchQuery}
