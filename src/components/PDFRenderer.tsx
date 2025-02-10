@@ -141,6 +141,11 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
     experienceDescription: {
       fontSize: 10,
       marginLeft: 5,
+    },
+    link: {
+      textDecoration: 'underline',
+      color: currentThemeColors.accent,
+      fontWeight: 'bold'
     }
   })
 
@@ -174,7 +179,7 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
                 {data.skills.stack.map((skill, i) => (
                   <Text key={i}>
                     {skill.rating === 5 ? (
-                      <Text style={{fontWeight: 'extrabold'}}>{skill.name}</Text>
+                      <Text style={{ fontWeight: 'extrabold' }}>{skill.name}</Text>
                     ) : (
                       skill.name
                     )}
@@ -191,7 +196,7 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
                 {data.skills.other.map((skill, i) => (
                   <Text key={i}>
                     {skill.rating === 5 ? (
-                      <Text style={{fontWeight: 'extrabold'}}>{skill.name}</Text>
+                      <Text style={{ fontWeight: 'extrabold' }}>{skill.name}</Text>
                     ) : (
                       skill.name
                     )}
@@ -217,7 +222,17 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
             </Text>
             {data.experience.map((exp, index) => (
               <View key={index} style={styles.experience}>
-                <Text style={styles.experienceHeader}>{exp.place} - {exp.title}</Text>
+                <Text style={styles.experienceHeader}>
+                  {exp.link ? (
+                    <Link style={styles.link} src={exp.link}>
+                      <Text>{exp.place}</Text>
+                    </Link>
+                  ) : (
+                    exp.place
+                  )}
+                  {' '}-{' '}
+                  {exp.title}
+                </Text>
                 <Text style={styles.experiencePeriod}>{exp.period}</Text>
                 {exp.description?.map((desc, i) => (
                   <Text key={i} style={styles.experienceDescription}>

@@ -9,6 +9,7 @@ export interface ExperienceFormData {
   title: string
   period: string
   description: string[]
+  link?: string
 }
 
 interface ExperienceFormProps {
@@ -79,6 +80,11 @@ export const ExperienceForm: React.FC<ExperienceFormProps> = ({
       >
         <Plus className="h-4 w-4 mr-2" /> Add Description
       </Button>
+      <Input
+        placeholder="External Link (optional)"
+        value={formData.link}
+        onChange={(e) => setFormData({ ...formData, link: e.target.value })}
+      />
       <div className="flex justify-end gap-2">
         <Button variant="outline" onClick={onCancel}>Cancel</Button>
         <Button onClick={() => onSubmit(formData)}>Save</Button>

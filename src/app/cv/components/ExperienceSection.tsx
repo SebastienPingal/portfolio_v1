@@ -59,7 +59,8 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({
               place: exp.place ?? '',
               title: exp.title ?? '',
               period: exp.period ?? '',
-              description: exp.description || []
+              description: exp.description || [],
+              link: exp.link ?? ''
             })}
           >
             <Edit className="h-4 w-4" />
@@ -72,7 +73,20 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({
             <Trash2 className="h-4 w-4 text-destructive" />
           </Button>
         </div>
-        <h4 className='text-md'>{exp.place} - {exp.title}</h4>
+        <h4 className='text-md'>
+          {exp.link ? (
+            <a 
+              href={exp.link} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="hover:underline text-primary"
+            >
+              {exp.place} - {exp.title}
+            </a>
+          ) : (
+            exp.place + ' - ' + exp.title
+          )}
+        </h4>
         <p className='text-sm uppercase'>{exp.period}</p>
         <div className="pl-4">
           <div className='text-sm'>
