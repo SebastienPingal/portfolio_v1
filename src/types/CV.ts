@@ -14,7 +14,7 @@ interface Item {
   place: string | null
   period: string | null
   description: string[] | null
-  link: string | null | undefined
+  link?: string | null | undefined
 }
 
 interface CVData {
