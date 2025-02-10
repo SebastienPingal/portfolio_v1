@@ -7,8 +7,19 @@ import { useRouter } from "next/navigation"
 
 const NewStack = () => {
   const router = useRouter()
-  const handleSubmit = (stack: Stack) => {
-    createStack({ title: stack.title, logo: stack.logo, description: stack.description, link: stack.link, icon: stack.icon, order: stack.order })
+  
+  const handleSubmit = (stack: Partial<Stack>) => {
+    // Extract only the fields we need for creation
+    const newStack = {
+      title: stack.title ?? '',
+      logo: stack.logo ?? '',
+      description: stack.description ?? '',
+      link: stack.link ?? '',
+      icon: stack.icon ?? null,
+      order: stack.order ?? null
+    }
+    
+    createStack(newStack)
     router.push('/stack')
   }
 
