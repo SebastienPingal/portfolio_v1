@@ -45,6 +45,15 @@ const CVPage: React.FC = () => {
       const data = await getCVPresets(user.id)
       setPresets(data as unknown as CVPreset[])
 
+      // Set cvData to the last preset if any
+      if (data.length > 0) {
+        const lastPreset = data[data.length - 1]
+        if (lastPreset.data) {
+          setCvData(lastPreset.data as unknown as CVData)
+          setPresetTitle(lastPreset.title)
+        }
+      }
+
       toast({
         title: "Success",
         description: "Presets loaded successfully"
@@ -57,8 +66,8 @@ const CVPage: React.FC = () => {
       })
     }
   }
-
   useEffect(() => {
+
     loadPresets()
   }, [session?.user?.email])
 
@@ -139,7 +148,7 @@ const CVPage: React.FC = () => {
         <div className='flex gap-2'>
           {session?.user && (
             <>
-              <Select onValueChange={handlePresetChange}>
+              <Select defaultValue={presetTitle} onValueChange={handlePresetChange}>
                 <SelectTrigger className="w-[200px]">
                   <SelectValue placeholder="Load preset" />
                 </SelectTrigger>
