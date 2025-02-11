@@ -164,17 +164,32 @@ export async function saveCVPreset(userId: string, title: string, data: CVData) 
   })
 }
 
-export async function getCVPresets(userId: string) {
-  return await prisma.cV.findMany({
-    where: { userId },
-    orderBy: { updatedAt: 'desc' },
-    select: {
-      id: true,
-      title: true,
-      data: true,
-      updatedAt: true
-    }
-  })
+export async function getCVPresets(userId?: string) {
+  if (!userId) {
+    const user = await getUser({ email: process.env.NEXT_PUBLIC_ADMIN_EMAIL })
+    if (!user) throw new Error('User not found')
+    return await prisma.cV.findMany({
+      where: { userId: user.id },
+      orderBy: { updatedAt: 'desc' },
+      select: {
+        id: true,
+        title: true,
+        data: true,
+        updatedAt: true
+      }
+    })
+  } else {
+    return await prisma.cV.findMany({
+      where: { userId },
+      orderBy: { updatedAt: 'desc' },
+      select: {
+        id: true,
+        title: true,
+        data: true,
+        updatedAt: true
+      }
+    })
+  }
 }
 
 export async function deleteCVPreset(id: string, userId: string) {

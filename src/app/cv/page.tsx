@@ -34,15 +34,10 @@ const CVPage: React.FC = () => {
   const text = 'Hey, if you want to create your own CV with my style, go <a href="/cv-sebifyer">here</a>'
 
   const loadPresets = async () => {
-    if (!session?.user?.email) return
-
     try {
-      const email = session.user.email
-      if (!email) throw new Error('No email found')
-      const user = await getUser({ email: email })
-      if (!user) throw new Error('No user found')
-
-      const data = await getCVPresets(user.id)
+      // Always load default presets first
+      const defaultPresets = await getCVPresets()
+      let data = defaultPresets
       setPresets(data as unknown as CVPreset[])
 
       // Set cvData to the last preset if any
@@ -55,7 +50,7 @@ const CVPage: React.FC = () => {
       }
 
       toast({
-        title: "Success",
+        title: "Success", 
         description: "Presets loaded successfully"
       })
     } catch (error) {
@@ -66,6 +61,7 @@ const CVPage: React.FC = () => {
       })
     }
   }
+
   useEffect(() => {
 
     loadPresets()
@@ -220,7 +216,7 @@ const CVPage: React.FC = () => {
         language={language}
         showMe={true}
         onDataChange={setCvData}
-        isUserConnected={!!session?.user}
+        isUserConnected={!!session?.user && session.user.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL}
       />
     </div>
   )
