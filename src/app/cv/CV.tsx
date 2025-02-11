@@ -26,7 +26,7 @@ const CV: React.FC<{
   language?: string
   showMe?: boolean
   onDataChange?: (data: CVData) => void
-  isUserConnected: boolean
+  isUserConnected?: boolean
 }> = ({ data, language = 'en', showMe = false, onDataChange, isUserConnected }) => {
   const { theme } = useTheme()
   const [me, setMe] = useState(MeBlack)
