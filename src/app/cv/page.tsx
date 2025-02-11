@@ -201,7 +201,7 @@ const CVPage: React.FC = () => {
           )}
         </div>
 
-        <div className='flex items-center gap-2'>
+        {/* <div className='flex items-center gap-2'>
           <div className='text-sm text-foreground'>
             {language === 'en' ? 'English version' : 'Version Française'}
           </div>
@@ -212,7 +212,7 @@ const CVPage: React.FC = () => {
             }}
             className='h-4'
           />
-        </div>
+        </div> */}
       </div>
 
       <CV
@@ -220,6 +220,7 @@ const CVPage: React.FC = () => {
         language={language}
         showMe={true}
         onDataChange={setCvData}
+        isUserConnected={!!session?.user}
       />
     </div>
   )

@@ -26,7 +26,8 @@ const CV: React.FC<{
   language?: string
   showMe?: boolean
   onDataChange?: (data: CVData) => void
-}> = ({ data, language = 'en', showMe = false, onDataChange }) => {
+  isUserConnected: boolean
+}> = ({ data, language = 'en', showMe = false, onDataChange, isUserConnected }) => {
   const { theme } = useTheme()
   const [me, setMe] = useState(MeBlack)
 
@@ -176,15 +177,24 @@ const CV: React.FC<{
               {showMe && <Image src={me} alt="Me" fill={true} />}
             </div>
             <div>
-              <Input
-                value={data.name ?? ''}
-                onChange={(e) => handleEdit({ name: e.target.value })}
-                className="text-2xl font-bold"
-              />
-              <Input
-                value={data.title ?? ''}
-                onChange={(e) => handleEdit({ title: e.target.value })}
-              />
+              {isUserConnected ? (
+                <>
+                  <Input
+                    value={data.name ?? ''}
+                    onChange={(e) => handleEdit({ name: e.target.value })}
+                    className="text-2xl font-bold"
+                  />
+                  <Input
+                    value={data.title ?? ''}
+                    onChange={(e) => handleEdit({ title: e.target.value })}
+                  />
+                </>
+              ) : (
+                <>
+                  <p className="text-2xl font-bold">{data.name}</p>
+                  <p>{data.title}</p>
+                </>
+              )}
             </div>
           </div>
           <div>
@@ -192,17 +202,25 @@ const CV: React.FC<{
               {data.contact && data.contact.map((contact, index) => (
                 contact.value && (
                   <div key={contact.key} className="flex gap-2">
-                    <Input
-                      value={contact.value}
-                      onChange={(e) => handleContactEdit(index, 'value', e.target.value)}
-                      className="text-sm"
-                    />
-                    <Input
-                      value={contact.link}
-                      onChange={(e) => handleContactEdit(index, 'link', e.target.value)}
-                      className="text-sm"
-                      placeholder="Link"
-                    />
+                    {isUserConnected ? (
+                      <>
+                        <Input
+                          value={contact.value}
+                          onChange={(e) => handleContactEdit(index, 'value', e.target.value)}
+                          className="text-sm"
+                        />
+                        <Input
+                          value={contact.link}
+                          onChange={(e) => handleContactEdit(index, 'link', e.target.value)}
+                          className="text-sm"
+                          placeholder="Link"
+                        />
+                      </>
+                    ) : (
+                      <>
+                        {contact.link && <a href={contact.link} className="text-sm">{contact.value}</a>}
+                      </>
+                    )}
                   </div>
                 )
               ))}
@@ -221,6 +239,7 @@ const CV: React.FC<{
           language={language}
           availableStacks={availableStacks}
           onEdit={handleEdit}
+          isUserConnected={isUserConnected}
         />
 
         <div className='flex flex-col gap-2'>
@@ -235,6 +254,7 @@ const CV: React.FC<{
               onAddExperience={handleAddExperience}
               onEditExperience={handleEditExperience}
               onDeleteExperience={handleDeleteExperience}
+              isUserConnected={isUserConnected}
             />
           }
 
@@ -249,6 +269,7 @@ const CV: React.FC<{
               onAddEducation={handleAddEducation}
               onEditEducation={handleEditEducation}
               onDeleteEducation={handleDeleteEducation}
+              isUserConnected={isUserConnected}
             />
           }
 

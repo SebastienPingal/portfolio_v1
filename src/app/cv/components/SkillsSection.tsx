@@ -11,6 +11,7 @@ interface SkillsSectionProps {
   language: string
   availableStacks: Stack[]
   onEdit: (data: Partial<CVData>) => void
+  isUserConnected: boolean
 }
 
 export const SkillsSection: React.FC<SkillsSectionProps> = ({
@@ -18,6 +19,7 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({
   language,
   availableStacks,
   onEdit,
+  isUserConnected
 }) => {
   const handleSkillEditRating = (index: number) => {
     const updatedStacks = [...(data.skills?.stack || [])]
@@ -59,49 +61,53 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({
       <div className='text-sm'>
         {data?.skills?.stack && (
           <div className="flex gap-2 items-center">
-            <span className="font-bold">
-              {language === 'en' ? 'Technical Stack' : 'Stack Technique'}:
-            </span>
-            <div className="flex flex-wrap gap-1">
-              {data.skills.stack.map((skill, index) => (
-                <div key={`${skill.name}-${index}`} className="flex items-center gap-1">
-                  <span
-                    className="text-sm cursor-pointer"
-                    onClick={() => handleSkillEditRating(index)}
-                  >
-                    {skill.name} ({skill.rating})
-                  </span>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => {
-                      const newStacks = data.skills?.stack?.filter((_, i) => i !== index)
-                      onEdit({
-                        skills: {
-                          ...data.skills,
-                          stack: newStacks ?? null,
-                          other: data.skills?.other ?? null
-                        }
-                      })
-                    }}
-                  >
-                    <Trash2 className="h-4 w-4 text-destructive" />
-                  </Button>
-                </div>
-              ))}
-              <Select onValueChange={handleStackSelect}>
-                <SelectTrigger className="w-[200px]">
-                  <SelectValue placeholder="Add stack" />
-                </SelectTrigger>
-                <SelectContent>
-                  {availableStacks.map(stack => (
-                    <SelectItem key={`${stack.id}-${stack.title}`} value={stack.id}>
-                      {stack.title}
-                    </SelectItem>
+            {isUserConnected && (
+              <>
+                <span className="font-bold">
+                  {language === 'en' ? 'Technical Stack' : 'Stack Technique'}:
+                </span>
+                <div className="flex flex-wrap gap-1">
+                  {data.skills.stack.map((skill, index) => (
+                    <div key={`${skill.name}-${index}`} className="flex items-center gap-1">
+                      <span
+                        className="text-sm cursor-pointer"
+                        onClick={() => handleSkillEditRating(index)}
+                      >
+                        {skill.name} ({skill.rating})
+                      </span>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => {
+                          const newStacks = data.skills?.stack?.filter((_, i) => i !== index)
+                          onEdit({
+                            skills: {
+                              ...data.skills,
+                              stack: newStacks ?? null,
+                              other: data.skills?.other ?? null
+                            }
+                          })
+                        }}
+                      >
+                        <Trash2 className="h-4 w-4 text-destructive" />
+                      </Button>
+                    </div>
                   ))}
-                </SelectContent>
-              </Select>
-            </div>
+                  <Select onValueChange={handleStackSelect}>
+                    <SelectTrigger className="w-[200px]">
+                      <SelectValue placeholder="Add stack" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {availableStacks.map(stack => (
+                        <SelectItem key={`${stack.id}-${stack.title}`} value={stack.id}>
+                          {stack.title}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+              </>
+            )}
           </div>
         )}
 

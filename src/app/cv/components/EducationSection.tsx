@@ -16,6 +16,7 @@ interface EducationSectionProps {
   onAddEducation: (data: EducationFormData) => void
   onEditEducation: (index: number, data: EducationFormData) => void
   onDeleteEducation: (index: number) => void
+  isUserConnected: boolean
 }
 
 export const EducationSection: React.FC<EducationSectionProps> = ({
@@ -27,49 +28,56 @@ export const EducationSection: React.FC<EducationSectionProps> = ({
   setEditingEdu,
   onAddEducation,
   onEditEducation,
-  onDeleteEducation
+  onDeleteEducation,
+  isUserConnected
 }) => (
   <Section title={language === 'en' ? 'Education' : 'Formation'}>
     <div className="flex justify-between items-center">
-      <Dialog open={showEduDialog} onOpenChange={setShowEduDialog}>
-        <DialogTrigger asChild>
-          <Button variant="outline" size="sm">
-            <Plus className="h-4 w-4 mr-2" />
-            Add Education
-          </Button>
-        </DialogTrigger>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Add Education</DialogTitle>
-          </DialogHeader>
-          <EducationForm
-            onSubmit={onAddEducation}
-            onCancel={() => setShowEduDialog(false)}
-          />
-        </DialogContent>
-      </Dialog>
+      {isUserConnected && (
+        <Dialog open={showEduDialog} onOpenChange={setShowEduDialog}>
+          <DialogTrigger asChild>
+            <Button variant="outline" size="sm">
+              <Plus className="h-4 w-4 mr-2" />
+              Add Education
+            </Button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Add Education</DialogTitle>
+            </DialogHeader>
+            <EducationForm
+              onSubmit={onAddEducation}
+              onCancel={() => setShowEduDialog(false)}
+            />
+          </DialogContent>
+        </Dialog>
+      )}
     </div>
     {data.education && data.education.map((edu, index) => (
       <article key={`${edu.title}-${index}`} className='glassPanel relative'>
         <div className="absolute top-2 right-2 flex gap-2">
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => setEditingEdu({
-              title: edu.title ?? '',
-              period: edu.period ?? '',
-              description: edu.description || []
-            })}
-          >
-            <Edit className="h-4 w-4" />
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => onDeleteEducation(index)}
-          >
-            <Trash2 className="h-4 w-4 text-destructive" />
-          </Button>
+          {isUserConnected && (
+            <>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setEditingEdu({
+                  title: edu.title ?? '',
+                  period: edu.period ?? '',
+                  description: edu.description || []
+                })}
+              >
+                <Edit className="h-4 w-4" />
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => onDeleteEducation(index)}
+              >
+                <Trash2 className="h-4 w-4 text-destructive" />
+              </Button>
+            </>
+          )}
         </div>
         <h4 className='text-md'>{edu.title}</h4>
         <p className='text-sm uppercase'>{edu.period}</p>
@@ -83,26 +91,28 @@ export const EducationSection: React.FC<EducationSectionProps> = ({
       </article>
     ))}
 
-    <Dialog open={!!editingEdu} onOpenChange={(open) => !open && setEditingEdu(null)}>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>Edit Education</DialogTitle>
-        </DialogHeader>
-        {editingEdu && (
-          <EducationForm
-            initialData={editingEdu}
-            onSubmit={(formData) => {
-              const index = data.education?.findIndex(
-                edu => edu.title === editingEdu.title
-              )
-              if (index !== undefined && index !== -1) {
-                onEditEducation(index, formData)
-              }
-            }}
-            onCancel={() => setEditingEdu(null)}
-          />
-        )}
-      </DialogContent>
-    </Dialog>
+    {isUserConnected && (
+      <Dialog open={!!editingEdu} onOpenChange={(open) => !open && setEditingEdu(null)}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Edit Education</DialogTitle>
+          </DialogHeader>
+          {editingEdu && (
+            <EducationForm
+              initialData={editingEdu}
+              onSubmit={(formData) => {
+                const index = data.education?.findIndex(
+                  edu => edu.title === editingEdu.title
+                )
+                if (index !== undefined && index !== -1) {
+                  onEditEducation(index, formData)
+                }
+              }}
+              onCancel={() => setEditingEdu(null)}
+            />
+          )}
+        </DialogContent>
+      </Dialog>
+    )}
   </Section>
 ) 
