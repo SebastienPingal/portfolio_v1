@@ -5,8 +5,10 @@ import React, { useState } from 'react'
 import { useToast } from '@/components/ui/use-toast'
 import CV from '../cv/CV'
 import { CVData as CVDataType } from '@/types/CV'
+import { useSession } from 'next-auth/react'
 
 const CVSebifyerPage: React.FC = () => {
+  const session = useSession()
   const [image, setImage] = useState<File | null>(null)
   const { toast } = useToast()
   const [CVData, setCVData] = useState<CVDataType | null>(null)
@@ -61,7 +63,7 @@ const CVSebifyerPage: React.FC = () => {
       {image && <Button type='button' onClick={handleImageUpload}>{isLoading ? 'Uploading...' : 'Upload'}</Button>
       }
       {image && <p>Image uploaded: {image.name} 📸</p>}
-      {CVData && <CV data={CVData} language={language} />}
+      {CVData && <CV data={CVData} language={language} isUserConnected={session.status === 'authenticated'} />}
       {/* {mockCVData && <CV data={mockCVData.cvData} language={mockCVData.language} />} */}
     </div >
   )
