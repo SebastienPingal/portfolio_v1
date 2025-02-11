@@ -40,7 +40,7 @@ model User {
   name          String?
   firstname     String?
   lastname      String?
-  email         String   @unique
+  email         String    @unique
   emailVerified DateTime?
   image         String?
   accounts      Account[]
@@ -52,7 +52,7 @@ model User {
 }
 
 model ExternalLink {
-  id        String    @id @default(cuid())
+  id        String  @id @default(cuid())
   title     String
   url       String
   logoWhite String?
@@ -74,6 +74,8 @@ model Post {
   stacks    Stack[]   @relation("PostStacks")
   comments  Comment[]
   likes     Like[]
+  project   Project?
+  projectId String?
 }
 
 model Comment {
@@ -124,4 +126,16 @@ model CV {
   updatedAt DateTime @updatedAt
 
   @@unique([title, userId])
+}
+
+model Project {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  link        String
+  imagesUrl   String[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  post        Post?    @relation(fields: [postId], references: [id])
+  postId      String?  @unique
 }
