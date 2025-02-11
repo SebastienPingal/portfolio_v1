@@ -40,7 +40,12 @@ export async function POST(req: NextRequest) {
   console.log('🖼️ Image URL:', imageUrl)
 
   // Prepare the message for the model
-  const input = `Analyze this CV image and return a JSON with two properties: 'language' (should be 'fr') and 'cvData' (matching this structure: ${JSON.stringify(myCV)}). Return the JSON only, no other text. `
+  const input = `Analyze this CV image and return a JSON with two properties: 'language' (should be 'fr') and 'cvData' (matching this structure: ${JSON.stringify(myCV)}). 
+            Ensure all fields are filled with appropriate data from the image. If you can't find a field, return null for that field.
+            For the levels if you can't find the exact level, try to find clues and return the closest level or null. For the languages if you can't find the exact language, return the closest language.
+            Try to fill the cvData with as much data as you can, but if you can't find a field, return null for that field.
+            you can interpret the datas but you can't invent them.
+            `
 
   // Initialize Hugging Face Inference
   const openai = new OpenAI({
