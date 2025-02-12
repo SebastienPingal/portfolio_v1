@@ -33,7 +33,7 @@ export default async function RootLayout({
   const externalLinks = await getExternalLinks()
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={[cereal.className, "flex flex-col sm:flex-row w-screen h-screen overflow-hidden"].join(" ")}>
+      <body className={[cereal.className, "flex flex-col sm:flex-row w-screen h-screen overflow-x-hidden"].join(" ")}>
         <Toaster />
         <ThemeProvider
           attribute="class"
@@ -55,13 +55,13 @@ export default async function RootLayout({
               </DropdownMenu>
             </div>
 
-            <Navbar workPosts={workPosts} blogPosts={blogPosts} externalLinks={externalLinks} className="hidden sm:flex" />
+            <Navbar workPosts={workPosts} blogPosts={blogPosts} externalLinks={externalLinks} className="hidden sm:flex fixed z-20" />
 
-            <main className="flex-1 page z-10 max-w-5xl sm:mx-auto p-3 sm:p-8 overflow-auto pt-16 sm:pt-8">
+            <main className="flex-1 page z-10 max-w-5xl p-3 sm:p-8 pt-16 sm:pt-8 absolute left-1/2 -translate-x-1/2 sm:ml-28">
               {children}
             </main>
 
-            <PerlinBackground />
+            <PerlinBackground overflow-x-scroll />
           </SessionProvider>
         </ThemeProvider>
       </body>

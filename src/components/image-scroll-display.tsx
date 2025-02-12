@@ -6,7 +6,6 @@ import Image from "next/image"
 interface ImageScrollDisplayProps {
   images: string[]
   height: number
-  width: number
 }
 
 export default function ImageScrollDisplay({ images, height }: ImageScrollDisplayProps) {
@@ -61,22 +60,15 @@ export default function ImageScrollDisplay({ images, height }: ImageScrollDispla
       setScrollPosition(newScrollPosition)
     }
 
-    const handleMouseLeave = () => {
-      console.log("🚪 Mouse left the container")
-      setScrollPosition(0)
-    }
-
     container.addEventListener("mousemove", handleMouseMove)
-    container.addEventListener("mouseleave", handleMouseLeave)
     return () => {
       container.removeEventListener("mousemove", handleMouseMove)
-      container.removeEventListener("mouseleave", handleMouseLeave)
     }
   }, [images, totalWidth])
 
 
   return (
-    <div ref={containerRef} className="relative w-full overflow-hidden" style={{ height: `${height}px` }}>
+    <div ref={containerRef} className="relative w-full" style={{ height: `${height}px` }}>
       <div
         className="flex transition-transform duration-100 ease-out gap-4"
         style={{

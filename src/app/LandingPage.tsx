@@ -17,7 +17,7 @@ export default function LandingPage() {
           <h2 className='text-6xl font-black'>Moneo Domus</h2>
           <p>Développeur Full Stack</p>
           <div>
-            <ImageScrollDisplay images={images} height={1000} width={1500} />
+            <ImageScrollDisplay images={images} height={800} />
           </div>
           {/* <Carousel className='w-full h-full p-4'>
             <CarouselContent>
