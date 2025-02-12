@@ -12,7 +12,7 @@ export default function ImageScrollDisplay({ images, height }: ImageScrollDispla
   const [scrollPosition, setScrollPosition] = useState(0)
   const [totalWidth, setTotalWidth] = useState(0)
   const containerRef = useRef<HTMLDivElement>(null)
-  const gap = 4
+  const gap = 128 // 32 * 4px (Tailwind's gap-32 is 8rem or 128px)
   const [dimensions, setDimensions] = useState<{ width: number; height: number }[]>([])
 
   useEffect(() => {
@@ -54,26 +54,47 @@ export default function ImageScrollDisplay({ images, height }: ImageScrollDispla
       const x = e.clientX - rect.left
       const containerWidth = rect.width
 
-      const scrollPercentage = x / containerWidth
-      const newScrollPosition = scrollPercentage * totalWidth
+      // Calculate snap positions at the start of each image
+      let positions: number[] = []
+      let currentPosition = 0
+      dimensions.forEach(({ width }, index) => {
+        positions.push(currentPosition)
+        currentPosition += width + (index < dimensions.length - 1 ? gap : 0)
+      })
 
-      setScrollPosition(newScrollPosition)
+      // Calculate scroll position based on mouse position
+      const maxScroll = totalWidth - containerWidth
+      const scrollPercentage = x / containerWidth
+      const rawScrollPosition = maxScroll * scrollPercentage
+
+      // Find the closest snap position
+      const closestPosition = positions.reduce((prev: number, curr: number) => {
+        return Math.abs(curr - rawScrollPosition) < Math.abs(prev - rawScrollPosition) ? curr : prev
+      }, positions[0])
+
+      // Always apply magnetic effect with fixed strength
+      const magnetStrength = 1 // Strong snap effect
+      const finalPosition = rawScrollPosition * (1 - magnetStrength) + 
+                          closestPosition * magnetStrength
+
+      setScrollPosition(Math.max(0, Math.min(finalPosition, maxScroll)))
     }
 
     container.addEventListener("mousemove", handleMouseMove)
     return () => {
       container.removeEventListener("mousemove", handleMouseMove)
     }
-  }, [images, totalWidth])
+  }, [dimensions, gap, totalWidth])
 
 
   return (
     <div ref={containerRef} className="relative w-full" style={{ height: `${height}px` }}>
       <div
-        className="flex transition-transform duration-100 ease-out gap-4"
+        className="flex transition-transform duration-100 ease-out gap-32"
         style={{
           transform: `translateX(-${scrollPosition}px)`,
           width: totalWidth,
+          transitionDuration: '800ms',
         }}
       >
         {images.map((src, index) => {

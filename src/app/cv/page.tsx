@@ -137,78 +137,80 @@ const CVPage: React.FC = () => {
   }
 
   return (
-    <div className='flex flex-col gap-4'>
-      <TalkingLogo text={text} littleHead={true} tooltip={true} className='mb-4 bg-background/40 backdrop-blur-sm p-4 rounded-xl' />
+    <div className='w-full flex flex-col gap-4'>
+      <TalkingLogo text={text} littleHead={true} tooltip={true} className='w-full mb-4 bg-background/40 backdrop-blur-sm p-4 rounded-xl' />
 
-      <div className='flex justify-between items-center'>
-        <div className='flex gap-2'>
-          {session?.user && (
-            <>
-              <Select defaultValue={presetTitle} onValueChange={handlePresetChange}>
-                <SelectTrigger className="w-[200px]">
-                  <SelectValue placeholder="Load preset" />
-                </SelectTrigger>
-                <SelectContent>
-                  {presets.map(preset => (
-                    <div key={preset.id} className="flex items-center justify-between p-2">
-                      <SelectItem value={preset.id}>
-                        {preset.title}
-                      </SelectItem>
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={(e) => {
-                          e.stopPropagation()
-                          handleDeletePreset(preset.id)
-                        }}
-                      >
-                        <Trash2 className="h-4 w-4 text-destructive" />
+      <div className='w-full flex justify-center'>
+        <div className='flex items-center'>
+          <div className='flex gap-2'>
+            {session?.user && (
+              <>
+                <Select defaultValue={presetTitle} onValueChange={handlePresetChange}>
+                  <SelectTrigger className="w-[200px]">
+                    <SelectValue placeholder="Load preset" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {presets.map(preset => (
+                      <div key={preset.id} className="flex items-center justify-between p-2">
+                        <SelectItem value={preset.id}>
+                          {preset.title}
+                        </SelectItem>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            handleDeletePreset(preset.id)
+                          }}
+                        >
+                          <Trash2 className="h-4 w-4 text-destructive" />
+                        </Button>
+                      </div>
+                    ))}
+                  </SelectContent>
+                </Select>
+
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button variant="outline" size="sm">
+                      <Save className="w-4 h-4 mr-2" />
+                      Save Preset
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent>
+                    <DialogHeader>
+                      <DialogTitle>Save CV Preset</DialogTitle>
+                    </DialogHeader>
+                    <div className='flex flex-col gap-2'>
+                      <Input
+                        placeholder="Preset name"
+                        value={presetTitle}
+                        onChange={(e) => setPresetTitle(e.target.value)}
+                      />
+                      <Button onClick={savePreset} disabled={isLoading}>
+                        {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                        Save
                       </Button>
                     </div>
-                  ))}
-                </SelectContent>
-              </Select>
-
-              <Dialog>
-                <DialogTrigger asChild>
-                  <Button variant="outline" size="sm">
-                    <Save className="w-4 h-4 mr-2" />
-                    Save Preset
-                  </Button>
-                </DialogTrigger>
-                <DialogContent>
-                  <DialogHeader>
-                    <DialogTitle>Save CV Preset</DialogTitle>
-                  </DialogHeader>
-                  <div className='flex flex-col gap-2'>
-                    <Input
-                      placeholder="Preset name"
-                      value={presetTitle}
-                      onChange={(e) => setPresetTitle(e.target.value)}
-                    />
-                    <Button onClick={savePreset} disabled={isLoading}>
-                      {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                      Save
-                    </Button>
-                  </div>
-                </DialogContent>
-              </Dialog>
-            </>
-          )}
-        </div>
-
-        {/* <div className='flex items-center gap-2'>
-          <div className='text-sm text-foreground'>
-            {language === 'en' ? 'English version' : 'Version Française'}
+                  </DialogContent>
+                </Dialog>
+              </>
+            )}
           </div>
-          <Switch
-            onClick={() => {
-              setLanguage(language === 'en' ? 'fr' : 'en')
-              setCvData(language === 'en' ? cvFr : cvEn)
-            }}
-            className='h-4'
-          />
-        </div> */}
+
+          {/* <div className='flex items-center gap-2'>
+            <div className='text-sm text-foreground'>
+              {language === 'en' ? 'English version' : 'Version Française'}
+            </div>
+            <Switch
+              onClick={() => {
+                setLanguage(language === 'en' ? 'fr' : 'en')
+                setCvData(language === 'en' ? cvFr : cvEn)
+              }}
+              className='h-4'
+            />
+          </div> */}
+        </div>
       </div>
 
       <CV
@@ -217,6 +219,7 @@ const CVPage: React.FC = () => {
         showMe={true}
         onDataChange={setCvData}
         isUserConnected={!!session?.user && session.user.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL}
+        className="w-full"
       />
     </div>
   )
