@@ -219,7 +219,6 @@ const CVPage: React.FC = () => {
         showMe={true}
         onDataChange={setCvData}
         isUserConnected={!!session?.user && session.user.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL}
-        className="w-full"
       />
     </div>
   )
