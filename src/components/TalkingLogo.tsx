@@ -31,7 +31,10 @@ const TalkingLogo = ({ className, text, littleHead = false, tooltip = false }: {
       const response = await fetch('/api/generate-text', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ prompt: userInput })
+        body: JSON.stringify({ 
+          prompt: userInput,
+          locale
+        })
       })
       const data = await response.json()
       setFullText(data.text)
@@ -76,7 +79,7 @@ const TalkingLogo = ({ className, text, littleHead = false, tooltip = false }: {
 
         <div className="flex flex-col gap-2">
           {displayTexts.map((text, index) => (
-            <div key={index} className="border glassPanel p-4 rounded-xl">
+            <div key={index} className="glassPanel p-4 rounded-xl">
               <p className="text-lg overflow-hidden w-fit" dangerouslySetInnerHTML={{ __html: text }}></p>
             </div>
           ))}

@@ -64,7 +64,6 @@ const NavBar = ({ workPosts, blogPosts, externalLinks, className }: { workPosts:
       <NavigationMenu orientation="vertical" className={`${className} items-start shadow-inner h-full bg-card/20 backdrop-blur-md overflow-auto`}>
         <NavigationMenuList className='flex flex-col gap-1 items-start p-2 w-screen sm:w-56'>
           <div className='text-2xl font-extrabold w-full'>{t('title')}</div>
-          <LanguageSwitcher />
 
           {renderMenuItem('/', <Home className="w-4 h-4" />, t('sections.home'))}
 
@@ -100,7 +99,7 @@ const NavBar = ({ workPosts, blogPosts, externalLinks, className }: { workPosts:
           </div>
 
           <div className='w-full'>
-            <NavigationMenuItem hover={false}><ThemeToggler /></NavigationMenuItem>
+            <NavigationMenuItem hover={false}></NavigationMenuItem>
             <NavigationMenuItem hover={false}>
               {session ? (
                 <div className="flex flex-col gap-2 justify-between items-center w-full">

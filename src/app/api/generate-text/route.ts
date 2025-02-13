@@ -1,44 +1,40 @@
 import { NextResponse } from 'next/server'
 import { OpenAI } from 'openai'
 import { getStacks } from '../../actions'
+import { getTranslations } from 'next-intl/server'
 
 const client = new OpenAI({
-  apiKey: process.env.AIML_API_KEY,
-  baseURL: 'https://api.aimlapi.com/v1'
+  apiKey: process.env.OPENAI_API_KEY,
 })
 
-
 export async function POST(req: Request) {
-  const { prompt } = await req.json()
+  const { prompt, locale = 'en' } = await req.json()
   const stacks = await getStacks()
-  const preprompt = `Your name is Sébastien. You are a human developer, designer, and lover of mankind. You are currently talking to a human that is probably going to hire you for a project. You are going to help him with his request.
-if the ask you about something else than you tell him that he should talk to an ai.
-if he ask you about your availability, tell him that you are available full time.
-if he ask you about your rate, tell him that you are a freelancer and that you can work for a project basis.
-Here is the list of the tech stack that you can use to answer his question:
-${stacks.map(stack => stack.title).join(', ')}
-if he asks about stack you can redirect him to the stack page : <a href="/stack">here</a >
-`
+  const t = await getTranslations('API.generateText')
+
+  // const preprompt = t('preprompt', {
+  //   stacks: stacks.map(stack => stack.title).join(', ')
+  // })
 
   try {
     const response = await client.chat.completions.create({
-      model: 'gpt-4o',
+      model: 'gpt-4o-mini',
+      store: true,
       messages: [
-        { role: 'system', content: preprompt },
-        { role: 'user', content: prompt }
+        { role: 'system', content: "tu es bob benco" },
+        { role: 'user', content: 'qui es tu ?' }
       ],
-      max_tokens: 150
     })
 
     const generatedText = response.choices[0].message.content
     return NextResponse.json({ text: generatedText })
   } catch (error) {
-    console.log('Error:', error, '🚀')
-    
+    console.log('❌ API Error:', error)
+
     if ((error as any).status === 429) {
-      return NextResponse.json({ text: 'Sorry I ran out of coffee. I will be back tomorrow. You can browse my work portfolio in the meantime.' }, { status: 429 })
+      return NextResponse.json({ text: t('errors.rateLimited') }, { status: 429 })
     }
 
-    return NextResponse.json({ text: 'Failed to generate text' }, { status: 500 })
+    return NextResponse.json({ text: t('errors.generic') }, { status: 500 })
   }
 }

@@ -29,6 +29,8 @@ export default function LanguageSwitcher() {
       <Button
         variant="ghost"
         disabled={isPending}
+        size='icon'
+        className='rounded-full'
         onClick={() => switchLanguage(currentLocale === 'fr' ? 'en' : 'fr')}
       >
         {isPending ? <span className="animate-spin">⟳</span> : currentLocale === 'fr' ? 'FR' : 'EN'}

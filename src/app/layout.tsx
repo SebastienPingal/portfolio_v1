@@ -28,6 +28,8 @@ import { MenuIcon } from "lucide-react"
 
 // Actions
 import { getPosts, getExternalLinks } from "./actions"
+import ThemeToggler from "@/components/ThemeToggler"
+import LanguageSwitcher from "@/components/LanguageSwitcher"
 
 export const metadata: Metadata = {
   title: "Sébastien Pingal",
@@ -66,6 +68,15 @@ export default async function RootLayout({
             enableSystem
           >
             <SessionProvider>
+              <div className="hidden sm:flex glassPanel fixed top-10 right-10 z-20 rounded-full">
+                <ThemeToggler />
+                <LanguageSwitcher />
+              </div>
+
+              <div className="sm:hidden flex glassPanel fixed rounded-full z-20 bottom-10 left-1/2 -translate-x-1/2">
+                <ThemeToggler />
+                <LanguageSwitcher />
+              </div>
 
               <div className="sm:hidden z-20 w-full fixed backdrop-blur-md">
                 <DropdownMenu>
