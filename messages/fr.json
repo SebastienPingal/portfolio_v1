@@ -17,7 +17,7 @@
       "links": "Liens",
       "gadgets": "Gadgets",
       "cvSebifyer": "CV Sebifyer",
-      "online": "En ligne"
+      "online": "Me retrouver"
     }
   },
   "LandingPage": {
@@ -35,6 +35,81 @@
     "addTech": {
       "button": "Ajouter une technologie",
       "link": "Nouvelle technologie"
+    }
+  },
+  "StackCard": {
+    "learnMore": "En savoir plus",
+    "edit": "Modifier la technologie",
+    "fallbackAlt": "Logo de la technologie"
+  },
+  "UsingItSection": {
+    "usersUsingIt": "Ils l'utilisent"
+  },
+  "CVSebifyer": {
+    "talkingHead": "Upload ton cv en photo ou en pdf et paf !",
+    "title": "CV Sebifyer : Une pincée de seb dans votre CV",
+    "upload": {
+      "button": "Envoyer",
+      "uploading": "Envoi en cours...",
+      "imageUploaded": "Image envoyée :",
+      "errors": {
+        "tooLarge": {
+          "title": "Image trop grande",
+          "description": "Votre image est trop grande. Veuillez uploader une image plus petite que 5MB"
+        },
+        "failed": {
+          "title": "Échec de l'envoi",
+          "description": "L'envoi de votre image a échoué"
+        }
+      }
+    }
+  },
+  "CV": {
+    "buttons": {
+      "close": "Fermer",
+      "exportPDF": "Exporter en PDF"
+    },
+    "sections": {
+      "aboutMe": "À propos",
+      "experience": "Expérience",
+      "education": "Formation"
+    },
+    "dialogs": {
+      "editExperience": "Modifier l'expérience",
+      "editEducation": "Modifier la formation"
+    }
+  },
+  "CVPage": {
+    "talkingHead": "Hey, si tu veux créer ton propre CV avec mon style, va <a href=\"/cv-sebifyer\">ici</a>",
+    "presets": {
+      "loadPreset": "Charger un preset",
+      "savePreset": "Sauvegarder",
+      "presetName": "Nom du preset",
+      "save": "Sauvegarder",
+      "dialog": {
+        "title": "Sauvegarder le preset"
+      }
+    },
+    "language": {
+      "english": "Version anglaise",
+      "french": "Version française"
+    },
+    "toasts": {
+      "success": {
+        "presetsLoaded": "Presets chargés avec succès",
+        "presetSaved": "Preset sauvegardé avec succès",
+        "presetDeleted": "Preset supprimé avec succès"
+      },
+      "error": {
+        "loginRequired": "Vous devez être connecté pour supprimer un preset",
+        "loadPresets": "Échec du chargement des presets",
+        "savePreset": "Échec de la sauvegarde du preset",
+        "deletePreset": "Échec de la suppression du preset"
+      },
+      "saving": {
+        "title": "Sauvegarde du preset",
+        "description": "Veuillez patienter..."
+      }
     }
   }
 }

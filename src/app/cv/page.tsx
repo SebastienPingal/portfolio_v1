@@ -14,6 +14,8 @@ import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { saveCVPreset, getCVPresets, deleteCVPreset, getUser } from '@/app/actions'
 import { useToast } from '@/components/ui/use-toast'
+import { useTranslations } from 'next-intl'
+import { useLocale } from 'next-intl'
 
 interface CVPreset {
   id: string
@@ -24,14 +26,14 @@ interface CVPreset {
 
 const CVPage: React.FC = () => {
   const { toast } = useToast()
-  const [language, setLanguage] = useState('en')
+  const locale = useLocale()
+  const t = useTranslations('CVPage')
+  const [language, setLanguage] = useState(locale)
   const [cvData, setCvData] = useState<CVData>(language === 'en' ? cvEn : cvFr)
   const [presetTitle, setPresetTitle] = useState('')
   const [presets, setPresets] = useState<CVPreset[]>([])
   const [isLoading, setIsLoading] = useState(false)
   const { data: session } = useSession()
-
-  const text = 'Hey, if you want to create your own CV with my style, go <a href="/cv-sebifyer">here</a>'
 
   const loadPresets = async () => {
     try {
@@ -51,19 +53,18 @@ const CVPage: React.FC = () => {
 
       toast({
         title: "Success", 
-        description: "Presets loaded successfully"
+        description: t('toasts.success.presetsLoaded')
       })
     } catch (error) {
       console.error('❌ Error loading presets:', error)
       toast({
         variant: "destructive",
-        title: "Failed to load presets"
+        title: t('toasts.error.loadPresets')
       })
     }
   }
 
   useEffect(() => {
-
     loadPresets()
   }, [session?.user?.email])
 
@@ -138,7 +139,12 @@ const CVPage: React.FC = () => {
 
   return (
     <div className='w-full flex flex-col gap-4'>
-      <TalkingLogo text={text} littleHead={true} tooltip={true} className='w-full mb-4 bg-background/40 backdrop-blur-sm p-4 rounded-xl' />
+      <TalkingLogo 
+        text={t.raw('talkingHead')}
+        littleHead={true} 
+        tooltip={true} 
+        className='w-full mb-4 bg-background/40 backdrop-blur-sm p-4 rounded-xl' 
+      />
 
       <div className='w-full flex justify-center'>
         <div className='flex items-center'>

@@ -36,5 +36,80 @@
       "button": "Add a tech",
       "link": "Add new technology"
     }
+  },
+  "StackCard": {
+    "learnMore": "Learn More",
+    "edit": "Edit technology",
+    "fallbackAlt": "Technology logo"
+  },
+  "UsingItSection": {
+    "usersUsingIt": "Users using it"
+  },
+  "CVSebifyer": {
+    "talkingHead": "Upload your cv in photo or pdf and bam !",
+    "title": "CV Sebifyer: make your CV more seb",
+    "upload": {
+      "button": "Upload",
+      "uploading": "Uploading...",
+      "imageUploaded": "Image uploaded:",
+      "errors": {
+        "tooLarge": {
+          "title": "Image too large",
+          "description": "Your image is too large. Please upload an image smaller than 5MB"
+        },
+        "failed": {
+          "title": "Image upload failed",
+          "description": "Your image upload failed"
+        }
+      }
+    }
+  },
+  "CV": {
+    "buttons": {
+      "close": "Close",
+      "exportPDF": "Export to PDF"
+    },
+    "sections": {
+      "aboutMe": "About me",
+      "experience": "Experience",
+      "education": "Education"
+    },
+    "dialogs": {
+      "editExperience": "Edit Experience",
+      "editEducation": "Edit Education"
+    }
+  },
+  "CVPage": {
+    "talkingHead": "Hey, if you want to create your own CV with my style, go <a href=\"/cv-sebifyer\">here</a>",
+    "presets": {
+      "loadPreset": "Load preset",
+      "savePreset": "Save Preset",
+      "presetName": "Preset name",
+      "save": "Save",
+      "dialog": {
+        "title": "Save CV Preset"
+      }
+    },
+    "language": {
+      "english": "English version",
+      "french": "Version Française"
+    },
+    "toasts": {
+      "success": {
+        "presetsLoaded": "Presets loaded successfully",
+        "presetSaved": "Preset saved successfully",
+        "presetDeleted": "Preset deleted successfully"
+      },
+      "error": {
+        "loginRequired": "You must be logged in to delete a preset",
+        "loadPresets": "Failed to load presets",
+        "savePreset": "Failed to save preset",
+        "deletePreset": "Failed to delete preset"
+      },
+      "saving": {
+        "title": "Saving preset",
+        "description": "Please wait..."
+      }
+    }
   }
 }

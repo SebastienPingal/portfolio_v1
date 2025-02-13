@@ -11,9 +11,11 @@ import Link from 'next/link'
 
 import PopoverDeleteStack from './PopoverDeleteStack'
 import UsingItSection from './UsingItSection'
+import { getTranslations } from 'next-intl/server'
 
 const StackCard = async ({ stack, className, tooltiped = false }: { stack: StackExtended; className?: string; tooltiped?: boolean }) => {
   const session = await auth()
+  const t = await getTranslations('StackCard')
 
   return (
     <Card id={stack.title} className={`max-w-md ${className}`}>
@@ -32,7 +34,7 @@ const StackCard = async ({ stack, className, tooltiped = false }: { stack: Stack
         <CardDescription className={`${stack.description.length > 100 ? 'text-justify' : ''}`}>{stack.description}</CardDescription>
         <a href={stack.link} target="_blank" rel="noreferrer">
           <Button className='flex gap-2'>
-            Learn More <MoveUpRight className="w-4 h-4" />
+            {t('learnMore')} <MoveUpRight className="w-4 h-4" />
           </Button>
         </a>
         <UsingItSection
@@ -45,7 +47,7 @@ const StackCard = async ({ stack, className, tooltiped = false }: { stack: Stack
       {session?.user && (
         <div className='absolute right-2 top-2 flex gap-1'>
           <Link href={`/stack/edit/${stack.title.replace(/\s+/g, '-').toLowerCase()}`}>
-            <Button size='sm' variant="outline">
+            <Button size='sm' variant="outline" aria-label={t('edit')}>
               <PencilRuler className="h-4 w-4" />
             </Button>
           </Link>

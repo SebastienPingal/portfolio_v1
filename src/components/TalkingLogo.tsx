@@ -6,12 +6,14 @@ import { Input } from './ui/input'
 import { Button } from './ui/button'
 import DOMPurify from 'isomorphic-dompurify'
 import { useTranslations } from 'next-intl'
+import { useLocale } from 'next-intl'
 
 const MeBlack = '/img/me_black.svg'
 const MeWhite = '/img/me_white.svg'
 
 const TalkingLogo = ({ className, text, littleHead = false, tooltip = false }: { className?: string, text?: string, littleHead?: boolean, tooltip?: boolean }) => {
   const t = useTranslations('TalkingLogo')
+  const locale = useLocale()
   const { theme } = useTheme()
   const [userInput, setUserInput] = useState('')
   const [isAnimating, setIsAnimating] = useState(false)
@@ -20,11 +22,9 @@ const TalkingLogo = ({ className, text, littleHead = false, tooltip = false }: {
   const [meImage, setMeImage] = useState(MeBlack)
 
   useEffect(() => {
-    if (!text) {
-      setFullText(t('defaultText'))
-      setDisplayTexts([])
-    }
-  }, [t, text])
+    setFullText(text || t('defaultText'))
+    setDisplayTexts([])
+  }, [text, locale, t])
 
   const onSubmit = async () => {
     try {
