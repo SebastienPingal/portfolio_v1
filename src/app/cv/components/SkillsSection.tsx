@@ -61,7 +61,7 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({
       <div className='text-sm'>
         {data?.skills?.stack && (
           <div className="flex gap-2 items-center">
-            {isUserConnected && (
+            {isUserConnected ? (
               <>
                 <span className="font-bold">
                   {language === 'en' ? 'Technical Stack' : 'Stack Technique'}:
@@ -107,6 +107,10 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({
                   </Select>
                 </div>
               </>
+            ) : (
+              <span className="font-bold">
+                {language === 'en' ? 'Technical Stack' : 'Stack Technique'}: {data.skills?.stack?.map(skill => skill.name).join(' | ')}
+              </span>
             )}
           </div>
         )}

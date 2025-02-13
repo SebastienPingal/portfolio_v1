@@ -67,7 +67,7 @@ export default async function RootLayout({
 
             <Navbar workPosts={workPosts} blogPosts={blogPosts} externalLinks={externalLinks} className="hidden sm:flex fixed z-20" />
 
-            <main className="page z-10 max-w-5xl p-3 sm:p-8 pt-16 sm:pt-8 sm:ml-56">
+            <main className="flex-1 page z-10 w-full sm:w-max-5xl sm:w-[calc(100vw-14rem)] p-3 sm:p-8 pt-16 sm:pt-8 sm:ml-[14rem] max-w-5xl sm:left-[calc(50%-7rem)] sm:-translate-x-1/2 relative">
               {children}
             </main>
 
