@@ -1,0 +1,40 @@
+{
+  "HomePage": {
+    "title": "Salut le monde"
+  },
+  "TalkingLogo": {
+    "defaultText": "Salut, moi c'est Sebastien. Je suis un bricoleur, un developpeur, un musicien et parfois un enseignant. Bienvenue sur mon site.",
+    "inputPlaceholder": "Posez-moi une question...",
+    "submit": "Envoyer"
+  },
+  "NavBar": {
+    "title": "Sébastien Pingal",
+    "sections": {
+      "home": "Accueil",
+      "me": "Moi",
+      "stack": "Stack",
+      "cv": "CV",
+      "links": "Liens",
+      "gadgets": "Gadgets",
+      "cvSebifyer": "CV Sebifyer",
+      "online": "En ligne"
+    }
+  },
+  "LandingPage": {
+    "projects": "Mes Projets",
+    "roles": {
+      "fullstack": "Développeur Full Stack"
+    },
+    "companies": {
+      "moneoDomus": "Moneo Domus",
+      "aestimaImmo": "Aestima-Immo"
+    }
+  },
+  "Stack": {
+    "title": "Ma Stack Technique",
+    "addTech": {
+      "button": "Ajouter une technologie",
+      "link": "Nouvelle technologie"
+    }
+  }
+}

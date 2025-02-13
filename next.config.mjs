@@ -1,3 +1,7 @@
+import createNextIntlPlugin from 'next-intl/plugin';
+
+const withNextIntl = createNextIntlPlugin();
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
@@ -5,7 +9,7 @@ const nextConfig = {
       moduleIdStrategy: 'deterministic',
       resolveExtensions: [
         '.mdx',
-        '.tsx', 
+        '.tsx',
         '.ts',
         '.jsx',
         '.js',
@@ -35,4 +39,4 @@ const nextConfig = {
   },
 }
 
-export default nextConfig
+export default withNextIntl(nextConfig)

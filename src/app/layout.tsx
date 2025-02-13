@@ -1,12 +1,18 @@
+// Next.js and React imports
 import type { Metadata } from "next"
-import { cereal } from './font'
-import "./globals.css"
-
+import { NextIntlClientProvider } from 'next-intl'
+import { getLocale, getMessages } from 'next-intl/server'
 import { GoogleTagManager } from "@next/third-parties/google"
 
+// Local styles and fonts
+import "./globals.css"
+import { cereal } from './font'
+
+// Local providers
 import SessionProvider from "./SessionProvider"
 import { ThemeProvider } from "./theme-provider"
 
+// Components
 import Navbar from "@/components/NavBar"
 import PerlinBackground from "@/components/perlinBackground.jsx"
 import { Button } from "@/components/ui/button"
@@ -17,7 +23,10 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Toaster } from "@/components/ui/toaster"
 
+// Icons
 import { MenuIcon } from "lucide-react"
+
+// Actions
 import { getPosts, getExternalLinks } from "./actions"
 
 export const metadata: Metadata = {
@@ -30,11 +39,15 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale()
+  const messages = await getMessages()
+
   const workPosts = await getPosts("WORK")
   const blogPosts = await getPosts("BLOGPOST")
   const externalLinks = await getExternalLinks()
+
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={locale} suppressHydrationWarning>
       <GoogleTagManager gtmId="GTM-P42CZR92" />
       <body className={[cereal.className, "flex flex-col sm:flex-row w-screen h-screen overflow-x-hidden relative"].join(" ")}>
         {/* Google Tag Manager (noscript) */}
@@ -44,36 +57,39 @@ export default async function RootLayout({
         </noscript>
         {/* End Google Tag Manager (noscript) */}
 
-        <Toaster />
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="light"
-          enableSystem
-        >
-          <SessionProvider>
+        <NextIntlClientProvider messages={messages} locale={locale}>
 
-            <div className="sm:hidden z-20 w-full fixed backdrop-blur-md">
-              <DropdownMenu>
-                <DropdownMenuTrigger className="h-10 w-full" asChild >
-                  <Button className="w-full rounded-none" asChild>
-                    <MenuIcon />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent sideOffset={0}>
-                  <Navbar workPosts={workPosts} blogPosts={blogPosts} externalLinks={externalLinks} className="w-screen" />
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </div>
+          <Toaster />
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="light"
+            enableSystem
+          >
+            <SessionProvider>
 
-            <Navbar workPosts={workPosts} blogPosts={blogPosts} externalLinks={externalLinks} className="hidden sm:flex fixed z-20" />
+              <div className="sm:hidden z-20 w-full fixed backdrop-blur-md">
+                <DropdownMenu>
+                  <DropdownMenuTrigger className="h-10 w-full" asChild >
+                    <Button className="w-full rounded-none" asChild>
+                      <MenuIcon />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent sideOffset={0}>
+                    <Navbar workPosts={workPosts} blogPosts={blogPosts} externalLinks={externalLinks} className="w-screen" />
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
 
-            <main className="flex-1 page z-10 w-full sm:w-max-5xl sm:w-[calc(100vw-14rem)] p-3 sm:p-8 pt-16 sm:pt-8 sm:ml-[14rem] max-w-5xl sm:left-[calc(50%-7rem)] sm:-translate-x-1/2 relative">
-              {children}
-            </main>
+              <Navbar workPosts={workPosts} blogPosts={blogPosts} externalLinks={externalLinks} className="hidden sm:flex fixed z-20" />
 
-            <PerlinBackground overflow-x-scroll />
-          </SessionProvider>
-        </ThemeProvider>
+              <main className="flex-1 page z-10 w-full sm:w-max-5xl sm:w-[calc(100vw-14rem)] p-3 sm:p-8 pt-16 sm:pt-8 sm:ml-[14rem] max-w-5xl sm:left-[calc(50%-7rem)] sm:-translate-x-1/2 relative">
+                {children}
+              </main>
+
+              <PerlinBackground overflow-x-scroll />
+            </SessionProvider>
+          </ThemeProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   )

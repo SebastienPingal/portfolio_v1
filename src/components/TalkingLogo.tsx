@@ -5,18 +5,26 @@ import Image from 'next/image'
 import { Input } from './ui/input'
 import { Button } from './ui/button'
 import DOMPurify from 'isomorphic-dompurify'
+import { useTranslations } from 'next-intl'
 
 const MeBlack = '/img/me_black.svg'
 const MeWhite = '/img/me_white.svg'
 
 const TalkingLogo = ({ className, text, littleHead = false, tooltip = false }: { className?: string, text?: string, littleHead?: boolean, tooltip?: boolean }) => {
+  const t = useTranslations('TalkingLogo')
   const { theme } = useTheme()
   const [userInput, setUserInput] = useState('')
   const [isAnimating, setIsAnimating] = useState(false)
   const [displayTexts, setDisplayTexts] = useState<string[]>([])
-  const [fullText, setFullText] = useState(text || `Hey, I'm Sébastien. I am designer, software tinkerer, music maker, and sometimes a teacher.  I am currently working on this website, so it's a bit empty for now.  But I'm glad to finally making some kind of hub for all my projects.
-How can I help you today?`)
+  const [fullText, setFullText] = useState(text || t('defaultText'))
   const [meImage, setMeImage] = useState(MeBlack)
+
+  useEffect(() => {
+    if (!text) {
+      setFullText(t('defaultText'))
+      setDisplayTexts([])
+    }
+  }, [t, text])
 
   const onSubmit = async () => {
     try {
@@ -30,7 +38,7 @@ How can I help you today?`)
       setDisplayTexts([])
       setUserInput('')
     } catch (error) {
-      console.log('Error:', error, '🚀')
+      console.log('❌ Error:', error)
     }
   }
 
@@ -78,7 +86,7 @@ How can I help you today?`)
       {!tooltip && <div className='flex flex-col gap-2'>
         <Input
           type="text"
-          placeholder="Ask me anything..."
+          placeholder={t('inputPlaceholder')}
           value={userInput}
           onChange={(e) => setUserInput(e.target.value)}
           className="font-handwriting"
@@ -88,7 +96,7 @@ How can I help you today?`)
             }
           }}
         />
-        {userInput && <Button className='w-full' type='button' onClick={onSubmit}>Submit</Button>}
+        {userInput && <Button className='w-full' type='button' onClick={onSubmit}>{t('submit')}</Button>}
       </div>}
     </div>
   )

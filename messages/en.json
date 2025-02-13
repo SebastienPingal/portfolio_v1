@@ -1,0 +1,40 @@
+{
+  "HomePage": {
+    "title": "Hello world!"
+  },
+  "TalkingLogo": {
+    "defaultText": "Hi, I'm Sebastien. I'm a tinkerer, developer, musician and sometimes a teacher. Welcome to my website.",
+    "inputPlaceholder": "Ask me anything...",
+    "submit": "Submit"
+  },
+  "NavBar": {
+    "title": "Sébastien Pingal",
+    "sections": {
+      "home": "Home",
+      "me": "Me",
+      "stack": "Stack",
+      "cv": "CV",
+      "links": "Links",
+      "gadgets": "Gadgets",
+      "cvSebifyer": "CV Sebifyer",
+      "online": "Online"
+    }
+  },
+  "LandingPage": {
+    "projects": "My Projects",
+    "roles": {
+      "fullstack": "Full Stack Developer"
+    },
+    "companies": {
+      "moneoDomus": "Moneo Domus",
+      "aestimaImmo": "Aestima-Immo"
+    }
+  },
+  "Stack": {
+    "title": "My Tech Stack",
+    "addTech": {
+      "button": "Add a tech",
+      "link": "Add new technology"
+    }
+  }
+}
