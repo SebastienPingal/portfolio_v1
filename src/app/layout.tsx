@@ -17,6 +17,7 @@ import { Toaster } from "@/components/ui/toaster"
 
 import { MenuIcon } from "lucide-react"
 import { getPosts, getExternalLinks } from "./actions"
+import GoogleTagManager from "@/components/GoogleTagManager"
 
 export const metadata: Metadata = {
   title: "Sébastien Pingal",
@@ -33,7 +34,16 @@ export default async function RootLayout({
   const externalLinks = await getExternalLinks()
   return (
     <html lang="en" suppressHydrationWarning>
+      <GoogleTagManager />
       <body className={[cereal.className, "flex flex-col sm:flex-row w-screen h-screen overflow-x-hidden relative"].join(" ")}>
+        {/* Google Tag Manager (noscript) */}
+        <noscript>
+          <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P42CZR92"
+            height="0" width="0" style={{ display: "none", visibility: "hidden" }}>
+          </iframe>
+        </noscript>
+        {/* End Google Tag Manager (noscript) */}
+
         <Toaster />
         <ThemeProvider
           attribute="class"
