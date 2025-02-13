@@ -1,13 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
- 
+
 
 @layer base {
   :root {
     --background: 300 55.9% 95%;
     --foreground: 300 80% 10%;
-    
+
     --card: 300 30% 80%;
     --card-foreground: 20 14.3% 4.1%;
 
@@ -65,60 +65,76 @@
 
     --border: 12 6.5% 15.1%;
 
-    --input: 120 16.5% 15.1%;
+    --input: 120 16.5% 25.1%;
 
-    --ring: 120 50.2% 48.2%;
+    --ring: 120 20.2% 28.2%;
   }
 }
 
- 
+
 @layer base {
   * {
     @apply border-border;
   }
+
   .talking-logo a {
     @apply text-accent underline;
   }
+
   body {
     @apply bg-background text-foreground;
   }
+
   h1 {
     @apply font-extrabold text-4xl;
   }
+
   h2 {
     @apply font-semibold text-3xl;
   }
+
   h3 {
     @apply font-medium text-2xl;
   }
+
   h4 {
     @apply font-normal text-xl;
   }
+
   h5 {
     @apply font-normal text-lg;
   }
+
   h6 {
     @apply font-light text-base;
   }
+
   strong {
     @apply font-extrabold;
   }
+
   li {
     @apply list-disc list-inside;
   }
+
   ul {
     @apply list-disc list-inside;
   }
-  input, textarea {
+
+  input,
+  textarea {
     @apply bg-input;
   }
+
   .markdown a {
     @apply text-secondary underline;
   }
+
   .glassPanel {
     @apply text-lg backdrop-blur-xl p-2 rounded bg-card/20
   }
+
   .markdown a {
-  @apply text-accent underline;
-}
+    @apply text-accent underline;
+  }
 }

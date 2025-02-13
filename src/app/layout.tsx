@@ -51,7 +51,11 @@ export default async function RootLayout({
   return (
     <html lang={locale} suppressHydrationWarning>
       <GoogleTagManager gtmId="GTM-P42CZR92" />
-      <body className={[cereal.className, "flex flex-col sm:flex-row w-screen h-screen overflow-x-hidden relative"].join(" ")}>
+      <body className={[
+        cereal.className, 
+        "flex flex-col sm:flex-row w-screen h-screen overflow-x-hidden relative",
+        "[&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']"
+      ].join(" ")}>
         {/* Google Tag Manager (noscript) */}
         <noscript>
           <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P42CZR92"
@@ -73,16 +77,18 @@ export default async function RootLayout({
                 <LanguageSwitcher />
               </div>
 
-              <div className="sm:hidden flex glassPanel fixed rounded-full z-20 bottom-10 left-1/2 -translate-x-1/2">
+              <div className="sm:hidden flex glassPanel fixed rounded-full z-20 bottom-20 left-1/2 -translate-x-1/2">
                 <ThemeToggler />
                 <LanguageSwitcher />
               </div>
 
-              <div className="sm:hidden z-20 w-full fixed backdrop-blur-md">
+              <div className="sm:hidden z-20 w-full fixed backdrop-blur-md bottom-0">
                 <DropdownMenu>
                   <DropdownMenuTrigger className="h-10 w-full" asChild >
                     <Button className="w-full rounded-none" asChild>
-                      <MenuIcon />
+                      <p>
+                        <MenuIcon /><span>Menu</span>
+                      </p>
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent sideOffset={0}>

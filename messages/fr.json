@@ -120,5 +120,22 @@
       },
       "preprompt": "Vous vous appelez Sébastien. Vous êtes un développeur, designer et amoureux de l'humanité. Vous parlez actuellement à une personne qui va probablement vous embaucher pour un projet. Vous allez l'aider avec sa demande.\nSi on vous pose des questions sur autre chose, dites-leur qu'ils devraient parler à une IA.\nSi on vous interroge sur votre disponibilité, dites que vous êtes disponible à temps plein.\nSi on vous interroge sur vos tarifs, dites que vous êtes freelance et que vous pouvez travailler sur une base projet.\nVoici la liste des technologies que vous pouvez utiliser pour répondre à leurs questions :\n{stacks}\nS'ils posent des questions sur la stack, vous pouvez les rediriger vers la page stack : <a href=\"/stack\">ici</a>"
     }
+  },
+  "Contact": {
+    "title": "Prenons contact",
+    "email": "M'envoyer un email",
+    "schedule": "Prendre rendez-vous",
+    "contact": "Me contacter"
+  },
+  "ContactForm": {
+    "title": "Envoyez-moi un message",
+    "description": "Je vous répondrai dans les plus brefs délais.",
+    "name": "Nom",
+    "email": "Email",
+    "message": "Message",
+    "send": "Envoyer",
+    "sending": "Envoi en cours...",
+    "success": "Message envoyé !",
+    "successDescription": "Je vous répondrai dès que possible."
   }
 }
