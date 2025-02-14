@@ -2,9 +2,9 @@ import { getPost } from '@/app/actions'
 import StackBadge from '@/components/StackBadge'
 import { notFound } from 'next/navigation'
 
-
 import CommentSection from '@/components/CommentSection'
 import MarkdownInterpreter from '@/components/MarkdownInterpreter'
+import { auth } from '@/app/api/auth/[...nextauth]/auth'
 
 interface pageProps {
   params: Promise<{
@@ -13,6 +13,7 @@ interface pageProps {
 }
 
 const WorkPost = async (props: pageProps) => {
+  const session = auth()
   const params = await props.params
   const slug = params.slug
   if (!slug) notFound()
@@ -26,7 +27,7 @@ const WorkPost = async (props: pageProps) => {
         <h1 className='font-black'>{title}</h1>
         <div className={`flex gap-3 flex-wrap ${post.stacks.length > 5 ? 'justify-between' : ''}`}>
           {post.stacks.map((stack) => (
-            <StackBadge key={stack.id} stack={stack} />
+            <StackBadge key={stack.id} stack={stack} session={session} />
           ))}
         </div>
         <MarkdownInterpreter content={content} />
