@@ -38,6 +38,7 @@
     "cmdk": "^0.2.1",
     "cookies-next": "^5.1.0",
     "embla-carousel-react": "^8.5.2",
+    "framer-motion": "^12.4.2",
     "i": "^0.3.7",
     "isomorphic-dompurify": "^2.21.0",
     "js-yaml": "^4.1.0",

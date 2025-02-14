@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import { NextIntlClientProvider } from 'next-intl'
 import { getLocale, getMessages } from 'next-intl/server'
 import { GoogleTagManager } from "@next/third-parties/google"
+import { motion } from "framer-motion"
 
 // Local styles and fonts
 import "./globals.css"
@@ -30,6 +31,7 @@ import { MenuIcon } from "lucide-react"
 import { getPosts, getExternalLinks } from "./actions"
 import ThemeToggler from "@/components/ThemeToggler"
 import LanguageSwitcher from "@/components/LanguageSwitcher"
+import PageTransition from "@/components/PageTransition"
 
 export const metadata: Metadata = {
   title: "Sébastien Pingal",
@@ -100,7 +102,9 @@ export default async function RootLayout({
               <Navbar workPosts={workPosts} blogPosts={blogPosts} externalLinks={externalLinks} className="hidden sm:flex fixed z-20" />
 
               <main className="flex-1 page z-10 w-full sm:w-max-5xl sm:w-[calc(100vw-14rem)] p-3 sm:p-8 pt-16 sm:pt-8 sm:ml-[14rem] max-w-5xl sm:left-[calc(50%-7rem)] sm:-translate-x-1/2 relative">
-                {children}
+                <PageTransition>
+                  {children}
+                </PageTransition>
               </main>
 
               <PerlinBackground overflow-x-scroll />
