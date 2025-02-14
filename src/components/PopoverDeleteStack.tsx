@@ -22,7 +22,7 @@ const PopoverDeleteStack = ({stack}: {stack: Stack}) => {
 
   return (
     <Popover>
-      <PopoverTrigger>
+      <PopoverTrigger asChild>
         <Button variant="destructive" size="sm">
           <Trash className="w-4 h-4" />
         </Button>

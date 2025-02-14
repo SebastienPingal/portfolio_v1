@@ -22,7 +22,7 @@ export default function DeleteConfirmationPopover({ entity, id, className, delet
   return (
     <div onClick={(e) => e.preventDefault()} className={className}>
       <Popover>
-        <PopoverTrigger>
+        <PopoverTrigger asChild>
           <Button variant="destructive" size="sm">
             <Trash className="w-4 h-4" />
           </Button>

@@ -19,10 +19,16 @@ export default function ExternalLinksSession({ externalLinks }: { externalLinks:
 				{externalLinks.map((externalLink) => (
 					<NavigationMenuItem key={externalLink.id} className="relative flex gap-4 items-center relative w-full">
 						<a href={externalLink.url} target="_blank" rel="noreferrer" className="flex gap-4 items-center full">
-							{externalLink.logoWhite && externalLink.logoBlack ?
-								<Image src={`/img/${theme === 'dark' ? externalLink.logoWhite : externalLink.logoBlack}`} alt={externalLink.title} width={16} height={16} />
-								: <Factory className="w-4 h-4" />
-							}
+							{externalLink.logoWhite && externalLink.logoBlack ? (
+								<div className="dark:hidden">
+									<Image src={`/img/${externalLink.logoBlack}`} alt={externalLink.title} width={16} height={16} />
+								</div>
+							) : <Factory className="w-4 h-4" />}
+							{externalLink.logoWhite && externalLink.logoBlack && (
+								<div className="hidden dark:block">
+									<Image src={`/img/${externalLink.logoWhite}`} alt={externalLink.title} width={16} height={16} />
+								</div>
+							)}
 							{externalLink.title}
 							<MoveUpRight className="absolute right-0 w-4 h-4" />
 						</a>

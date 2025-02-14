@@ -18,8 +18,8 @@ const buttonVariants = cva(
           "bg-secondary/70 text-secondary-foreground hover:bg-secondary",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
-        shine: "bg-primary text-primary-foreground hover:bg-primary/90 relative overflow-hidden before:absolute before:inset-0 before:bg-[linear-gradient(110deg,transparent_20%,rgba(255,255,255,0.4)_50%,transparent_80%)] before:translate-x-[-100%] before:animate-[shine_5s_ease-in-out_infinite_2s]",
-        secondaryshine: "bg-secondary text-secondary-foreground hover:bg-secondary/90 relative overflow-hidden before:absolute before:inset-0 before:bg-[linear-gradient(110deg,transparent_20%,rgba(255,255,255,0.4)_50%,transparent_80%)] before:translate-x-[-100%] before:animate-[shine_5s_ease-in-out_infinite_1s]",
+        shine: "hover:-translate-y-1 bg-primary text-primary-foreground hover:bg-primary/90 relative overflow-hidden before:absolute before:inset-0 before:bg-[linear-gradient(110deg,transparent_20%,rgba(255,255,255,0.4)_50%,transparent_80%)] before:translate-x-[-100%] before:animate-[shine_5s_ease-in-out_infinite_2s]",
+        secondaryshine: "hover:-translate-y-1 bg-secondary text-secondary-foreground hover:bg-secondary/90 relative overflow-hidden before:absolute before:inset-0 before:bg-[linear-gradient(110deg,transparent_20%,rgba(255,255,255,0.4)_50%,transparent_80%)] before:translate-x-[-100%] before:animate-[shine_5s_ease-in-out_infinite_1s]",
       },
       size: {
         default: "h-10 px-4 py-2",

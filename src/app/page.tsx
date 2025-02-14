@@ -1,10 +1,8 @@
 import TalkingLogo from '@/components/TalkingLogo'
 import LandingPage from './LandingPage'
-import { getTranslations } from 'next-intl/server'
 import { getStacks } from './actions'
 
 export default async function Home() {
-  const t = await getTranslations('HomePage')
   const stacks = await getStacks()
   return (
     <div className='flex flex-col w-full items-center gap-5 overflow-y-visible'>

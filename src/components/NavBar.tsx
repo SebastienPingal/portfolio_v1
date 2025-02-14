@@ -1,34 +1,32 @@
 "use client"
+
+// React and hooks
+import React, { useEffect, useState } from "react"
+import { useSession } from "next-auth/react"
+import { useTheme } from "next-themes"
+import { useTranslations } from 'next-intl'
+
+// Next.js
+import Image from 'next/image'
+import Link from 'next/link'
+import { usePathname } from "next/navigation"
+
+// UI Components
 import {
   NavigationMenu,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList
 } from "@/components/ui/navigation-menu"
-import { FileText, BookUser, Github, Gitlab, Home, Linkedin, MoveUpRight, PencilRuler } from "lucide-react"
-import React, { useEffect, useState } from "react"
-
-import { useSession } from "next-auth/react"
-import Image from 'next/image'
-import Link from 'next/link'
-import { usePathname } from "next/navigation"
-
-import { useTheme } from "next-themes"
 import SigninButton from "./SigninButton"
 import SignoutButton from "./SignoutButton"
-import ThemeToggler from "./ThemeToggler"
-import LanguageSwitcher from "@/components/LanguageSwitcher"
-import { useTranslations } from 'next-intl'
-
-const logos = {
-  Kafo: { white: '/img/Kafo_white.svg', black: '/img/Kafo_black.svg' },
-  Aestima: { white: '/img/aestima_white.svg', black: '/img/aestima_black.svg' },
-  Moneodomus: { white: '/img/moneodomus_white.png', black: '/img/moneodomus_black.png' }
-}
-
-import { ExternalLink, Post } from "@prisma/client"
-import PostSession from "./PostSession"
 import ExternalLinksSession from "./ExternalLinksSession"
+
+// Icons
+import { FileText, BookUser, Github, Gitlab, Home, Linkedin, MoveUpRight, PencilRuler } from "lucide-react"
+
+// Types
+import { ExternalLink, Post } from "@prisma/client"
 
 const NavBar = ({ workPosts, blogPosts, externalLinks, className }: { workPosts: Post[], blogPosts: Post[], externalLinks: ExternalLink[], className?: string }) => {
   const t = useTranslations('NavBar')
@@ -100,7 +98,7 @@ const NavBar = ({ workPosts, blogPosts, externalLinks, className }: { workPosts:
 
           <div className='w-full'>
             <NavigationMenuItem hover={false}></NavigationMenuItem>
-            <NavigationMenuItem hover={false}>
+            <div className="w-full">
               {session ? (
                 <div className="flex flex-col gap-2 justify-between items-center w-full">
                   <Image src={session.user?.image || ''} alt="profile" width={64} height={64} className="rounded-full" />
@@ -110,7 +108,7 @@ const NavBar = ({ workPosts, blogPosts, externalLinks, className }: { workPosts:
               ) : (
                 <SigninButton className="w-full" />
               )}
-            </NavigationMenuItem>
+            </div>
           </div>
         </NavigationMenuList>
       </NavigationMenu>

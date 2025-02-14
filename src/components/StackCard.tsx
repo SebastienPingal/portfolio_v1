@@ -14,7 +14,13 @@ import UsingItSection from './UsingItSection'
 import { getTranslations } from 'next-intl/server'
 
 const StackCard = async ({ stack, className, tooltiped = false }: { stack: StackExtended; className?: string; tooltiped?: boolean }) => {
-  const session = await auth()
+  let session
+  try {
+    session = await auth()
+  } catch (error) {
+    console.error('❌ Error fetching auth session:', error)
+    session = null
+  }
   const t = await getTranslations('StackCard')
 
   return (
@@ -39,7 +45,7 @@ const StackCard = async ({ stack, className, tooltiped = false }: { stack: Stack
         </a>
         <UsingItSection
           stack={stack}
-          userMail={session?.user?.email || ''}
+          userMail={session?.user?.email ?? ''}
           usingIt={stack.users.some(user => user.email === session?.user?.email)}
           tooltiped={tooltiped}
         />

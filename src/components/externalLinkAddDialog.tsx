@@ -38,9 +38,10 @@ const ExternalLinkAddDialog = () => {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger className="w-full">
-        <Button variant="outline" size='sm' className="w-full text-foreground">
-          <Plus className="w-6 h-6" />
+      <DialogTrigger asChild>
+        <Button variant="outline" size="sm" className="w-full text-muted-foreground">
+          <Plus className="w-4 h-4 mr-2" />
+          Add external link
         </Button>
       </DialogTrigger>
       <DialogContent>
