@@ -13,8 +13,8 @@ export default function ContactSection() {
     <>
       <div className="w-full max-w-3xl mx-auto py-16">
         <div className="flex flex-col md:flex-row gap-8 justify-center items-center">
-          <Button 
-            variant="shine" 
+          <Button
+            variant="secondaryshine"
             size="lg"
             className="flex gap-4 text-xl p-8 h-auto"
             onClick={() => setIsContactFormOpen(true)}
@@ -23,8 +23,8 @@ export default function ContactSection() {
             {t('contact')}
           </Button>
 
-          <Button 
-            variant="default"
+          <Button
+            variant="shine"
             size="lg"
             className="flex gap-4 text-xl p-8 h-auto"
             onClick={() => window.open('https://cal.com/sebastienpingal/30min', '_blank')}
@@ -35,9 +35,9 @@ export default function ContactSection() {
         </div>
       </div>
 
-      <ContactForm 
-        isOpen={isContactFormOpen} 
-        onClose={() => setIsContactFormOpen(false)} 
+      <ContactForm
+        isOpen={isContactFormOpen}
+        onClose={() => setIsContactFormOpen(false)}
       />
     </>
   )

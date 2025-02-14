@@ -25,8 +25,8 @@ const TalkingLogo = ({ className, text, littleHead = false, tooltip = false }: {
     if (text) {
       setFullText(text)
     } else {
-      const nextjs = `<span class="animate-sparkle bg-gradient-to-r from-transparent via-white to-transparent bg-[length:200%_100%] bg-clip-text text-transparent font-bold">${t('technologies.nextjs')}</span>`
-      const react = `<span class="animate-sparkle bg-gradient-to-r from-transparent via-white to-transparent bg-[length:200%_100%] bg-clip-text text-transparent font-bold">${t('technologies.react')}</span>`
+      const nextjs = `<span class="animate-sparkle bg-gradient-to-r from-secondary via-white to-secondary bg-[length:200%_100%] bg-clip-text text-transparent font-bold">${t('technologies.nextjs')}</span>`
+      const react = `<span class="animate-sparkle bg-gradient-to-r from-secondary via-white to-secondary bg-[length:200%_100%] bg-clip-text text-transparent font-bold">${t('technologies.react')}</span>`
       
       setFullText(t('defaultText', {
         nextjs,

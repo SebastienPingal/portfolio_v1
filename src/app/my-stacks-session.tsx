@@ -8,6 +8,7 @@ export default function MyStacksSession({ stacks }: { stacks: StackExtended[] })
 
   const my_back_stacks = ['next.js', 'typescript', 'node.js', 'postgressql', 'docker', 'aws']
   const my_front_stacks = ['tailwind', 'react', 'next.js', 'typescript']
+  const shining_stacks = ['next.js', 'react', 'node.js', 'postgressql']
   const selectedBackStacks = stacks.filter(stack => my_back_stacks.includes(stack.title.toLowerCase()))
   const selectedFrontStacks = stacks.filter(stack => my_front_stacks.includes(stack.title.toLowerCase()))
 
@@ -20,7 +21,7 @@ export default function MyStacksSession({ stacks }: { stacks: StackExtended[] })
         <CardContent>
           <div className='flex flex-wrap gap-2 justify-center'>
             {selectedFrontStacks.map(stack => (
-              <StackBadge key={stack.title} stack={stack} />
+              <StackBadge key={stack.title} stack={stack} variant={shining_stacks.includes(stack.title.toLowerCase()) ? 'shine' : 'default'} />
             ))}
           </div>
         </CardContent>

@@ -97,15 +97,12 @@ const config = {
         sparkle: {
           '0%': {
             backgroundPosition: '0% 50%',
-            opacity: '0.5'
           },
           '50%': {
             backgroundPosition: '100% 50%',
-            opacity: '1'
           },
           '100%': {
             backgroundPosition: '0% 50%',
-            opacity: '0.5'
           }
         }
       },
@@ -116,7 +113,7 @@ const config = {
         typing: 'typing 2s steps(20, end), blink .5s step-end 3 forwards',
         shine: "shine 2s ease-in-out infinite",
         glow: 'glow 1.5s ease-in-out infinite',
-        sparkle: 'sparkle 2s linear infinite'
+        sparkle: 'sparkle 2s ease-in-out infinite'
       },
     },
   },
