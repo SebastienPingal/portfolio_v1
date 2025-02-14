@@ -5,8 +5,11 @@ import { unstable_cache, revalidateTag } from 'next/cache'
 
 export const getStacks = unstable_cache(
   async () => {
-    console.log('🔍 Fetching stacks from database')
-    return await prisma.stack.findMany({ include: { posts: true, users: true } })
+    const start = performance.now()
+    console.log('🔍 Starting stacks fetch')
+    const result = await prisma.stack.findMany({ include: { posts: true, users: true } })
+    console.log('⏱️ Stacks fetch took:', performance.now() - start, 'ms')
+    return result
   },
   ['stacks'],
   {

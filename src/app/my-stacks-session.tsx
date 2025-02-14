@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { StackExtended } from "@/types/stack"
 import { useTranslations } from "next-intl"
 
-export default function MyStacksSession({ stacks }: { stacks: StackExtended[] }) {
+export default function MyStacksSession({ stacks, session }: { stacks: StackExtended[], session: any }) {
   const t = useTranslations('LandingPage')
 
   const my_back_stacks = ['next.js', 'typescript', 'node.js', 'postgressql', 'docker', 'aws']
@@ -23,7 +23,7 @@ export default function MyStacksSession({ stacks }: { stacks: StackExtended[] })
           <CardContent>
             <div className='flex flex-wrap gap-2 justify-center'>
               {selectedFrontStacks.map(stack => (
-                <StackBadge key={stack.title} stack={stack} variant={shining_stacks.includes(stack.title.toLowerCase()) ? 'shine' : 'default'} />
+                <StackBadge session={session} key={stack.title} stack={stack} variant={shining_stacks.includes(stack.title.toLowerCase()) ? 'shine' : 'default'} />
               ))}
             </div>
           </CardContent>
@@ -36,7 +36,7 @@ export default function MyStacksSession({ stacks }: { stacks: StackExtended[] })
           <CardContent>
             <div className='flex flex-wrap gap-2 justify-center'>
               {selectedBackStacks.map(stack => (
-                <StackBadge key={stack.title} stack={stack} />
+                <StackBadge session={session} key={stack.title} stack={stack} />
               ))}
             </div>
           </CardContent>

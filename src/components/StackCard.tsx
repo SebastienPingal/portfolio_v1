@@ -6,21 +6,13 @@ import { MoveUpRight, PencilRuler } from 'lucide-react'
 
 import { StackExtended } from '@/types/stack'
 
-import { auth } from '@/app/api/auth/[...nextauth]/auth'
 import Link from 'next/link'
 
 import PopoverDeleteStack from './PopoverDeleteStack'
 import UsingItSection from './UsingItSection'
 import { getTranslations } from 'next-intl/server'
 
-const StackCard = async ({ stack, className, tooltiped = false }: { stack: StackExtended; className?: string; tooltiped?: boolean }) => {
-  let session
-  try {
-    session = await auth()
-  } catch (error) {
-    console.error('❌ Error fetching auth session:', error)
-    session = null
-  }
+const StackCard = async ({ stack, className, tooltiped = false, session }: { stack: StackExtended; className?: string; tooltiped?: boolean, session: any }) => {
   const t = await getTranslations('StackCard')
 
   return (
@@ -48,6 +40,7 @@ const StackCard = async ({ stack, className, tooltiped = false }: { stack: Stack
           userMail={session?.user?.email ?? ''}
           usingIt={stack.users.some(user => user.email === session?.user?.email)}
           tooltiped={tooltiped}
+          session={session}
         />
       </CardContent>
       {session?.user && (

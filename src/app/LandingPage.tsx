@@ -1,11 +1,10 @@
 import ImageScrollDisplay from '@/components/image-scroll-display'
 import { useTranslations } from 'next-intl'
 import { StackExtended } from '@/types/stack'
-import StackBadge from '@/components/StackBadge'
 import ContactSection from '@/components/ContactSection'
 import MyStacksSession from './my-stacks-session'
 
-export default function LandingPage({ stacks }: { stacks: StackExtended[] }) {
+export default function LandingPage({ stacks, session }: { stacks: StackExtended[], session: any }) {
   const t = useTranslations('LandingPage')
 
   const moneoDomusImages = [
@@ -25,7 +24,7 @@ export default function LandingPage({ stacks }: { stacks: StackExtended[] }) {
   return (
     <div className='flex flex-col gap-32 w-full mt-16'>
       <div className='flex flex-col gap-2'>
-        <MyStacksSession stacks={stacks} />
+        <MyStacksSession stacks={stacks} session={session} />
         <ContactSection />
       </div>
 
