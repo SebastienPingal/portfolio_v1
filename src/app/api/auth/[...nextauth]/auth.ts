@@ -54,5 +54,6 @@ export function auth(
     | [NextApiRequest, NextApiResponse]
     | []
 ) {
+  console.log('🔐 Starting auth check')
   return getServerSession(...args, config)
 }
