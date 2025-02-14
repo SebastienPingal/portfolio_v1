@@ -1,10 +1,13 @@
 import ImageScrollDisplay from '@/components/image-scroll-display'
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel'
 import { useTranslations } from 'next-intl'
+import { StackExtended } from '@/types/stack'
+import StackBadge from '@/components/StackBadge'
+import ContactSection from '@/components/ContactSection'
+import MyStacksSession from './my-stacks-session'
 
-export default function LandingPage() {
+export default function LandingPage({ stacks }: { stacks: StackExtended[] }) {
   const t = useTranslations('LandingPage')
-  
+
   const moneoDomusImages = [
     'https://uoeohmz1cojcdmtr.public.blob.vercel-storage.com/2025-02-11-181312_hyprshot-lv098JIqd5UlhQMndXGGzuZm0ZUar4.png',
     'https://uoeohmz1cojcdmtr.public.blob.vercel-storage.com/2025-02-11-181232_hyprshot-7RuXxRPGWI8hIdDGYRT4YOzDxi8PLs.png',
@@ -18,10 +21,15 @@ export default function LandingPage() {
     'https://uoeohmz1cojcdmtr.public.blob.vercel-storage.com/aestima3-DqjTznll5PshneKWlztic1Wm6yfbai.jpeg',
     'https://uoeohmz1cojcdmtr.public.blob.vercel-storage.com/aestima4-zyfkQOWdKtHDNONA5pTOhIHSqbiLMD.jpeg',
   ]
-  
+
   return (
     <div className='flex flex-col gap-32 w-full mt-16'>
-      <h1 className='text-7xl font-black text-center'>{t('projects')}</h1>
+      <div className='flex flex-col gap-2'>
+        <MyStacksSession stacks={stacks} />
+        <ContactSection />
+      </div>
+
+      <h2 className='text-7xl font-black text-center'>{t('projects')}</h2>
 
       <div className='flex flex-col gap-4 w-full'>
         <div className='flex flex-col gap-2'>
@@ -40,6 +48,8 @@ export default function LandingPage() {
           <ImageScrollDisplay images={estimaImmoImages} height={600} />
         </div>
       </div>
+
+      <ContactSection />
     </div>
   )
 }

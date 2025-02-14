@@ -1,9 +1,10 @@
 'use server'
 import prisma from '@/lib/db'
-import { Prisma, PostType } from '@prisma/client'
+import { Prisma, PostType, Stack } from '@prisma/client'
 import { revalidatePath } from 'next/cache'
 import { CVData } from '@/types/CV'
 import { Resend } from 'resend';
+import { StackExtended } from '@/types/stack'
 
 export async function getUser(data: Prisma.UserWhereUniqueInput) {
   return await prisma.user.findUnique({ where: data })
@@ -108,7 +109,7 @@ export async function getStack(title: string) {
   })
 }
 
-export async function getStacks() {
+export async function getStacks(): Promise<StackExtended[]> {
   return await prisma.stack.findMany({ include: { posts: true, users: true } })
 }
 

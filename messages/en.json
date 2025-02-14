@@ -3,8 +3,8 @@
     "title": "Hello world!"
   },
   "TalkingLogo": {
-    "defaultText": "Hi, I'm Sebastien. I'm a tinkerer, developer, musician and sometimes a teacher. Welcome to my website.",
-    "inputPlaceholder": "Ask me anything...",
+    "defaultText": "Hi, I'm Sebastien. I'm a full stack developer. I specialize in next and react but I also like to learn new technologies. I'm a tinkerer, musician, teacher and sometimes a game master. Welcome to my website.",
+    "inputPlaceholder": "Ask me anything...", 
     "submit": "Submit"
   },
   "NavBar": {

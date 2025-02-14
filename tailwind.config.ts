@@ -7,7 +7,7 @@ const config = {
     './components/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
-	],
+  ],
   prefix: "",
   theme: {
     container: {
@@ -79,12 +79,44 @@ const config = {
           from: { borderColor: 'black' },
           to: { borderColor: 'transparent' },
         },
+        shine: {
+          '0%, 20%': { transform: 'translateX(-100%)' },
+          '20%, 50%': { transform: 'translateX(100%)' },
+          '100%': { transform: 'translateX(100%)' }
+        },
+        glow: {
+          '0%, 100%': {
+            textShadow: '0 0 4px rgba(255,255,255,0)',
+            opacity: '0.8'
+          },
+          '50%': {
+            textShadow: '0 0 20px rgba(255,255,255,0.8), 0 0 30px rgba(255,255,255,0.6), 0 0 40px rgba(255,255,255,0.4)',
+            opacity: '1'
+          }
+        },
+        sparkle: {
+          '0%': {
+            backgroundPosition: '0% 50%',
+            opacity: '0.5'
+          },
+          '50%': {
+            backgroundPosition: '100% 50%',
+            opacity: '1'
+          },
+          '100%': {
+            backgroundPosition: '0% 50%',
+            opacity: '0.5'
+          }
+        }
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         wiggle: 'wiggle 0.2s ease-in-out infinite',
         typing: 'typing 2s steps(20, end), blink .5s step-end 3 forwards',
+        shine: "shine 2s ease-in-out infinite",
+        glow: 'glow 1.5s ease-in-out infinite',
+        sparkle: 'sparkle 2s linear infinite'
       },
     },
   },

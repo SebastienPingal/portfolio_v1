@@ -3,7 +3,11 @@
     "title": "Salut le monde"
   },
   "TalkingLogo": {
-    "defaultText": "Salut, moi c'est Sebastien. Je suis un bricoleur, un developpeur, un musicien et parfois un enseignant. Bienvenue sur mon site.",
+    "defaultText": "Salut, moi c'est Sebastien. Je suis un developpeur full stack. Je suis spécialisé sur {nextjs} et {react} mais j'aime aussi apprendre de nouvelles technologies. Je suis un bricoleur, un musicien, un enseignant et parfois un maitre du jeu. Bienvenue sur mon site.",
+    "technologies": {
+      "nextjs": "Next.js",
+      "react": "React"
+    },
     "inputPlaceholder": "Posez-moi une question...",
     "submit": "Envoyer"
   },
@@ -28,7 +32,8 @@
     "companies": {
       "moneoDomus": "Moneo Domus",
       "aestimaImmo": "Aestima-Immo"
-    }
+    },
+    "stacks": "Mes technos"
   },
   "Stack": {
     "title": "Ma Stack Technique",

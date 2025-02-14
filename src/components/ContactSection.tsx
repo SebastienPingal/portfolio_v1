@@ -1,3 +1,4 @@
+'use client'
 import { Button } from "./ui/button"
 import { Calendar, Mail, Send } from "lucide-react"
 import { useTranslations } from "next-intl"
@@ -13,22 +14,22 @@ export default function ContactSection() {
       <div className="w-full max-w-3xl mx-auto py-16">
         <div className="flex flex-col md:flex-row gap-8 justify-center items-center">
           <Button 
-            variant="outline" 
+            variant="shine" 
             size="lg"
-            className="flex gap-3 text-lg p-6"
+            className="flex gap-4 text-xl p-8 h-auto"
             onClick={() => setIsContactFormOpen(true)}
           >
-            <Send className="w-6 h-6" />
+            <Send className="w-8 h-8" />
             {t('contact')}
           </Button>
 
           <Button 
             variant="default"
             size="lg"
-            className="flex gap-3 text-lg p-6"
+            className="flex gap-4 text-xl p-8 h-auto"
             onClick={() => window.open('https://cal.com/sebastienpingal/30min', '_blank')}
           >
-            <Calendar className="w-6 h-6" />
+            <Calendar className="w-8 h-8" />
             {t('schedule')}
           </Button>
         </div>

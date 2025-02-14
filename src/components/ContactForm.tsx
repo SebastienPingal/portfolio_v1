@@ -1,3 +1,4 @@
+'use client'
 import { Button } from "./ui/button"
 import { Input } from "./ui/input"
 import { Textarea } from "./ui/textarea"
@@ -86,6 +87,7 @@ export default function ContactForm({ isOpen, onClose }: ContactFormProps) {
             type="submit"
             className="w-full"
             disabled={sending}
+            variant="shine"
           >
             <Send className="mr-2 h-4 w-4" />
             {sending ? t('sending') : t('send')}

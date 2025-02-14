@@ -14,7 +14,7 @@ const StackBadge = ({ stack }: { stack: StackExtended }) => {
     <TooltipProvider>
       <Tooltip>
         <TooltipTrigger asChild>
-          <Badge>
+          <Badge className="cursor-default">
             {stack.title}
           </Badge>
         </TooltipTrigger>

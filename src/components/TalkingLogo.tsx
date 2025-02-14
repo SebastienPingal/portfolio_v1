@@ -18,11 +18,21 @@ const TalkingLogo = ({ className, text, littleHead = false, tooltip = false }: {
   const [userInput, setUserInput] = useState('')
   const [isAnimating, setIsAnimating] = useState(false)
   const [displayTexts, setDisplayTexts] = useState<string[]>([])
-  const [fullText, setFullText] = useState(text || t('defaultText'))
+  const [fullText, setFullText] = useState('')
   const [meImage, setMeImage] = useState(MeBlack)
 
   useEffect(() => {
-    setFullText(text || t('defaultText'))
+    if (text) {
+      setFullText(text)
+    } else {
+      const nextjs = `<span class="animate-sparkle bg-gradient-to-r from-transparent via-white to-transparent bg-[length:200%_100%] bg-clip-text text-transparent font-bold">${t('technologies.nextjs')}</span>`
+      const react = `<span class="animate-sparkle bg-gradient-to-r from-transparent via-white to-transparent bg-[length:200%_100%] bg-clip-text text-transparent font-bold">${t('technologies.react')}</span>`
+      
+      setFullText(t('defaultText', {
+        nextjs,
+        react
+      }))
+    }
     setDisplayTexts([])
   }, [text, locale, t])
 
@@ -49,8 +59,17 @@ const TalkingLogo = ({ className, text, littleHead = false, tooltip = false }: {
     let i = 0
     const typingInterval = setInterval(() => {
       if (i < fullText.length) {
+        if (fullText[i] === '<') {
+          while (i < fullText.length && fullText[i] !== '>') {
+            i++
+          }
+        }
         const currentTexts = fullText.slice(0, i + 1).split('\n')
-        setDisplayTexts(currentTexts.map(text => DOMPurify.sanitize(text, { ALLOWED_TAGS: ['a'] })))
+        setDisplayTexts(currentTexts.map(text => 
+          DOMPurify.sanitize(text, 
+            { ALLOWED_TAGS: ['a', 'span'], ALLOWED_ATTR: ['href', 'class'] }
+          )
+        ))
         i++
       } else {
         clearInterval(typingInterval)
@@ -80,7 +99,7 @@ const TalkingLogo = ({ className, text, littleHead = false, tooltip = false }: {
         <div className="flex flex-col gap-2">
           {displayTexts.map((text, index) => (
             <div key={index} className="glassPanel p-4 rounded-xl">
-              <p className="text-lg overflow-hidden w-fit" dangerouslySetInnerHTML={{ __html: text }}></p>
+              <p className="text-lg overflow-visible w-fit" dangerouslySetInnerHTML={{ __html: text }}></p>
             </div>
           ))}
         </div>
