@@ -1,5 +1,5 @@
 "use client"
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useTheme } from 'next-themes'
 import Image from 'next/image'
 import { Input } from './ui/input'
@@ -26,7 +26,7 @@ const TalkingLogo = ({ className, text, littleHead = false, tooltip = false }: {
       setFullText(text)
     } else {
       const nextjs = `<span class="animate-sparkle bg-gradient-to-r from-secondary via-white to-secondary bg-[length:200%_100%] bg-clip-text text-transparent font-bold">${t('technologies.nextjs')}</span>`
-      const react = `<span class="animate-sparkle bg-gradient-to-r from-secondary via-white to-secondary bg-[length:200%_100%] bg-clip-text text-transparent font-bold">${t('technologies.react')}</span>`
+      const react = `<span class="animate-sparkle bg-gradient-to-r from-transparent via-white to-secondary bg-[length:200%_100%] bg-clip-text text-transparent font-bold">${t('technologies.react')}</span>`
       
       setFullText(t('defaultText', {
         nextjs,
@@ -36,7 +36,7 @@ const TalkingLogo = ({ className, text, littleHead = false, tooltip = false }: {
     setDisplayTexts([])
   }, [text, locale, t])
 
-  const onSubmit = async () => {
+  const onSubmit = useCallback(async () => {
     try {
       const response = await fetch('/api/generate-text', {
         method: 'POST',
@@ -53,7 +53,7 @@ const TalkingLogo = ({ className, text, littleHead = false, tooltip = false }: {
     } catch (error) {
       console.log('❌ Error:', error)
     }
-  }
+  }, [userInput, locale])
 
   useEffect(() => {
     let i = 0

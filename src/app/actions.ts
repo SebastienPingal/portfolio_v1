@@ -3,7 +3,7 @@ import prisma from '@/lib/db'
 import { Prisma, PostType, Stack } from '@prisma/client'
 import { revalidatePath } from 'next/cache'
 import { CVData } from '@/types/CV'
-import { Resend } from 'resend';
+import { Resend } from 'resend'
 import { StackExtended } from '@/types/stack'
 
 export async function getUser(data: Prisma.UserWhereUniqueInput) {

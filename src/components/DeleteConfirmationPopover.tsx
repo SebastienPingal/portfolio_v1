@@ -3,13 +3,13 @@ import { Trash } from "lucide-react"
 import { Popover, PopoverContent, PopoverTrigger, PopoverClose } from "./ui/popover"
 import { useToast } from "./ui/use-toast"
 import { usePathname, useRouter } from "next/navigation"
-
+import { useCallback } from "react"
 export default function DeleteConfirmationPopover({ entity, id, className, deleteAction }: { entity: string, id: string, className?: string, deleteAction: (id: string) => void }) {
   const pathname = usePathname()
   const router = useRouter()
   const { toast } = useToast()
 
-  const handleDelete = async () => {
+  const handleDelete = useCallback(async () => {
     await deleteAction(id)
     toast({
       title: `${entity} deleted`,
@@ -17,7 +17,7 @@ export default function DeleteConfirmationPopover({ entity, id, className, delet
     })
     if (pathname === `/${entity}/${id}`) router.push('/')
     else router.refresh()
-  }
+  }, [entity, id, pathname, router, toast, deleteAction])
 
   return (
     <div onClick={(e) => e.preventDefault()} className={className}>

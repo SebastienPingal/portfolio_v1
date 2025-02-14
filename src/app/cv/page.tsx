@@ -1,6 +1,6 @@
 'use client'
 import { Switch } from '@/components/ui/switch'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { englishCV as cvEn } from '../../../public/json/my-cv-en'
 import { frenchCV as cvFr } from '../../../public/json/my-cv-fr'
 import { CVData } from '../../types/CV'
@@ -35,7 +35,7 @@ const CVPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false)
   const { data: session } = useSession()
 
-  const loadPresets = async () => {
+  const loadPresets = useCallback(async () => {
     try {
       // Always load default presets first
       const defaultPresets = await getCVPresets()
@@ -62,11 +62,11 @@ const CVPage: React.FC = () => {
         title: t('toasts.error.loadPresets')
       })
     }
-  }
+  }, [toast, t])
 
   useEffect(() => {
     loadPresets()
-  }, [session?.user?.email])
+  }, [session?.user?.email, loadPresets])
 
   const savePreset = async () => {
     if (!session?.user?.email || !presetTitle) return
