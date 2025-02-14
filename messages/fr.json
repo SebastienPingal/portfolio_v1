@@ -25,6 +25,9 @@
     }
   },
   "LandingPage": {
+    "myStacks": {
+      "title": "Mes technos"
+    },
     "projects": "Mes Projets",
     "roles": {
       "fullstack": "Développeur Full Stack"
