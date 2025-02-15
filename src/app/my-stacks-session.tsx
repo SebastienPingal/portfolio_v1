@@ -36,7 +36,7 @@ export default function MyStacksSession({ stacks, session }: { stacks: StackExte
           <CardContent>
             <div className='flex flex-wrap gap-2 justify-center'>
               {selectedBackStacks.map(stack => (
-                <StackBadge session={session} key={stack.title} stack={stack} />
+                <StackBadge session={session} key={stack.title} stack={stack} variant={shining_stacks.includes(stack.title.toLowerCase()) ? 'shine' : 'default'} />
               ))}
             </div>
           </CardContent>

@@ -25,9 +25,9 @@ const TalkingLogo = ({ className, text, littleHead = false, tooltip = false }: {
     if (text) {
       setFullText(text)
     } else {
-      const nextjs = `<span class="animate-sparkle bg-gradient-to-r from-secondary via-white to-secondary bg-[length:200%_100%] bg-clip-text text-transparent font-bold">${t('technologies.nextjs')}</span>`
-      const react = `<span class="animate-sparkle bg-gradient-to-r from-secondary via-white to-secondary bg-[length:200%_100%] bg-clip-text text-transparent font-bold">${t('technologies.react')}</span>`
-      
+      const nextjs = `<span class="font-extrabold animate-sparkle bg-gradient-to-r from-secondary via-foreground to-secondary bg-[length:200%_100%] bg-clip-text text-transparent font-bold">${t('technologies.nextjs')}</span>`
+      const react = `<span class="font-extrabold animate-sparkle bg-gradient-to-r from-secondary via-foreground to-secondary bg-[length:200%_100%] bg-clip-text text-transparent font-bold">${t('technologies.react')}</span>`
+
       setFullText(t('defaultText', {
         nextjs,
         react
@@ -41,7 +41,7 @@ const TalkingLogo = ({ className, text, littleHead = false, tooltip = false }: {
       const response = await fetch('/api/generate-text', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
+        body: JSON.stringify({
           prompt: userInput,
           locale
         })
@@ -65,8 +65,8 @@ const TalkingLogo = ({ className, text, littleHead = false, tooltip = false }: {
           }
         }
         const currentTexts = fullText.slice(0, i + 1).split('\n')
-        setDisplayTexts(currentTexts.map(text => 
-          DOMPurify.sanitize(text, 
+        setDisplayTexts(currentTexts.map(text =>
+          DOMPurify.sanitize(text,
             { ALLOWED_TAGS: ['a', 'span'], ALLOWED_ATTR: ['href', 'class'] }
           )
         ))

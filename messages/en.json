@@ -3,7 +3,7 @@
     "title": "Hello world!"
   },
   "TalkingLogo": {
-    "defaultText": "Hi, I'm Sebastien. I'm a full stack developer. I specialize in next and react but I also like to learn new technologies. I'm a tinkerer, musician, teacher and sometimes a game master. Welcome to my website.",
+    "defaultText": "Hi, I'm Sebastien. I'm a full stack developer. I specialize in {nextjs} and {react} but I also like to learn new technologies. I'm a tinkerer, musician, teacher and sometimes a game master. Welcome to my website.",
     "technologies": {
       "nextjs": "Next.js",
       "react": "React"
