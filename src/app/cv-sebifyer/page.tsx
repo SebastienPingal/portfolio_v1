@@ -51,7 +51,7 @@ const CVSebifyerPage: React.FC = () => {
         <h1>{t('title')}</h1>
         <Input
           type="file"
-          accept="image/*"
+          accept="image/*,.pdf"
           onChange={(e) => {
             const file = e.target.files?.[0]
             if (file && file.size <= 5 * 1024 * 1024) {

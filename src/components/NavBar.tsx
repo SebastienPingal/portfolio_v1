@@ -84,10 +84,10 @@ const NavBar = ({ workPosts, blogPosts, externalLinks, className }: { workPosts:
             <PostSession posts={blogPosts} type="BLOGPOST" subSlug="blog" title="Writing" />
           )} */}
 
-          <div className='w-full'>
+          {/* <div className='w-full'>
             <NavigationMenuItem className="font-extrabold mb-2">{t('sections.gadgets')}</NavigationMenuItem>
             {renderMenuItem('/cv-sebifyer', <BookUser className="w-4 h-4" />, t('sections.cvSebifyer'))}
-          </div>
+          </div> */}
 
           <div className='w-full'>
             <NavigationMenuItem className="font-extrabold mb-2">{t('sections.online')}</NavigationMenuItem>

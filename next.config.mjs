@@ -7,6 +7,16 @@ const nextConfig = {
   experimental: {
     turbo: {
       moduleIdStrategy: 'deterministic',
+      serverComponentsExternalPackages: [
+        'pdf-img-convert',
+      ],
+      outputFileTracingIncludes: {
+        '/': [
+          './node_modules/pdf-img-convert/node_modules/pdfjs-dist/legacy/build/pdf.worker.js',
+          './node_modules/pdf-img-convert/node_modules/pdfjs-dist/legacy/build/pdf.js',
+        ],
+      },  
+
       resolveExtensions: [
         '.mdx',
         '.tsx',
@@ -35,6 +45,7 @@ const nextConfig = {
   },
   webpack: (config) => {
     config.externals = [...config.externals, "jsdom"]
+    config.resolve.alias.canvas = false
     return config
   },
 }
