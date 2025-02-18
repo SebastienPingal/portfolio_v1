@@ -87,7 +87,7 @@
     }
   },
   "CVPage": {
-    "talkingHead": "Hey, if you want to create your own CV with my style, go <a href=\"/cv-sebifyer\">here</a>",
+    "talkingHead": "Sorry, the English version of the CV is not yet available. Please wait.",
     "presets": {
       "loadPreset": "Load preset",
       "savePreset": "Save Preset",
