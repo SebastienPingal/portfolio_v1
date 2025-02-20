@@ -18,7 +18,7 @@ export default function ExternalLinksSession({ externalLinks }: { externalLinks:
 			<div className="flex flex-col gap-2">
 				{externalLinks.map((externalLink) => (
 					<NavigationMenuItem key={externalLink.id} className="relative flex gap-4 items-center relative w-full">
-						<a href={externalLink.url} target="_blank" rel="noreferrer" className="flex gap-4 items-center full">
+						<a href={externalLink.url} target="_blank" rel="noreferrer" className="flex gap-4 items-center full group" title={externalLink.title}>
 							{externalLink.logoWhite && externalLink.logoBlack ? (
 								<div className="dark:hidden">
 									<Image src={`/img/${externalLink.logoBlack}`} alt={externalLink.title} width={16} height={16} />
@@ -29,7 +29,9 @@ export default function ExternalLinksSession({ externalLinks }: { externalLinks:
 									<Image src={`/img/${externalLink.logoWhite}`} alt={externalLink.title} width={16} height={16} />
 								</div>
 							)}
-							{externalLink.title}
+							<span className="truncate max-w-[120px]">
+								{externalLink.title}
+							</span>
 							<MoveUpRight className="absolute right-0 w-4 h-4" />
 						</a>
 						{isAdmin && (

@@ -70,16 +70,16 @@ export default function ModelChooser() {
 
   return (
     <div className="container mx-auto p-8">
-      <h1 className="text-3xl font-bold mb-8">Choisissez votre véhicule</h1>
+      <h1 className="text-5xl font-black mb-8">Choisissez votre véhicule</h1>
 
       {/* Barre de recherche rapide */}
-      <div className="mb-12">
+      <div className="mb-12 flex flex-col gap-4">
         <Button
           onClick={() => setOpen(true)}
           variant="outline"
           className="w-full justify-start text-left font-normal"
         >
-          <span>🔎 Rechercher un modèle...</span>
+          <span>🔎 Rechercher directement un modèle...</span>
         </Button>
 
         <CommandDialog open={open} onOpenChange={setOpen}>
@@ -104,7 +104,7 @@ export default function ModelChooser() {
                 >
                   <div className="flex items-center">
                     {/* Afficher la première lettre de la marque si pas de logo */}
-                    <span className="w-6 h-6 flex items-center justify-center mr-2 text-sm bg-secondary rounded">
+                    <span className="w-6 h-6 flex items-center justify-center mr-2 text-sm bg-primary/50 rounded">
                       {model.brandName[0]}
                     </span>
                     <div>
