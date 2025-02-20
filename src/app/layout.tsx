@@ -55,7 +55,7 @@ export default async function RootLayout({
       <GoogleTagManager gtmId="GTM-P42CZR92" />
       <body className={[
         cereal.className, 
-        "flex flex-col sm:flex-row w-full h-[100vh] overflow-x-hidden overflow-y-auto relative",
+        "flex flex-col sm:flex-row w-full h-full relative",
         "[&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']"
       ].join(" ")}>
         {/* Google Tag Manager (noscript) */}
@@ -101,7 +101,7 @@ export default async function RootLayout({
 
               <Navbar workPosts={workPosts} blogPosts={blogPosts} externalLinks={externalLinks} className="hidden sm:flex fixed z-20" />
 
-              <main className="flex-1 page z-10 w-full sm:w-[calc(100vw-14rem)] p-3 sm:p-8 sm:pt-16 sm:pt-8 sm:ml-[14rem] max-w-5xl sm:left-[calc(50%-7rem)] sm:-translate-x-1/2 relative overflow-x-hidden">
+              <main className="flex-1 page z-10 w-full sm:w-[calc(100vw-14rem)] p-3 sm:p-8 sm:pt-16 sm:pt-8 sm:ml-[14rem] max-w-5xl sm:left-[calc(50%-7rem)] sm:-translate-x-1/2 relative overflow-x-visible">
                 <PageTransition>
                   {children}
                 </PageTransition>
