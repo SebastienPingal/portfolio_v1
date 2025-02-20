@@ -48,9 +48,9 @@ Font.register({
 // Theme colors from your globals.css
 const themeColors = {
   light: {
-    background: '#F4D7F4',
+    background: '#f6dff6',
     foreground: '#2E052E',
-    card: '#dbbddb',
+    card: '#F4D7F4',
     primary: '#9E709E',
     secondary: '#92bf92',
     accent: '#633663',
