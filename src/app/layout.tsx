@@ -55,7 +55,7 @@ export default async function RootLayout({
       <GoogleTagManager gtmId="GTM-P42CZR92" />
       <body className={[
         cereal.className, 
-        "flex flex-col sm:flex-row w-screen h-screen overflow-x-hidden overflow-y-auto relative",
+        "flex flex-col sm:flex-row w-[100vw] h-[100vh] overflow-x-hidden overflow-y-auto relative",
         "[&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']"
       ].join(" ")}>
         {/* Google Tag Manager (noscript) */}
