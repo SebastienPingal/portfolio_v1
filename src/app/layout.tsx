@@ -79,7 +79,7 @@ export default async function RootLayout({
                 <LanguageSwitcher />
               </div>
 
-              <div className="sm:hidden flex glassPanel fixed rounded-full z-20 bottom-20 left-1/2 -translate-x-1/2">
+              <div className="sm:hidden flex glassPanel fixed rounded-full z-20 bottom-16 left-1/2 -translate-x-1/2">
                 <ThemeToggler />
                 <LanguageSwitcher />
               </div>
@@ -101,7 +101,7 @@ export default async function RootLayout({
 
               <Navbar workPosts={workPosts} blogPosts={blogPosts} externalLinks={externalLinks} className="hidden sm:flex fixed z-20" />
 
-              <main className="flex-1 page z-10 w-full sm:w-max-5xl sm:w-[calc(100vw-14rem)] p-3 sm:p-8 pt-16 sm:pt-8 sm:ml-[14rem] max-w-5xl sm:left-[calc(50%-7rem)] sm:-translate-x-1/2 relative">
+              <main className="flex-1 page z-10 w-full sm:w-max-5xl sm:w-[calc(100vw-14rem)] p-3 sm:p-8 sm:pt-16 sm:pt-8 sm:ml-[14rem] max-w-5xl sm:left-[calc(50%-7rem)] sm:-translate-x-1/2 relative">
                 <PageTransition>
                   {children}
                 </PageTransition>

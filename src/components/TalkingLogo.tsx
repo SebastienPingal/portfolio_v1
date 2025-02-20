@@ -91,7 +91,7 @@ const TalkingLogo = ({ className, text, littleHead = false, tooltip = false }: {
 
   return (
     <div className={`${className} flex flex-col gap-8 talking-logo`} >
-      <div className="flex gap-2 items-end justify-start">
+      <div className="flex flex-col sm:flex-row gap-2 items-end items-center sm:justify-start">
         <div className={`relative cursor-pointer transition-transform flex-shrink-0 ${isAnimating ? 'animate-wiggle' : ''} ${littleHead ? 'w-20 h-20' : 'w-40 h-40'}`}>
           <Image src={meImage} fill={true} alt='Sébastien' />
         </div>

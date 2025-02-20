@@ -22,7 +22,7 @@ export default function LandingPage({ stacks, session }: { stacks: StackExtended
   ]
 
   return (
-    <div className='flex flex-col gap-32 w-full mt-16'>
+    <div className='flex flex-col gap-16 sm:gap-32 w-full mt-16'>
       <div className='flex flex-col gap-2'>
         <MyStacksSession stacks={stacks} session={session} />
         <ContactSection />
