@@ -32,7 +32,7 @@ export default function LandingPage({ stacks, session }: { stacks: StackExtended
 
       <div className='flex flex-col gap-4 w-full'>
         <div className='flex flex-col gap-2'>
-          <h2 className='text-6xl font-black'>{t('companies.moneoDomus')}</h2>
+          <h2 className='text-4xl sm:text-6xl font-black'>{t('companies.moneoDomus')}</h2>
           <p>{t('roles.fullstack')}</p>
           <div>
             <ImageScrollDisplay images={moneoDomusImages} height={600} />
@@ -41,7 +41,7 @@ export default function LandingPage({ stacks, session }: { stacks: StackExtended
       </div>
 
       <div className='flex flex-col gap-4 w-full'>
-        <h2 className='text-6xl font-black'>{t('companies.aestimaImmo')}</h2>
+        <h2 className='text-4xl sm:text-6xl font-black'>{t('companies.aestimaImmo')}</h2>
         <p>{t('roles.fullstack')}</p>
         <div>
           <ImageScrollDisplay images={estimaImmoImages} height={600} />
