@@ -16,7 +16,7 @@ export default function MyStacksSession({ stacks, session }: { stacks: StackExte
     <div className="flex flex-col gap-4 justify-center">
       <h2 className="text-5xl font-black text-center">{t('myStacks.title')}</h2>
       <div className="flex flex-col md:flex-row gap-4 justify-center">
-        <Card className='flex flex-col gap-2 justify-center'>
+        <Card className='flex flex-col gap-2 justify-center w-full'>
           <CardHeader>
             <CardTitle className='text-center'>Frontend</CardTitle>
           </CardHeader>
@@ -29,7 +29,7 @@ export default function MyStacksSession({ stacks, session }: { stacks: StackExte
           </CardContent>
         </Card>
 
-        <Card className='flex flex-col gap-2 justify-center w-fit'>
+        <Card className='flex flex-col gap-2 justify-center w-full w-full'>
           <CardHeader>
             <CardTitle className='text-center'>Backend</CardTitle>
           </CardHeader>

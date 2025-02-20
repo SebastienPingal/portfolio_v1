@@ -35,7 +35,7 @@ export default function LandingPage({ stacks, session }: { stacks: StackExtended
           <h2 className='text-4xl sm:text-6xl font-black'>{t('companies.moneoDomus')}</h2>
           <p>{t('roles.fullstack')}</p>
           <div>
-            <ImageScrollDisplay images={moneoDomusImages} height={600} />
+            <ImageScrollDisplay images={moneoDomusImages} height={600} mobileHeight={200} />
           </div>
         </div>
       </div>
@@ -44,7 +44,7 @@ export default function LandingPage({ stacks, session }: { stacks: StackExtended
         <h2 className='text-4xl sm:text-6xl font-black'>{t('companies.aestimaImmo')}</h2>
         <p>{t('roles.fullstack')}</p>
         <div>
-          <ImageScrollDisplay images={estimaImmoImages} height={600} />
+          <ImageScrollDisplay images={estimaImmoImages} height={600} mobileHeight={200} />
         </div>
       </div>
 
