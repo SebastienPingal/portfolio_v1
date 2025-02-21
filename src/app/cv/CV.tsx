@@ -17,6 +17,9 @@ import { EducationForm } from './components/EducationForm'
 import { SkillsSection } from './components/SkillsSection'
 import { ExperienceForm, ExperienceFormData } from './components/ExperienceForm'
 import { EducationFormData } from './components/EducationForm'
+import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors } from '@dnd-kit/core'
+import type { DragEndEvent } from '@dnd-kit/core'
+import { SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy } from '@dnd-kit/sortable'
 
 const MeBlack = '/img/me_black.svg'
 const MeWhite = '/img/me_white.svg'
@@ -41,6 +44,13 @@ const CV: React.FC<{
   const [showExpDialog, setShowExpDialog] = useState(false)
   const [editingEdu, setEditingEdu] = useState<EducationFormData | null>(null)
   const [showEduDialog, setShowEduDialog] = useState(false)
+
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates
+    })
+  )
 
   useEffect(() => {
     const loadStacks = async () => {
@@ -78,7 +88,8 @@ const CV: React.FC<{
       place: formData.place,
       title: formData.title,
       period: formData.period,
-      description: formData.description
+      description: formData.description,
+      order: data.experience?.length ?? 0
     }
 
     handleEdit({
@@ -143,11 +154,34 @@ const CV: React.FC<{
     handleEdit({ education: updatedEducation })
   }
 
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event
+    
+    if (!over || !data.experience || !onDataChange) return
+    
+    const oldIndex = parseInt(active.id as string)
+    const newIndex = parseInt(over.id as string)
+    
+    if (oldIndex === newIndex) return
+
+    const experiences = [...data.experience]
+    const [movedItem] = experiences.splice(oldIndex, 1)
+    experiences.splice(newIndex, 0, movedItem)
+
+    // Update order for all items
+    const updatedExperiences = experiences.map((exp, index) => ({
+      ...exp,
+      order: index
+    }))
+
+    handleEdit({ experience: updatedExperiences })
+  }
+
   if (!data) return null
 
   if (showPDF) {
     return (
-      <div className="fixed inset-0 z-50 bg-background/80 backdrop-blur-sm">
+      <div className="fixed inset-0 z-50 bg-background/80 backdrop-blur-sm h-full">
         <div className="fixed inset-10">
           <Button
             onClick={() => setShowPDF(false)}
@@ -198,7 +232,7 @@ const CV: React.FC<{
             </div>
           </div>
           <div>
-            <p className='text-sm text-justify flex flex-col gap-1'>
+            <div className='text-sm text-justify flex flex-col gap-1'>
               {data.contact && data.contact.map((contact, index) => (
                 contact.value && (
                   <div key={contact.key} className="flex gap-2">
@@ -224,7 +258,7 @@ const CV: React.FC<{
                   </div>
                 )
               ))}
-            </p>
+            </div>
           </div>
         </header>
 
@@ -243,20 +277,31 @@ const CV: React.FC<{
         />
 
         <div className='flex flex-col gap-2'>
-          {data.experience && data.experience.length > 0 &&
-            <ExperienceSection
-              data={data}
-              language={language}
-              showExpDialog={showExpDialog}
-              setShowExpDialog={setShowExpDialog}
-              editingExp={editingExp}
-              setEditingExp={setEditingExp}
-              onAddExperience={handleAddExperience}
-              onEditExperience={handleEditExperience}
-              onDeleteExperience={handleDeleteExperience}
-              isUserConnected={isUserConnected}
-            />
-          }
+          {data.experience && data.experience.length > 0 && (
+            <DndContext
+              sensors={sensors}
+              collisionDetection={closestCenter}
+              onDragEnd={handleDragEnd}
+            >
+              <SortableContext 
+                items={data.experience.map((_, index) => index.toString())}
+                strategy={verticalListSortingStrategy}
+              >
+                <ExperienceSection
+                  data={data}
+                  language={language}
+                  showExpDialog={showExpDialog}
+                  setShowExpDialog={setShowExpDialog}
+                  editingExp={editingExp}
+                  setEditingExp={setEditingExp}
+                  onAddExperience={handleAddExperience}
+                  onEditExperience={handleEditExperience}
+                  onDeleteExperience={handleDeleteExperience}
+                  isUserConnected={isUserConnected}
+                />
+              </SortableContext>
+            </DndContext>
+          )}
 
           {data.education &&
             <EducationSection

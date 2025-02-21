@@ -10,6 +10,7 @@ export interface ExperienceFormData {
   period: string
   description: string[]
   link?: string
+  order?: number
 }
 
 interface ExperienceFormProps {

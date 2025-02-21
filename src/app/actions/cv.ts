@@ -9,6 +9,13 @@ interface CVPresetData {
 }
 
 export async function saveCVPreset(userId: string, title: string, data: CVData) {
+  if (data.experience) {
+    data.experience = data.experience.map((exp, index) => ({
+      ...exp,
+      order: exp.order ?? index
+    }))
+  }
+
   const existingPreset = await prisma.cV.findUnique({
     where: {
       title_userId: {
