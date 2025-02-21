@@ -107,7 +107,7 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
       color: currentThemeColors.primary
     },
     section: {
-      marginBottom: 5,
+      marginBottom: 3,
       padding: 4,
       backgroundColor: currentThemeColors.card,
       borderRadius: 3
@@ -127,7 +127,7 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
     },
     experience: {
       padding: 3,
-      marginBottom: 2
+      marginBottom: 1
     },
     experienceHeader: {
       fontSize: 12,

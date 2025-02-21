@@ -52,7 +52,7 @@ const MotivationLetterPage = () => {
 
   if (showPDF) {
     return (
-      <div className="fixed inset-0 z-50 bg-background/80 backdrop-blur-sm">
+      <div className="fixed inset-0 z-50 bg-background/80 backdrop-blur-sm h-full">
         <div className="fixed inset-10">
           <Button
             onClick={() => setShowPDF(false)}
