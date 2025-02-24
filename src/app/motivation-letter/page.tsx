@@ -40,6 +40,39 @@ Et dernièrement, j'ai créé un site de gestion de projets de rénovation immob
     signature: 'Sébastien Pingal'
   })
 
+  const autre = `
+Je suis maintenant à la recherche d'une nouvelle aventure. Je cherche un projet challengeant et passionnant.
+
+Je sais bien que je n'ai pas assez d'expérience, mais je suis passionné et motivé, je suis prêt à donner tout ce que j'ai pour votre offre. 
+
+Testez-moi.
+`
+
+  const exemple = `Bonjour,
+
+Il y a trois ans, j'ai fait une reconversion. J'étais ingénieur du son et compositeur et j'ai décidé de plonger dans ma nouvelle passion.
+Depuis, j'ai fait la refonte complète d'un SaaS de simulation d'investissement immobilier. 
+J'ai monté une entreprise et ai donc créé de zéro un site permettant aux travailleurs en télétravail de se rencontrer. 
+Et dernièrement, j'ai créé un site de gestion de projets de rénovation immobilière : ce site permet de mettre en relation les agences immobilières et leurs clients avec les sociétés de BTP. Ce dernier site comprend aussi un système de génération automatisée de devis et de factures.
+
+Je suis maintenant à la recherche d'une nouvelle aventure. Je cherche un projet challengeant et passionnant.
+
+Voilà ce que vous allez aimer chez moi :
+- Je travaille avec Next, React, Tailwind ET Shadcn/ui (!!) tous les jours, je connais très bien ces technologies. https://sebastienpingal.dev
+- J'ai une expérience fullstack qui facilitera la compréhension des enjeux du back.
+- Je suis touche à tout, rigoureux, et je travaille efficacement.
+- Je n'ai pas peur des nouveaux défis, bien au contraire, c'est ce qui me donne de l'énergie au quotidien.
+- une grosse expérience d'Ux/Ui
+
+Et voilà ce que j'aime chez vous :
+- J'ai l'impression de rejoindre une équipe dynamique et sympathique. 
+- Participer aux enjeux de développement durable.
+- Les petits bonus comme la mutuelle et le vélo électrique a 1euro/jour qui montre que votre société tient au bien-être de ses employés. 
+
+Testez-moi.
+
+Sébastien Pingal`
+
   const handleChange = (value: string) => {
     setLetterData(prev => ({
       ...prev,
