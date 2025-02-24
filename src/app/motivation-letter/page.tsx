@@ -30,7 +30,13 @@ const MotivationLetterPage = () => {
       contact: 'sebastien.pingal@gmail.com'
     },
     date: formatDate(new Date()),
-    content: '',
+    content: `Bonjour,
+
+Il y a trois ans, j'ai fait une reconversion. J'étais ingénieur du son et compositeur et j'ai décidé de plonger dans ma nouvelle passion.
+Depuis, j'ai fait la refonte complète d'un SaaS de simulation d'investissement immobilier. 
+J'ai monté une entreprise et ai donc créé de zéro un site permettant aux travailleurs en télétravail de se rencontrer. 
+Et dernièrement, j'ai créé un site de gestion de projets de rénovation immobilière : ce site permet de mettre en relation les agences immobilières et leurs clients avec les sociétés de BTP. Ce dernier site comprend aussi un système de génération automatisée de devis et de factures.
+`,
     signature: 'Sébastien Pingal'
   })
 
@@ -60,9 +66,9 @@ const MotivationLetterPage = () => {
           >
             Close
           </Button>
-          <MotivationLetterPDFRenderer 
-            data={letterData} 
-            theme={theme === 'light' ? 'light' : 'dark'} 
+          <MotivationLetterPDFRenderer
+            data={letterData}
+            theme={theme === 'light' ? 'light' : 'dark'}
           />
         </div>
       </div>
@@ -71,11 +77,11 @@ const MotivationLetterPage = () => {
 
   return (
     <div className='w-full flex flex-col gap-4'>
-      <TalkingLogo 
+      <TalkingLogo
         text="Write your motivation letter here. I'll help you make it look professional! 📝"
-        littleHead={true} 
-        tooltip={true} 
-        className='w-full mb-4 bg-background/40 backdrop-blur-sm p-4 rounded-xl' 
+        littleHead={true}
+        tooltip={true}
+        className='w-full mb-4 bg-background/40 backdrop-blur-sm p-4 rounded-xl'
       />
 
       <div className="glassPanel flex flex-col gap-6 aspect-[1/1.4134] p-8">
