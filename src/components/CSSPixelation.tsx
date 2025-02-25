@@ -3,7 +3,7 @@
 
 import { useState, useEffect } from 'react'
 
-export default function CssPixelation({ children, initialEnabled = true, initialPixelSize = 2, showControls = true }) {
+export default function CssPixelation({ children, initialEnabled = true, initialPixelSize = 2, showControls = true }: { children: React.ReactNode, initialEnabled?: boolean, initialPixelSize?: number, showControls?: boolean }) {
   const [pixelSize, setPixelSize] = useState(initialPixelSize)
   const [enabled, setEnabled] = useState(initialEnabled)
   
