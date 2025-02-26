@@ -27,10 +27,17 @@ export async function createPost(data: Prisma.PostCreateInput) {
 }
 
 export async function getPosts(type?: PostType) {
-  const posts = type
-    ? await prisma.post.findMany({ where: { type } })
-    : await prisma.post.findMany()
-  return posts
+  try {
+    const posts = type
+      ? await prisma.post.findMany({
+        where: { type },
+      })
+      : await prisma.post.findMany()
+    return posts
+  } catch (error) {
+    console.error('🔴 Error fetching posts:', error)
+    throw new Error('Failed to fetch posts')
+  }
 }
 
 export async function deletePost(slug: string) {

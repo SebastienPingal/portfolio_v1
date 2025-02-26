@@ -33,18 +33,23 @@ const CVPage: React.FC = () => {
   const [presetTitle, setPresetTitle] = useState('')
   const [presets, setPresets] = useState<CVPreset[]>([])
   const [isLoading, setIsLoading] = useState(false)
+  const [CVloading, setCVloading] = useState(true)
   const { data: session } = useSession()
 
   const loadPresets = useCallback(async () => {
     try {
+      setCVloading(true)
       // Always load default presets first
       const defaultPresets = await getCVPresets()
       let data = defaultPresets
       setPresets(data as unknown as CVPreset[])
 
-      // Set cvData to the last preset if any
+      // Set cvData to the most recently uploaded preset if any
       if (data.length > 0) {
-        const lastPreset = data[data.length - 1]
+        const sortedPresets = [...data].sort((a, b) =>
+          new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
+        )
+        const lastPreset = sortedPresets[0]
         if (lastPreset.data) {
           setCvData(lastPreset.data as unknown as CVData)
           setPresetTitle(lastPreset.title)
@@ -52,7 +57,7 @@ const CVPage: React.FC = () => {
       }
 
       toast({
-        title: "Success", 
+        title: "Success",
         description: t('toasts.success.presetsLoaded')
       })
     } catch (error) {
@@ -61,6 +66,8 @@ const CVPage: React.FC = () => {
         variant: "destructive",
         title: t('toasts.error.loadPresets')
       })
+    } finally {
+      setCVloading(false)
     }
   }, [toast, t])
 
@@ -139,11 +146,11 @@ const CVPage: React.FC = () => {
 
   return (
     <div className='w-full flex flex-col gap-4'>
-      <TalkingLogo 
+      <TalkingLogo
         text={t.raw('talkingHead')}
-        littleHead={true} 
-        tooltip={true} 
-        className='w-full mb-4 bg-background/40 backdrop-blur-sm p-4 rounded-xl' 
+        littleHead={true}
+        tooltip={true}
+        className='w-full mb-4 bg-background/40 backdrop-blur-sm p-4 rounded-xl'
       />
 
       <div className='w-full flex justify-center'>
@@ -219,13 +226,19 @@ const CVPage: React.FC = () => {
         </div>
       </div>
 
-      <CV
-        data={cvData}
-        language={language}
-        showMe={true}
-        onDataChange={setCvData}
-        isUserConnected={!!session?.user && session.user.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL}
-      />
+      {CVloading ? (
+        <div className='flex justify-center items-center h-full'>
+          <Loader2 className='w-10 h-10 animate-spin' />
+        </div>
+      ) : (
+        <CV
+          data={cvData}
+          language={language}
+          showMe={true}
+          onDataChange={setCvData}
+          isUserConnected={!!session?.user && session.user.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL}
+        />
+      )}
     </div>
   )
 }
