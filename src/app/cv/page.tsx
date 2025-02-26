@@ -1,11 +1,9 @@
 'use client'
-import { Switch } from '@/components/ui/switch'
 import React, { useState, useEffect, useCallback } from 'react'
 import { englishCV as cvEn } from '../../../public/json/my-cv-en'
 import { frenchCV as cvFr } from '../../../public/json/my-cv-fr'
 import { CVData } from '../../types/CV'
 import CV from './CV'
-import TalkingLogo from '@/components/TalkingLogo'
 import { Button } from '@/components/ui/button'
 import { Save, Plus, Loader2, Trash2 } from 'lucide-react'
 import { useSession } from 'next-auth/react'
@@ -146,12 +144,12 @@ const CVPage: React.FC = () => {
 
   return (
     <div className='w-full flex flex-col gap-4'>
-      <TalkingLogo
+      {/* <TalkingLogo
         text={t.raw('talkingHead')}
         littleHead={true}
         tooltip={true}
         className='w-full mb-4 bg-background/40 backdrop-blur-sm p-4 rounded-xl'
-      />
+      /> */}
 
       <div className='w-full flex justify-center'>
         <div className='flex items-center'>

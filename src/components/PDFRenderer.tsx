@@ -65,6 +65,7 @@ const themeColors = {
   }
 }
 
+// Separate the Document component from the PDFViewer wrapper
 const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
   if (!data) return null
 
@@ -268,10 +269,16 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
   )
 }
 
+// Export both a viewer version and a raw document version
 export const PDFRenderer = ({ data, language, theme }: PDFDocumentProps) => {
   return (
     <PDFViewer width="100%" height="100%">
       <PDFDocument data={data} language={language} theme={theme} />
     </PDFViewer>
   )
-} 
+}
+
+// Add this export for direct PDF generation
+export const PDFDocumentRenderer = ({ data, language, theme }: PDFDocumentProps) => {
+  return <PDFDocument data={data} language={language} theme={theme} />
+}

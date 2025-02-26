@@ -6,7 +6,7 @@ import { useTheme } from 'next-themes'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import { CVData } from '@/types/CV'
-import { PDFRenderer } from '@/components/PDFRenderer'
+import { PDFRenderer, PDFDocumentRenderer } from '@/components/PDFRenderer'
 import { Input } from '@/components/ui/input'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { getStacks } from '@/app/actions'
@@ -20,6 +20,8 @@ import { EducationFormData } from './components/EducationForm'
 import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors } from '@dnd-kit/core'
 import type { DragEndEvent } from '@dnd-kit/core'
 import { SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy } from '@dnd-kit/sortable'
+import { pdf } from '@react-pdf/renderer'
+import { saveAs } from 'file-saver'
 
 const MeBlack = '/img/me_black.svg'
 const MeWhite = '/img/me_white.svg'
@@ -156,12 +158,12 @@ const CV: React.FC<{
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event
-    
+
     if (!over || !data.experience || !onDataChange) return
-    
+
     const oldIndex = parseInt(active.id as string)
     const newIndex = parseInt(over.id as string)
-    
+
     if (oldIndex === newIndex) return
 
     const experiences = [...data.experience]
@@ -175,6 +177,32 @@ const CV: React.FC<{
     }))
 
     handleEdit({ experience: updatedExperiences })
+  }
+
+  const handleExportPDF = async () => {
+    console.log('🔄 Exporting PDF...')
+    try {
+      // Use PDFDocumentRenderer instead of PDFRenderer for direct PDF generation
+      const document = (
+        <PDFDocumentRenderer
+          data={data}
+          language={language}
+          theme={theme === 'light' ? 'light' : 'dark'}
+        />
+      )
+
+      // Generate the blob
+      const blob = await pdf(document).toBlob()
+
+      // Generate filename based on user's name or default
+      const filename = `${data.name?.replace(/\s+/g, '_').toLowerCase() || 'cv'}.pdf`
+
+      // Save the file
+      saveAs(blob, filename)
+      console.log('✅ PDF exported successfully!')
+    } catch (error) {
+      console.error('❌ Error exporting PDF:', error)
+    }
   }
 
   if (!data) return null
@@ -196,128 +224,131 @@ const CV: React.FC<{
   }
 
   return (
-    <div className='relative'>
-      <Button
-        onClick={() => setShowPDF(true)}
-        className='absolute top-5 right-5 z-10'
-      >
-        <Download className='w-4 h-4 mr-2' /> {language === 'en' ? 'Export to pdf' : 'Exporter en pdf'}
-      </Button>
-      <div className="glassPanel flex flex-col gap-2 aspect-[1/1.4134]">
-
-        <header className='flex gap-2 items-center ml-8 justify-between px-4'>
-          <div className='flex gap-2 items-center'>
-            <div className={`relative cursor-pointer transition-transform flex-shrink-0 w-20 h-20`}>
-              {showMe && <Image src={me} alt="Me" fill={true} />}
+    <>
+      <div className='flex gap-2 mb-4'>
+        <Button onClick={handleExportPDF} variant='secondaryshine'>
+          <Download className='w-4 h-4 mr-2' /> {language === 'en' ? 'Export' : 'Exporter'}
+        </Button>
+        <Button onClick={() => setShowPDF(true)}>
+          <Download className='w-4 h-4 mr-2' /> {language === 'en' ? 'Preview' : 'Aperçu'}
+        </Button>
+      </div>
+      <div className='relative'>
+        <div className="glassPanel flex flex-col gap-2 aspect-[1/1.4134]">
+          <header className='flex gap-2 items-center ml-8 justify-between px-4'>
+            <div className='flex gap-2 items-center'>
+              <div className={`relative cursor-pointer transition-transform flex-shrink-0 w-20 h-20`}>
+                {showMe && <Image src={me} alt="Me" fill={true} />}
+              </div>
+              <div>
+                {isUserConnected ? (
+                  <>
+                    <Input
+                      value={data.name ?? ''}
+                      onChange={(e) => handleEdit({ name: e.target.value })}
+                      className="text-2xl font-bold"
+                    />
+                    <Input
+                      value={data.title ?? ''}
+                      onChange={(e) => handleEdit({ title: e.target.value })}
+                    />
+                  </>
+                ) : (
+                  <>
+                    <p className="text-2xl font-bold">{data.name}</p>
+                    <p>{data.title}</p>
+                  </>
+                )}
+              </div>
             </div>
             <div>
-              {isUserConnected ? (
-                <>
-                  <Input
-                    value={data.name ?? ''}
-                    onChange={(e) => handleEdit({ name: e.target.value })}
-                    className="text-2xl font-bold"
-                  />
-                  <Input
-                    value={data.title ?? ''}
-                    onChange={(e) => handleEdit({ title: e.target.value })}
-                  />
-                </>
-              ) : (
-                <>
-                  <p className="text-2xl font-bold">{data.name}</p>
-                  <p>{data.title}</p>
-                </>
-              )}
+              <div className='text-sm text-justify flex flex-col gap-1'>
+                {data.contact && data.contact.map((contact, index) => (
+                  contact.value && (
+                    <div key={contact.key} className="flex gap-2">
+                      {isUserConnected ? (
+                        <>
+                          <Input
+                            value={contact.value}
+                            onChange={(e) => handleContactEdit(index, 'value', e.target.value)}
+                            className="text-sm"
+                          />
+                          <Input
+                            value={contact.link}
+                            onChange={(e) => handleContactEdit(index, 'link', e.target.value)}
+                            className="text-sm"
+                            placeholder="Link"
+                          />
+                        </>
+                      ) : (
+                        <>
+                          {contact.link && <a href={contact.link} className="text-sm">{contact.value}</a>}
+                        </>
+                      )}
+                    </div>
+                  )
+                ))}
+              </div>
             </div>
-          </div>
-          <div>
-            <div className='text-sm text-justify flex flex-col gap-1'>
-              {data.contact && data.contact.map((contact, index) => (
-                contact.value && (
-                  <div key={contact.key} className="flex gap-2">
-                    {isUserConnected ? (
-                      <>
-                        <Input
-                          value={contact.value}
-                          onChange={(e) => handleContactEdit(index, 'value', e.target.value)}
-                          className="text-sm"
-                        />
-                        <Input
-                          value={contact.link}
-                          onChange={(e) => handleContactEdit(index, 'link', e.target.value)}
-                          className="text-sm"
-                          placeholder="Link"
-                        />
-                      </>
-                    ) : (
-                      <>
-                        {contact.link && <a href={contact.link} className="text-sm">{contact.value}</a>}
-                      </>
-                    )}
-                  </div>
-                )
-              ))}
-            </div>
-          </div>
-        </header>
+          </header>
 
-        {/* {data.about &&
-          <Section title={language === 'en' ? 'About me' : 'À propos'}>
-            <p className='text-sm text-justify'>{data.about}</p>
-          </Section>
-        } */}
+          {/* {data.about &&
+            <Section title={language === 'en' ? 'About me' : 'À propos'}>
+              <p className='text-sm text-justify'>{data.about}</p>
+            </Section>
+          } */}
 
-        <SkillsSection 
-          data={data}
-          language={language}
-          availableStacks={availableStacks}
-          onEdit={handleEdit}
-          isUserConnected={isUserConnected}
-        />
+          <SkillsSection
+            data={data}
+            language={language}
+            availableStacks={availableStacks}
+            onEdit={handleEdit}
+            isUserConnected={isUserConnected}
+          />
 
-        <div className='flex flex-col gap-2'>
-          {data.experience && data.experience.length > 0 && (
-            <DndContext
-              sensors={sensors}
-              collisionDetection={closestCenter}
-              onDragEnd={handleDragEnd}
-            >
-              <SortableContext 
-                items={data.experience.map((_, index) => index.toString())}
-                strategy={verticalListSortingStrategy}
+          <div className='flex flex-col gap-2'>
+            {data.experience && data.experience.length > 0 && (
+              <DndContext
+                sensors={sensors}
+                collisionDetection={closestCenter}
+                onDragEnd={handleDragEnd}
               >
-                <ExperienceSection
-                  data={data}
-                  language={language}
-                  showExpDialog={showExpDialog}
-                  setShowExpDialog={setShowExpDialog}
-                  editingExp={editingExp}
-                  setEditingExp={setEditingExp}
-                  onAddExperience={handleAddExperience}
-                  onEditExperience={handleEditExperience}
-                  onDeleteExperience={handleDeleteExperience}
-                  isUserConnected={isUserConnected}
-                />
-              </SortableContext>
-            </DndContext>
-          )}
+                <SortableContext
+                  items={data.experience.map((_, index) => index.toString())}
+                  strategy={verticalListSortingStrategy}
+                >
+                  <ExperienceSection
+                    data={data}
+                    language={language}
+                    showExpDialog={showExpDialog}
+                    setShowExpDialog={setShowExpDialog}
+                    editingExp={editingExp}
+                    setEditingExp={setEditingExp}
+                    onAddExperience={handleAddExperience}
+                    onEditExperience={handleEditExperience}
+                    onDeleteExperience={handleDeleteExperience}
+                    isUserConnected={isUserConnected}
+                  />
+                </SortableContext>
+              </DndContext>
+            )}
 
-          {data.education &&
-            <EducationSection
-              data={data}
-              language={language}
-              showEduDialog={showEduDialog}
-              setShowEduDialog={setShowEduDialog}
-              editingEdu={editingEdu}
-              setEditingEdu={setEditingEdu}
-              onAddEducation={handleAddEducation}
-              onEditEducation={handleEditEducation}
-              onDeleteEducation={handleDeleteEducation}
-              isUserConnected={isUserConnected}
-            />
-          }
+            {data.education &&
+              <EducationSection
+                data={data}
+                language={language}
+                showEduDialog={showEduDialog}
+                setShowEduDialog={setShowEduDialog}
+                editingEdu={editingEdu}
+                setEditingEdu={setEditingEdu}
+                onAddEducation={handleAddEducation}
+                onEditEducation={handleEditEducation}
+                onDeleteEducation={handleDeleteEducation}
+                isUserConnected={isUserConnected}
+              />
+            }
 
+          </div>
         </div>
       </div>
 
@@ -366,7 +397,7 @@ const CV: React.FC<{
           )}
         </DialogContent>
       </Dialog>
-    </div>
+    </>
   )
 }
 
