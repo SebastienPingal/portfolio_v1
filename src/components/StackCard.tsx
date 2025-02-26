@@ -35,13 +35,13 @@ const StackCard = async ({ stack, className, tooltiped = false, session }: { sta
             {t('learnMore')} <MoveUpRight className="w-4 h-4" />
           </Button>
         </a>
-        <UsingItSection
+        {/* <UsingItSection
           stack={stack}
           userMail={session?.user?.email ?? ''}
           usingIt={stack.users.some(user => user.email === session?.user?.email)}
           tooltiped={tooltiped}
           session={session}
-        />
+        /> */}
       </CardContent>
       {session?.user && (
         <div className='absolute right-2 top-2 flex gap-1'>

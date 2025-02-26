@@ -8,7 +8,12 @@ import TalkingLogo from '@/components/TalkingLogo'
 
 export default async function Home() {
   const stacks = await getStacks()
-  const session = await auth()
+  let session = null
+  try {
+    session = await auth()
+  } catch (error) {
+    console.error('🔴 Failed to fetch auth session:', error)
+  }
 
   return (
     <div className='flex flex-col w-full items-center gap-5 overflow-y-visible'>

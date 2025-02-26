@@ -66,13 +66,13 @@ const NavBar = ({ workPosts, blogPosts, externalLinks, className }: { workPosts:
           {renderMenuItem('/', <Home className="w-4 h-4" />, t('sections.home'))}
 
           <div className='w-full'>
-            <NavigationMenuItem className="font-extrabold mb-2">{t('sections.me')}</NavigationMenuItem>
+            <NavigationMenuItem className="font-extrabold mb-2 cursor-default">{t('sections.me')}</NavigationMenuItem>
             {renderMenuItem('/stack', <PencilRuler className="w-4 h-4" />, t('sections.stack'))}
             {renderMenuItem('/cv', <FileText className="w-4 h-4" />, t('sections.cv'))}
           </div>
 
           <div className='w-full'>
-            <NavigationMenuItem className="font-extrabold mb-2">{t('sections.links')}</NavigationMenuItem>
+            <NavigationMenuItem className="font-extrabold mb-2 cursor-default">{t('sections.links')}</NavigationMenuItem>
             <ExternalLinksSession externalLinks={externalLinks} />
           </div>
 
@@ -90,7 +90,7 @@ const NavBar = ({ workPosts, blogPosts, externalLinks, className }: { workPosts:
           </div> */}
 
           <div className='w-full'>
-            <NavigationMenuItem className="font-extrabold mb-2">{t('sections.online')}</NavigationMenuItem>
+            <NavigationMenuItem className="font-extrabold mb-2 cursor-default">{t('sections.online')}</NavigationMenuItem>
             {renderExternalLink("https://www.linkedin.com/in/s%C3%A9bastien-pingal-582795b3/", <Linkedin fill={darkMode ? 'white' : 'black'} className="w-4 h-4" />, 'Linkedin')}
             {renderExternalLink("https://github.com/SebastienPingal", <Github className="w-4 h-4" />, 'GitHub')}
             {renderExternalLink("https://gitlab.com/Brume_", <Gitlab className="w-4 h-4" />, 'Gitlab')}
