@@ -4,7 +4,11 @@ import { signIn } from 'next-auth/react'
 
 const SigninButton = ({ className }: { className?: string }) => {
   return (
-    <Button variant="outline" className={className} onClick={() => signIn('linkedin')}>
+    <Button 
+      variant="outline" 
+      className={`opacity-0 ${className}`} 
+      onClick={() => signIn('linkedin')}
+    >
       Sign in
     </Button>
   )
