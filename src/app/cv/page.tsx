@@ -14,6 +14,7 @@ import { saveCVPreset, getCVPresets, deleteCVPreset, getUser } from '@/app/actio
 import { useToast } from '@/components/ui/use-toast'
 import { useTranslations } from 'next-intl'
 import { useLocale } from 'next-intl'
+import { userAgent } from 'next/server'
 
 interface CVPreset {
   id: string
@@ -53,11 +54,12 @@ const CVPage: React.FC = () => {
           setPresetTitle(lastPreset.title)
         }
       }
-
-      toast({
-        title: "Success",
-        description: t('toasts.success.presetsLoaded')
-      })
+      if (session?.user?.email) {
+        toast({
+          title: "Success",
+          description: t('toasts.success.presetsLoaded')
+        })
+      }
     } catch (error) {
       console.error('❌ Error loading presets:', error)
       toast({
