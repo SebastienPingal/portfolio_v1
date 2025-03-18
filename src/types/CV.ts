@@ -27,7 +27,7 @@ interface CVData {
     stack: {
       name: string
       rating: number | null
-    }[] | null
+    }[][] | null
     other: {
       name: string
       rating: number | null

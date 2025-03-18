@@ -217,14 +217,16 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
                     <Text style={styles.skillCategoryTitle}>
                       {language === 'en' ? 'Technical Stack' : 'Stack Technique'} :
                     </Text>
-                    <View style={styles.skillsContent}>
-                      {data.skills.stack.map((skill, i) => (
-                        <Text key={i} style={styles.skillItem}>
-                          {skill.name}
-                          {i < data.skills!.stack!.length - 1 && ', '}
-                        </Text>
-                      ))}
-                    </View>
+                    {data.skills.stack.map((group, groupIndex) => (
+                      <View key={groupIndex} style={styles.skillsContent}>
+                        {group.map((skill, i) => (
+                          <Text key={i} style={styles.skillItem}>
+                            {skill.name}
+                            {i < group.length - 1 && ', '}
+                          </Text>
+                        ))}
+                      </View>
+                    ))}
                   </View>
                 )}
 

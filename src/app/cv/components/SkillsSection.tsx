@@ -24,11 +24,11 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({
   isUserConnected,
   className
 }) => {
-  const handleSkillEditRating = (index: number) => {
+  const handleSkillEditRating = (groupIndex: number, skillIndex: number) => {
     const updatedStacks = [...(data.skills?.stack || [])]
-    updatedStacks[index] = {
-      ...updatedStacks[index],
-      rating: updatedStacks[index].rating === 5 ? 1 : 5
+    updatedStacks[groupIndex][skillIndex] = {
+      ...updatedStacks[groupIndex][skillIndex],
+      rating: updatedStacks[groupIndex][skillIndex].rating === 5 ? 1 : 5
     }
     onEdit({
       skills: {
@@ -49,7 +49,13 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({
       rating: 5 // Default rating
     }
 
-    const updatedStacks = [...(data.skills.stack || []), newStack]
+    // Add new stack to the first group, create if doesn't exist
+    const updatedStacks = [...(data.skills.stack || [[]])]
+    if (updatedStacks[0] === undefined) {
+      updatedStacks[0] = []
+    }
+    updatedStacks[0].push(newStack)
+
     onEdit({
       skills: {
         ...data.skills,
@@ -58,6 +64,7 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({
       }
     })
   }
+  console.log(data.skills)
 
   return (
     <Section title={language === 'en' ? 'Skills' : 'Compétences'}>
@@ -66,34 +73,41 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({
           <div className="flex gap-2 items-center">
             {isUserConnected ? (
               <>
-                <span className="font-extrabold text-base ">
+                <span className="font-extrabold text-base">
                   {language === 'en' ? 'Technical Stack' : 'Stack Technique'}:
                 </span>
-                <div className="flex flex-wrap gap-1">
-                  {data.skills.stack.map((skill, index) => (
-                    <div key={`${skill.name}-${index}`} className="flex items-center gap-1">
-                      <span
-                        className="text-sm cursor-pointer"
-                        onClick={() => handleSkillEditRating(index)}
-                      >
-                        {skill.name} ({skill.rating})
-                      </span>
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => {
-                          const newStacks = data.skills?.stack?.filter((_, i) => i !== index)
-                          onEdit({
-                            skills: {
-                              ...data.skills,
-                              stack: newStacks ?? null,
-                              other: data.skills?.other ?? null
-                            }
-                          })
-                        }}
-                      >
-                        <Trash2 className="h-4 w-4 text-destructive" />
-                      </Button>
+                <div className="flex flex-col gap-2">
+                  {data.skills.stack.map((group, groupIndex) => (
+                    <div key={groupIndex} className="flex flex-wrap gap-1">
+                      {group.map((skill, skillIndex) => (
+                        <div key={`${skill.name}-${skillIndex}`} className="flex items-center gap-1">
+                          <span
+                            className="text-sm cursor-pointer"
+                            onClick={() => handleSkillEditRating(groupIndex, skillIndex)}
+                          >
+                            {skill.name} ({skill.rating})
+                          </span>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => {
+                              const updatedStacks = [...data.skills!.stack!]
+                              updatedStacks[groupIndex] = group.filter((_, i) => i !== skillIndex)
+                              // Remove empty groups
+                              const filteredStacks = updatedStacks.filter(group => group.length > 0)
+                              onEdit({
+                                skills: {
+                                  ...data.skills,
+                                  stack: filteredStacks,
+                                  other: data.skills?.other ?? null
+                                }
+                              })
+                            }}
+                          >
+                            <Trash2 className="h-4 w-4 text-destructive" />
+                          </Button>
+                        </div>
+                      ))}
                     </div>
                   ))}
 
@@ -111,19 +125,20 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({
                   </Select>
                 </div>
               </>
-
             ) : (
-              <div className="flex flex-col gap-1">
+              <div className="flex flex-col gap-2">
                 <p className='font-extrabold text-base'>
                   {language === 'en' ? 'Technical Stack' : 'Stack Technique'} :
                 </p>
-                <div className='flex flex-wrap gap-1 text-sm'>
-                  {data.skills?.stack?.map((skill, index) => (
-                    <div key={`${skill.name}-${index}`}>
-                      {skill.name}{index < data.skills!.stack!.length - 1 && ','}
-                    </div>
-                  ))}
-                </div>
+                {data.skills.stack.map((group, groupIndex) => (
+                  <div key={groupIndex} className='flex flex-wrap gap-1 text-sm'>
+                    {group.map((skill, index) => (
+                      <div key={`${skill.name}-${index}`}>
+                        {skill.name}{index < group.length - 1 && ','}
+                      </div>
+                    ))}
+                  </div>
+                ))}
               </div>
             )}
           </div>

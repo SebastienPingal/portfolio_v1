@@ -1,11 +1,10 @@
 'use client'
 import React, { useState, useEffect, useCallback } from 'react'
-import { englishCV as cvEn } from '../../../public/json/my-cv-en'
-import { frenchCV as cvFr } from '../../../public/json/my-cv-fr'
 import { CVData } from '../../types/CV'
 import CV from './CV'
 import { Button } from '@/components/ui/button'
 import { Save, Plus, Loader2, Trash2 } from 'lucide-react'
+import { frenchCV as cvFr } from '../../../public/json/my-cv-fr'
 import { useSession } from 'next-auth/react'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
@@ -14,7 +13,6 @@ import { saveCVPreset, getCVPresets, deleteCVPreset, getUser } from '@/app/actio
 import { useToast } from '@/components/ui/use-toast'
 import { useTranslations } from 'next-intl'
 import { useLocale } from 'next-intl'
-import { userAgent } from 'next/server'
 
 interface CVPreset {
   id: string
@@ -28,7 +26,7 @@ const CVPage: React.FC = () => {
   const locale = useLocale()
   const t = useTranslations('CVPage')
   const [language, setLanguage] = useState(locale)
-  const [cvData, setCvData] = useState<CVData>(language === 'en' ? cvEn : cvFr)
+  const [cvData, setCvData] = useState<CVData>(cvFr)
   const [presetTitle, setPresetTitle] = useState('')
   const [presets, setPresets] = useState<CVPreset[]>([])
   const [isLoading, setIsLoading] = useState(false)
@@ -49,10 +47,10 @@ const CVPage: React.FC = () => {
           new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
         )
         const lastPreset = sortedPresets[0]
-        if (lastPreset.data) {
-          setCvData(lastPreset.data as unknown as CVData)
-          setPresetTitle(lastPreset.title)
-        }
+        // if (lastPreset.data) {
+        //   setCvData(lastPreset.data as unknown as CVData)
+        //   setPresetTitle(lastPreset.title)
+        // }
       }
       if (session?.user?.email) {
         toast({
