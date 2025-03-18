@@ -117,14 +117,29 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
       fontSize: 16,
       fontWeight: 'bold'
     },
-    skillsRow: {
-      flexDirection: 'row',
-      marginLeft: 5,
-      fontSize: 10
+    skillsSection: {
+      marginBottom: 3,
+      flexDirection: 'column',
+      gap: 3
     },
-    skillLabel: {
-      marginRight: 3,
-      color: currentThemeColors.accent
+    skillCategory: {
+      flexDirection: 'column',
+      gap: 2
+    },
+    skillCategoryTitle: {
+      fontSize: 12,
+      fontWeight: 'extrabold',
+      marginTop: 20,
+      color: currentThemeColors.accent,
+      marginBottom: 2
+    },
+    skillsContent: {
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      gap: 3
+    },
+    skillItem: {
+      fontSize: 10
     },
     experience: {
       padding: 3,
@@ -134,6 +149,14 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
       fontSize: 12,
       fontWeight: 'bold',
       color: currentThemeColors.accent
+    },
+    experienceTitleRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 5
+    },
+    experienceTitle: {
+      fontSize: 10,
     },
     experiencePeriod: {
       fontSize: 10,
@@ -147,7 +170,19 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
       textDecoration: 'underline',
       color: currentThemeColors.accent,
       fontWeight: 'bold'
-    }
+    },
+    mainContent: {
+      flexDirection: 'row',
+      gap: 10,
+    },
+    sidebar: {
+      width: '30%',
+    },
+    contentArea: {
+      width: '70%',
+      flexDirection: 'column',
+      gap: 3,
+    },
   })
 
   return (
@@ -170,100 +205,118 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
           </View>
         </View>
 
-        {/* Skills */}
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>{language === 'en' ? 'Skills' : 'Compétences'}</Text>
-          {data.skills?.stack && (
-            <View style={styles.skillsRow}>
-              <Text style={styles.skillLabel}>{language === 'en' ? 'Technical Stack' : 'Stack Technique'}: </Text>
-              <Text>
-                {data.skills.stack.map((skill, i) => (
-                  <Text key={i}>
-                    {skill.rating === 5 ? (
-                      <Text style={{ fontWeight: 'extrabold' }}>{skill.name}</Text>
-                    ) : (
-                      skill.name
-                    )}
-                    {i < data.skills!.stack!.length - 1 ? ' | ' : ''}
-                  </Text>
-                ))}
-              </Text>
-            </View>
-          )}
-          {data.skills?.other && (
-            <View style={styles.skillsRow}>
-              <Text style={styles.skillLabel}>{language === 'en' ? 'Other Skills' : 'Autres Compétences'}: </Text>
-              <Text>
-                {data.skills.other.map((skill, i) => (
-                  <Text key={i}>
-                    {skill.rating === 5 ? (
-                      <Text style={{ fontWeight: 'extrabold' }}>{skill.name}</Text>
-                    ) : (
-                      skill.name
-                    )}
-                    {i < data.skills!.other!.length - 1 ? ' | ' : ''}
-                  </Text>
-                ))}
-              </Text>
-            </View>
-          )}
-          {data.languages && (
-            <View style={styles.skillsRow}>
-              <Text style={styles.skillLabel}>{language === 'en' ? 'Languages' : 'Langues'}: </Text>
-              <Text>{data.languages.map(lang => `${lang.name} (${lang.level})`).join(' | ')}</Text>
-            </View>
-          )}
-        </View>
+        {/* New layout structure */}
+        <View style={styles.mainContent}>
+          {/* Skills Sidebar */}
+          <View style={styles.sidebar}>
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>{language === 'en' ? 'Skills' : 'Compétences'}</Text>
+              <View style={styles.skillsSection}>
+                {data.skills?.stack && (
+                  <View style={styles.skillCategory}>
+                    <Text style={styles.skillCategoryTitle}>
+                      {language === 'en' ? 'Technical Stack' : 'Stack Technique'} :
+                    </Text>
+                    <View style={styles.skillsContent}>
+                      {data.skills.stack.map((skill, i) => (
+                        <Text key={i} style={styles.skillItem}>
+                          {skill.name}
+                          {i < data.skills!.stack!.length - 1 && ', '}
+                        </Text>
+                      ))}
+                    </View>
+                  </View>
+                )}
 
-        {/* Experience */}
-        {data.experience && (
-          <View style={styles.section}>
-            <Text style={styles.sectionTitle}>
-              {language === 'en' ? 'Experiences' : 'Expérience Professionnelle'}
-            </Text>
-            {data.experience.map((exp, index) => (
-              <View key={index} style={styles.experience}>
-                <Text style={styles.experienceHeader}>
-                  {exp.link ? (
-                    <Link style={styles.link} src={exp.link}>
-                      <Text>{exp.place}</Text>
-                    </Link>
-                  ) : (
-                    exp.place
-                  )}
-                  {' '}-{' '}
-                  {exp.title}
+                {data.skills?.other && data.skills.other.length > 0 && (
+                  <View style={styles.skillCategory}>
+                    <Text style={styles.skillCategoryTitle}>
+                      {language === 'en' ? 'Other Skills' : 'Autres Compétences'} :
+                    </Text>
+                    <View style={styles.skillsContent}>
+                      {data.skills.other.map((skill, i) => (
+                        <Text key={i} style={styles.skillItem}>
+                          {skill.name}
+                          {i < data.skills!.other!.length - 1 && ', '}
+                        </Text>
+                      ))}
+                    </View>
+                  </View>
+                )}
+
+                {data.languages && data.languages.length > 0 && (
+                  <View style={styles.skillCategory}>
+                    <Text style={styles.skillCategoryTitle}>
+                      {language === 'en' ? 'Languages' : 'Langues'} :
+                    </Text>
+                    <View style={styles.skillsContent}>
+                      {data.languages.map((lang, i) => (
+                        <Text key={i} style={styles.skillItem}>
+                          {lang.name} ({lang.level})
+                          {i < data.languages!.length - 1 && ', '}
+                        </Text>
+                      ))}
+                    </View>
+                  </View>
+                )}
+              </View>
+            </View>
+          </View>
+
+          {/* Main Content Area */}
+          <View style={styles.contentArea}>
+            {/* Experience Section */}
+            {data.experience && (
+              <View style={styles.section}>
+                <Text style={styles.sectionTitle}>
+                  {language === 'en' ? 'Experiences' : 'Expérience Professionnelle'}
                 </Text>
-                <Text style={styles.experiencePeriod}>{exp.period}</Text>
-                {exp.description?.map((desc, i) => (
-                  <Text key={i} style={styles.experienceDescription}>
-                    • {desc}
-                  </Text>
+                {data.experience.map((exp, index) => (
+                  <View key={index} style={styles.experience}>
+                    <Text style={styles.experienceHeader}>
+                      {exp.link ? (
+                        <Link style={styles.link} src={exp.link}>
+                          <Text>{exp.place}</Text>
+                        </Link>
+                      ) : (
+                        exp.place
+                      )}
+                    </Text>
+                    <View style={styles.experienceTitleRow}>
+                      <Text style={styles.experienceTitle}>{exp.title}</Text>
+                      <Text style={styles.experiencePeriod}>{exp.period}</Text>
+                    </View>
+                    {exp.description?.map((desc, i) => (
+                      <Text key={i} style={styles.experienceDescription}>
+                        • {desc}
+                      </Text>
+                    ))}
+                  </View>
                 ))}
               </View>
-            ))}
-          </View>
-        )}
+            )}
 
-        {/* Education */}
-        {data.education && (
-          <View style={styles.section}>
-            <Text style={styles.sectionTitle}>
-              {language === 'en' ? 'Education' : 'Formation'}
-            </Text>
-            {data.education.map((edu, index) => (
-              <View key={index} style={styles.experience}>
-                <Text style={styles.experienceHeader}>{edu.title}</Text>
-                <Text style={styles.experiencePeriod}>{edu.period}</Text>
-                {edu.description?.map((desc, i) => (
-                  <Text key={i} style={styles.experienceDescription}>
-                    • {desc}
-                  </Text>
+            {/* Education Section */}
+            {data.education && (
+              <View style={styles.section}>
+                <Text style={styles.sectionTitle}>
+                  {language === 'en' ? 'Education' : 'Formation'}
+                </Text>
+                {data.education.map((edu, index) => (
+                  <View key={index} style={styles.experience}>
+                    <Text style={styles.experienceHeader}>{edu.title}</Text>
+                    <Text style={styles.experiencePeriod}>{edu.period}</Text>
+                    {edu.description?.map((desc, i) => (
+                      <Text key={i} style={styles.experienceDescription}>
+                        • {desc}
+                      </Text>
+                    ))}
+                  </View>
                 ))}
               </View>
-            ))}
+            )}
           </View>
-        )}
+        </View>
       </Page>
     </Document>
   )

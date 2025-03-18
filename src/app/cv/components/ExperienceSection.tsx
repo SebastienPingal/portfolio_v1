@@ -84,13 +84,13 @@ const SortableExperience = ({ exp, index, isUserConnected, onEdit, onDelete }: {
             rel="noopener noreferrer"
             className="hover:underline text-primary"
           >
-            {exp.place} - {exp.title}
+            {exp.place}
           </a>
         ) : (
-          exp.place + ' - ' + exp.title
+          exp.place
         )}
       </h4>
-      <p className='text-sm uppercase'>{exp.period}</p>
+      <p className='text-sm uppercase'>{exp.title} - <b>{exp.period}</b></p>
       <div className="pl-4">
         <div className='text-sm'>
           {exp.description && exp.description.map((resp: string, respIndex: number) => (
@@ -124,7 +124,7 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({
   )
 
   return (
-    <Section title={language === 'en' ? 'Experiences' : 'Expérience Professionnelle'}>
+    <Section title={language === 'en' ? 'Experiences' : 'Expériences Professionnelles'}>
       <div className="flex justify-between items-center">
         {isUserConnected && (
           <Dialog open={showExpDialog} onOpenChange={setShowExpDialog}>

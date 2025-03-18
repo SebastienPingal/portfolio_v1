@@ -298,56 +298,60 @@ const CV: React.FC<{
             </Section>
           } */}
 
-          <SkillsSection
-            data={data}
-            language={language}
-            availableStacks={availableStacks}
-            onEdit={handleEdit}
-            isUserConnected={isUserConnected}
-          />
-
-          <div className='flex flex-col gap-2'>
-            {data.experience && data.experience.length > 0 && (
-              <DndContext
-                sensors={sensors}
-                collisionDetection={closestCenter}
-                onDragEnd={handleDragEnd}
-              >
-                <SortableContext
-                  items={data.experience.map((_, index) => index.toString())}
-                  strategy={verticalListSortingStrategy}
-                >
-                  <ExperienceSection
-                    data={data}
-                    language={language}
-                    showExpDialog={showExpDialog}
-                    setShowExpDialog={setShowExpDialog}
-                    editingExp={editingExp}
-                    setEditingExp={setEditingExp}
-                    onAddExperience={handleAddExperience}
-                    onEditExperience={handleEditExperience}
-                    onDeleteExperience={handleDeleteExperience}
-                    isUserConnected={isUserConnected}
-                  />
-                </SortableContext>
-              </DndContext>
-            )}
-
-            {data.education &&
-              <EducationSection
+          <div className='flex gap-2'>
+            <div className='w-1/4'>
+              <SkillsSection
                 data={data}
                 language={language}
-                showEduDialog={showEduDialog}
-                setShowEduDialog={setShowEduDialog}
-                editingEdu={editingEdu}
-                setEditingEdu={setEditingEdu}
-                onAddEducation={handleAddEducation}
-                onEditEducation={handleEditEducation}
-                onDeleteEducation={handleDeleteEducation}
+                availableStacks={availableStacks}
+                onEdit={handleEdit}
                 isUserConnected={isUserConnected}
               />
-            }
+            </div>
 
+            <div className='flex flex-col gap-2'>
+              {data.experience && data.experience.length > 0 && (
+                <DndContext
+                  sensors={sensors}
+                  collisionDetection={closestCenter}
+                  onDragEnd={handleDragEnd}
+                >
+                  <SortableContext
+                    items={data.experience.map((_, index) => index.toString())}
+                    strategy={verticalListSortingStrategy}
+                  >
+                    <ExperienceSection
+                      data={data}
+                      language={language}
+                      showExpDialog={showExpDialog}
+                      setShowExpDialog={setShowExpDialog}
+                      editingExp={editingExp}
+                      setEditingExp={setEditingExp}
+                      onAddExperience={handleAddExperience}
+                      onEditExperience={handleEditExperience}
+                      onDeleteExperience={handleDeleteExperience}
+                      isUserConnected={isUserConnected}
+                    />
+                  </SortableContext>
+                </DndContext>
+              )}
+
+              {data.education &&
+                <EducationSection
+                  data={data}
+                  language={language}
+                  showEduDialog={showEduDialog}
+                  setShowEduDialog={setShowEduDialog}
+                  editingEdu={editingEdu}
+                  setEditingEdu={setEditingEdu}
+                  onAddEducation={handleAddEducation}
+                  onEditEducation={handleEditEducation}
+                  onDeleteEducation={handleDeleteEducation}
+                  isUserConnected={isUserConnected}
+                />
+              }
+
+            </div>
           </div>
         </div>
       </div>
