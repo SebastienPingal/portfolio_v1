@@ -27,74 +27,14 @@ export const frenchCV: CVData = {
           "name": "CSS3",
           "rating": 5
         },
-        {
-          "name": "REST API",
-          "rating": 4
-        }
       ],
       [
         {
-          "name": "React",
+          "name": "React.js",
           "rating": 5
         },
         {
-          "name": "Next.js",
-          "rating": 5
-        },
-        {
-          "name": "Redux",
-          "rating": 4
-        },
-        {
-          "name": "React Query",
-          "rating": 4
-        },
-        {
-          "name": "React Hook Form",
-          "rating": 5
-        },
-        {
-          "name": "Zustand",
-          "rating": 3
-        }
-      ],
-      [
-        {
-          "name": "Vue",
-          "rating": 5
-        },
-        {
-          "name": "Nuxt.js",
-          "rating": 5
-        },
-        {
-          "name": "Vuex",
-          "rating": 4
-        },
-        {
-          "name": "Pinia",
-          "rating": 3
-        },
-        {
-          "name": "Vue Router",
-          "rating": 4
-        },
-        {
-          "name": "Composition API",
-          "rating": 5
-        }
-      ],
-      [
-        {
-          "name": "HTML5",
-          "rating": 5
-        },
-        {
-          "name": "CSS3",
-          "rating": 5
-        },
-        {
-          "name": "SASS/SCSS",
+          "name": "Vue.js",
           "rating": 4
         },
         {
@@ -102,13 +42,93 @@ export const frenchCV: CVData = {
           "rating": 5
         },
         {
-          "name": "Styled Components",
+          "name": "Shadcn/UI",
+          "rating": 5
+        },
+        {
+          "name": "Pinia",
           "rating": 4
         },
         {
-          "name": "Responsive Design",
-          "rating": 5
+          "name": "Mapbox",
+          "rating": 4
         }
+      ],
+      [
+        {
+          "name": "Next.js",
+          "rating": 5
+        },
+        {
+          "name": "Nuxt.js",
+          "rating": 5
+        },
+        {
+          "name": "Express.js",
+          "rating": 5
+        },
+        {
+          "name": "Stripe",
+          "rating": 5
+        },
+        {
+          "name": "PostgreSQL",
+          "rating": 5
+        },
+        {
+          "name": "MySQL",
+          "rating": 5
+        },
+        {
+          "name": "MongoDB",
+          "rating": 5
+        },
+        {
+          "name": "REST API",
+          "rating": 4
+        },
+        {
+          "name": "GraphQL",
+          "rating": 4
+        }
+      ],
+      [
+        {
+          "name": "Docker",
+          "rating": 5
+        },
+        {
+          "name": "CI/CD",
+          "rating": 5
+        },
+        {
+          "name": "Git",
+          "rating": 5
+        },
+        {
+          "name": "GitLab CI/CD",
+          "rating": 5
+        },
+        {
+          "name": "GitHub Actions",
+          "rating": 5
+        },
+        {
+          "name": "AWS",
+          "rating": 5
+        },
+        {
+          "name": "Lambda",
+          "rating": 5
+        },
+        {
+          "name": "S3",
+          "rating": 5
+        },
+        {
+          "name": "EC2",
+          "rating": 5
+        },
       ]
     ],
     "other": [
