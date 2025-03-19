@@ -2,7 +2,7 @@ import { CVData } from '@/types/CV'
 
 export const frenchCV: CVData = {
   "name": "Sébastien Pingal",
-  "about": "Développeur Full Stack passionné par l'innovation, j'ai récemment conçu et développé moneodomus.com une plateforme web complexe de gestion de projets immobiliers, permettant la collaboration entre différents acteurs du secteur (agences, constructeurs, architectes). Co-fondateur de KAFO, une startup dédiée à réduire l'isolement des télétravailleurs, je m'appuie sur une expérience précédente de 6 ans dans l'industrie musicale qui m'a doté d'une forte capacité d'adaptation et de créativité. Je suis à l'aise avec les technologies modernes comme Docker et CI/CD, et je suis toujours prêt à apprendre de nouvelles méthodes et langages.",
+  "about": "Développeur Full Stack passionné par l'innovation, j'ai récemment conçu et développé moneodomus.com, une plateforme web complexe de gestion de projets immobiliers, permettant la collaboration entre différents acteurs du secteur (agences, constructeurs, architectes). Co-fondateur de KAFO, une startup dédiée à réduire l'isolement des télétravailleurs, je m'appuie sur une expérience précédente de 6 ans dans l'industrie musicale qui m'a doté d'une forte capacité d'adaptation et de créativité. Je suis à l'aise avec les technologies modernes comme Docker et CI/CD, et je suis toujours prêt à apprendre de nouvelles méthodes et langages.",
   "title": "Développeur Full Stack",
   "profileImage": "/img/me_black.png",
   "profileImageDark": "/img/me_white.png",
@@ -135,7 +135,7 @@ export const frenchCV: CVData = {
     ],
     "other": [
       {
-        "name": "Pedagogie",
+        "name": "Pédagogie",
         "rating": 5
       },
       {
@@ -221,28 +221,44 @@ export const frenchCV: CVData = {
       "link": "https://moneodomus.com/",
       "order": 1,
       "place": "Moneo Domus - Holding d'entreprise BTP",
-      "title": "Développeur Frontend, UX/UI Designer",
+      "title": "Développeur Full Stack, UX/UI Designer",
       "period": "Depuis mars 2024",
       "description": [
-        "Développement du site de A à Z",
-        "Création d'une librairie de composants",
-        "Dashboards",
-        "Conception UX d'un formulaire simplifié pour la soumission de projets"
+        "Création d'un site web pour un holding d'entreprises en BTP. Le but était d'automatiser des tâches et ainsi de libérer 50% de charge de travail. MoneoDomus réalise environ 500 000€ de chiffre d'affaires par mois.",
+        `- Développement frontend from scratch et responsive (React.js, shadcn/ui, tailwindCSS) :
+          * Formulaire de soumission de Projet avec une UX streamlined
+          * Dashboards`,
+        `- Développement from scratch backend (Node.js, Next.js, NextAuth, PostgreSQL):
+          * Génération automatisée de devis et de factures. From scratch car personnalisée et basée sur une structure modulaire et modifiable.
+          * Authentification avec lien MagicLink envoyé par mail afin de simplifier la connexion.
+          * Conception et gestion d'une base de données PostgreSQL complexe (Structures Devis, Utilisateurs, Agences immobilières, Clients, Projets, Documents, images, etc...)
+          * Gestion des permissions et des rôles des utilisateurs.
+          * Intégration de fonctionnalités complexes de calendly (Round Robin) pour permettre la prise de rendez-vous en prenant en compte les emplois du temps de plusieurs personnes.`,
+        "- Rendez-vous avec les différents acteurs du secteur (Agences immobilières, Clients, Société BTP) pour définir les besoins et les fonctionnalités du site.",
+        "- Design UX/UI des pages et des composants mis à jour en fonction des retours des utilisateurs et des tests effectués."
       ]
     },
     {
       "link": "https://www.linkedin.com/company/kafowork/posts/?feedView=all",
       "order": 2,
       "place": "KAFO - Réseau Social pour télétravailleurs",
-      "title": "Fondateur, développeur Frontend et UX/UI Designer",
+      "title": "Fondateur, développeur Full Stack et UX/UI Designer",
       "period": "Janvier 2023 - Janvier 2024",
       "description": [
-        "Développement du site de A à Z.",
-        "Design d'une carte interactive",
-        "Création d'une librairie de composants",
-        "Tests utilisateurs UX",
-        "Dashboards",
-        "Design d'une Landing"
+        "Création d'une startup. Un réseau social pour les télétravailleurs. Kafo avait des partenariats avec plusieurs écoles privées et communautés de freelances (dont Freelance Republik). Un article est paru dans Les Echos dédié à la plateforme.",
+        `- Développement backend en nocode from scratch (Xano):
+          * Gestion génération d'événements.
+          * Scraping de Google Maps pour trouver et répertorier des lieux publics favorables au travail.
+        `,
+        `- Développement frontend en nocode from scratch et responsive (Weweb): 
+          * Implémentation de la carte interactive avec filtres ("Ouvert", "Dans un rayon de x kilomètres", "Actifs"...)
+          * Design, développement, et wording d'une Landing Page`,
+        `- Refonte totale du front en Vue 3 :
+          * Afin d'optimiser la rapidité du site, et de simplifier sa maintenance, toutes les fonctionnalités précédemment développées en nocode ont été redéveloppées de zéro
+          * Implémentation d'une bibliothèque de composants (Primevue)
+          * Développements de divers dashboards statistiques et administratifs`,
+        "- Mise en place et réalisation de tests utilisateurs UX",
+        "- Déploiement du front avec CI/CD Github sur un EC2 AWS"
       ]
     },
     {
@@ -252,10 +268,16 @@ export const frenchCV: CVData = {
       "title": "Développeur Frontend",
       "period": "Septembre 2022 - Mars 2024",
       "description": [
-        "Refonte du code front avec une architecture modulaire et des composants réutilisables",
-        "Implémentation d'une libraire (PrimeVue)",
-        "Dashboards",
-        "Implémentation d'export PDF"
+        "Refacto et ajouts de features sur un site de simulation d'investissements immobiliers (Équipe de 3 dev fullstacks). Le site était très mal développé et le front autant que le back ont dû faire l'objet d'un grand nettoyage.",
+        `- Refonte frontend (Vue 2):
+          * Simplification de la totalité des interfaces afin de gagner en réactivité et en confort pour les utilisateurs.
+          * Intégration d'une librairie de composants (Primevue) et modularisation du site dans le but de créer de la cohérence sur tout le site et de faciliter sa maintenance.
+          * Refonte de la landing page
+          * Implémentation d'export PDF personnalisable des simulations`,
+        `- Refonte du back (Node.js, Express, Axios) :
+          * Refonte totale de la logique métier et déplacement de celle-ci du côté back.
+          * Refonte du système de facturation grâce à Stripe
+          * Ajout de fonctionnalités métier (Gestions d'équipe et de collaborateurs, Dispositifs Malraux)`,
       ]
     },
     {
@@ -265,7 +287,7 @@ export const frenchCV: CVData = {
       "title": "Développeur Frontend, UX/UI Designer",
       "period": "Novembre 2023 - Janvier 2024",
       "description": [
-        "Développement et maintenance d'un SaaS de gestion d'événements artistique",
+        "Développement et maintenance d'un SaaS de gestion d'événements artistiques privés pour une association.",
         "Création d'une librairie de composants"
       ]
     },
