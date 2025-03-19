@@ -3,7 +3,7 @@ import { CVData } from '@/types/CV'
 export const frenchCV: CVData = {
   "name": "Sébastien Pingal",
   "about": "Développeur Full Stack passionné par l'innovation, j'ai récemment conçu et développé moneodomus.com une plateforme web complexe de gestion de projets immobiliers, permettant la collaboration entre différents acteurs du secteur (agences, constructeurs, architectes). Co-fondateur de KAFO, une startup dédiée à réduire l'isolement des télétravailleurs, je m'appuie sur une expérience précédente de 6 ans dans l'industrie musicale qui m'a doté d'une forte capacité d'adaptation et de créativité. Je suis à l'aise avec les technologies modernes comme Docker et CI/CD, et je suis toujours prêt à apprendre de nouvelles méthodes et langages.",
-  "title": "Développeur Frontend",
+  "title": "Développeur Full Stack",
   "skills": {
     "stack": [
       [
@@ -20,12 +20,12 @@ export const frenchCV: CVData = {
           "rating": 4
         },
         {
-          "name": "Express",
-          "rating": 3
+          "name": "HTML5",
+          "rating": 5
         },
         {
-          "name": "GraphQL",
-          "rating": 3
+          "name": "CSS3",
+          "rating": 5
         },
         {
           "name": "REST API",

@@ -136,7 +136,8 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
     skillsContent: {
       flexDirection: 'row',
       flexWrap: 'wrap',
-      gap: 3
+      gap: 3,
+      marginTop: 20
     },
     skillItem: {
       fontSize: 10
