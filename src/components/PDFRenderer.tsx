@@ -1,7 +1,7 @@
 'use client'
 
 import dynamic from 'next/dynamic'
-import { Document, Page, Text, View, StyleSheet, Font, Link } from '@react-pdf/renderer'
+import { Document, Page, Text, View, StyleSheet, Font, Link, Image } from '@react-pdf/renderer'
 import { CVProps } from '@/types/CV'
 
 // Dynamically import PDFViewer to ensure it's only used on the client side
@@ -87,6 +87,15 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
       borderRadius: 3,
     },
     headerLeft: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 10
+    },
+    profileImage: {
+      height: 60,
+      objectFit: 'contain'
+    },
+    headerText: {
       flexDirection: 'column'
     },
     headerRight: {
@@ -129,7 +138,7 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
     skillCategoryTitle: {
       fontSize: 12,
       fontWeight: 'extrabold',
-      marginTop: 20,
+      marginTop: 30,
       color: currentThemeColors.accent,
       marginBottom: 2
     },
@@ -192,8 +201,16 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
         {/* Header */}
         <View style={styles.header}>
           <View style={styles.headerLeft}>
-            <Text style={styles.name}>{data.name}</Text>
-            <Text style={styles.title}>{data.title}</Text>
+            {data.profileImage && data.profileImageDark && (
+              <Image
+                src={theme === 'light' ? data.profileImage : data.profileImageDark}
+                style={styles.profileImage}
+              />
+            )}
+            <View style={styles.headerText}>
+              <Text style={styles.name}>{data.name}</Text>
+              <Text style={styles.title}>{data.title}</Text>
+            </View>
           </View>
           <View style={styles.headerRight}>
             {data.contact && (

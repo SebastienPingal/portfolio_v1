@@ -36,6 +36,8 @@ interface CVData {
   education: Item[] | null
   experience: Item[] | null
   about: string | null
+  profileImage?: string | null
+  profileImageDark?: string | null
 }
 
 interface CVProps {
