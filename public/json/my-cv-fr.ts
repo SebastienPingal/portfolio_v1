@@ -10,6 +10,7 @@ export const frenchCV: CVData = {
     "Musique (composition, batterie)",
     "Membre de l'association de jam musicale 'Majama'",
     "Jeu de rôle (Maître du jeu)",
+    "Membre de l'association de jeu de rôle 'La boite à chimere'",
     "VTT",
     "Lecture"
   ],

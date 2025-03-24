@@ -22,6 +22,7 @@ import type { DragEndEvent } from '@dnd-kit/core'
 import { SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import { pdf } from '@react-pdf/renderer'
 import { saveAs } from 'file-saver'
+import { ActivitiesSection } from './components/ActivitiesSection'
 
 const MeBlack = '/img/me_black.svg'
 const MeWhite = '/img/me_white.svg'
@@ -307,6 +308,12 @@ const CV: React.FC<{
                 onEdit={handleEdit}
                 isUserConnected={isUserConnected}
               />
+              {data.activities && (
+                <ActivitiesSection
+                  data={data}
+                  language={language}
+                />
+              )}
             </div>
 
             <div className='flex flex-col gap-2'>
