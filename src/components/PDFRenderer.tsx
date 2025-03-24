@@ -139,6 +139,7 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
       fontSize: 12,
       fontWeight: 'extrabold',
       marginTop: 30,
+      textDecoration: 'underline',
       color: currentThemeColors.accent,
       marginBottom: 2
     },
@@ -146,6 +147,11 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
       flexDirection: 'row',
       flexWrap: 'wrap',
       gap: 3,
+      marginTop: 20
+    },
+    activitiesContent: {
+      flexDirection: 'column',
+      gap: 20,
       marginTop: 20
     },
     skillItem: {
@@ -167,6 +173,7 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
     },
     experienceTitle: {
       fontSize: 10,
+      textTransform: 'uppercase'
     },
     experiencePeriod: {
       fontSize: 10,
@@ -175,6 +182,14 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
     experienceDescription: {
       fontSize: 10,
       marginLeft: 5,
+    },
+    experienceDescriptionDash: {
+      fontSize: 10,
+      marginLeft: 15,
+    },
+    experienceDescriptionAsterisk: {
+      fontSize: 10,
+      marginLeft: 30,
     },
     link: {
       textDecoration: 'underline',
@@ -186,10 +201,10 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
       gap: 10,
     },
     sidebar: {
-      width: '30%',
+      width: '25%',
     },
     contentArea: {
-      width: '70%',
+      width: '75%',
       flexDirection: 'column',
       gap: 3,
     },
@@ -225,7 +240,7 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
 
         {/* New layout structure */}
         <View style={styles.mainContent}>
-          {/* Skills Sidebar */}
+          {/* Sidebar */}
           <View style={styles.sidebar}>
             <View style={styles.section}>
               <Text style={styles.sectionTitle}>{language === 'en' ? 'Skills' : 'Compétences'}</Text>
@@ -233,7 +248,7 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
                 {data.skills?.stack && (
                   <View style={styles.skillCategory}>
                     <Text style={styles.skillCategoryTitle}>
-                      {language === 'en' ? 'Technical Stack' : 'Stack Technique'} :
+                      {language === 'en' ? 'Technical Stack' : 'Stack Technique'}
                     </Text>
                     {data.skills.stack.map((group, groupIndex) => (
                       <View key={groupIndex} style={styles.skillsContent}>
@@ -251,7 +266,7 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
                 {data.skills?.other && data.skills.other.length > 0 && (
                   <View style={styles.skillCategory}>
                     <Text style={styles.skillCategoryTitle}>
-                      {language === 'en' ? 'Other Skills' : 'Autres Compétences'} :
+                      {language === 'en' ? 'Other Skills' : 'Autres Compétences'}
                     </Text>
                     <View style={styles.skillsContent}>
                       {data.skills.other.map((skill, i) => (
@@ -281,6 +296,18 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
                 )}
               </View>
             </View>
+            {data.activities && (
+              <View style={styles.section}>
+                <Text style={styles.sectionTitle}>{language === 'en' ? 'Activities' : 'Activités'}</Text>
+                <View style={styles.activitiesContent}>
+                  {data.activities.map((activity, i) => (
+                    <Text key={i} style={styles.skillItem}>
+                      {activity}
+                    </Text>
+                  ))}
+                </View>
+              </View>
+            )}
           </View>
 
           {/* Main Content Area */}
@@ -307,8 +334,17 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
                       <Text style={styles.experiencePeriod}>{exp.period}</Text>
                     </View>
                     {exp.description?.map((desc, i) => (
-                      <Text key={i} style={styles.experienceDescription}>
-                        • {desc}
+                      <Text
+                        key={i}
+                        style={
+                          desc.startsWith('*')
+                            ? styles.experienceDescriptionAsterisk
+                            : desc.startsWith('-')
+                              ? styles.experienceDescriptionDash
+                              : styles.experienceDescription
+                        }
+                      >
+                        {desc}
                       </Text>
                     ))}
                   </View>
@@ -327,8 +363,17 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
                     <Text style={styles.experienceHeader}>{edu.title}</Text>
                     <Text style={styles.experiencePeriod}>{edu.period}</Text>
                     {edu.description?.map((desc, i) => (
-                      <Text key={i} style={styles.experienceDescription}>
-                        • {desc}
+                      <Text
+                        key={i}
+                        style={
+                          desc.startsWith('*')
+                            ? styles.experienceDescriptionAsterisk
+                            : desc.startsWith('-')
+                              ? styles.experienceDescriptionDash
+                              : styles.experienceDescription
+                        }
+                      >
+                        {desc}
                       </Text>
                     ))}
                   </View>

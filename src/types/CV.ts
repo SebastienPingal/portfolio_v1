@@ -23,6 +23,7 @@ interface CVData {
   title: string | null
   contact: Contact[] | null
   languages: Language[] | null
+  activities: string[] | null
   skills: {
     stack: {
       name: string

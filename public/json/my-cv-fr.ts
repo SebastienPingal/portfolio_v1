@@ -6,6 +6,13 @@ export const frenchCV: CVData = {
   "title": "Développeur Full Stack",
   "profileImage": "/img/me_black.png",
   "profileImageDark": "/img/me_white.png",
+  "activities": [
+    "Musique (composition, batterie)",
+    "Membre de l'association de jam musicale 'Majama'",
+    "Jeu de rôle (Maître du jeu)",
+    "VTT",
+    "Lecture"
+  ],
   "skills": {
     "stack": [
       [
@@ -108,6 +115,14 @@ export const frenchCV: CVData = {
           "rating": 5
         },
         {
+          "name": "Jest",
+          "rating": 4
+        },
+        {
+          "name": "Cypress",
+          "rating": 4
+        },
+        {
           "name": "GitLab CI/CD",
           "rating": 5
         },
@@ -130,6 +145,34 @@ export const frenchCV: CVData = {
         {
           "name": "EC2",
           "rating": 5
+        },
+      ],
+      [
+        {
+          "name": "Figma",
+          "rating": 2
+        },
+        {
+          "name": "Adobe Suite",
+          "rating": 4
+        },
+        {
+          "name": "Jira",
+          "rating": 3
+        },
+        {
+          "name": "Canva",
+          "rating": 3
+        }
+      ],
+      [
+        {
+          "name": "Responsive",
+          "rating": 4
+        },
+        {
+          "name": "Clean Code",
+          "rating": 4
         },
       ]
     ],
@@ -213,8 +256,15 @@ export const frenchCV: CVData = {
       "title": "Developpeur Frontend",
       "period": "Depuis 2024",
       "description": [
-        "Création d'une librairie de composants",
-        "Éditeur de CV"
+        "Création d'un site web pour mon portfolio.",
+        "- Développement frontend from scratch et responsive (React.js, shadcn/ui, TailwindCSS)",
+        "* Éditeur de CV me permettant de modifier et mettre à jour rapidement mes informations avec versioning et système de presets",
+        "* Génération de bruit de Perlin pour créer un background dynamique et unique à chaque visite",
+        "* Développement d'une librairie de composants personnalisés pour le site",
+        "* Gestion multilingue du site en utilisant i18n",
+        "- Développement backend from scratch (Next.js, Node.js, PostgreSQL)",
+        "* Authentification OAuth avec LinkedIn",
+        "* Modularisation du site en stockant les informations dans une base de données PostgreSQL afin de séparer gestion des informations et du front",
       ]
     },
     {
@@ -225,15 +275,15 @@ export const frenchCV: CVData = {
       "period": "Depuis mars 2024",
       "description": [
         "Création d'un site web pour un holding d'entreprises en BTP. Le but était d'automatiser des tâches et ainsi de libérer 50% de charge de travail. MoneoDomus réalise environ 500 000€ de chiffre d'affaires par mois.",
-        `- Développement frontend from scratch et responsive (React.js, shadcn/ui, tailwindCSS) :
-          * Formulaire de soumission de Projet avec une UX streamlined
-          * Dashboards`,
-        `- Développement from scratch backend (Node.js, Next.js, NextAuth, PostgreSQL):
-          * Génération automatisée de devis et de factures. From scratch car personnalisée et basée sur une structure modulaire et modifiable.
-          * Authentification avec lien MagicLink envoyé par mail afin de simplifier la connexion.
-          * Conception et gestion d'une base de données PostgreSQL complexe (Structures Devis, Utilisateurs, Agences immobilières, Clients, Projets, Documents, images, etc...)
-          * Gestion des permissions et des rôles des utilisateurs.
-          * Intégration de fonctionnalités complexes de calendly (Round Robin) pour permettre la prise de rendez-vous en prenant en compte les emplois du temps de plusieurs personnes.`,
+        "- Développement frontend from scratch et responsive (React.js, shadcn/ui, TailwindCSS)",
+        "* Formulaire de soumission de Projet avec une UX streamlined",
+        "* Dashboards",
+        "- Développement from scratch backend (Node.js, Next.js, NextAuth, PostgreSQL)",
+        "* Génération automatisée de devis et de factures. From scratch car personnalisée et basée sur une structure modulaire et modifiable.",
+        "* Authentification avec lien MagicLink envoyé par mail afin de simplifier la connexion.",
+        "* Conception et gestion d'une base de données PostgreSQL complexe (Structures Devis, Utilisateurs, Agences immobilières, Clients, Projets, Documents, images, etc...)",
+        "* Gestion des permissions et des rôles des utilisateurs.",
+        "* Intégration de fonctionnalités complexes de calendly (Round Robin) pour permettre la prise de rendez-vous en prenant en compte les emplois du temps de plusieurs personnes.",
         "- Rendez-vous avec les différents acteurs du secteur (Agences immobilières, Clients, Société BTP) pour définir les besoins et les fonctionnalités du site.",
         "- Design UX/UI des pages et des composants mis à jour en fonction des retours des utilisateurs et des tests effectués."
       ]
@@ -246,17 +296,16 @@ export const frenchCV: CVData = {
       "period": "Janvier 2023 - Janvier 2024",
       "description": [
         "Création d'une startup. Un réseau social pour les télétravailleurs. Kafo avait des partenariats avec plusieurs écoles privées et communautés de freelances (dont Freelance Republik). Un article est paru dans Les Echos dédié à la plateforme.",
-        `- Développement backend en nocode from scratch (Xano):
-          * Gestion génération d'événements.
-          * Scraping de Google Maps pour trouver et répertorier des lieux publics favorables au travail.
-        `,
-        `- Développement frontend en nocode from scratch et responsive (Weweb): 
-          * Implémentation de la carte interactive avec filtres ("Ouvert", "Dans un rayon de x kilomètres", "Actifs"...)
-          * Design, développement, et wording d'une Landing Page`,
-        `- Refonte totale du front en Vue 3 :
-          * Afin d'optimiser la rapidité du site, et de simplifier sa maintenance, toutes les fonctionnalités précédemment développées en nocode ont été redéveloppées de zéro
-          * Implémentation d'une bibliothèque de composants (Primevue)
-          * Développements de divers dashboards statistiques et administratifs`,
+        "- Développement backend en no-code from scratch (Xano)",
+        "* Gestion génération d'événements.",
+        "* Scraping de Google Maps pour trouver et répertorier des lieux publics favorables au travail.",
+        "- Développement frontend en nocode from scratch et responsive (Weweb)",
+        "* Implémentation de la carte interactive avec filtres (\"Ouvert\", \"Dans un rayon de x kilomètres\", \"Actifs\"...)",
+        "* Design, développement, et wording d'une Landing Page",
+        "- Refonte totale du front en Vue 3",
+        "* Afin d'optimiser la rapidité du site, et de simplifier sa maintenance, toutes les fonctionnalités précédemment développées en nocode ont été redéveloppées de zéro",
+        "* Implémentation d'une bibliothèque de composants (Primevue)",
+        "* Développements de divers dashboards statistiques et administratifs",
         "- Mise en place et réalisation de tests utilisateurs UX",
         "- Déploiement du front avec CI/CD Github sur un EC2 AWS"
       ]
@@ -269,15 +318,15 @@ export const frenchCV: CVData = {
       "period": "Septembre 2022 - Mars 2024",
       "description": [
         "Refacto et ajouts de features sur un site de simulation d'investissements immobiliers (Équipe de 3 dev fullstacks). Le site était très mal développé et le front autant que le back ont dû faire l'objet d'un grand nettoyage.",
-        `- Refonte frontend (Vue 2):
-          * Simplification de la totalité des interfaces afin de gagner en réactivité et en confort pour les utilisateurs.
-          * Intégration d'une librairie de composants (Primevue) et modularisation du site dans le but de créer de la cohérence sur tout le site et de faciliter sa maintenance.
-          * Refonte de la landing page
-          * Implémentation d'export PDF personnalisable des simulations`,
-        `- Refonte du back (Node.js, Express, Axios) :
-          * Refonte totale de la logique métier et déplacement de celle-ci du côté back.
-          * Refonte du système de facturation grâce à Stripe
-          * Ajout de fonctionnalités métier (Gestions d'équipe et de collaborateurs, Dispositifs Malraux)`,
+        "- Refonte frontend (Vue 2)",
+        "* Simplification de la totalité des interfaces afin de gagner en réactivité et en confort pour les utilisateurs.",
+        "* Intégration d'une librairie de composants (Primevue) et modularisation du site dans le but de créer de la cohérence sur tout le site et de faciliter sa maintenance.",
+        "* Refonte de la landing page",
+        "* Implémentation d'export PDF personnalisable des simulations",
+        "- Refonte du back (Node.js, Express, Axios)",
+        "* Refonte totale de la logique métier et déplacement de celle-ci du côté back.",
+        "* Refonte du système de facturation grâce à Stripe",
+        "* Ajout de fonctionnalités métier (Gestions d'équipe et de collaborateurs, Dispositifs Malraux)"
       ]
     },
     {
@@ -287,15 +336,22 @@ export const frenchCV: CVData = {
       "title": "Développeur Frontend, UX/UI Designer",
       "period": "Novembre 2023 - Janvier 2024",
       "description": [
-        "Développement et maintenance d'un SaaS de gestion d'événements artistiques privés pour une association.",
-        "Création d'une librairie de composants"
+        "Développement et maintenance d'un site de gestion d'événements artistiques privés pour une association. (Next.js, Node.js, PostgreSQL)",
+        "- Développement frontend (React, tailwindCSS)",
+        "* Création d'une librairie de composants pour le site (basée sur shadcn/ui) :",
+        "* Design et développement de dashboards statistiques",
+        "* Design et développement d'une interface de gestion des événements (création, modification, suppression, consultation)",
+        "- Développement backend (Node.js, Express, PostgreSQL)",
+        "* Création d'une API pour la gestion des événements",
+        "* Gestion des permissions et des rôles des utilisateurs",
+        "* Gestion des inscriptions aux événements, et des divers ateliers associés",
       ]
     },
     {
-      "link": "",
+      "link": "https://soundcloud.com/unbrouillard",
       "order": 5,
       "place": "Brouillard",
-      "title": "Compositeur/ Ingenieur du son",
+      "title": "Compositeur/Ingénieur du son",
       "period": "2015 - 2023",
       "description": [
         "Composition, Mix/Master de morceaux pour des artistes, films, jeux-vidéo et pièces de théâtres"
