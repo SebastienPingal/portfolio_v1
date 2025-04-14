@@ -1,8 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getCVPresets } from '@/app/actions'
-import pdf2img from 'pdf-img-convert'
 import { put } from '@vercel/blob'
 import OpenAI from 'openai'
+import fs from 'fs'
+import path from 'path'
+import { promisify } from 'util'
+import { exec } from 'child_process'
+
+const execPromise = promisify(exec)
 
 export async function POST(req: NextRequest) {
   try {
@@ -15,49 +20,76 @@ export async function POST(req: NextRequest) {
     }
 
     const myCVs = await getCVPresets()
-    const myCV = myCVs.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime())[0]
+    const myCV = myCVs.sort((a: { updatedAt: string | number | Date }, b: { updatedAt: string | number | Date }) => 
+      new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
+    )[0]
 
-    let base64: string
     let theBuffer: Buffer
 
     console.log('📸 File type:', file.type)
     console.log('📏 File size:', file.size, 'bytes')
 
     const buffer = Buffer.from(await file.arrayBuffer())
+    
     if (file.type === 'application/pdf') {
-      console.log('🎨 Converting PDF to image...')
-      const images = await pdf2img.convert(buffer, {
-        base64: true
-      })
-      if (!images || images.length === 0) {
-        console.error('❌ Failed to convert PDF to image')
+      console.log('🎨 Converting PDF to image using pdftoppm...')
+      
+      // Create a temporary file to store the PDF
+      const tempDir = '/tmp'
+      const tempId = Date.now()
+      const tempPdfPath = path.join(tempDir, `temp-${tempId}.pdf`)
+      const tempPngPrefix = path.join(tempDir, `temp-${tempId}`)
+      
+      try {
+        // Write the PDF buffer to a temp file
+        await fs.promises.writeFile(tempPdfPath, buffer)
+        
+        // Use pdftoppm to convert the first page to PNG at 300 DPI
+        const { stdout, stderr } = await execPromise(
+          `pdftoppm -png -singlefile -r 300 ${tempPdfPath} ${tempPngPrefix}`
+        )
+        
+        console.log('📄 pdftoppm stdout:', stdout)
+        if (stderr) console.log('⚠️ pdftoppm stderr:', stderr)
+        
+        // List files in the temp directory to see what was created
+        const { stdout: lsOutput } = await execPromise(`ls -la ${tempDir}`)
+        console.log('📁 Files in temp directory:', lsOutput)
+        
+        // Read the resulting PNG file - pdftoppm doesn't add the -1 suffix when using -singlefile
+        const outputPngPath = `${tempPngPrefix}.png`
+        console.log('🔍 Looking for output file at:', outputPngPath)
+        
+        theBuffer = await fs.promises.readFile(outputPngPath)
+        console.log('✅ PDF converted to image successfully')
+        
+        // Clean up temp files
+        await fs.promises.unlink(tempPdfPath)
+        await fs.promises.unlink(outputPngPath)
+      } catch (conversionError) {
+        console.error('❌ Error converting PDF to image:', conversionError)
         return NextResponse.json({ error: 'Failed to convert PDF to image' }, { status: 500 })
       }
-      const firstImage = images[0] as Uint8Array
-      theBuffer = Buffer.from(firstImage)
-      base64 = theBuffer.toString('base64')
     } else {
-      base64 = buffer.toString('base64')
       theBuffer = buffer
     }
 
-    if (!process.env.ALIBABA_API_KEY) {
-      console.error('❌ Missing Alibaba API key')
+    if (!process.env.OPENAI_API_KEY) {
+      console.error('❌ Missing OpenAI API key')
       return NextResponse.json({ error: 'Missing API key' }, { status: 500 })
     }
 
     // Upload the image and get the URL
     const blob = await put(file.name, theBuffer, {
       access: 'public',
-      contentType: file.type,
+      contentType: file.type === 'application/pdf' ? 'image/png' : file.type,
     })
 
     const imageUrl = blob.url
     console.log('🖼️ Image URL:', imageUrl)
 
     const openai = new OpenAI({
-      apiKey: process.env.ALIBABA_API_KEY,
-      baseURL: "https://dashscope-intl.aliyuncs.com/compatible-mode/v1"
+      apiKey: process.env.OPENAI_API_KEY,
     })
 
     const response = await openai.chat.completions.create({

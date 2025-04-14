@@ -8,12 +8,11 @@ const nextConfig = {
     turbo: {
       moduleIdStrategy: 'deterministic',
       serverComponentsExternalPackages: [
-        'pdf-img-convert',
+        // removed pdf-img-convert
       ],
       outputFileTracingIncludes: {
         '/': [
-          './node_modules/pdf-img-convert/node_modules/pdfjs-dist/legacy/build/pdf.worker.js',
-          './node_modules/pdf-img-convert/node_modules/pdfjs-dist/legacy/build/pdf.js',
+          // removed pdf-img-convert references
         ],
       },  
 
@@ -36,7 +35,7 @@ const nextConfig = {
     ],
   },
   transpilePackages: ['@react-pdf/renderer'],
-  serverExternalPackages: ['pdf-img-convert'],
+  serverExternalPackages: [], // removed pdf-img-convert
   outputFileTracingIncludes: {
     '/api/convert-to-img': [
       './node_modules/.pnpm/pdfjs-dist*/node_modules/pdfjs-dist/legacy/build/pdf.worker.js',
