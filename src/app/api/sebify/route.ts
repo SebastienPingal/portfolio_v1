@@ -34,7 +34,7 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ error: 'Failed to convert PDF to image' }, { status: 500 })
       }
       const firstImage = images[0]
-      theBuffer = Buffer.from(firstImage)
+      theBuffer = Buffer.from(firstImage as Uint8Array)
       base64 = theBuffer.toString('base64')
     } else {
       base64 = buffer.toString('base64')
