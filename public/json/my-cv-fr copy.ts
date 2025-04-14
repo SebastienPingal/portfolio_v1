@@ -46,40 +46,172 @@ export const frenchCV: CVData = {
   ],
   skills: {
     stack: [
-      {
-        name: "Vue JS",
-        rating: 5
-      },
-      {
-        name: "TypeScript",
-        rating: 5
-      },
-      {
-        name: "MySql",
-        rating: 5
-      },
-      {
-        name: "Node",
-        rating: 5
-      },
-      {
-        name: "Jest",
-        rating: 5
-      },
-      {
-        name: "React JS / Next JS",
-        rating: 4
-      },
-      {
-        name: "Python",
-        rating: 4
-      },
-      {
-        name: "NoSQL",
-        rating: 4
-      },
+      [
+        {
+          name: "TypeScript",
+          rating: 4
+        },
+        {
+          name: "JavaScript",
+          rating: 4
+        },
+        {
+          name: "Node.js",
+          rating: 4
+        },
+        {
+          name: "HTML5",
+          rating: 5
+        },
+        {
+          name: "CSS3",
+          rating: 5
+        }
+      ],
+      [
+        {
+          name: "React.js",
+          rating: 5
+        },
+        {
+          name: "Vue.js",
+          rating: 4
+        },
+        {
+          name: "Tailwind CSS",
+          rating: 5
+        },
+        {
+          name: "Shadcn/UI",
+          rating: 5
+        },
+        {
+          name: "Pinia",
+          rating: 4
+        },
+        {
+          name: "Mapbox",
+          rating: 4
+        }
+      ],
+      [
+        {
+          name: "Next.js",
+          rating: 5
+        },
+        {
+          name: "Nuxt.js",
+          rating: 5
+        },
+        {
+          name: "Express.js",
+          rating: 5
+        },
+        {
+          name: "Stripe",
+          rating: 5
+        },
+        {
+          name: "PostgreSQL",
+          rating: 5
+        },
+        {
+          name: "MySQL",
+          rating: 5
+        },
+        {
+          name: "MongoDB",
+          rating: 5
+        },
+        {
+          name: "REST API",
+          rating: 4
+        },
+        {
+          name: "GraphQL",
+          rating: 4
+        }
+      ],
+      [
+        {
+          name: "Docker",
+          rating: 5
+        },
+        {
+          name: "CI/CD",
+          rating: 5
+        },
+        {
+          name: "Git",
+          rating: 5
+        },
+        {
+          name: "Jest",
+          rating: 4
+        },
+        {
+          name: "Cypress",
+          rating: 4
+        },
+        {
+          name: "GitLab CI/CD",
+          rating: 5
+        },
+        {
+          name: "GitHub Actions",
+          rating: 5
+        },
+        {
+          name: "AWS",
+          rating: 5
+        },
+        {
+          name: "Lambda",
+          rating: 5
+        },
+        {
+          name: "S3",
+          rating: 5
+        },
+        {
+          name: "EC2",
+          rating: 5
+        }
+      ],
+      [
+        {
+          name: "Figma",
+          rating: 2
+        },
+        {
+          name: "Adobe Suite",
+          rating: 4
+        },
+        {
+          name: "Jira",
+          rating: 3
+        },
+        {
+          name: "Canva",
+          rating: 3
+        }
+      ],
+      [
+        {
+          name: "Responsive",
+          rating: 4
+        },
+        {
+          name: "Clean Code",
+          rating: 4
+        }
+      ]
     ],
     other: [
+      {
+        name: "Pédagogie",
+        rating: 5
+      },
       {
         name: "Ux/Ui",
         rating: 5
