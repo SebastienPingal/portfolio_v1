@@ -349,8 +349,19 @@ export const frenchCV: CVData = {
       ]
     },
     {
-      "link": "https://soundcloud.com/unbrouillard",
       "order": 5,
+      "place": "Mon Bureau",
+      "title": "Projet personnel",
+      "period": "Depuis 2022",
+      "description": [
+        "Cerberes : Developpement d'un chat minimaliste sécurisé de bout en bout (Vue3, Node.js, PostgreSQL, Docker, CI/CD). Déploiement sur un Raspberry Pi.",
+        "Livre 3d dynamique : Développement d'un livre 3d dynamique en React.js, Three.js. Génération des pages celon les fichier en props du composant.",
+        "Remake tu jeu 2048 : Développement d'un remake du jeu 2048 en Python sans bibliothèque externe.",
+      ]
+    },
+    {
+      "link": "https://soundcloud.com/unbrouillard",
+      "order": 6,
       "place": "Brouillard",
       "title": "Compositeur/Ingénieur du son",
       "period": "2015 - 2023",
@@ -359,7 +370,7 @@ export const frenchCV: CVData = {
       ]
     },
     {
-      "order": 6,
+      "order": 7,
       "place": "Freelance",
       "title": "Monteur Video",
       "period": "2013 - 2015",
