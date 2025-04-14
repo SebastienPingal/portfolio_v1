@@ -60,7 +60,7 @@ const NavBar = ({ workPosts, blogPosts, externalLinks, className }: { workPosts:
   return (
     <nav>
       <NavigationMenu orientation="vertical" className={`${className} items-start shadow-inner h-full bg-card/20 backdrop-blur-md overflow-auto`}>
-        <NavigationMenuList className='flex flex-col gap-1 items-start p-2 w-full sm:w-56'>
+        <NavigationMenuList className='flex flex-col gap-1 items-start p-2 w-screen sm:w-56'>
           <div className='text-2xl font-extrabold w-full'>{t('title')}</div>
 
           {renderMenuItem('/', <Home className="w-4 h-4" />, t('sections.home'))}
