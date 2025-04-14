@@ -53,11 +53,7 @@ export default async function RootLayout({
   return (
     <html lang={locale} suppressHydrationWarning>
       <GoogleTagManager gtmId="GTM-P42CZR92" />
-      <body className={[
-        cereal.className, 
-        "flex flex-col sm:flex-row w-screen h-screen relative overflow-x-hidden",
-        "[&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']"
-      ].join(" ")}>
+      <body className={cereal.className}>
         {/* Google Tag Manager (noscript) */}
         <noscript>
           <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P42CZR92"
@@ -66,7 +62,6 @@ export default async function RootLayout({
         {/* End Google Tag Manager (noscript) */}
 
         <NextIntlClientProvider messages={messages} locale={locale}>
-
           <Toaster />
           <ThemeProvider
             attribute="class"
@@ -74,40 +69,46 @@ export default async function RootLayout({
             enableSystem
           >
             <SessionProvider>
-              <div className="hidden sm:flex glassPanel fixed top-10 right-10 z-20 rounded-full">
-                <ThemeToggler />
-                <LanguageSwitcher />
+              <div className="min-h-screen overflow-x-hidden relative">
+                {/* Desktop theme/language togglers */}
+                <div className="hidden sm:flex glassPanel fixed top-10 right-10 z-30 rounded-full">
+                  <ThemeToggler />
+                  <LanguageSwitcher />
+                </div>
+
+                {/* Mobile theme/language togglers */}
+                <div className="sm:hidden flex glassPanel fixed rounded-full z-30 bottom-16 left-1/2 -translate-x-1/2">
+                  <ThemeToggler />
+                  <LanguageSwitcher />
+                </div>
+
+                {/* Desktop navbar */}
+                <Navbar workPosts={workPosts} blogPosts={blogPosts} externalLinks={externalLinks} className="hidden sm:flex fixed z-20 h-screen" />
+
+                {/* Main content */}
+                <main className="w-full sm:w-[calc(100vw-14rem)] p-3 sm:p-8 pb-20 sm:pb-8 sm:ml-[14rem] max-w-5xl sm:left-[calc(50%-7rem)] sm:-translate-x-1/2 relative z-10">
+                  <PageTransition>
+                    {children}
+                  </PageTransition>
+                </main>
+
+                {/* Mobile navbar */}
+                <div className="sm:hidden z-20 w-full fixed backdrop-blur-md bottom-0 left-0">
+                  <DropdownMenu>
+                    <DropdownMenuTrigger className="h-10 w-full" asChild >
+                      <Button className="w-full rounded-none" asChild>
+                        <p>
+                          <MenuIcon /><span>Menu</span>
+                        </p>
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent sideOffset={0}>
+                      <Navbar workPosts={workPosts} blogPosts={blogPosts} externalLinks={externalLinks} className="w-screen" />
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </div>
               </div>
-
-              <div className="sm:hidden flex glassPanel fixed rounded-full z-20 bottom-16 left-1/2 -translate-x-1/2">
-                <ThemeToggler />
-                <LanguageSwitcher />
-              </div>
-
-              <div className="sm:hidden z-20 w-full fixed backdrop-blur-md bottom-0">
-                <DropdownMenu>
-                  <DropdownMenuTrigger className="h-10 w-full" asChild >
-                    <Button className="w-full rounded-none" asChild>
-                      <p>
-                        <MenuIcon /><span>Menu</span>
-                      </p>
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent sideOffset={0}>
-                    <Navbar workPosts={workPosts} blogPosts={blogPosts} externalLinks={externalLinks} className="w-screen" />
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </div>
-
-              <Navbar workPosts={workPosts} blogPosts={blogPosts} externalLinks={externalLinks} className="hidden sm:flex fixed z-20" />
-
-              <main className="flex-1 page z-10 w-full sm:w-[calc(100vw-14rem)] p-3 sm:p-8 sm:pt-16 sm:pt-8 sm:ml-[14rem] max-w-5xl sm:left-[calc(50%-7rem)] sm:-translate-x-1/2 relative overflow-x-visible">
-                <PageTransition>
-                  {children}
-                </PageTransition>
-              </main>
-
-              <PerlinBackground />
+              <PerlinBackground className="inset-0 -z-10" />
             </SessionProvider>
           </ThemeProvider>
         </NextIntlClientProvider>

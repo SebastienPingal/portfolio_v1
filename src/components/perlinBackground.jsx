@@ -3,7 +3,7 @@ import { Noise } from 'noisejs'
 import { useEffect, useRef, useState } from 'react'
 import { useTheme } from 'next-themes'
 
-const PerlinBackground = () => {
+const PerlinBackground = ({ className = '' }) => {
   const canvasRef = useRef(null)
   const { theme } = useTheme()
   const animationFrameRef = useRef()
@@ -117,7 +117,7 @@ const PerlinBackground = () => {
   }, [theme, dimensions, isBlackTheme])
 
   // if (!isMounted) return null
-  return <canvas ref={canvasRef} className='h-full w-full z-0 overflow-hidden fixed' />
+  return <canvas ref={canvasRef} className={`h-full w-full z-0 overflow-hidden fixed ${className}`} />
 }
 
 export default PerlinBackground
