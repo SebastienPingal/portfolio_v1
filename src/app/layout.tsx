@@ -15,6 +15,7 @@ import { ThemeProvider } from "./theme-provider"
 
 // Components
 import Navbar from "@/components/NavBar"
+import MobileNavMenu from "@/components/MobileNavMenu"
 import PerlinBackground from "@/components/perlinBackground.jsx"
 import { Button } from "@/components/ui/button"
 import {
@@ -93,20 +94,7 @@ export default async function RootLayout({
                 </main>
 
                 {/* Mobile navbar */}
-                <div className="sm:hidden z-20 w-full fixed backdrop-blur-md bottom-0 left-0">
-                  <DropdownMenu>
-                    <DropdownMenuTrigger className="h-10 w-full" asChild >
-                      <Button className="w-full rounded-none" asChild>
-                        <p>
-                          <MenuIcon /><span>Menu</span>
-                        </p>
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent sideOffset={0}>
-                      <Navbar workPosts={workPosts} blogPosts={blogPosts} externalLinks={externalLinks} className="w-screen" />
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </div>
+                <MobileNavMenu workPosts={workPosts} blogPosts={blogPosts} externalLinks={externalLinks} />
               </div>
               <PerlinBackground className="inset-0 -z-10" />
             </SessionProvider>
