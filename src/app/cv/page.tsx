@@ -5,6 +5,7 @@ import CV from './CV'
 import { Button } from '@/components/ui/button'
 import { Save, Plus, Loader2, Trash2 } from 'lucide-react'
 import { frenchCV as cvFr } from '../../../public/json/my-cv-fr'
+import { englishCV as cvEn } from '../../../public/json/my-cv-en'
 import { useSession } from 'next-auth/react'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
@@ -25,12 +26,11 @@ const CVPage: React.FC = () => {
   const { toast } = useToast()
   const locale = useLocale()
   const t = useTranslations('CVPage')
-  const [language, setLanguage] = useState(locale)
-  const [cvData, setCvData] = useState<CVData>(cvFr)
+  const [cvData, setCvData] = useState<CVData>(locale === 'en' ? cvEn : cvFr)
   const [presetTitle, setPresetTitle] = useState('')
   const [presets, setPresets] = useState<CVPreset[]>([])
   const [isLoading, setIsLoading] = useState(false)
-  const [CVloading, setCVloading] = useState(true)
+  const [CVloading, setCVloading] = useState(false)
   const { data: session } = useSession()
 
   const loadPresets = useCallback(async () => {
@@ -70,8 +70,12 @@ const CVPage: React.FC = () => {
   }, [toast, t])
 
   useEffect(() => {
-    loadPresets()
-  }, [session?.user?.email, loadPresets])
+    setCvData(locale === 'en' ? cvEn : cvFr)
+  }, [locale])
+
+  // useEffect(() => {
+  //   loadPresets()
+  // }, [session?.user?.email, loadPresets])
 
   const savePreset = async () => {
     if (!session?.user?.email || !presetTitle) return
@@ -231,7 +235,7 @@ const CVPage: React.FC = () => {
       ) : (
         <CV
           data={cvData}
-          language={language}
+          language={locale}
           showMe={true}
           onDataChange={setCvData}
           isUserConnected={!!session?.user && session.user.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL}

@@ -300,7 +300,9 @@ const CV: React.FC<{
           } */}
 
           <div className='flex gap-2'>
-            <div className='w-1/4'>
+
+            {/* Sidebar */}
+            <div className='flex flex-col gap-5 w-1/4 flex-shrink-0'>
               <SkillsSection
                 data={data}
                 language={language}
@@ -316,6 +318,7 @@ const CV: React.FC<{
               )}
             </div>
 
+            {/* Main */}
             <div className='flex flex-col gap-2'>
               {data.experience && data.experience.length > 0 && (
                 <DndContext

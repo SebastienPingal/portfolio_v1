@@ -68,7 +68,7 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({
 
   return (
     <Section title={language === 'en' ? 'Skills' : 'Compétences'}>
-      <div className={cn('text-sm flex flex-col gap-2', className)}>
+      <div className={cn('text-sm flex flex-col gap-10', className)}>
         {data?.skills?.stack && (
           <div className="flex gap-2 items-center">
             {isUserConnected ? (
@@ -126,7 +126,7 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({
                 </div>
               </>
             ) : (
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-col gap-5">
                 <p className='font-extrabold text-base'>
                   {language === 'en' ? 'Technical Stack' : 'Stack Technique'} :
                 </p>
