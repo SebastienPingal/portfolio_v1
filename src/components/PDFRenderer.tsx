@@ -159,7 +159,7 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
     },
     experience: {
       padding: 3,
-      marginBottom: 1
+      marginBottom: 4
     },
     experienceHeader: {
       fontSize: 12,
@@ -180,15 +180,16 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
       color: currentThemeColors.accent
     },
     experienceDescription: {
-      fontSize: 10,
+      fontSize: 9,
+      marginTop: 5,
       marginLeft: 5,
     },
     experienceDescriptionDash: {
-      fontSize: 10,
+      fontSize: 9,
       marginLeft: 15,
     },
     experienceDescriptionAsterisk: {
-      fontSize: 10,
+      fontSize: 9,
       marginLeft: 30,
     },
     link: {

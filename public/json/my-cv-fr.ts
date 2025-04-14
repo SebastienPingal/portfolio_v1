@@ -10,7 +10,7 @@ export const frenchCV: CVData = {
     "Musique (composition, batterie)",
     "Membre de l'association de jam musicale 'Majama'",
     "Jeu de rôle (Maître du jeu)",
-    "Membre de l'association de jeu de rôle 'La boite à chimere'",
+    "Membre de l'association de jeu de rôle 'La boîte à chimère'",
     "VTT",
     "Lecture"
   ],
@@ -36,7 +36,7 @@ export const frenchCV: CVData = {
         {
           "name": "CSS3",
           "rating": 5
-        },
+        }
       ],
       [
         {
@@ -146,7 +146,7 @@ export const frenchCV: CVData = {
         {
           "name": "EC2",
           "rating": 5
-        },
+        }
       ],
       [
         {
@@ -174,7 +174,7 @@ export const frenchCV: CVData = {
         {
           "name": "Clean Code",
           "rating": 4
-        },
+        }
       ]
     ],
     "other": [
@@ -183,7 +183,7 @@ export const frenchCV: CVData = {
         "rating": 5
       },
       {
-        "name": "Ux/Ui",
+        "name": "UX/UI",
         "rating": 5
       },
       {
@@ -254,7 +254,7 @@ export const frenchCV: CVData = {
       "link": "https://sebastienpingal.dev/",
       "order": 0,
       "place": "Mon Portfolio",
-      "title": "Developpeur Frontend",
+      "title": "Développeur Frontend",
       "period": "Depuis 2024",
       "description": [
         "Création d'un site web pour mon portfolio.",
@@ -265,7 +265,7 @@ export const frenchCV: CVData = {
         "* Gestion multilingue du site en utilisant i18n",
         "- Développement backend from scratch (Next.js, Node.js, PostgreSQL)",
         "* Authentification OAuth avec LinkedIn",
-        "* Modularisation du site en stockant les informations dans une base de données PostgreSQL afin de séparer gestion des informations et du front",
+        "* Modularisation du site en stockant les informations dans une base de données PostgreSQL afin de séparer gestion des informations et du front"
       ]
     },
     {
@@ -284,7 +284,7 @@ export const frenchCV: CVData = {
         "* Authentification avec lien MagicLink envoyé par mail afin de simplifier la connexion.",
         "* Conception et gestion d'une base de données PostgreSQL complexe (Structures Devis, Utilisateurs, Agences immobilières, Clients, Projets, Documents, images, etc...)",
         "* Gestion des permissions et des rôles des utilisateurs.",
-        "* Intégration de fonctionnalités complexes de calendly (Round Robin) pour permettre la prise de rendez-vous en prenant en compte les emplois du temps de plusieurs personnes.",
+        "* Intégration de fonctionnalités complexes de Calendly (Round Robin) pour permettre la prise de rendez-vous en prenant en compte les emplois du temps de plusieurs personnes.",
         "- Rendez-vous avec les différents acteurs du secteur (Agences immobilières, Clients, Société BTP) pour définir les besoins et les fonctionnalités du site.",
         "- Design UX/UI des pages et des composants mis à jour en fonction des retours des utilisateurs et des tests effectués."
       ]
@@ -300,15 +300,15 @@ export const frenchCV: CVData = {
         "- Développement backend en no-code from scratch (Xano)",
         "* Gestion génération d'événements.",
         "* Scraping de Google Maps pour trouver et répertorier des lieux publics favorables au travail.",
-        "- Développement frontend en nocode from scratch et responsive (Weweb)",
+        "- Développement frontend en no-code from scratch et responsive (Weweb)",
         "* Implémentation de la carte interactive avec filtres (\"Ouvert\", \"Dans un rayon de x kilomètres\", \"Actifs\"...)",
         "* Design, développement, et wording d'une Landing Page",
         "- Refonte totale du front en Vue 3",
-        "* Afin d'optimiser la rapidité du site, et de simplifier sa maintenance, toutes les fonctionnalités précédemment développées en nocode ont été redéveloppées de zéro",
+        "* Afin d'optimiser la rapidité du site, et de simplifier sa maintenance, toutes les fonctionnalités précédemment développées en no-code ont été redéveloppées de zéro",
         "* Implémentation d'une bibliothèque de composants (Primevue)",
         "* Développements de divers dashboards statistiques et administratifs",
         "- Mise en place et réalisation de tests utilisateurs UX",
-        "- Déploiement du front avec CI/CD Github sur un EC2 AWS"
+        "- Déploiement du front avec CI/CD GitHub sur un EC2 AWS"
       ]
     },
     {
@@ -338,14 +338,14 @@ export const frenchCV: CVData = {
       "period": "Novembre 2023 - Janvier 2024",
       "description": [
         "Développement et maintenance d'un site de gestion d'événements artistiques privés pour une association. (Next.js, Node.js, PostgreSQL)",
-        "- Développement frontend (React, tailwindCSS)",
+        "- Développement frontend (React, TailwindCSS)",
         "* Création d'une librairie de composants pour le site (basée sur shadcn/ui) :",
         "* Design et développement de dashboards statistiques",
         "* Design et développement d'une interface de gestion des événements (création, modification, suppression, consultation)",
         "- Développement backend (Node.js, Express, PostgreSQL)",
         "* Création d'une API pour la gestion des événements",
         "* Gestion des permissions et des rôles des utilisateurs",
-        "* Gestion des inscriptions aux événements, et des divers ateliers associés",
+        "* Gestion des inscriptions aux événements, et des divers ateliers associés"
       ]
     },
     {
@@ -354,9 +354,9 @@ export const frenchCV: CVData = {
       "title": "Projet personnel",
       "period": "Depuis 2022",
       "description": [
-        "Cerberes : Developpement d'un chat minimaliste sécurisé de bout en bout (Vue3, Node.js, PostgreSQL, Docker, CI/CD). Déploiement sur un Raspberry Pi.",
-        "Livre 3d dynamique : Développement d'un livre 3d dynamique en React.js, Three.js. Génération des pages celon les fichier en props du composant.",
-        "Remake tu jeu 2048 : Développement d'un remake du jeu 2048 en Python sans bibliothèque externe.",
+        "Cerberes : Développement d'un chat minimaliste sécurisé de bout en bout (Vue3, Node.js, PostgreSQL, Docker, CI/CD). Déploiement sur un Raspberry Pi.",
+        "Livre 3D dynamique : Développement d'un livre 3D dynamique en React.js, Three.js. Génération des pages selon les fichiers en props du composant.",
+        "Remake du jeu 2048 : Développement d'un remake du jeu 2048 en Python sans bibliothèque externe."
       ]
     },
     {
@@ -366,13 +366,13 @@ export const frenchCV: CVData = {
       "title": "Compositeur/Ingénieur du son",
       "period": "2015 - 2023",
       "description": [
-        "Composition, Mix/Master de morceaux pour des artistes, films, jeux-vidéo et pièces de théâtres"
+        "Composition, Mix/Master de morceaux pour des artistes, films, jeux-vidéo et pièces de théâtre"
       ]
     },
     {
       "order": 7,
       "place": "Freelance",
-      "title": "Monteur Video",
+      "title": "Monteur Vidéo",
       "period": "2013 - 2015",
       "description": [
         ""
