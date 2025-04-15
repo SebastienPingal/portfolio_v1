@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getCVPresets } from '@/app/actions'
-import { put } from '@vercel/blob'
+import { frenchCV as myCV } from '../../../../public/json/my-cv-fr'
+import { put, del } from '@vercel/blob'
 import OpenAI from 'openai'
 import fs from 'fs'
 import path from 'path'
@@ -19,10 +19,14 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'No file provided' }, { status: 400 })
     }
 
-    const myCVs = await getCVPresets()
-    const myCV = myCVs.sort((a: { updatedAt: string | number | Date }, b: { updatedAt: string | number | Date }) =>
-      new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
-    )[0]
+    // Dynamically read the CV type definitions
+    const cvTypesPath = path.join(process.cwd(), 'src', 'types', 'CV.ts')
+    const cvTypesContent = await fs.promises.readFile(cvTypesPath, 'utf-8')
+    
+    // Extract the type definitions for the prompt
+    const typeDefinitions = cvTypesContent
+      .replace(/export type.*$/m, '') // Remove export statements
+      .trim()
 
     let theBuffer: Buffer
 
@@ -51,10 +55,6 @@ export async function POST(req: NextRequest) {
 
         console.log('📄 pdftoppm stdout:', stdout)
         if (stderr) console.log('⚠️ pdftoppm stderr:', stderr)
-
-        // List files in the temp directory to see what was created
-        const { stdout: lsOutput } = await execPromise(`ls -la ${tempDir}`)
-        console.log('📁 Files in temp directory:', lsOutput)
 
         // Read the resulting PNG file - pdftoppm doesn't add the -1 suffix when using -singlefile
         const outputPngPath = `${tempPngPrefix}.png`
@@ -100,12 +100,26 @@ export async function POST(req: NextRequest) {
           content: [
             {
               type: "input_text",
-              text: `Analyze this CV image and return a JSON with two properties: 'language' (should be 'fr') and 'cvData' (matching this structure: ${JSON.stringify(myCV)}). 
-            Ensure all fields are filled with appropriate data from the image. If you can't find a field, return null for that field.
-            For the levels if you can't find the exact level, try to find clues and return the closest level or null. For the languages if you can't find the exact language, return the closest language.
-            Try to fill the cvData with as much data as you can, but if you can't find a field, return null for that field.
-            You can interpret the data but you can't invent them.
-            IMPORTANT: Return valid JSON only with no additional text, formatting, or markdown. No backticks, no code blocks, just raw JSON.`
+              text: `Analyze this CV image and return a JSON with two properties: 'language' (should be 'fr' if the image is in french, 'en' if it's in any other language) and 'cvData' that strictly follows these TypeScript types:
+
+${typeDefinitions}
+
+Follow these typing rules:
+- For nullable string fields: provide the string value or null if not found
+- For nullable array fields: provide an array or null if not determinable
+- For nullable objects: follow their structure or null if cannot be determined
+- For ratings: provide a number 1-5 or null if not possible to determine
+
+Here is a reference structure from an existing CV: ${JSON.stringify(myCV)}
+
+IMPORTANT: Your response must be a valid JSON object with *exactly* these two properties:
+{
+  "language": "fr" or "en", 
+  "cvData": { ... CV data matching the types above ... }
+}
+
+Use the CV data visible in the image. You can interpret the data but don't invent information.
+IMPORTANT: Return valid JSON only with no additional text, formatting, or markdown. No backticks, no code blocks, just raw JSON.`
             },
             {
               type: "input_image",
@@ -129,12 +143,30 @@ export async function POST(req: NextRequest) {
       const jsonMatch = responseText.match(/```(?:json)?([\s\S]*?)```/) 
       const textToparse = jsonMatch ? jsonMatch[1].trim() : responseText
       
-      jsonData = JSON.parse(textToparse)
+      let parsedData = JSON.parse(textToparse)
       console.log('✅ Successfully parsed JSON response')
+      
+      // Check for and fix property name issues
+      if ('data' in parsedData && !('cvData' in parsedData)) {
+        console.log('🔄 Converting property name from "data" to "cvData"')
+        parsedData.cvData = parsedData.data
+        delete parsedData.data
+      }
+      
+      jsonData = parsedData
     } catch (parseError) {
       console.error('❌ Failed to parse JSON:', parseError)
       // Return the raw text if parsing fails
       return NextResponse.json({ description: response.output_text })
+    }
+    
+    // Delete the blob after processing
+    try {
+      await del(imageUrl)
+      console.log('🗑️ Deleted image blob successfully')
+    } catch (deleteError) {
+      console.error('⚠️ Failed to delete blob:', deleteError)
+      // Continue even if delete fails
     }
     
     return NextResponse.json(jsonData)
