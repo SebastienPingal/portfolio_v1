@@ -72,6 +72,12 @@ const NavBar = ({ workPosts, blogPosts, externalLinks, className }: { workPosts:
           </div>
 
           <div className='w-full'>
+            <NavigationMenuItem className="font-extrabold mb-2">{t('sections.gadgets')}</NavigationMenuItem>
+            {renderMenuItem('/cv-sebifyer', <BookUser className="w-4 h-4" />, t('sections.cvSebifyer'))}
+          </div>
+
+
+          <div className='w-full'>
             <NavigationMenuItem className="font-extrabold mb-2 cursor-default">{t('sections.links')}</NavigationMenuItem>
             <ExternalLinksSession externalLinks={externalLinks} />
           </div>
@@ -83,11 +89,6 @@ const NavBar = ({ workPosts, blogPosts, externalLinks, className }: { workPosts:
           {(blogPosts.length > 0 || session?.user?.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL) && (
             <PostSession posts={blogPosts} type="BLOGPOST" subSlug="blog" title="Writing" />
           )} */}
-
-          {/* <div className='w-full'>
-            <NavigationMenuItem className="font-extrabold mb-2">{t('sections.gadgets')}</NavigationMenuItem>
-            {renderMenuItem('/cv-sebifyer', <BookUser className="w-4 h-4" />, t('sections.cvSebifyer'))}
-          </div> */}
 
           <div className='w-full'>
             <NavigationMenuItem className="font-extrabold mb-2 cursor-default">{t('sections.online')}</NavigationMenuItem>
