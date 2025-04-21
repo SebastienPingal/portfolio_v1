@@ -76,11 +76,17 @@ const NavBar = ({ workPosts, blogPosts, externalLinks, className }: { workPosts:
             {renderMenuItem('/cv-sebifyer', <BookUser className="w-4 h-4" />, t('sections.cvSebifyer'))}
           </div>
 
-
           <div className='w-full'>
-            <NavigationMenuItem className="font-extrabold mb-2 cursor-default">{t('sections.links')}</NavigationMenuItem>
-            <ExternalLinksSession externalLinks={externalLinks} />
+            <NavigationMenuItem className="font-extrabold mb-2 cursor-default">{t('sections.professionalLinks')}</NavigationMenuItem>
+            <ExternalLinksSession externalLinks={externalLinks.filter(link => link.type === 'PROFESSIONAL')} />
           </div>
+
+          {externalLinks.filter(link => link.type === 'DEMO').length > 0 && (
+            <div className='w-full'>
+              <NavigationMenuItem className="font-extrabold mb-2 cursor-default">{t('sections.demoLinks')}</NavigationMenuItem>
+              <ExternalLinksSession externalLinks={externalLinks.filter(link => link.type === 'DEMO')} />
+            </div>
+          )}
 
           {/* {(workPosts.length > 0 || session?.user?.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL) && (
             <PostSession posts={workPosts} type="WORK" subSlug="work" title="Works" />
