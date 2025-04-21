@@ -55,8 +55,15 @@ model ExternalLink {
   id        String  @id @default(cuid())
   title     String
   url       String
+  type      ExternalLinkType @default(PROFESSIONAL)
   logoWhite String?
   logoBlack String?
+}
+
+enum ExternalLinkType {
+  PERSONAL
+  PROFESSIONAL
+  DEMO
 }
 
 enum PostType {
