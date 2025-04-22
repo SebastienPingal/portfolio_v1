@@ -27,7 +27,7 @@ export default function LandingPage({ stacks, session }: { stacks: StackExtended
         <MyStacksSession stacks={stacks} session={session} />
         <ContactSection />
       </div>
-
+      {/* 
       <h2 className='text-7xl font-black text-center'>{t('projects')}</h2>
 
       <div className='flex flex-col gap-4 w-full'>
@@ -48,7 +48,7 @@ export default function LandingPage({ stacks, session }: { stacks: StackExtended
             <ImageScrollDisplay images={estimaImmoImages} height={600} mobileHeight={200} />
           </div>
         </div>
-      </div>
+      </div> */}
 
       <ContactSection />
     </div>
