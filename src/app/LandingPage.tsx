@@ -49,8 +49,6 @@ export default function LandingPage({ stacks, session }: { stacks: StackExtended
           </div>
         </div>
       </div> */}
-
-      <ContactSection />
     </div>
   )
 }
