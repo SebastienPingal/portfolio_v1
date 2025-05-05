@@ -147,7 +147,7 @@ const CVPage: React.FC = () => {
   }
 
   return (
-    <div className='w-full flex flex-col gap-4'>
+    <div className='w-full flex flex-col gap-4 min-h-screen'>
       {/* <TalkingLogo
         text={t.raw('talkingHead')}
         littleHead={true}
