@@ -2,8 +2,6 @@
 import type { Metadata } from "next"
 import { NextIntlClientProvider } from 'next-intl'
 import { getLocale, getMessages } from 'next-intl/server'
-import { GoogleTagManager } from "@next/third-parties/google"
-import { motion } from "framer-motion"
 
 // Local styles and fonts
 import "./globals.css"
@@ -17,16 +15,8 @@ import { ThemeProvider } from "./theme-provider"
 import Navbar from "@/components/NavBar"
 import MobileNavMenu from "@/components/MobileNavMenu"
 import PerlinBackground from "@/components/perlinBackground.jsx"
-import { Button } from "@/components/ui/button"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuTrigger
-} from "@/components/ui/dropdown-menu"
 import { Toaster } from "@/components/ui/toaster"
 
-// Icons
-import { MenuIcon } from "lucide-react"
 
 // Actions
 import { getPosts, getExternalLinks } from "./actions"
@@ -53,14 +43,10 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} suppressHydrationWarning>
-      <GoogleTagManager gtmId="GTM-P42CZR92" />
+      <head>
+        <script defer src="https://cloud.umami.is/script.js" data-website-id="93d15f75-6182-4d42-9109-5b7d91dddd52"></script>
+      </head>
       <body className={cereal.className}>
-        {/* Google Tag Manager (noscript) */}
-        <noscript>
-          <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P42CZR92"
-            height="0" width="0" style={{ display: "none", visibility: "hidden" }} />
-        </noscript>
-        {/* End Google Tag Manager (noscript) */}
 
         <NextIntlClientProvider messages={messages} locale={locale}>
           <Toaster />
