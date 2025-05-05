@@ -45,8 +45,8 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} suppressHydrationWarning>
-      <Script defer src="https://cloud.umami.is/script.js" data-website-id="93d15f75-6182-4d42-9109-5b7d91dddd52"></Script>
       <body className={cereal.className}>
+        <Script defer src="https://cloud.umami.is/script.js" data-website-id="93d15f75-6182-4d42-9109-5b7d91dddd52"></Script>
 
         <NextIntlClientProvider messages={messages} locale={locale}>
           <Toaster />
