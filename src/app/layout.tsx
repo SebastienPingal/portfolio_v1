@@ -23,6 +23,7 @@ import { getPosts, getExternalLinks } from "./actions"
 import ThemeToggler from "@/components/ThemeToggler"
 import LanguageSwitcher from "@/components/LanguageSwitcher"
 import PageTransition from "@/components/PageTransition"
+import Head from "next/head"
 
 export const metadata: Metadata = {
   title: "Sébastien Pingal",
@@ -43,9 +44,9 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} suppressHydrationWarning>
-      <head>
+      <Head>
         <script defer src="https://cloud.umami.is/script.js" data-website-id="93d15f75-6182-4d42-9109-5b7d91dddd52"></script>
-      </head>
+      </Head>
       <body className={cereal.className}>
 
         <NextIntlClientProvider messages={messages} locale={locale}>
