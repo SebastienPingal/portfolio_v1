@@ -53,7 +53,7 @@ const themeColors = {
     card: '#F4D7F4',
     primary: '#9E709E',
     secondary: '#92bf92',
-    accent: '#633663',
+    accent: '#7c709e',
   },
   dark: {
     background: '#202D20',
