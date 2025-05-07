@@ -27,7 +27,7 @@ export default function ContactSection() {
             variant="shine"
             size="lg"
             className="flex gap-4 text-xl p-8 h-auto"
-            onClick={() => window.open('https://cal.com/sebastienpingal/30min', '_blank')}
+            onClick={() => window.open('https://cal.com/sebastienpingal/prise-de-contact', '_blank')}
           >
             <Calendar className="w-8 h-8" />
             {t('schedule')}
