@@ -88,7 +88,7 @@
     }
   },
   "CVPage": {
-    "talkingHead": "Sorry, the English version of the CV is not yet available. Please wait.",
+    "talkingHead": "If you want to export your CV in my style <a href='/cv-sebifyer'>click here</a>",
     "presets": {
       "loadPreset": "Load preset",
       "savePreset": "Save Preset",

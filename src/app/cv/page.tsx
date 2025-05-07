@@ -14,6 +14,7 @@ import { saveCVPreset, getCVPresets, deleteCVPreset, getUser } from '@/app/actio
 import { useToast } from '@/components/ui/use-toast'
 import { useTranslations } from 'next-intl'
 import { useLocale } from 'next-intl'
+import TalkingLogo from '@/components/TalkingLogo'
 
 interface CVPreset {
   id: string
@@ -148,12 +149,12 @@ const CVPage: React.FC = () => {
 
   return (
     <div className='w-full flex flex-col gap-4 min-h-screen'>
-      {/* <TalkingLogo
+      <TalkingLogo
         text={t.raw('talkingHead')}
         littleHead={true}
         tooltip={true}
-        className='w-full mb-4 bg-background/40 backdrop-blur-sm p-4 rounded-xl'
-      /> */}
+        className='w-full b-4 backdrop-blur-sm p-4 rounded-xl'
+      />
 
       <div className='w-full flex justify-center'>
         <div className='flex items-center'>
