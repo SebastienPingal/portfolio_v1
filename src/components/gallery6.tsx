@@ -88,83 +88,69 @@ const Gallery6 = ({
   }, [carouselApi]);
 
   return (
-    <section className="">
-      <div className="container">
-        <div className="mb-8 flex flex-col justify-between md:mb-14 md:flex-row md:items-end lg:mb-16">
-          <div className="mt-8 flex shrink-0 items-center justify-start gap-2">
-            <Button
-              size="icon"
-              variant="outline"
-              onClick={() => {
-                carouselApi?.scrollPrev();
-              }}
-              disabled={!canScrollPrev}
-              className="disabled:pointer-events-auto"
-            >
-              <ArrowLeft className="size-5" />
-            </Button>
-            <Button
-              size="icon"
-              variant="outline"
-              onClick={() => {
-                carouselApi?.scrollNext();
-              }}
-              disabled={!canScrollNext}
-              className="disabled:pointer-events-auto"
-            >
-              <ArrowRight className="size-5" />
-            </Button>
-          </div>
-        </div>
-      </div>
-      <div className="w-full">
-        <Carousel
-          setApi={setCarouselApi}
-          opts={{
-            breakpoints: {
-              "(max-width: 768px)": {
-                dragFree: true,
-              },
-            },
-          }}
-          className="relative left-[-1rem]"
-        >
-          <CarouselContent className="-mr-4 ml-8 2xl:mr-[max(0rem,calc(50vw-700px-1rem))] 2xl:ml-[max(8rem,calc(50vw-700px+1rem))]">
-            {items.map((item) => (
-              <CarouselItem key={item.id} className="pl-4 basis-3/4">
-                <a
-                  href={item.url}
-                  className="hover:scale-105 duration-300 flex flex-col justify-between mt-6"
-                >
-                  <div>
-                    <div className="flex overflow-clip rounded-xl">
-                      <div className="flex-1">
-                        <div className="relative h-full w-full origin-bottom transition duration-300 ">
-                          <img
-                            src={item.image}
-                            alt={item.title}
-                            className="h-full w-full object-cover object-center"
-                          />
-                        </div>
+    <section className="relative overflow-hidden">
+      <Carousel
+        setApi={setCarouselApi}
+      >
+        <CarouselContent className="relative flex gap-4">
+          {items.map((item) => (
+            <CarouselItem key={item.id} className="basis-3/4">
+              <a
+                href={item.url}
+                className="hover:scale-105 duration-300 flex flex-col justify-between mt-6"
+              >
+                <div>
+                  <div className="flex overflow-clip rounded-xl">
+                    <div className="flex-1">
+                      <div className="relative h-full w-full origin-bottom transition duration-300 ">
+                        <img
+                          src={item.image}
+                          alt={item.title}
+                          className="h-full w-full object-cover object-center"
+                        />
                       </div>
                     </div>
                   </div>
-                  <div className="mb-2 line-clamp-3 pt-4 text-lg font-medium break-words md:mb-3 md:pt-4 md:text-xl lg:pt-4 lg:text-2xl">
-                    {item.title}
-                  </div>
-                  <div className="mb-8 line-clamp-2 text-sm mb-12 md:text-base lg:mb-9">
-                    {item.summary}
-                  </div>
-                  {/* <div className="flex items-center text-sm">
+                </div>
+                <div className="mb-2 line-clamp-3 pt-4 text-lg font-medium break-words md:mb-3 md:pt-4 md:text-xl lg:pt-4 lg:text-2xl">
+                  {item.title}
+                </div>
+                <div className="mb-8 line-clamp-2 text-sm mb-12 md:text-base lg:mb-9">
+                  {item.summary}
+                </div>
+                {/* <div className="flex items-center text-sm">
                     Read more{" "}
                     <ArrowRight className="ml-2 size-5 transition-transform group-hover:translate-x-1" />
                   </div> */}
-                </a>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-        </Carousel>
-      </div>
+              </a>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+      </Carousel>
+      <Button
+        size="icon"
+        variant="ghost"
+        color="white"
+        onClick={() => {
+          carouselApi?.scrollPrev();
+        }}
+        disabled={!canScrollPrev}
+        className={`rounded-l-none absolute top-6 left-0 disabled:pointer-events-auto bg-white/50 hover:bg-white/70 backdrop-blur-sm h-40 ${!canScrollPrev ? "hidden" : ""}`}
+      >
+        <ArrowLeft className="size-5" />
+      </Button>
+      <Button
+        size="icon"
+        variant="ghost"
+        color="white"
+        onClick={() => {
+          carouselApi?.scrollNext();
+        }}
+        disabled={!canScrollNext}
+        className={`rounded-r-none absolute top-6 right-0 disabled:pointer-events-auto bg-white/50 hover:bg-white/70 backdrop-blur-sm h-40 ${!canScrollNext ? "hidden" : ""}`}
+      >
+        <ArrowRight className="size-5" />
+      </Button>
     </section>
   );
 };
