@@ -64,6 +64,7 @@ const SortableExperience = ({ exp, index, isUserConnected, onEdit, onDelete }: {
           <GripVertical className="h-4 w-4 text-muted-foreground" />
         </div>
       )}
+
       <div className="absolute top-2 right-2 flex gap-2">
         {isUserConnected && (
           <>
@@ -76,13 +77,13 @@ const SortableExperience = ({ exp, index, isUserConnected, onEdit, onDelete }: {
           </>
         )}
       </div>
-      <h4 className='text-md ml-8'>
+      <h4 className='text-md font-bold'>
         {exp.link ? (
           <a
             href={exp.link}
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:underline text-primary"
+            className="hover:underline text-accent"
           >
             {exp.place}
           </a>
@@ -90,7 +91,7 @@ const SortableExperience = ({ exp, index, isUserConnected, onEdit, onDelete }: {
           exp.place
         )}
       </h4>
-      <p className='text-sm uppercase'>{exp.title} - <b>{exp.period}</b></p>
+      <p className='text-sm uppercase text-accent'><b>{exp.title}</b> - {exp.period}</p>
       <div className="pl-4">
         <div className='text-sm font-bold'>
           {exp.description && exp.description.map((resp: string, respIndex: number) => {

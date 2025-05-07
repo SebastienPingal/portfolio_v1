@@ -254,11 +254,11 @@ export const frenchCV: CVData = {
       "link": "https://sebastienpingal.dev/",
       "order": 0,
       "place": "Mon Portfolio",
-      "title": "Développeur Frontend",
+      "title": "Développeur FullStack",
       "period": "Depuis 2024",
       "description": [
         "Création d'un site web pour mon portfolio.",
-        "- Développement frontend from scratch et responsive (React.js, shadcn/ui, TailwindCSS)",
+        "- Développement frontend et backend from scratch et responsive (React.js, shadcn/ui, TailwindCSS, Next.js, Node.js, PostgreSQL)",
         "* Éditeur de CV me permettant de modifier et mettre à jour rapidement mes informations avec versioning et système de presets",
         "* Génération de bruit de Perlin pour créer un background dynamique et unique à chaque visite",
         "* Développement d'une librairie de composants personnalisés pour le site",
@@ -315,7 +315,7 @@ export const frenchCV: CVData = {
       "link": "https://www.linkedin.com/company/aestima-immo/posts/",
       "order": 4,
       "place": "Aestima Immo",
-      "title": "Développeur Frontend",
+      "title": "Développeur FullStack",
       "period": "Septembre 2022 - Mars 2024",
       "description": [
         "Refacto et ajouts de features sur un site de simulation d'investissements immobiliers (Équipe de 3 dev fullstacks). Le site était très mal développé et le front autant que le back ont dû faire l'objet d'un grand nettoyage.",
@@ -334,7 +334,7 @@ export const frenchCV: CVData = {
       "link": "",
       "order": 3,
       "place": "Art Factory",
-      "title": "Développeur Frontend, UX/UI Designer",
+      "title": "Développeur FullStack et UX/UI Designer",
       "period": "Novembre 2023 - Janvier 2024",
       "description": [
         "Développement et maintenance d'un site de gestion d'événements artistiques privés pour une association. (Next.js, Node.js, PostgreSQL)",
