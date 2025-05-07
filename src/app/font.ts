@@ -8,13 +8,13 @@ export const cereal = localFont({
       style: 'normal',
     },
     {
-      path: '../../public/fonts/AirbnbCereal_W_Bk.otf',
-      weight: '700',
+      path: '../../public/fonts/AirbnbCereal_W_XBd.otf',
+      weight: '800',
       style: 'normal',
     },
     {
       path: '../../public/fonts/AirbnbCereal_W_Bd.otf',
-      weight: '600',
+      weight: '700',
       style: 'normal',
     },
     {
@@ -23,13 +23,13 @@ export const cereal = localFont({
       style: 'normal',
     },
     {
-      path: '../../public/fonts/AirbnbCereal_W_Lt.otf',
-      weight: '300',
+      path: '../../public/fonts/AirbnbCereal_W_Bk.otf',
+      weight: '400',
       style: 'normal',
     },
     {
-      path: '../../public/fonts/AirbnbCereal_W_XBd.otf',
-      weight: '800',
+      path: '../../public/fonts/AirbnbCereal_W_Lt.otf',
+      weight: '300',
       style: 'normal',
     },
   ],

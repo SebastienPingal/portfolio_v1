@@ -92,10 +92,15 @@ const SortableExperience = ({ exp, index, isUserConnected, onEdit, onDelete }: {
       </h4>
       <p className='text-sm uppercase'>{exp.title} - <b>{exp.period}</b></p>
       <div className="pl-4">
-        <div className='text-sm'>
-          {exp.description && exp.description.map((resp: string, respIndex: number) => (
-            <p key={respIndex}>{resp}</p>
-          ))}
+        <div className='text-sm font-bold'>
+          {exp.description && exp.description.map((resp: string, respIndex: number) => {
+            const cleanedResp = resp.startsWith('*') ? `• ${resp.substring(1)}` : resp;
+            return (
+              <p key={respIndex} className={`${resp.startsWith('-') ? 'pl-2 font-normal' : resp.startsWith('*') ? 'pl-6 text-foreground/80 font-normal' : ''}`}>
+                {cleanedResp}
+              </p>
+            );
+          })}
         </div>
       </div>
     </article>
@@ -119,7 +124,7 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({
   })
 
   // Sort experiences by order before rendering
-  const sortedExperiences = data.experience?.slice().sort((a, b) => 
+  const sortedExperiences = data.experience?.slice().sort((a, b) =>
     (a.order ?? 0) - (b.order ?? 0)
   )
 
