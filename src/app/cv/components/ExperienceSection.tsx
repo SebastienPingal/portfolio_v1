@@ -96,7 +96,7 @@ const SortableExperience = ({ exp, index, isUserConnected, onEdit, onDelete }: {
           {exp.description && exp.description.map((resp: string, respIndex: number) => {
             const cleanedResp = resp.startsWith('*') ? `• ${resp.substring(1)}` : resp;
             return (
-              <p key={respIndex} className={`${resp.startsWith('-') ? 'pl-2 font-normal' : resp.startsWith('*') ? 'pl-6 text-foreground/80 font-normal' : ''}`}>
+              <p key={respIndex} className={`${resp.startsWith('-') ? 'pl-2 font-medium' : resp.startsWith('*') ? 'pl-6 text-foreground/80 font-medium' : ''}`}>
                 {cleanedResp}
               </p>
             );
