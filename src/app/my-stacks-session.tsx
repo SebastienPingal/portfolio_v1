@@ -6,9 +6,9 @@ import { useTranslations } from "next-intl"
 export default function MyStacksSession({ stacks, session }: { stacks: StackExtended[], session: any }) {
   const t = useTranslations('LandingPage')
 
-  const my_back_stacks = ['next.js', 'typescript', 'node.js', 'postgressql', 'docker', 'aws']
-  const my_front_stacks = ['tailwind', 'react', 'next.js', 'typescript']
-  const shining_stacks = ['next.js', 'react', 'node.js', 'postgressql']
+  const my_back_stacks = ['next.js', 'nuxt.js', 'typescript', 'node.js', 'postgressql', 'docker', 'aws']
+  const my_front_stacks = ['tailwind', 'react', 'vue', 'typescript']
+  const shining_stacks = ['next.js', 'nuxt.js', 'vue', 'react', 'node.js', 'postgressql']
   const selectedBackStacks = stacks.filter(stack => my_back_stacks.includes(stack.title.toLowerCase()))
   const selectedFrontStacks = stacks.filter(stack => my_front_stacks.includes(stack.title.toLowerCase()))
 
