@@ -17,6 +17,7 @@
       "home": "Accueil",
       "me": "Moi",
       "stack": "Stack",
+      "portfolio": "Portfolio",
       "cv": "CV",
       "professionalLinks": "Liens",
       "demoLinks": "Démos",
@@ -24,6 +25,9 @@
       "cvSebifyer": "CV Sebifyer",
       "online": "Me retrouver"
     }
+  },
+  "Portfolio": {
+    "title": "Mon Portfolio"
   },
   "LandingPage": {
     "myStacks": {
