@@ -273,7 +273,7 @@ export const frenchCV: CVData = {
       "order": 1,
       "place": "Moneo Domus - Holding d'entreprise BTP",
       "title": "Développeur Full Stack, UX/UI Designer",
-      "period": "Depuis mars 2024",
+      "period": "Depuis janvier 2024",
       "description": [
         "Création d'un site web pour un holding d'entreprises en BTP. Le but était d'automatiser des tâches et ainsi de libérer 50% de charge de travail. MoneoDomus réalise environ 500 000€ de chiffre d'affaires par mois.",
         "- Développement frontend from scratch et responsive (React.js, shadcn/ui, TailwindCSS)",
@@ -294,7 +294,7 @@ export const frenchCV: CVData = {
       "order": 2,
       "place": "KAFO - Réseau Social pour télétravailleurs",
       "title": "Fondateur, développeur Full Stack et UX/UI Designer",
-      "period": "Janvier 2023 - Janvier 2024",
+      "period": "Février 2023 - Septembre 2023",
       "description": [
         "Création d'une startup. Un réseau social pour les télétravailleurs. Kafo avait des partenariats avec plusieurs écoles privées et communautés de freelances (dont Freelance Republik). Un article est paru dans Les Echos dédié à la plateforme.",
         "- Développement backend en no-code from scratch (Xano)",
@@ -316,7 +316,7 @@ export const frenchCV: CVData = {
       "order": 4,
       "place": "Aestima Immo",
       "title": "Développeur FullStack",
-      "period": "Septembre 2022 - Mars 2024",
+      "period": "Janvier 2022 - Décembre 2024",
       "description": [
         "Refacto et ajouts de features sur un site de simulation d'investissements immobiliers (Équipe de 3 dev fullstacks). Le site était très mal développé et le front autant que le back ont dû faire l'objet d'un grand nettoyage.",
         "- Refonte frontend (Vue 2)",

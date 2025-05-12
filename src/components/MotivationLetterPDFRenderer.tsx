@@ -122,7 +122,7 @@ const PDFDocument = ({ data, theme }: PDFDocumentProps) => {
 
 export const MotivationLetterPDFRenderer = ({ data, theme }: PDFDocumentProps) => {
   return (
-    <PDFViewer width="100%" height="100%">
+    <PDFViewer width="100%" height="100%" className='w-full h-full min-h-screen'>
       <PDFDocument data={data} theme={theme} />
     </PDFViewer>
   )
