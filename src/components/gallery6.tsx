@@ -2,6 +2,7 @@
 
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react"
 import { useEffect, useState } from "react"
+import Image from "next/image"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -10,6 +11,14 @@ import {
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel"
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  DialogDescription,
+  DialogHeader,
+  DialogFooter,
+} from "@/components/ui/dialog"
 
 interface GalleryItem {
   id: string
@@ -72,6 +81,8 @@ const Gallery6 = ({
   const [carouselApi, setCarouselApi] = useState<CarouselApi>()
   const [canScrollPrev, setCanScrollPrev] = useState(false)
   const [canScrollNext, setCanScrollNext] = useState(false)
+  const [selectedImage, setSelectedImage] = useState<GalleryItem | null>(null)
+
   useEffect(() => {
     if (!carouselApi) {
       return
@@ -98,6 +109,10 @@ const Gallery6 = ({
               <a
                 href={item.url}
                 className="hover:scale-105 duration-300 flex flex-col justify-between mt-6"
+                onClick={e => {
+                  e.preventDefault()
+                  setSelectedImage(item)
+                }}
               >
                 <div>
                   <div className="flex overflow-clip rounded-xl">
@@ -106,7 +121,7 @@ const Gallery6 = ({
                         <img
                           src={item.image}
                           alt={item.title}
-                          className="h-full w-full object-cover object-center"
+                          className="h-full w-full object-cover object-center cursor-pointer"
                         />
                       </div>
                     </div>
@@ -118,10 +133,6 @@ const Gallery6 = ({
                 <div className="mb-8 line-clamp-2 text-sm mb-12 md:text-base lg:mb-9">
                   {item.summary}
                 </div>
-                {/* <div className="flex items-center text-sm">
-                    Read more{" "}
-                    <ArrowRight className="ml-2 size-5 transition-transform group-hover:translate-x-1" />
-                  </div> */}
               </a>
             </CarouselItem>
           ))}
@@ -151,6 +162,33 @@ const Gallery6 = ({
       >
         <ArrowRight className="size-5" />
       </Button>
+
+      {/* Dialog for fullscreen image */}
+      <Dialog open={!!selectedImage} onOpenChange={open => !open && setSelectedImage(null)}>
+        <DialogContent
+          className="w-[90%] h-[90%] flex flex-col items-center justify-center"
+        >
+          {selectedImage && (
+            <>
+              <DialogHeader>
+                <DialogTitle>
+                  {selectedImage?.title}
+                </DialogTitle>
+              </DialogHeader>
+              <img
+                src={selectedImage.image}
+                alt={selectedImage.title}
+                className="w-full h-full object-contain"
+              />
+              <DialogFooter>
+                <DialogDescription className="max-w-2xl text-center font-bold">
+                  {selectedImage.summary}
+                </DialogDescription>
+              </DialogFooter>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
     </section>
   )
 }
