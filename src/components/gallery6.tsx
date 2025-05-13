@@ -1,28 +1,28 @@
-"use client";
+"use client"
 
-import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
-import { useEffect, useState } from "react";
+import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react"
+import { useEffect, useState } from "react"
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button"
 import {
   Carousel,
   CarouselApi,
   CarouselContent,
   CarouselItem,
-} from "@/components/ui/carousel";
+} from "@/components/ui/carousel"
 
 interface GalleryItem {
-  id: string;
-  title: string;
-  summary: string;
-  url: string;
-  image: string;
+  id: string
+  title: string
+  summary: string
+  url: string
+  image: string
 }
 
 interface Gallery6Props {
-  heading?: string;
-  demoUrl?: string;
-  items?: GalleryItem[];
+  heading?: string
+  demoUrl?: string
+  items?: GalleryItem[]
 }
 
 const Gallery6 = ({
@@ -69,23 +69,23 @@ const Gallery6 = ({
     },
   ],
 }: Gallery6Props) => {
-  const [carouselApi, setCarouselApi] = useState<CarouselApi>();
-  const [canScrollPrev, setCanScrollPrev] = useState(false);
-  const [canScrollNext, setCanScrollNext] = useState(false);
+  const [carouselApi, setCarouselApi] = useState<CarouselApi>()
+  const [canScrollPrev, setCanScrollPrev] = useState(false)
+  const [canScrollNext, setCanScrollNext] = useState(false)
   useEffect(() => {
     if (!carouselApi) {
-      return;
+      return
     }
     const updateSelection = () => {
-      setCanScrollPrev(carouselApi.canScrollPrev());
-      setCanScrollNext(carouselApi.canScrollNext());
-    };
-    updateSelection();
-    carouselApi.on("select", updateSelection);
+      setCanScrollPrev(carouselApi.canScrollPrev())
+      setCanScrollNext(carouselApi.canScrollNext())
+    }
+    updateSelection()
+    carouselApi.on("select", updateSelection)
     return () => {
-      carouselApi.off("select", updateSelection);
-    };
-  }, [carouselApi]);
+      carouselApi.off("select", updateSelection)
+    }
+  }, [carouselApi])
 
   return (
     <section className="relative overflow-hidden">
@@ -132,7 +132,7 @@ const Gallery6 = ({
         variant="ghost"
         color="white"
         onClick={() => {
-          carouselApi?.scrollPrev();
+          carouselApi?.scrollPrev()
         }}
         disabled={!canScrollPrev}
         className={`rounded-l-none absolute top-6 left-0 disabled:pointer-events-auto bg-white/50 hover:bg-white/70 backdrop-blur-sm h-40 ${!canScrollPrev ? "hidden" : ""}`}
@@ -144,7 +144,7 @@ const Gallery6 = ({
         variant="ghost"
         color="white"
         onClick={() => {
-          carouselApi?.scrollNext();
+          carouselApi?.scrollNext()
         }}
         disabled={!canScrollNext}
         className={`rounded-r-none absolute top-6 right-0 disabled:pointer-events-auto bg-white/50 hover:bg-white/70 backdrop-blur-sm h-40 ${!canScrollNext ? "hidden" : ""}`}
@@ -152,7 +152,7 @@ const Gallery6 = ({
         <ArrowRight className="size-5" />
       </Button>
     </section>
-  );
-};
+  )
+}
 
 export { Gallery6 }
