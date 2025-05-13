@@ -293,7 +293,7 @@ export const frenchCV: CVData = {
       "link": "https://www.linkedin.com/company/kafowork/posts/?feedView=all",
       "order": 2,
       "place": "KAFO - Réseau Social pour télétravailleurs",
-      "title": "Fondateur, développeur Full Stack et UX/UI Designer",
+      "title": "Fondateur, développeur Full Stack",
       "period": "Février 2023 - Septembre 2023",
       "description": [
         "Création d'une startup. Un réseau social pour les télétravailleurs. Kafo avait des partenariats avec plusieurs écoles privées et communautés de freelances (dont Freelance Republik). Un article est paru dans Les Echos dédié à la plateforme.",
