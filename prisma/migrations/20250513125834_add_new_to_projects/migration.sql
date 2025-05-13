@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Project" ADD COLUMN     "new" BOOLEAN NOT NULL DEFAULT false,
+ALTER COLUMN "link" DROP NOT NULL;

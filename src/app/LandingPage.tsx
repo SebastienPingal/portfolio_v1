@@ -1,10 +1,11 @@
-import ImageScrollDisplay from '@/components/image-scroll-display'
 import { useTranslations } from 'next-intl'
 import { StackExtended } from '@/types/stack'
 import ContactSection from '@/components/ContactSection'
 import MyStacksSession from './my-stacks-session'
+import ProjectSection from '@/components/ProjectSection'
+import { Project } from '@prisma/client'
 
-export default function LandingPage({ stacks, session }: { stacks: StackExtended[], session: any }) {
+export default function LandingPage({ stacks, session, projects }: { stacks: StackExtended[], session: any, projects: Project[] }) {
   const t = useTranslations('LandingPage')
 
   return (
@@ -13,6 +14,7 @@ export default function LandingPage({ stacks, session }: { stacks: StackExtended
         <MyStacksSession stacks={stacks} session={session} />
         <ContactSection />
       </div>
+      <ProjectSection projects={projects} />
       {/* 
       <h2 className='text-7xl font-black text-center'>{t('projects')}</h2>
 

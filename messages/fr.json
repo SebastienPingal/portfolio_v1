@@ -26,6 +26,11 @@
       "online": "Me retrouver"
     }
   },
+  "ProjectSection": {
+    "addProject": "Ajouter un projet",
+    "projects": "Mes Projets",
+    "title": "Mes Projets"
+  },
   "Portfolio": {
     "title": "Mon Portfolio"
   },

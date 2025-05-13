@@ -1,6 +1,6 @@
 import { Suspense } from 'react'
 import LandingPage from './LandingPage'
-import { getStacks } from './actions'
+import { getStacks, getProjects } from './actions'
 import { auth } from './api/auth/[...nextauth]/auth'
 import TalkingLogo from '@/components/TalkingLogo'
 
@@ -8,6 +8,8 @@ import TalkingLogo from '@/components/TalkingLogo'
 
 export default async function Home() {
   const stacks = await getStacks()
+  const projects = await getProjects()
+
   let session = null
   try {
     session = await auth()
@@ -26,7 +28,7 @@ export default async function Home() {
       </Suspense>
 
       <Suspense fallback={<div className="w-full animate-pulse" />}>
-        <LandingPage stacks={stacks} session={session} />
+        <LandingPage stacks={stacks} session={session} projects={projects} />
       </Suspense>
     </div>
   )
