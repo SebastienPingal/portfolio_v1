@@ -73,8 +73,8 @@ export default function ProjectSection({ projects, session }: { projects: Projec
   }
 
   return (
-    <div>
-      <h2 className="text-4xl font-bold">{t('title')}</h2>
+    <div className="flex flex-col gap-4">
+      <h2 className="text-7xl font-black text-center">{t('title')}</h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {projects.length > 0 && projects.map((project) => (
