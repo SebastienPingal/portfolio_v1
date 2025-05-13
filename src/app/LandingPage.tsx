@@ -14,7 +14,7 @@ export default function LandingPage({ stacks, session, projects }: { stacks: Sta
         <MyStacksSession stacks={stacks} session={session} />
         <ContactSection />
       </div>
-      <ProjectSection projects={projects} />
+      <ProjectSection projects={projects} session={session} />
       {/* 
       <h2 className='text-7xl font-black text-center'>{t('projects')}</h2>
 
