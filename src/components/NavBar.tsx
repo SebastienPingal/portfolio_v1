@@ -71,7 +71,7 @@ const NavBar = ({ workPosts, blogPosts, externalLinks, className }: { workPosts:
             {renderMenuItem('/cv', <FileText className="w-4 h-4" />, t('sections.cv'))}
             {renderMenuItem('/portfolio', <Palette className="w-4 h-4" />, t('sections.portfolio'))}
           </div>
-        
+
           <div className='w-full'>
             <NavigationMenuItem className="font-bold mb-2">{t('sections.gadgets')}</NavigationMenuItem>
             {renderMenuItem('/cv-sebifyer', <BookUser className="w-4 h-4" />, t('sections.cvSebifyer'))}
@@ -101,7 +101,6 @@ const NavBar = ({ workPosts, blogPosts, externalLinks, className }: { workPosts:
             <NavigationMenuItem className="font-bold mb-2 cursor-default">{t('sections.online')}</NavigationMenuItem>
             {renderExternalLink("https://www.linkedin.com/in/s%C3%A9bastien-pingal-582795b3/", <Linkedin fill={darkMode ? 'white' : 'black'} className="w-4 h-4" />, 'Linkedin')}
             {renderExternalLink("https://github.com/SebastienPingal", <Github className="w-4 h-4" />, 'GitHub')}
-            {renderExternalLink("https://gitlab.com/Brume_", <Gitlab className="w-4 h-4" />, 'Gitlab')}
           </div>
 
           <div className='w-full'>
