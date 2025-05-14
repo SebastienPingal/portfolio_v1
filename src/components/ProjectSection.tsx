@@ -78,31 +78,34 @@ export default function ProjectSection({ projects, session }: { projects: Projec
       <h2 className="text-7xl font-black text-center">{t('title')}</h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {projects.length > 0 && projects.map((project) => (
-          <div key={project.id} className="relative group">
-            <a href={`${project.link}`} target="_blank" rel="noopener noreferrer">
-              <Card
-                className="hover:-translate-y-1 hover:shadow-lg border-2 h-full hover:border-primary transition-all duration-300">
-                <CardHeader className="p-4 relative">
-                  <div className="flex items-center gap-2">
-                    <h3>{project.title}</h3>
-                    {project.new && <Badge variant='shine'>{t('new')}</Badge>}
-                  </div>
-                  <p>{project.description}</p>
-                </CardHeader>
-              </Card>
-            </a>
-            {session?.user?.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL && (
-              <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                <DeleteConfirmationPopover
-                  entity="project"
-                  id={project.id}
-                  deleteAction={handleDeleteProject}
-                />
-              </div>
-            )}
-          </div>
-        ))}
+        {projects
+          .slice()
+          .sort((a, b) => (b.new ? 1 : 0) - (a.new ? 1 : 0))
+          .map((project) => (
+            <div key={project.id} className="relative group">
+              <a href={`${project.link}`} target="_blank" rel="noopener noreferrer">
+                <Card
+                  className="hover:-translate-y-1 hover:shadow-lg border-2 h-full hover:border-primary transition-all duration-300">
+                  <CardHeader className="p-4 relative">
+                    <div className="flex items-center gap-2">
+                      <h3>{project.title}</h3>
+                      {project.new && <Badge variant='shine'>{t('new')}</Badge>}
+                    </div>
+                    <p>{project.description}</p>
+                  </CardHeader>
+                </Card>
+              </a>
+              {session?.user?.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL && (
+                <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <DeleteConfirmationPopover
+                    entity="project"
+                    id={project.id}
+                    deleteAction={handleDeleteProject}
+                  />
+                </div>
+              )}
+            </div>
+          ))}
 
         {session?.user?.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL && (
           <>
