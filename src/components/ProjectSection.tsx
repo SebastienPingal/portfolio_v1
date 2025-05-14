@@ -2,6 +2,7 @@
 import { Project } from "@prisma/client"
 import { useTranslations } from "next-intl"
 import { Button } from "./ui/button"
+import { Badge } from "./ui/badge"
 import { PlusIcon } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card"
 import { useState } from "react"
@@ -82,8 +83,11 @@ export default function ProjectSection({ projects, session }: { projects: Projec
             <a href={`${project.link}`} target="_blank" rel="noopener noreferrer">
               <Card
                 className="hover:-translate-y-1 hover:shadow-lg border-2 h-full hover:border-primary transition-all duration-300">
-                <CardHeader className="p-4">
-                  <h3>{project.title}</h3>
+                <CardHeader className="p-4 relative">
+                  <div className="flex items-center gap-2">
+                    <h3>{project.title}</h3>
+                    {project.new && <Badge variant='shine'>{t('new')}</Badge>}
+                  </div>
                   <p>{project.description}</p>
                 </CardHeader>
               </Card>

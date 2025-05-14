@@ -29,7 +29,8 @@
   "ProjectSection": {
     "addProject": "Ajouter un projet",
     "projects": "Mes Projets",
-    "title": "Mes Projets"
+    "title": "Mes Projets",
+    "new": "Nouveau"
   },
   "Portfolio": {
     "title": "Mon Portfolio"
