@@ -250,14 +250,14 @@ export const englishCV: CVData = {
   ],
   experience: [
     {
-      title: "Frontend Developer",
+      title: "Fullstack Developer",
       place: "My Portfolio",
       link: "https://sebastienpingal.dev/",
       period: "Since 2024",
       order: 0,
       description: [
         "Creation of a website for my portfolio.",
-        "- Frontend development from scratch and responsive (React.js, shadcn/ui, TailwindCSS)",
+        "- Frontend and backend development from scratch and responsive (React.js, shadcn/ui, TailwindCSS, Next.js, Node.js, PostgreSQL)",
         "* CV editor allowing me to quickly modify and update my information with versioning and preset system",
         "* Perlin noise generation to create a dynamic and unique background for each visit",
         "* Development of a custom component library for the site",
@@ -271,7 +271,7 @@ export const englishCV: CVData = {
       title: "Fullstack Developer, UX/UI Designer",
       place: "Moneo Domus - Construction Company Holding",
       link: "https://moneodomus.com/",
-      period: "Since March 2024",
+      period: "Since January 2024",
       order: 1,
       description: [
         "Creation of a website for a construction company holding. The goal was to automate tasks and thus free up 50% of workload. MoneoDomus generates approximately €500,000 in monthly revenue.",
@@ -289,32 +289,50 @@ export const englishCV: CVData = {
       ]
     },
     {
-      title: "Founder, Fullstack Developer and UX/UI Designer",
+      title: "Founder, Fullstack Developer",
       place: "KAFO - Social Network for Remote Workers",
       link: "https://www.linkedin.com/company/kafowork/posts/?feedView=all",
-      period: "January 2023 - January 2024",
+      period: "February 2023 - September 2023",
       order: 2,
       description: [
         "Creation of a startup. A social network for remote workers. Kafo had partnerships with several private schools and freelance communities (including Freelance Republik). An article was published in Les Echos dedicated to the platform.",
         "- Backend development in no-code from scratch (Xano)",
         "* Event generation management.",
         "* Google Maps scraping to find and list public places suitable for work.",
-        "- Frontend development in nocode from scratch and responsive (Weweb)",
+        "- Frontend development in no-code from scratch and responsive (Weweb)",
         "* Implementation of interactive map with filters (\"Open\", \"Within x kilometers radius\", \"Active\"...)",
         "* Design, development, and wording of a Landing Page",
         "- Complete frontend overhaul in Vue 3",
-        "* To optimize site speed and simplify maintenance, all previously nocode-developed features were redeveloped from scratch",
+        "* To optimize site speed and simplify maintenance, all previously no-code-developed features were redeveloped from scratch",
         "* Implementation of a component library (Primevue)",
         "* Development of various statistical and administrative dashboards",
         "- Setup and execution of UX user testing",
-        "- Frontend deployment with CI/CD Github on AWS EC2"
+        "- Frontend deployment with CI/CD GitHub on AWS EC2"
       ]
     },
     {
-      title: "Frontend Developer",
+      title: "Fullstack Developer and UX/UI Designer",
+      place: "Art Factory",
+      link: "",
+      period: "November 2023 - January 2024",
+      order: 3,
+      description: [
+        "Development and maintenance of a private artistic events management website for an association. (Next.js, Node.js, PostgreSQL)",
+        "- Frontend development (React, TailwindCSS)",
+        "* Creation of a component library for the site (based on shadcn/ui):",
+        "* Design and development of statistical dashboards",
+        "* Design and development of an event management interface (creation, modification, deletion, consultation)",
+        "- Backend development (Node.js, Express, PostgreSQL)",
+        "* Creation of an API for event management",
+        "* User permissions and roles management",
+        "* Management of event registrations and associated workshops"
+      ]
+    },
+    {
+      title: "Fullstack Developer",
       place: "Aestima Immo",
       link: "https://www.linkedin.com/company/aestima-immo/posts/",
-      period: "September 2022 - March 2024",
+      period: "January 2022 - December 2024",
       order: 4,
       description: [
         "Refactoring and feature additions on a real estate investment simulation website (Team of 3 fullstack devs). The site was poorly developed and both frontend and backend needed major cleanup.",
@@ -330,21 +348,14 @@ export const englishCV: CVData = {
       ]
     },
     {
-      title: "Frontend Developer, UX/UI Designer",
-      place: "Art Factory",
-      link: "",
-      period: "November 2023 - January 2024",
-      order: 3,
+      title: "Personal Project",
+      place: "My Office",
+      period: "Since 2022",
+      order: 5,
       description: [
-        "Development and maintenance of a private artistic events management website for an association. (Next.js, Node.js, PostgreSQL)",
-        "- Frontend development (React, tailwindCSS)",
-        "* Creation of a component library for the site (based on shadcn/ui):",
-        "* Design and development of statistical dashboards",
-        "* Design and development of an event management interface (creation, modification, deletion, consultation)",
-        "- Backend development (Node.js, Express, PostgreSQL)",
-        "* Creation of an API for event management",
-        "* User permissions and roles management",
-        "* Management of event registrations and associated workshops"
+        "Cerberes: Development of a minimalist end-to-end encrypted chat (Vue3, Node.js, PostgreSQL, Docker, CI/CD). Deployment on a Raspberry Pi.",
+        "Dynamic 3D Book: Development of a dynamic 3D book in React.js, Three.js. Page generation based on component props files.",
+        "2048 Game Remake: Development of a 2048 game remake in Python without external libraries."
       ]
     },
     {
@@ -352,7 +363,7 @@ export const englishCV: CVData = {
       place: "Brouillard",
       link: "https://soundcloud.com/unbrouillard",
       period: "2015 - 2023",
-      order: 5,
+      order: 6,
       description: [
         "Composition, Mix/Master of tracks for artists, films, video games and theater plays"
       ]
@@ -361,7 +372,7 @@ export const englishCV: CVData = {
       title: "Video Editor",
       place: "Freelance",
       period: "2013 - 2015",
-      order: 6,
+      order: 7,
       description: [
         ""
       ]
