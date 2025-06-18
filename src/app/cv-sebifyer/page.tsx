@@ -8,15 +8,23 @@ import { CVData as CVDataType } from '@/types/CV'
 import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 import TalkingLogo from '@/components/TalkingLogo'
+import * as pdfjsLib from 'pdfjs-dist'
+
+// Set the worker source for PDF.js (Next.js compatible)
+if (typeof window !== 'undefined') {
+  pdfjsLib.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.mjs'
+}
 
 const CVSebifyerPage: React.FC = () => {
   const t = useTranslations('CVSebifyer')
   const session = useSession()
   const [image, setImage] = useState<File | null>(null)
+  const [processedImage, setProcessedImage] = useState<File | null>(null)
   const { toast } = useToast()
   const [CVData, setCVData] = useState<CVDataType | null>(null)
   const [language, setLanguage] = useState<string>('en')
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [isProcessingPdf, setIsProcessingPdf] = useState<boolean>(false)
 
   const mockedCVData = {
     "language": "en",
@@ -112,31 +120,102 @@ const CVSebifyerPage: React.FC = () => {
       "profileImageDark": null
     }
   }
+
+  // Convert PDF to image on the client side
+  const convertPdfToImage = async (pdfFile: File): Promise<File> => {
+    console.log('🎨 Converting PDF to image on client side...')
+    setIsProcessingPdf(true)
+
+    try {
+      const arrayBuffer = await pdfFile.arrayBuffer()
+      const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise
+      const page = await pdf.getPage(1) // Get first page
+
+      // Create canvas for rendering
+      const canvas = document.createElement('canvas')
+      const context = canvas.getContext('2d')!
+      
+      // Set high quality scale (300 DPI equivalent)
+      const scale = 2
+      const viewport = page.getViewport({ scale })
+      
+      canvas.height = viewport.height
+      canvas.width = viewport.width
+
+      // Render PDF page to canvas
+      await page.render({
+        canvasContext: context,
+        viewport: viewport
+      }).promise
+
+      console.log('✅ PDF rendered to canvas successfully')
+
+      // Convert canvas to blob
+      return new Promise((resolve) => {
+        canvas.toBlob((blob) => {
+          if (blob) {
+            const imageFile = new File([blob], pdfFile.name.replace('.pdf', '.png'), {
+              type: 'image/png',
+              lastModified: Date.now()
+            })
+            console.log('✅ PDF converted to PNG successfully')
+            resolve(imageFile)
+          }
+        }, 'image/png', 0.95) // High quality PNG
+      })
+    } catch (error) {
+      console.error('❌ Error converting PDF to image:', error)
+      throw new Error('Failed to convert PDF to image')
+    } finally {
+      setIsProcessingPdf(false)
+    }
+  }
+
   const handleImageUpload = async () => {
     console.log('📤 uploading image')
     setIsLoading(true)
-    const formData = new FormData()
-    if (image) {
-      formData.append('image', image)
-    }
-    const response = await fetch('/api/sebify', {
-      method: 'POST',
-      body: formData,
-    })
+    
+    try {
+      let fileToUpload = processedImage || image
+      
+      // If original file is PDF and we haven't processed it yet, convert it first
+      if (image && image.type === 'application/pdf' && !processedImage) {
+        console.log('🔄 PDF detected, converting to image...')
+        fileToUpload = await convertPdfToImage(image)
+        setProcessedImage(fileToUpload)
+      }
 
-    if (response.ok) {
-      const data = await response.json()
-      console.log('🤖 OpenAI response received', data)
-      setCVData(data.cvData)
-      setLanguage(data.language === 'fr' ? 'français' : 'english')
-    } else {
+      if (!fileToUpload) {
+        throw new Error('No file to upload')
+      }
+
+      const formData = new FormData()
+      formData.append('image', fileToUpload)
+      
+      const response = await fetch('/api/sebify', {
+        method: 'POST',
+        body: formData,
+      })
+
+      if (response.ok) {
+        const data = await response.json()
+        console.log('🤖 OpenAI response received', data)
+        setCVData(data.cvData)
+        setLanguage(data.language === 'fr' ? 'français' : 'english')
+      } else {
+        const errorData = await response.json()
+        throw new Error(errorData.error || 'Upload failed')
+      }
+    } catch (error) {
+      console.error('❌ Upload error:', error)
       toast({
         title: t('upload.errors.failed.title'),
-        description: t('upload.errors.failed.description'),
+        description: error instanceof Error ? error.message : t('upload.errors.failed.description'),
         variant: 'destructive',
       })
+    } finally {
+      setIsLoading(false)
     }
-    setIsLoading(false)
   }
 
   return (
@@ -151,6 +230,7 @@ const CVSebifyerPage: React.FC = () => {
             const file = e.target.files?.[0]
             if (file && file.size <= 5 * 1024 * 1024) {
               setImage(file)
+              setProcessedImage(null) // Reset processed image when new file is selected
             } else {
               toast({
                 title: t('upload.errors.tooLarge.title'),
@@ -161,8 +241,8 @@ const CVSebifyerPage: React.FC = () => {
           }}
         />
         {image && (
-          <Button type='button' onClick={handleImageUpload}>
-            {isLoading ? t('upload.uploading') : t('upload.button')}
+          <Button type='button' onClick={handleImageUpload} disabled={isLoading || isProcessingPdf}>
+            {isProcessingPdf ? '🎨 Converting PDF...' : isLoading ? t('upload.uploading') : t('upload.button')}
           </Button>
         )}
         {image && <p>{t('upload.imageUploaded')} {image.name} 📸</p>}

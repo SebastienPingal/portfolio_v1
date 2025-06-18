@@ -2,12 +2,6 @@ import { NextRequest, NextResponse } from 'next/server'
 import { frenchCV as myCV } from '../../../../public/json/my-cv-fr'
 import { put, del } from '@vercel/blob'
 import OpenAI from 'openai'
-import fs from 'fs'
-import path from 'path'
-import { promisify } from 'util'
-import { exec } from 'child_process'
-
-const execPromise = promisify(exec)
 
 export async function POST(req: NextRequest) {
   try {
@@ -20,6 +14,8 @@ export async function POST(req: NextRequest) {
     }
 
     // Dynamically read the CV type definitions
+    const fs = await import('fs')
+    const path = await import('path')
     const cvTypesPath = path.join(process.cwd(), 'src', 'types', 'CV.ts')
     const cvTypesContent = await fs.promises.readFile(cvTypesPath, 'utf-8')
     
@@ -35,54 +31,26 @@ export async function POST(req: NextRequest) {
 
     const buffer = Buffer.from(await file.arrayBuffer())
 
+    // For now, we'll reject PDFs and ask users to convert them first
     if (file.type === 'application/pdf') {
-      console.log('🎨 Converting PDF to image using pdftoppm...')
-
-      // Create a temporary file to store the PDF
-      const tempDir = '/tmp'
-      const tempId = Date.now()
-      const tempPdfPath = path.join(tempDir, `temp-${tempId}.pdf`)
-      const tempPngPrefix = path.join(tempDir, `temp-${tempId}`)
-
-      try {
-        // Write the PDF buffer to a temp file
-        await fs.promises.writeFile(tempPdfPath, buffer)
-
-        // Use pdftoppm to convert the first page to PNG at 300 DPI
-        const { stdout, stderr } = await execPromise(
-          `pdftoppm -png -singlefile -r 300 ${tempPdfPath} ${tempPngPrefix}`
-        )
-
-        console.log('📄 pdftoppm stdout:', stdout)
-        if (stderr) console.log('⚠️ pdftoppm stderr:', stderr)
-
-        // Read the resulting PNG file - pdftoppm doesn't add the -1 suffix when using -singlefile
-        const outputPngPath = `${tempPngPrefix}.png`
-        console.log('🔍 Looking for output file at:', outputPngPath)
-
-        theBuffer = await fs.promises.readFile(outputPngPath)
-        console.log('✅ PDF converted to image successfully')
-
-        // Clean up temp files
-        await fs.promises.unlink(tempPdfPath)
-        await fs.promises.unlink(outputPngPath)
-      } catch (conversionError) {
-        console.error('❌ Error converting PDF to image:', conversionError)
-        return NextResponse.json({ error: 'Failed to convert PDF to image' }, { status: 500 })
-      }
-    } else {
-      theBuffer = buffer
+      console.log('📄 PDF file detected')
+      return NextResponse.json({ 
+        error: 'PDF files are not supported yet. Please convert your PDF to an image (PNG/JPG) first and try again.' 
+      }, { status: 400 })
     }
+
+    theBuffer = buffer
 
     if (!process.env.OPENAI_API_KEY) {
       console.error('❌ Missing OpenAI API key')
       return NextResponse.json({ error: 'Missing API key' }, { status: 500 })
     }
 
-    // Upload the image and get the URL
+    // Upload the file and get the URL
     const blob = await put(file.name, theBuffer, {
       access: 'public',
-      contentType: file.type === 'application/pdf' ? 'image/png' : file.type,
+      contentType: file.type,
+      addRandomSuffix: false,
     })
 
     const imageUrl = blob.url
