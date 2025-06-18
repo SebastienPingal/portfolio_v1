@@ -1,19 +1,13 @@
 'use client'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useToast } from '@/components/ui/use-toast'
 import CV from '../cv/CV'
 import { CVData as CVDataType } from '@/types/CV'
 import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 import TalkingLogo from '@/components/TalkingLogo'
-import * as pdfjsLib from 'pdfjs-dist'
-
-// Set the worker source for PDF.js (Next.js compatible)
-if (typeof window !== 'undefined') {
-  pdfjsLib.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.mjs'
-}
 
 const CVSebifyerPage: React.FC = () => {
   const t = useTranslations('CVSebifyer')
@@ -25,6 +19,23 @@ const CVSebifyerPage: React.FC = () => {
   const [language, setLanguage] = useState<string>('en')
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [isProcessingPdf, setIsProcessingPdf] = useState<boolean>(false)
+  const [pdfjsLib, setPdfjsLib] = useState<any>(null)
+
+  // Initialize PDF.js only on client side
+  useEffect(() => {
+    const initPdfJs = async () => {
+      try {
+        const pdfjs = await import('pdfjs-dist')
+        pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.mjs'
+        setPdfjsLib(pdfjs)
+        console.log('📚 PDF.js initialized successfully')
+      } catch (error) {
+        console.error('❌ Failed to initialize PDF.js:', error)
+      }
+    }
+    
+    initPdfJs()
+  }, [])
 
   const mockedCVData = {
     "language": "en",
@@ -123,6 +134,10 @@ const CVSebifyerPage: React.FC = () => {
 
   // Convert PDF to image on the client side
   const convertPdfToImage = async (pdfFile: File): Promise<File> => {
+    if (!pdfjsLib) {
+      throw new Error('PDF.js not initialized yet')
+    }
+
     console.log('🎨 Converting PDF to image on client side...')
     setIsProcessingPdf(true)
 
@@ -241,7 +256,11 @@ const CVSebifyerPage: React.FC = () => {
           }}
         />
         {image && (
-          <Button type='button' onClick={handleImageUpload} disabled={isLoading || isProcessingPdf}>
+          <Button 
+            type='button' 
+            onClick={handleImageUpload} 
+            disabled={isLoading || isProcessingPdf || (image.type === 'application/pdf' && !pdfjsLib)}
+          >
             {isProcessingPdf ? '🎨 Converting PDF...' : isLoading ? t('upload.uploading') : t('upload.button')}
           </Button>
         )}
