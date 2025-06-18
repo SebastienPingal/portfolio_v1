@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { frenchCV as myCV } from '../../../../public/json/my-cv-fr'
 import { put, del } from '@vercel/blob'
 import OpenAI from 'openai'
+import { CVData, CVDataSchema } from '@/types/CV'
 
 export async function POST(req: NextRequest) {
   try {
@@ -13,16 +14,8 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'No file provided' }, { status: 400 })
     }
 
-    // Dynamically read the CV type definitions
-    const fs = await import('fs')
-    const path = await import('path')
-    const cvTypesPath = path.join(process.cwd(), 'src', 'types', 'CV.ts')
-    const cvTypesContent = await fs.promises.readFile(cvTypesPath, 'utf-8')
-    
-    // Extract the type definitions for the prompt
-    const typeDefinitions = cvTypesContent
-      .replace(/export type.*$/m, '') // Remove export statements
-      .trim()
+    // Define the type structure for the AI prompt (dynamically imported from CV.ts)
+    const typeDefinitions = JSON.stringify(CVDataSchema, null, 2)
 
     let theBuffer: Buffer
 
@@ -34,8 +27,8 @@ export async function POST(req: NextRequest) {
     // For now, we'll reject PDFs and ask users to convert them first
     if (file.type === 'application/pdf') {
       console.log('📄 PDF file detected')
-      return NextResponse.json({ 
-        error: 'PDF files are not supported yet. Please convert your PDF to an image (PNG/JPG) first and try again.' 
+      return NextResponse.json({
+        error: 'PDF files are not supported yet. Please convert your PDF to an image (PNG/JPG) first and try again.'
       }, { status: 400 })
     }
 
@@ -106,28 +99,28 @@ IMPORTANT: Return valid JSON only with no additional text, formatting, or markdo
       // Extract the raw text and try to parse it as JSON
       const responseText = response.output_text.trim()
       console.log('📝 Raw output:', responseText.substring(0, 100) + '...')
-      
+
       // Try to extract JSON if it's wrapped in markdown code blocks
-      const jsonMatch = responseText.match(/```(?:json)?([\s\S]*?)```/) 
+      const jsonMatch = responseText.match(/```(?:json)?([\s\S]*?)```/)
       const textToparse = jsonMatch ? jsonMatch[1].trim() : responseText
-      
+
       let parsedData = JSON.parse(textToparse)
       console.log('✅ Successfully parsed JSON response')
-      
+
       // Check for and fix property name issues
       if ('data' in parsedData && !('cvData' in parsedData)) {
         console.log('🔄 Converting property name from "data" to "cvData"')
         parsedData.cvData = parsedData.data
         delete parsedData.data
       }
-      
+
       jsonData = parsedData
     } catch (parseError) {
       console.error('❌ Failed to parse JSON:', parseError)
       // Return the raw text if parsing fails
       return NextResponse.json({ description: response.output_text })
     }
-    
+
     // Delete the blob after processing
     try {
       await del(imageUrl)
@@ -136,7 +129,7 @@ IMPORTANT: Return valid JSON only with no additional text, formatting, or markdo
       console.error('⚠️ Failed to delete blob:', deleteError)
       // Continue even if delete fails
     }
-    
+
     return NextResponse.json(jsonData)
   } catch (error) {
     console.error('❌ Error processing request:', error)
