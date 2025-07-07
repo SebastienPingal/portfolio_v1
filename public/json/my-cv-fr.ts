@@ -314,9 +314,9 @@ export const frenchCV: CVData = {
     {
       "link": "https://www.linkedin.com/company/aestima-immo/posts/",
       "order": 4,
-      "place": "Aestima Immo",
+      "place": "Aestima Immobilier",
       "title": "Développeur FullStack",
-      "period": "Janvier 2022 - Décembre 2024",
+      "period": "Juin 2021 - Décembre 2023",
       "description": [
         "Refacto et ajouts de features sur un site de simulation d'investissements immobiliers (Équipe de 3 dev fullstacks). Le site était très mal développé et le front autant que le back ont dû faire l'objet d'un grand nettoyage.",
         "- Refonte frontend (Vue 2)",
@@ -354,6 +354,7 @@ export const frenchCV: CVData = {
       "title": "Projet personnel",
       "period": "Depuis 2022",
       "description": [
+        "DoctoNotes : Extension pour chrome et firefox affichant les notes google des medecins sur Doctolib.",
         "Cerberes : Développement d'un chat minimaliste sécurisé de bout en bout (Vue3, Node.js, PostgreSQL, Docker, CI/CD). Déploiement sur un Raspberry Pi.",
         "Livre 3D dynamique : Développement d'un livre 3D dynamique en React.js, Three.js. Génération des pages selon les fichiers en props du composant.",
         "Remake du jeu 2048 : Développement d'un remake du jeu 2048 en Python sans bibliothèque externe."
