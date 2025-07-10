@@ -359,9 +359,14 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
                             </Text>
                             <View style={styles.experienceSkillsContent}>
                               {exp.skills.map((skill, skillIndex) => (
-                                <Text key={skillIndex} style={styles.skillItem}>
-                                  {skill}
-                                </Text>
+                                <>
+                                  <Text key={skillIndex} style={styles.skillItem}>
+                                    {skill}
+                                  </Text>
+                                  {skillIndex !== (exp.skills?.length || 0) - 1 && (
+                                    <Text style={styles.skillItem}>·</Text>
+                                  )}
+                                </>
                               ))}
                             </View>
                           </View>

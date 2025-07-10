@@ -255,10 +255,10 @@ export const frenchCV: CVData = {
       "link": "https://moneodomus.com/",
       "order": 0,
       "place": "Moneo Domus",
-      "placeDescription": "Holding d'entreprise BTP",
-      "title": "Développeur Full Stack, UX/UI Designer",
+      "placeDescription": "Holding d'entreprise BTP - Apport d'affaire et accompagnement",
+      "title": "Développeur Full Stack React.js Node.js et UX/UI Designer",
       "period": "Depuis janvier 2024 (1,5 ans)",
-      "skills": ["React.js", "Next.js", "Node.js", "PostgreSQL", "Stripe", "NextAuth", "shadcn/ui", "Calendly API", "MagicLink", "PDF Generation"],
+      "skills": ["Typescript", "React.js", "Next.js", "Node.js", "PostgreSQL", "NextAuth", "shadcn/ui", "Calendly API", "MagicLink", "PDF Generation", "Relation client", "Vercel"],
       "description": [
         "Création d'un site web pour un holding d'entreprises en BTP. Le but était d'automatiser des tâches et ainsi de libérer 50% de charge de travail. MoneoDomus réalise environ 500 000€ de chiffre d'affaires par mois.",
         "- Développement frontend from scratch et responsive (React.js, shadcn/ui, TailwindCSS)",
@@ -279,9 +279,9 @@ export const frenchCV: CVData = {
       "order": 1,
       "place": "KAFO",
       "placeDescription": "Réseau Social pour télétravailleurs",
-      "title": "Fondateur, développeur Full Stack",
+      "title": "Fondateur, développeur Full Stack Vue.js Node.js",
       "period": "Février 2023 - Septembre 2023 (8 mois)",
-      "skills": ["Vue.js", "Xano", "Weweb", "Google Maps API", "AWS EC2", "GitHub CI/CD", "Primevue", "No-Code", "UX Testing"],
+      "skills": ["Typescript", "Vue.js", "Node.js", "Xano", "Weweb", "Google Maps API", "AWS EC2", "GitHub CI/CD", "Primevue", "No-Code", "UX/UI", "UX Testing", "Agile", "Scrum"],
       "description": [
         "Création d'une startup. Un réseau social pour les télétravailleurs. Kafo avait des partenariats avec plusieurs écoles privées et communautés de freelances (dont Freelance Republik). Un article est paru dans Les Echos dédié à la plateforme.",
         "- Développement backend en no-code from scratch (Xano)",
@@ -304,7 +304,7 @@ export const frenchCV: CVData = {
       "place": "Art Factory",
       "title": "Développeur FullStack et UX/UI Designer",
       "period": "Novembre 2023 - Janvier 2024 (3 mois)",
-      "skills": ["Next.js", "React.js", "Node.js", "PostgreSQL", "Express.js", "shadcn/ui", "TailwindCSS", "API Development"],
+      "skills": ["Typescript", "Next.js", "React.js", "Node.js", "PostgreSQL", "Express.js", "shadcn/ui", "TailwindCSS", "API Development"],
       "description": [
         "Développement et maintenance d'un site de gestion d'événements artistiques privés pour une association. (Next.js, Node.js, PostgreSQL)",
         "- Développement frontend (React, TailwindCSS)",
@@ -323,7 +323,7 @@ export const frenchCV: CVData = {
       "place": "Aestima Immobilier",
       "title": "Développeur FullStack",
       "period": "Juin 2021 - Décembre 2023 (2,5 ans)",
-      "skills": ["Vue.js", "Node.js", "Express.js", "Stripe", "Primevue", "Axios", "PDF Generation", "Refactoring"],
+      "skills": ["Typescript", "Vue.js", "Node.js", "Express.js", "Stripe", "Primevue", "Axios", "Puppeteer", "Clean Code", "PDF Generation", "Refactoring", "Agile", "Scrum"],
       "description": [
         "Refacto et ajouts de features sur un site de simulation d'investissements immobiliers (Équipe de 3 dev fullstacks). Le site était très mal développé et le front autant que le back ont dû faire l'objet d'un grand nettoyage.",
         "- Refonte frontend (Vue 2)",
@@ -342,7 +342,7 @@ export const frenchCV: CVData = {
       "place": "Mon Bureau",
       "title": "Projets personnels",
       "period": "Depuis juin 2021 (4 ans)",
-      "skills": ["React.js", "Next.js", "TypeScript", "PostgreSQL", "Tailwind CSS", "shadcn/ui", "i18n", "OAuth", "Perlin Noise", "Python", "Three.js", "Vue.js", "Docker", "Chrome Extension", "Firefox Extension"],
+      "skills": ["Typescript", "React.js", "Next.js", "PostgreSQL", "Tailwind CSS", "shadcn/ui", "i18n", "OAuth", "Perlin Noise", "Python", "Three.js", "Vue.js", "Docker", "Chrome Extension", "Firefox Extension"],
       "description": [
         "Mon Portfolio (sebastienpingal.dev) : Création d'un site web pour mon portfolio.",
         "- Développement frontend et backend from scratch et responsive (React.js, shadcn/ui, TailwindCSS, Next.js, Node.js, PostgreSQL)",
@@ -354,10 +354,10 @@ export const frenchCV: CVData = {
         "* Authentification OAuth avec LinkedIn",
         "* Modularisation du site en stockant les informations dans une base de données PostgreSQL afin de séparer gestion des informations et du front",
         "",
-        "DoctoNotes : Extension pour chrome et firefox affichant les notes google des medecins sur Doctolib.",
-        "Cerberes : Développement d'un chat minimaliste sécurisé de bout en bout (Vue3, Node.js, PostgreSQL, Docker, CI/CD). Déploiement sur un Raspberry Pi.",
-        "Livre 3D dynamique : Développement d'un livre 3D dynamique en React.js, Three.js. Génération des pages selon les fichiers en props du composant.",
-        "Remake du jeu 2048 : Développement d'un remake du jeu 2048 en Python sans bibliothèque externe."
+        "- DoctoNotes : Extension pour chrome et firefox affichant les notes google des medecins sur Doctolib.",
+        "- Cerberes : Développement d'un chat minimaliste sécurisé de bout en bout (Vue3, Node.js, PostgreSQL, Docker, CI/CD). Déploiement sur un Raspberry Pi.",
+        "- Livre 3D dynamique : Développement d'un livre 3D dynamique en React.js, Three.js. Génération des pages selon les fichiers en props du composant.",
+        "- Remake du jeu 2048 : Développement d'un remake du jeu 2048 en Python sans bibliothèque externe."
       ]
     },
     {
