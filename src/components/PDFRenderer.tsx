@@ -48,12 +48,12 @@ Font.register({
 // Theme colors from your globals.css
 const themeColors = {
   light: {
-    background: '#f6dff6',
+    background: '#faf2fa',
     foreground: '#2E052E',
-    card: '#F4D7F4',
+    card: '#faf2fa',
     primary: '#9E709E',
     secondary: '#92bf92',
-    accent: '#7c709e',
+    accent: '#8F6AE7',
   },
   dark: {
     background: '#202D20',
@@ -117,14 +117,76 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
       color: currentThemeColors.primary
     },
     section: {
-      marginBottom: 3,
-      padding: 4,
+      flexDirection: 'column',
+      gap: 10,
+      marginBottom: 8,
+      padding: 6,
       backgroundColor: currentThemeColors.card,
       borderRadius: 3
     },
     sectionTitle: {
       fontSize: 16,
+      fontWeight: 'bold',
+      marginBottom: 8
+    },
+    experienceRow: {
+      flexDirection: 'row',
+      marginBottom: 8,
+      gap: 10,
+      justifyContent: 'space-between'
+    },
+    experienceBasicInfo: {
+      width: '30%',
+      flexDirection: 'column'
+    },
+    experienceDetails: {
+      width: '65%',
+      flexDirection: 'column'
+    },
+    experienceHeader: {
+      fontSize: 14,
+      fontWeight: 'bold',
+      color: currentThemeColors.accent,
+      marginBottom: 20
+    },
+    placeDescription: {
+      fontSize: 10,
+      color: currentThemeColors.primary,
+      marginBottom: 4
+    },
+    experienceTitle: {
+      fontSize: 14,
+      marginBottom: 20,
+      fontWeight: 'bold',
+      color: currentThemeColors.accent,
+    },
+    experiencePeriod: {
+      fontSize: 9,
+      color: currentThemeColors.accent
+    },
+    experienceDescription: {
+      fontSize: 9,
+      marginBottom: 2,
+    },
+    experienceDescriptionDash: {
+      fontSize: 9,
+      marginLeft: 10,
+      marginBottom: 2,
+      marginTop: 10,
+    },
+    experienceDescriptionAsterisk: {
+      fontSize: 9,
+      marginLeft: 20,
+      marginTop: 5,
+    },
+    link: {
+      textDecoration: 'underline',
+      color: currentThemeColors.accent,
       fontWeight: 'bold'
+    },
+    mainContent: {
+      flexDirection: 'column',
+      gap: 30,
     },
     skillsSection: {
       marginBottom: 3,
@@ -157,57 +219,24 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
     skillItem: {
       fontSize: 10
     },
-    experience: {
-      padding: 3,
-      marginBottom: 4
-    },
-    experienceHeader: {
-      fontSize: 12,
-      fontWeight: 'bold',
-      color: currentThemeColors.accent
-    },
-    experienceTitleRow: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: 5
-    },
-    experienceTitle: {
-      fontSize: 10,
-      textTransform: 'uppercase'
-    },
-    experiencePeriod: {
-      fontSize: 10,
-      color: currentThemeColors.accent
-    },
-    experienceDescription: {
-      fontSize: 9,
+    experienceSkills: {
       marginTop: 5,
-      marginLeft: 5,
+      marginBottom: 5,
     },
-    experienceDescriptionDash: {
-      fontSize: 9,
-      marginLeft: 15,
-    },
-    experienceDescriptionAsterisk: {
-      fontSize: 9,
-      marginLeft: 30,
-    },
-    link: {
-      textDecoration: 'underline',
+    experienceSkillsTitle: {
+      fontSize: 10,
+      fontWeight: 'bold',
       color: currentThemeColors.accent,
-      fontWeight: 'bold'
+      marginBottom: 2,
     },
-    mainContent: {
+    experienceSkillsContent: {
       flexDirection: 'row',
-      gap: 10,
-    },
-    sidebar: {
-      width: '25%',
-    },
-    contentArea: {
-      width: '75%',
-      flexDirection: 'column',
+      flexWrap: 'wrap',
       gap: 3,
+    },
+    experienceContent: {
+      flexDirection: 'column',
+      gap: 20,
     },
   })
 
@@ -225,7 +254,18 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
             )}
             <View style={styles.headerText}>
               <Text style={styles.name}>{data.name}</Text>
-              <Text style={styles.title}>{data.title}</Text>
+              <Text style={styles.title}>
+                {data.title}
+              </Text>
+              {data.yearsOfExperience && (
+                <Text style={{ fontSize: 14, color: currentThemeColors.accent, fontWeight: 'normal' }}>
+                  {data.yearsOfExperience}{" "}
+                  {language === 'en'
+                    ? `${data.yearsOfExperience > 1 ? 'years' : 'year'} of experience`
+                    : `${data.yearsOfExperience > 1 ? 'années' : 'année'} d'expérience`
+                  }
+                </Text>
+              )}
             </View>
           </View>
           <View style={styles.headerRight}>
@@ -239,130 +279,99 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
           </View>
         </View>
 
-        {/* New layout structure */}
+        {/* Main Content */}
         <View style={styles.mainContent}>
-          {/* Sidebar */}
-          <View style={styles.sidebar}>
+          {/* Experience Section */}
+          {data.experience && (
             <View style={styles.section}>
-              <Text style={styles.sectionTitle}>{language === 'en' ? 'Skills' : 'Compétences'}</Text>
-              <View style={styles.skillsSection}>
-                {data.skills?.stack && (
-                  <View style={styles.skillCategory}>
-                    <Text style={styles.skillCategoryTitle}>
-                      {language === 'en' ? 'Technical Stack' : 'Stack Technique'}
-                    </Text>
-                    {data.skills.stack.map((group, groupIndex) => (
-                      <View key={groupIndex} style={styles.skillsContent}>
-                        {group.map((skill, i) => (
-                          <Text key={i} style={styles.skillItem}>
-                            {skill.name}
-                            {i < group.length - 1 && ', '}
+              <Text style={styles.sectionTitle}>
+                {language === 'en' ? 'Professional Experience' : 'Expérience Professionnelle'}
+              </Text>
+              <View style={styles.experienceContent}>
+                {data.experience
+                  .sort((a, b) => (a.order || 0) - (b.order || 0))
+                  .map((exp, index) => (
+                    <View key={index} style={styles.experienceRow}>
+                      {/* Left Column - Basic Info Only */}
+                      <View style={styles.experienceBasicInfo}>
+                        <Text style={styles.experienceHeader}>
+                          {exp.link ? (
+                            <Link style={styles.link} src={exp.link}>
+                              {exp.place}
+                            </Link>
+                          ) : (
+                            exp.place
+                          )}
+                        </Text>
+                        {exp.placeDescription && (
+                          <Text style={styles.placeDescription}>{exp.placeDescription}</Text>
+                        )}
+                        <Text style={styles.experiencePeriod}>{exp.period}</Text>
+                      </View>
+
+                      {/* Right Column - Detailed Descriptions + Skills */}
+                      <View style={styles.experienceDetails}>
+                        <Text style={styles.experienceTitle}>{exp.title}</Text>
+
+                        {/* Subtitle for responsibilities */}
+                        <Text style={styles.experienceSkillsTitle}>
+                          {language === 'en' ? 'My responsibilities / tasks performed:' : 'Mes responsabilités / tâches effectuées :'}
+                        </Text>
+
+                        {/* Descriptions */}
+                        {exp.description?.map((desc, i) => (
+                          <Text
+                            key={i}
+                            style={
+                              desc.startsWith('*')
+                                ? styles.experienceDescriptionAsterisk
+                                : desc.startsWith('-')
+                                  ? styles.experienceDescriptionDash
+                                  : styles.experienceDescription
+                            }
+                          >
+                            {desc}
                           </Text>
                         ))}
+
+                        {/* Skills Section - After descriptions */}
+                        {exp.skills && exp.skills.length > 0 && (
+                          <View style={styles.experienceSkills}>
+                            <Text style={styles.experienceSkillsTitle}>
+                              {language === 'en' ? 'Skills:' : 'Compétences :'}
+                            </Text>
+                            <View style={styles.experienceSkillsContent}>
+                              {exp.skills.map((skill, skillIndex) => (
+                                <Text key={skillIndex} style={styles.skillItem}>
+                                  {skill}
+                                </Text>
+                              ))}
+                            </View>
+                          </View>
+                        )}
                       </View>
-                    ))}
-                  </View>
-                )}
-
-                {data.skills?.other && data.skills.other.length > 0 && (
-                  <View style={styles.skillCategory}>
-                    <Text style={styles.skillCategoryTitle}>
-                      {language === 'en' ? 'Other Skills' : 'Autres Compétences'}
-                    </Text>
-                    <View style={styles.skillsContent}>
-                      {data.skills.other.map((skill, i) => (
-                        <Text key={i} style={styles.skillItem}>
-                          {skill.name}
-                          {i < data.skills!.other!.length - 1 && ', '}
-                        </Text>
-                      ))}
                     </View>
-                  </View>
-                )}
-
-                {data.languages && data.languages.length > 0 && (
-                  <View style={styles.skillCategory}>
-                    <Text style={styles.skillCategoryTitle}>
-                      {language === 'en' ? 'Languages' : 'Langues'} :
-                    </Text>
-                    <View style={styles.skillsContent}>
-                      {data.languages.map((lang, i) => (
-                        <Text key={i} style={styles.skillItem}>
-                          {lang.name} ({lang.level})
-                          {i < data.languages!.length - 1 && ', '}
-                        </Text>
-                      ))}
-                    </View>
-                  </View>
-                )}
+                  ))}
               </View>
             </View>
-            {data.activities && (
-              <View style={styles.section}>
-                <Text style={styles.sectionTitle}>{language === 'en' ? 'Activities' : 'Activités'}</Text>
-                <View style={styles.activitiesContent}>
-                  {data.activities.map((activity, i) => (
-                    <Text key={i} style={styles.skillItem}>
-                      {activity}
-                    </Text>
-                  ))}
-                </View>
-              </View>
-            )}
-          </View>
+          )}
 
-          {/* Main Content Area */}
-          <View style={styles.contentArea}>
-            {/* Experience Section */}
-            {data.experience && (
-              <View style={styles.section}>
-                <Text style={styles.sectionTitle}>
-                  {language === 'en' ? 'Experiences' : 'Expérience Professionnelle'}
-                </Text>
-                {data.experience.map((exp, index) => (
-                  <View key={index} style={styles.experience}>
-                    <Text style={styles.experienceHeader}>
-                      {exp.link ? (
-                        <Link style={styles.link} src={exp.link}>
-                          <Text>{exp.place}</Text>
-                        </Link>
-                      ) : (
-                        exp.place
-                      )}
-                    </Text>
-                    <View style={styles.experienceTitleRow}>
-                      <Text style={styles.experienceTitle}>{exp.title}</Text>
-                      <Text style={styles.experiencePeriod}>{exp.period}</Text>
-                    </View>
-                    {exp.description?.map((desc, i) => (
-                      <Text
-                        key={i}
-                        style={
-                          desc.startsWith('*')
-                            ? styles.experienceDescriptionAsterisk
-                            : desc.startsWith('-')
-                              ? styles.experienceDescriptionDash
-                              : styles.experienceDescription
-                        }
-                      >
-                        {desc}
-                      </Text>
-                    ))}
-                  </View>
-                ))}
-              </View>
-            )}
-
-            {/* Education Section */}
-            {data.education && (
-              <View style={styles.section}>
-                <Text style={styles.sectionTitle}>
-                  {language === 'en' ? 'Education' : 'Formation'}
-                </Text>
-                {data.education.map((edu, index) => (
-                  <View key={index} style={styles.experience}>
+          {/* Education Section */}
+          {data.education && (
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>
+                {language === 'en' ? 'Education' : 'Formation'}
+              </Text>
+              {data.education.map((edu, index) => (
+                <View key={index} style={styles.experienceRow}>
+                  <View style={styles.experienceBasicInfo}>
                     <Text style={styles.experienceHeader}>{edu.title}</Text>
+                    {edu.placeDescription && (
+                      <Text style={styles.placeDescription}>{edu.placeDescription}</Text>
+                    )}
                     <Text style={styles.experiencePeriod}>{edu.period}</Text>
+                  </View>
+                  <View style={styles.experienceDetails}>
                     {edu.description?.map((desc, i) => (
                       <Text
                         key={i}
@@ -378,10 +387,10 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
                       </Text>
                     ))}
                   </View>
-                ))}
-              </View>
-            )}
-          </View>
+                </View>
+              ))}
+            </View>
+          )}
         </View>
       </Page>
     </Document>

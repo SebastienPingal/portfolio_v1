@@ -3,6 +3,7 @@ import { CVData } from '@/types/CV'
 export const englishCV: CVData = {
   name: "Sébastien Pingal",
   title: "Fullstack Developer",
+  yearsOfExperience: 4,
   profileImage: "/img/me_black.png",
   profileImageDark: "/img/me_white.png",
   contact: [
