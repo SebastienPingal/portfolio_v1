@@ -51,7 +51,7 @@ const themeColors = {
     background: '#faf2fa',
     foreground: '#2E052E',
     card: '#faf2fa',
-    primary: '#9E709E',
+    primary: '#8067A8',
     secondary: '#92bf92',
     accent: '#8F6AE7',
   },
@@ -151,7 +151,7 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
     },
     placeDescription: {
       fontSize: 10,
-      color: currentThemeColors.primary,
+      color: currentThemeColors.accent,
       marginBottom: 4
     },
     experienceTitle: {
@@ -162,7 +162,7 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
     },
     experiencePeriod: {
       fontSize: 9,
-      color: currentThemeColors.accent
+      color: currentThemeColors.primary
     },
     experienceDescription: {
       fontSize: 9,
@@ -232,7 +232,24 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
     experienceSkillsContent: {
       flexDirection: 'row',
       flexWrap: 'wrap',
-      gap: 3,
+      gap: 2
+    },
+    experienceLinkSection: {
+      marginTop: 8,
+      padding: 3,
+      backgroundColor: currentThemeColors.background,
+      borderRadius: 2
+    },
+    experienceLinkTitle: {
+      fontSize: 8,
+      fontWeight: 'bold',
+      color: currentThemeColors.primary,
+      marginBottom: 2
+    },
+    experienceLink: {
+      fontSize: 8,
+      color: currentThemeColors.accent,
+      textDecoration: 'underline'
     },
     experienceContent: {
       flexDirection: 'column',
@@ -347,6 +364,18 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
                                 </Text>
                               ))}
                             </View>
+                          </View>
+                        )}
+
+                        {/* Link Section - After skills */}
+                        {exp.link && (
+                          <View style={styles.experienceLinkSection}>
+                            <Text style={styles.experienceLinkTitle}>
+                              {language === 'en' ? 'More details:' : 'Plus de détails :'}
+                            </Text>
+                            <Link style={styles.experienceLink} src={exp.link}>
+                              {exp.link}
+                            </Link>
                           </View>
                         )}
                       </View>
