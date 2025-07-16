@@ -50,8 +50,8 @@ const themeColors = {
   light: {
     background: '#faf2fa',
     foreground: '#2E052E',
-    card: '#faf2fa',
-    primary: '#8067A8',
+    card: '#E1D7F9',
+    primary: '#7743CB',
     secondary: '#92bf92',
     accent: '#8F6AE7',
   },
@@ -80,27 +80,49 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
     },
     header: {
       flexDirection: 'row',
-      justifyContent: 'space-between',
+      // justifyContent: 'space-between',
+      gap: 20,
       marginBottom: 10,
-      padding: 5,
+      padding: 10,
       backgroundColor: currentThemeColors.card,
-      borderRadius: 3,
-    },
-    headerLeft: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: 10
+      borderRadius: 10,
     },
     profileImage: {
-      height: 60,
-      objectFit: 'contain'
+      height: 200,
+      opacity: 0.8,
+      objectFit: 'cover',
+      borderRadius: 10,
     },
     headerText: {
       flexDirection: 'column'
     },
+    headerLeft: {
+      flexDirection: 'row',
+      alignItems: 'flex-start',
+      gap: 20,
+    },
     headerRight: {
       flexDirection: 'column',
-      alignItems: 'flex-end'
+      justifyContent: 'space-between',
+      gap: 4,
+      alignItems: 'flex-start',
+      flex: 1,
+      minWidth: 0
+    },
+    languagesContactContainer: {
+      flexDirection: 'row',
+      width: '100%',
+      justifyContent: 'space-between',
+      gap: 20,
+    },
+    languagesContainer: {
+      flexDirection: 'row',
+      gap: 20,
+      alignItems: 'flex-end',
+    },
+    languagesContent: {
+      fontSize: 14,
+      color: currentThemeColors.primary,
     },
     name: {
       fontSize: 24,
@@ -108,57 +130,61 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
       fontWeight: 'ultrabold'
     },
     title: {
-      fontSize: 16,
+      fontSize: 24,
+      color: currentThemeColors.primary,
+      fontWeight: 'bold'
+    },
+    subtitle: {
+      fontSize: 18,
       color: currentThemeColors.primary,
       fontWeight: 'bold'
     },
     contact: {
       fontSize: 9,
-      color: currentThemeColors.primary
+      color: currentThemeColors.accent
+    },
+    contactContainer: {
+      flexDirection: 'column',
+      gap: 4,
+      alignItems: 'flex-end'
     },
     section: {
       flexDirection: 'column',
       gap: 10,
       marginBottom: 8,
       padding: 6,
-      backgroundColor: currentThemeColors.card,
       borderRadius: 3
     },
     sectionTitle: {
-      fontSize: 16,
+      fontSize: 18,
       fontWeight: 'bold',
-      marginBottom: 8
+      marginBottom: 8,
+      color: currentThemeColors.primary,
     },
     experienceRow: {
       flexDirection: 'row',
-      marginBottom: 8,
       gap: 10,
       justifyContent: 'space-between'
     },
-    experienceBasicInfo: {
+    leftColumn: {
       width: '30%',
-      flexDirection: 'column'
+      flexDirection: 'column',
+      gap: 4
     },
-    experienceDetails: {
+    rightColumn: {
       width: '65%',
       flexDirection: 'column'
     },
-    experienceHeader: {
-      fontSize: 14,
-      fontWeight: 'bold',
-      color: currentThemeColors.accent,
-      marginBottom: 20
-    },
     placeDescription: {
-      fontSize: 10,
+      fontSize: 9,
       color: currentThemeColors.accent,
       marginBottom: 4
     },
     experienceTitle: {
       fontSize: 14,
-      marginBottom: 20,
+      marginBottom: 10,
       fontWeight: 'bold',
-      color: currentThemeColors.accent,
+      color: currentThemeColors.primary,
     },
     experiencePeriod: {
       fontSize: 9,
@@ -172,16 +198,15 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
       fontSize: 9,
       marginLeft: 10,
       marginBottom: 2,
-      marginTop: 10,
+      marginTop: 5,
     },
     experienceDescriptionAsterisk: {
       fontSize: 9,
       marginLeft: 20,
-      marginTop: 5,
     },
     link: {
       textDecoration: 'underline',
-      color: currentThemeColors.accent,
+      color: currentThemeColors.primary,
       fontWeight: 'bold'
     },
     mainContent: {
@@ -232,7 +257,7 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
     experienceSkillsContent: {
       flexDirection: 'row',
       flexWrap: 'wrap',
-      gap: 2
+      gap: 2,
     },
     experienceLinkSection: {
       marginTop: 8,
@@ -253,7 +278,7 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
     },
     experienceContent: {
       flexDirection: 'column',
-      gap: 20,
+      gap: 58,
     },
   })
 
@@ -269,11 +294,14 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
                 style={styles.profileImage}
               />
             )}
+          </View>
+          <View style={styles.headerRight}>
             <View style={styles.headerText}>
               <Text style={styles.name}>{data.name}</Text>
               <Text style={styles.title}>
                 {data.title}
               </Text>
+              <Text style={styles.subtitle}>{data.subtitle}</Text>
               {data.yearsOfExperience && (
                 <Text style={{ fontSize: 14, color: currentThemeColors.accent, fontWeight: 'normal' }}>
                   {data.yearsOfExperience}{" "}
@@ -284,15 +312,20 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
                 </Text>
               )}
             </View>
-          </View>
-          <View style={styles.headerRight}>
-            {data.contact && (
-              <>
-                {data.contact.map((contact) => (
-                  contact.value && <Link key={contact.key} style={styles.contact} src={contact.link}>{contact.value}</Link>
+            <View style={styles.languagesContactContainer}>
+              <View style={styles.languagesContainer}>
+                {data.languages && data.languages.map((lang) => (
+                  <Text key={lang.name} style={styles.languagesContent}>{lang.name}</Text>
                 ))}
-              </>
-            )}
+              </View>
+              {data.contact && (
+                <View style={styles.contactContainer}>
+                  {data.contact.map((contact) => (
+                    contact.value && <Link key={contact.key} style={styles.contact} src={contact.link}>{contact.value}</Link>
+                  ))}
+                </View>
+              )}
+            </View>
           </View>
         </View>
 
@@ -304,85 +337,97 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
               <Text style={styles.sectionTitle}>
                 {language === 'en' ? 'Professional Experience' : 'Expérience Professionnelle'}
               </Text>
+
               <View style={styles.experienceContent}>
                 {data.experience
                   .sort((a, b) => (a.order || 0) - (b.order || 0))
                   .map((exp, index) => (
-                    <View key={index} style={styles.experienceRow}>
-                      {/* Left Column - Basic Info Only */}
-                      <View style={styles.experienceBasicInfo}>
-                        <Text style={styles.experienceHeader}>
-                          {exp.link ? (
-                            <Link style={styles.link} src={exp.link}>
-                              {exp.place}
-                            </Link>
-                          ) : (
-                            exp.place
-                          )}
-                        </Text>
-                        {exp.placeDescription && (
-                          <Text style={styles.placeDescription}>{exp.placeDescription}</Text>
-                        )}
-                        <Text style={styles.experiencePeriod}>{exp.period}</Text>
+
+                    <View key={index} >
+                      <View style={styles.experienceRow}>
+                        <View style={styles.leftColumn}>
+                          <Text style={styles.experienceTitle}>
+                            {exp.link ? (
+                              <Link style={styles.link} src={exp.link}>
+                                {exp.place}
+                              </Link>
+                            ) : (
+                              exp.place
+                            )}
+                          </Text>
+                        </View>
+
+                        <View style={styles.rightColumn}>
+                          <Text style={styles.experienceTitle}>{exp.title}</Text>
+                        </View>
                       </View>
 
-                      {/* Right Column - Detailed Descriptions + Skills */}
-                      <View style={styles.experienceDetails}>
-                        <Text style={styles.experienceTitle}>{exp.title}</Text>
+                      <View style={styles.experienceRow}>
+                        {/* Left Column - Basic Info Only */}
+                        <View style={styles.leftColumn}>
+                          <Text style={styles.experiencePeriod}>{exp.period}</Text>
+                          {exp.placeDescription && (
+                            <Text style={styles.placeDescription}>{exp.placeDescription}</Text>
+                          )}
+                        </View>
 
-                        {/* Subtitle for responsibilities */}
-                        <Text style={styles.experienceSkillsTitle}>
-                          {language === 'en' ? 'My responsibilities / tasks performed:' : 'Mes responsabilités / tâches effectuées :'}
-                        </Text>
+                        {/* Right Column - Detailed Descriptions + Skills */}
+                        <View style={styles.rightColumn}>
 
-                        {/* Descriptions */}
-                        {exp.description?.map((desc, i) => (
-                          <Text
-                            key={i}
-                            style={
-                              desc.startsWith('*')
-                                ? styles.experienceDescriptionAsterisk
-                                : desc.startsWith('-')
-                                  ? styles.experienceDescriptionDash
-                                  : styles.experienceDescription
-                            }
-                          >
-                            {desc}
+                          {/* Subtitle for responsibilities */}
+                          <Text style={styles.experienceSkillsTitle}>
+                            {language === 'en' ? 'My responsibilities / tasks performed:' : 'Mes responsabilités / tâches effectuées :'}
                           </Text>
-                        ))}
 
-                        {/* Skills Section - After descriptions */}
-                        {exp.skills && exp.skills.length > 0 && (
-                          <View style={styles.experienceSkills}>
-                            <Text style={styles.experienceSkillsTitle}>
-                              {language === 'en' ? 'Skills:' : 'Compétences :'}
+                          {/* Descriptions */}
+                          {exp.description?.map((desc, i) => (
+                            <Text
+                              key={i}
+                              style={
+                                desc.startsWith('*')
+                                  ? styles.experienceDescriptionAsterisk
+                                  : desc.startsWith('-')
+                                    ? styles.experienceDescriptionDash
+                                    : styles.experienceDescription
+                              }
+                            >
+                              {desc}
                             </Text>
-                            <View style={styles.experienceSkillsContent}>
-                              {exp.skills.map((skill, skillIndex) => (
-                                <>
-                                  <Text key={skillIndex} style={styles.skillItem}>
-                                    {skill}
-                                  </Text>
-                                  {skillIndex !== (exp.skills?.length || 0) - 1 && (
-                                    <Text style={styles.skillItem}>·</Text>
-                                  )}
-                                </>
-                              ))}
+                          ))}
+
+                          {/* Skills Section - After descriptions */}
+                          {exp.skills && exp.skills.length > 0 && (
+                            <View style={styles.experienceSkills}>
+                              <Text style={styles.experienceSkillsTitle}>
+                                {language === 'en' ? 'Skills:' : 'Compétences :'}
+                              </Text>
+                              <View style={styles.experienceSkillsContent}>
+                                {exp.skills.map((skill, skillIndex) => (
+                                  <>
+                                    <Text key={skillIndex} style={styles.skillItem}>
+                                      {skill}
+                                    </Text>
+                                    {skillIndex !== (exp.skills?.length || 0) - 1 && (
+                                      <Text style={styles.skillItem}>·</Text>
+                                    )}
+                                  </>
+                                ))}
+                              </View>
                             </View>
-                          </View>
-                        )}
+                          )}
 
-                        {/* Link Section - After skills */}
-                        {exp.link && (
-                          <View style={styles.experienceLinkSection}>
-                            <Text style={styles.experienceLinkTitle}>
-                              {language === 'en' ? 'More details:' : 'Plus de détails :'}
-                            </Text>
-                            <Link style={styles.experienceLink} src={exp.link}>
-                              {exp.link}
-                            </Link>
-                          </View>
-                        )}
+                          {/* Link Section - After skills */}
+                          {exp.link && (
+                            <View style={styles.experienceLinkSection}>
+                              <Text style={styles.experienceLinkTitle}>
+                                {language === 'en' ? 'More details:' : 'Plus de détails :'}
+                              </Text>
+                              <Link style={styles.experienceLink} src={exp.link}>
+                                {exp.link}
+                              </Link>
+                            </View>
+                          )}
+                        </View>
                       </View>
                     </View>
                   ))}
@@ -398,14 +443,14 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
               </Text>
               {data.education.map((edu, index) => (
                 <View key={index} style={styles.experienceRow}>
-                  <View style={styles.experienceBasicInfo}>
-                    <Text style={styles.experienceHeader}>{edu.title}</Text>
+                  <View style={styles.leftColumn}>
+                    <Text style={styles.experienceTitle}>{edu.title}</Text>
                     {edu.placeDescription && (
                       <Text style={styles.placeDescription}>{edu.placeDescription}</Text>
                     )}
                     <Text style={styles.experiencePeriod}>{edu.period}</Text>
                   </View>
-                  <View style={styles.experienceDetails}>
+                  <View style={styles.rightColumn}>
                     {edu.description?.map((desc, i) => (
                       <Text
                         key={i}

@@ -23,6 +23,7 @@ interface Item {
 interface CVData {
   name: string | null
   title: string | null
+  subtitle: string | null
   yearsOfExperience?: number | null
   contact: Contact[] | null
   languages: Language[] | null

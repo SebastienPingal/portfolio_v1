@@ -4,9 +4,12 @@ export const frenchCV: CVData = {
   "name": "Sébastien Pingal",
   "about": "Développeur Full Stack passionné par l'innovation, j'ai récemment conçu et développé moneodomus.com, une plateforme web complexe de gestion de projets immobiliers, permettant la collaboration entre différents acteurs du secteur (agences, constructeurs, architectes). Co-fondateur de KAFO, une startup dédiée à réduire l'isolement des télétravailleurs, je m'appuie sur une expérience précédente de 6 ans dans l'industrie musicale qui m'a doté d'une forte capacité d'adaptation et de créativité. Je suis à l'aise avec les technologies modernes comme Docker et CI/CD, et je suis toujours prêt à apprendre de nouvelles méthodes et langages.",
   "title": "Développeur Full Stack",
+  "subtitle": "Node - React - Vue",
   "yearsOfExperience": 4,
-  "profileImage": "/img/me_black.png",
-  "profileImageDark": "/img/me_white.png",
+  "profileImage": "/img/seb7.jpg",
+  // "profileImage": "/img/me_black.png",
+  "profileImageDark": "/img/seb7.jpg",
+  // "profileImageDark": "/img/me_white.png",
   "activities": [
     "Musique (composition, batterie)",
     "Membre de l'association de jam musicale 'Majama'",
@@ -245,10 +248,10 @@ export const frenchCV: CVData = {
       "name": "Anglais",
       "level": "Professionnel"
     },
-    {
-      "name": "Allemand",
-      "level": "Basique"
-    }
+    // {
+    //   "name": "Allemand",
+    //   "level": "Basique"
+    // }
   ],
   "experience": [
     {
@@ -279,7 +282,7 @@ export const frenchCV: CVData = {
       "order": 1,
       "place": "KAFO",
       "placeDescription": "Réseau Social pour télétravailleurs",
-      "title": "Fondateur, développeur Full Stack Vue.js Node.js",
+      "title": "Fondateur, développeur Full Stack (Vue.js, Node.js, PostgresSQL) ",
       "period": "Février 2023 - Septembre 2023 (8 mois)",
       "skills": ["Typescript", "Vue.js", "Node.js", "Xano", "Weweb", "Google Maps API", "AWS EC2", "GitHub CI/CD", "Primevue", "No-Code", "UX/UI", "UX Testing", "Agile", "Scrum"],
       "description": [
@@ -302,7 +305,7 @@ export const frenchCV: CVData = {
       "link": "",
       "order": 2,
       "place": "Art Factory",
-      "title": "Développeur FullStack et UX/UI Designer",
+      "title": "Développeur FullStack (Next.js, Node.js, React.js, PostgreSQL) et UX/UI Designer",
       "period": "Novembre 2023 - Janvier 2024 (3 mois)",
       "skills": ["Typescript", "Next.js", "React.js", "Node.js", "PostgreSQL", "Express.js", "shadcn/ui", "TailwindCSS", "API Development"],
       "description": [
@@ -321,7 +324,7 @@ export const frenchCV: CVData = {
       "link": "https://www.linkedin.com/company/aestima-immo/posts/",
       "order": 3,
       "place": "Aestima Immobilier",
-      "title": "Développeur FullStack",
+      "title": "Développeur FullStack (Vue.js, Node.js, Express.js, PostgreSQL, Stripe)",
       "period": "Juin 2021 - Décembre 2023 (2,5 ans)",
       "skills": ["Typescript", "Vue.js", "Node.js", "Express.js", "Stripe", "Primevue", "Axios", "Puppeteer", "Clean Code", "PDF Generation", "Refactoring", "Agile", "Scrum"],
       "description": [
