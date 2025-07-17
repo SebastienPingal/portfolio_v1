@@ -2,6 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .backdrop-blur-xs {
+    backdrop-filter: blur(4px);
+  }
+  
+  .backdrop-blur-2xs {
+    backdrop-filter: blur(1px);
+  }
+  
+  .backdrop-blur-minimal {
+    backdrop-filter: blur(0.5px);
+  }
+}
+
 
 @layer base {
   :root {
@@ -131,7 +145,7 @@
   }
 
   .glassPanel {
-    @apply text-lg backdrop-blur-xl p-2 rounded bg-card/20
+    @apply text-lg backdrop-blur-xs p-2 rounded bg-card/20
   }
 
   .markdown a {

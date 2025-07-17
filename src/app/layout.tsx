@@ -14,7 +14,7 @@ import { ThemeProvider } from "./theme-provider"
 // Components
 import Navbar from "@/components/NavBar"
 import MobileNavMenu from "@/components/MobileNavMenu"
-import PerlinBackground from "@/components/perlinBackground.jsx"
+import AdaptiveBackground from "@/components/AdaptiveBackground.jsx"
 import { Toaster } from "@/components/ui/toaster"
 
 
@@ -82,7 +82,7 @@ export default async function RootLayout({
                 {/* Mobile navbar */}
                 <MobileNavMenu workPosts={workPosts} blogPosts={blogPosts} externalLinks={externalLinks} />
               </div>
-              <PerlinBackground className="inset-0 -z-10" />
+              <AdaptiveBackground className="inset-0 -z-10" defaultType="dithered" />
             </SessionProvider>
           </ThemeProvider>
         </NextIntlClientProvider>
