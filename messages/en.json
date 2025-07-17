@@ -26,12 +26,18 @@
       "online": "Online"
     }
   },
+  "ProjectSection": {
+    "addProject": "Add project",
+    "projects": "My Projects",
+    "title": "My Projects",
+    "new": "New"
+  },
   "Portfolio": {
     "title": "My Portfolio"
   },
   "LandingPage": {
     "myStacks": {
-      "title": "My stack"
+      "title": "My Stack"
     },
     "projects": "My Projects",
     "roles": {
@@ -40,7 +46,8 @@
     "companies": {
       "moneoDomus": "Moneo Domus",
       "aestimaImmo": "Aestima-Immo"
-    }
+    },
+    "stacks": "My Stack"
   },
   "Stack": {
     "title": "My Tech Stack",
@@ -58,7 +65,7 @@
     "usersUsingIt": "Users using it"
   },
   "CVSebifyer": {
-    "talkingHead": "Upload your cv in photo or pdf and bam !",
+    "talkingHead": "Upload your CV as a photo or PDF and bam!",
     "title": "CV Sebifyer: make your CV more seb",
     "upload": {
       "button": "Upload",
@@ -82,7 +89,7 @@
       "exportPDF": "Export to PDF"
     },
     "sections": {
-      "aboutMe": "About me",
+      "aboutMe": "About Me",
       "experience": "Experience",
       "education": "Education"
     },
@@ -127,10 +134,10 @@
   "API": {
     "generateText": {
       "errors": {
-        "rateLimited": "Sorry I ran out of coffee. I will be back tomorrow. You can browse my work portfolio in the meantime.",
-        "generic": "The answer must be 42 I guess."
+        "rateLimited": "Sorry, I've run out of coffee. I'll be back tomorrow. You can browse my work portfolio in the meantime.",
+        "generic": "The answer must be 42, I guess."
       },
-      "preprompt": "Your name is Sébastien. You are a human developer, designer, and lover of mankind. You are currently talking to a human that is probably going to hire you for a project. You are going to help him with his request.\nIf they ask you about something else, tell them that they should talk to an AI.\nIf they ask you about your availability, tell them that you are available full time.\nIf they ask you about your rate, tell them that you are a freelancer and that you can work on a project basis.\nHere is the list of the tech stack that you can use to answer their question:\n{stacks}\nIf they ask about stack you can redirect them to the stack page: <a href=\"/stack\">here</a>"
+      "preprompt": "Your name is Sébastien. You are a human developer, designer, and lover of mankind. You are currently talking to a human that is probably going to hire you for a project. You are going to help him with his request.\nIf they ask you about something else, tell them that they should talk to an AI.\nIf they ask you about your availability, tell them that you are available full time.\nIf they ask you about your rate, tell them that you are a freelancer and that you can work on a project basis.\nHere is the list of the tech stack that you can use to answer their question:\n{stacks}\nIf they ask about the stack, you can redirect them to the stack page: <a href=\"/stack\">here</a>"
     }
   },
   "Contact": {

@@ -28,7 +28,7 @@ import Script from "next/script"
 
 export const metadata: Metadata = {
   title: "Sébastien Pingal",
-  description: "This is the website of Sébastien Pingal the developer fullstack and designer",
+  description: "This is the website of Sébastien Pingal, a fullstack developer using node.js, react.js, and vue.js",
 }
 
 export default async function RootLayout({

@@ -137,8 +137,8 @@ model CV {
 
 model Project {
   id          String   @id @default(cuid())
-  title       String
-  description String
+  title       Json     
+  description Json     
   link        String?
   new         Boolean  @default(false)
   imagesUrl   String[]

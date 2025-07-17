@@ -1,6 +1,7 @@
 'use client'
 import { Project } from "@prisma/client"
-import { useTranslations } from "next-intl"
+import { useTranslations, useLocale } from "next-intl"
+import { useTranslatedContent } from "@/lib/translations"
 import { Button } from "./ui/button"
 import { Badge } from "./ui/badge"
 import { PlusIcon } from "lucide-react"
@@ -14,10 +15,20 @@ import { useToast } from "@/components/ui/use-toast"
 import { deleteProject } from "@/app/actions/project"
 import DeleteConfirmationPopover from "./DeleteConfirmationPopover"
 
-export default function ProjectSection({ projects, session }: { projects: Project[], session: any }) {
+interface ProjectWithTranslations extends Omit<Project, 'title' | 'description'> {
+  title: { en: string; fr: string }
+  description: { en: string; fr: string }
+}
+
+export default function ProjectSection({ projects, session }: { projects: ProjectWithTranslations[], session: any }) {
   const t = useTranslations('ProjectSection')
+  const locale = useLocale()
   const [showForm, setShowForm] = useState(false)
-  const [form, setForm] = useState({ title: '', description: '', link: '' })
+  const [form, setForm] = useState({ 
+    title: { en: '', fr: '' }, 
+    description: { en: '', fr: '' }, 
+    link: '' 
+  })
   const [loading, setLoading] = useState(false)
   const router = useRouter()
   const { toast } = useToast()
@@ -28,7 +39,7 @@ export default function ProjectSection({ projects, session }: { projects: Projec
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!form.title || !form.description || !form.link) {
+    if (!form.title.en || !form.title.fr || !form.description.en || !form.description.fr || !form.link) {
       toast({
         title: '❗ Remplissez tous les champs',
         description: 'Veuillez remplir tous les champs du formulaire.'
@@ -43,7 +54,7 @@ export default function ProjectSection({ projects, session }: { projects: Projec
         description: 'Le projet a été ajouté avec succès.'
       })
       setShowForm(false)
-      setForm({ title: '', description: '', link: '' })
+      setForm({ title: { en: '', fr: '' }, description: { en: '', fr: '' }, link: '' })
       router.refresh()
     } catch (err) {
       toast({
@@ -88,10 +99,10 @@ export default function ProjectSection({ projects, session }: { projects: Projec
                   className="hover:-translate-y-1 hover:shadow-lg border-2 h-full hover:border-primary transition-all duration-300">
                   <CardHeader className="p-4 relative">
                     <div className="flex items-center gap-2">
-                      <h3>{project.title}</h3>
+                      <h3>{useTranslatedContent(project.title)}</h3>
                       {project.new && <Badge variant='shine'>{t('new')}</Badge>}
                     </div>
-                    <p>{project.description}</p>
+                    <p>{useTranslatedContent(project.description)}</p>
                   </CardHeader>
                 </Card>
               </a>
@@ -116,20 +127,38 @@ export default function ProjectSection({ projects, session }: { projects: Projec
                 </CardHeader>
                 <CardContent>
                   <form onSubmit={handleSubmit} className="flex flex-col gap-2">
-                    <Input
-                      name="title"
-                      placeholder="Title"
-                      value={form.title}
-                      onChange={handleChange}
-                      required
-                    />
-                    <Textarea
-                      name="description"
-                      placeholder="Description"
-                      value={form.description}
-                      onChange={handleChange}
-                      required
-                    />
+                    <div className="grid grid-cols-2 gap-2">
+                      <Input
+                        name="title_en"
+                        placeholder="Title (English)"
+                        value={form.title.en}
+                        onChange={(e) => setForm({...form, title: {...form.title, en: e.target.value}})}
+                        required
+                      />
+                      <Input
+                        name="title_fr"
+                        placeholder="Titre (Français)"
+                        value={form.title.fr}
+                        onChange={(e) => setForm({...form, title: {...form.title, fr: e.target.value}})}
+                        required
+                      />
+                    </div>
+                    <div className="grid grid-cols-2 gap-2">
+                      <Textarea
+                        name="description_en"
+                        placeholder="Description (English)"
+                        value={form.description.en}
+                        onChange={(e) => setForm({...form, description: {...form.description, en: e.target.value}})}
+                        required
+                      />
+                      <Textarea
+                        name="description_fr"
+                        placeholder="Description (Français)"
+                        value={form.description.fr}
+                        onChange={(e) => setForm({...form, description: {...form.description, fr: e.target.value}})}
+                        required
+                      />
+                    </div>
                     <Input
                       name="link"
                       placeholder="Link"
