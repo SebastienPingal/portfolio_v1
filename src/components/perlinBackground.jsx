@@ -8,11 +8,16 @@ const PerlinBackground = ({ className = '' }) => {
   const { theme } = useTheme()
   const animationFrameRef = useRef()
   const timerRef = useRef()
+  const noiseRef = useRef(null) // 🎯 Persist noise instance
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 })
   const [isMounted, setIsMounted] = useState(false)
 
   useEffect(() => {
     setIsMounted(true)
+    // 🎯 Initialize noise only once when component mounts
+    if (!noiseRef.current) {
+      noiseRef.current = new Noise(Math.random())
+    }
   }, [])
 
   const isBlackTheme = isMounted && theme === 'dark'
@@ -33,7 +38,7 @@ const PerlinBackground = ({ className = '' }) => {
 
   useEffect(() => {
     const canvas = canvasRef.current
-    if (!canvas) return
+    if (!canvas || !noiseRef.current) return // 🎯 Wait for noise to be initialized
 
     const ctx = canvas.getContext('2d')
     const { width, height } = dimensions
@@ -49,7 +54,7 @@ const PerlinBackground = ({ className = '' }) => {
     let dotSize = 16
     let gap = 0
     let shape = 0
-    let noise = new Noise(Math.random())
+    let noise = noiseRef.current // 🎯 Use the persistent noise instance
 
     function draw() {
       nt += noiseSpeed
@@ -91,7 +96,7 @@ const PerlinBackground = ({ className = '' }) => {
     function clear() {
       ctx.fillStyle = "rgba(0,0,4,1)"
       ctx.fillRect(0, 0, w, h)
-    };
+    }
 
     function render() {
       clear()
@@ -99,7 +104,7 @@ const PerlinBackground = ({ className = '' }) => {
       timerRef.current = setTimeout(() => {
         animationFrameRef.current = requestAnimationFrame(render)
       }, 80) // Delay in milliseconds
-    };
+    }
 
     // Start the animation
     render()
