@@ -2,9 +2,10 @@
 import db from '@/lib/db'
 import prisma from '@/lib/db'
 import { Prisma } from '@prisma/client'
+import { ProjectWithTranslations } from '@/types/project'
 
-export async function getProjects() {
-  return await prisma.project.findMany()
+export async function getProjects(): Promise<ProjectWithTranslations[]> {
+  return await prisma.project.findMany() as ProjectWithTranslations[]
 }
 
 export async function createProject(data: {
