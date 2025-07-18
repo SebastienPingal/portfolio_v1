@@ -1,7 +1,7 @@
 'use client'
 import { Project } from "@prisma/client"
 import { useTranslations, useLocale } from "next-intl"
-import { useTranslatedContent } from "@/lib/translations"
+import { getTranslatedContent } from "@/lib/translations"
 import { Button } from "./ui/button"
 import { Badge } from "./ui/badge"
 import { PlusIcon } from "lucide-react"
@@ -99,10 +99,10 @@ export default function ProjectSection({ projects, session }: { projects: Projec
                   className="hover:-translate-y-1 hover:shadow-lg border-2 h-full hover:border-primary transition-all duration-300">
                   <CardHeader className="p-4 relative">
                     <div className="flex items-center gap-2">
-                      <h3>{useTranslatedContent(project.title)}</h3>
+                      <h3>{getTranslatedContent(project.title, locale)}</h3>
                       {project.new && <Badge variant='shine'>{t('new')}</Badge>}
                     </div>
-                    <p>{useTranslatedContent(project.description)}</p>
+                    <p>{getTranslatedContent(project.description, locale)}</p>
                   </CardHeader>
                 </Card>
               </a>
