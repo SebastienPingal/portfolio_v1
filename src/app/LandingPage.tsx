@@ -1,11 +1,11 @@
 import { useTranslations } from 'next-intl'
 import { StackExtended } from '@/types/stack'
+import { ProjectWithTranslations } from '@/types/project'
 import ContactSection from '@/components/ContactSection'
 import MyStacksSession from './my-stacks-session'
 import ProjectSection from '@/components/ProjectSection'
-import { Project } from '@prisma/client'
 
-export default function LandingPage({ stacks, session, projects }: { stacks: StackExtended[], session: any, projects: Project[] }) {
+export default function LandingPage({ stacks, session, projects }: { stacks: StackExtended[], session: any, projects: ProjectWithTranslations[] }) {
   const t = useTranslations('LandingPage')
 
   return (
