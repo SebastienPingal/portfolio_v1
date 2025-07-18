@@ -18,7 +18,7 @@ const buttonVariants = cva(
           "bg-secondary/70 text-secondary-foreground hover:bg-secondary backdrop-blur-md",
         ghost: "hover:bg-accent/50 hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
-        shine: "backdrop-blur-md hover:-translate-y-1 bg-primary/40 text-primary-foreground hover:bg-primary/90 relative overflow-hidden before:absolute before:inset-0 before:bg-[linear-gradient(110deg,transparent_20%,rgba(255,255,255,0.4)_50%,transparent_70%)] before:translate-x-[-100%] before:animate-[shine_5s_ease-in-out_infinite_2s]",
+        shine: "backdrop-blur-md hover:-translate-y-1 bg-primary/50 text-foreground hover:bg-primary/90 relative overflow-hidden before:absolute before:inset-0 before:bg-[linear-gradient(110deg,transparent_20%,rgba(255,255,255,0.4)_50%,transparent_70%)] before:translate-x-[-100%] before:animate-[shine_5s_ease-in-out_infinite_2s]",
         secondaryshine: "backdrop-blur-md hover:-translate-y-1 bg-secondary/50 text-secondary-foreground hover:bg-secondary/90 relative overflow-hidden before:absolute before:inset-0 before:bg-[linear-gradient(110deg,transparent_20%,rgba(255,255,255,0.4)_50%,transparent_70%)] before:translate-x-[-100%] before:animate-[shine_5s_ease-in-out_infinite_1s]",
       },
       size: {

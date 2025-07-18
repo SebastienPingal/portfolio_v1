@@ -4,7 +4,7 @@
 
 @layer utilities {
   .backdrop-blur-xs {
-    backdrop-filter: blur(4px);
+    backdrop-filter: blur(7px);
   }
   
   .backdrop-blur-2xs {
@@ -62,8 +62,8 @@
     --popover: 20 14.3% 4.1%;
     --popover-foreground: 60 9.1% 97.8%;
 
-    --primary: 120 60% 90%;
-    --primary-foreground: 120 30% 20%;
+    --primary: 120 15% 50%;
+    --primary-foreground: 120 30% 10%;
 
     --secondary: 300 26% 66%;
     --secondary-foreground: 60 9.1% 97.8%;

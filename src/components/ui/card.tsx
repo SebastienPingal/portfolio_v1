@@ -9,7 +9,7 @@ const Card = React.forwardRef<
   <div
     ref={ref}
     className={cn(
-      "rounded-lg backdrop-blur-xl bg-card/20",
+      "rounded-lg glassPanel",
       className
     )}
     {...props}

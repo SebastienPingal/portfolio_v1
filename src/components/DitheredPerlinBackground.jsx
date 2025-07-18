@@ -131,8 +131,8 @@ const DitheredPerlinBackground = ({ className = '' }) => {
           // 🎯 Add Perlin noise variation to create organic distortion
           const noiseValue = noise.perlin3(x / (noiseScale * canvasScale), y / (noiseScale * canvasScale), nt)
           
-          // 🎯 Shift gradient to favor background color more (reduce threshold)
-          const shiftedGradientPos = baseGradientPos * 0.7 + (noiseValue * 0.2)
+          // 🎯 Shift gradient to make background color more present
+          const shiftedGradientPos = baseGradientPos * 0.3 + (noiseValue * 0.1)
           const gradientPos = Math.max(0, Math.min(1, shiftedGradientPos))
 
           // 🎯 Get dither threshold from matrix (normalized to 0-1)
