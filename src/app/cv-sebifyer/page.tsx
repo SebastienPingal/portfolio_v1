@@ -42,6 +42,7 @@ const CVSebifyerPage: React.FC = () => {
     "cvData": {
       "name": "Sébastien Pingal",
       "title": "Fullstack Developer",
+      "subtitle": "Passionate about creating innovative web solutions",
       "contact": [
         { "key": "github", "value": "github.com/SebastienPingal", "link": "https://github.com/SebastienPingal" },
         { "key": "email", "value": "sebastien.pingal@gmail.com", "link": "mailto:sebastien.pingal@gmail.com" },
