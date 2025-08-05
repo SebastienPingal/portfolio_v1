@@ -1,8 +1,7 @@
-'use client'
-
 import dynamic from 'next/dynamic'
 import { Document, Page, Text, View, StyleSheet, Font, Link, Image } from '@react-pdf/renderer'
 import { CVProps } from '@/types/CV'
+import React from 'react'
 
 // Dynamically import PDFViewer to ensure it's only used on the client side
 const PDFViewer = dynamic(() => import('@react-pdf/renderer').then(mod => mod.PDFViewer), { ssr: false })
@@ -403,14 +402,14 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
                               </Text>
                               <View style={styles.experienceSkillsContent}>
                                 {exp.skills.map((skill, skillIndex) => (
-                                  <>
-                                    <Text key={skillIndex} style={styles.skillItem}>
+                                  <React.Fragment key={skillIndex}>
+                                    <Text style={styles.skillItem}>
                                       {skill}
                                     </Text>
                                     {skillIndex !== (exp.skills?.length || 0) - 1 && (
                                       <Text style={styles.skillItem}>·</Text>
                                     )}
-                                  </>
+                                  </React.Fragment>
                                 ))}
                               </View>
                             </View>
