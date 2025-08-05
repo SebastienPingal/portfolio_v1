@@ -20,18 +20,13 @@ const AdaptiveBackground = ({ className = '', defaultType = 'perlin' }) => {
   }, [])
 
   return (
-    <>
+      <>
       {backgroundType === 'perlin' ? (
         <PerlinBackground className={className} />
       ) : (
         <DitheredPerlinBackground className={className} />
       )}
-      
-      {/* 🎯 Background type indicator */}
-      <div className="fixed top-4 left-4 z-50 text-xs text-foreground/50 pointer-events-none">
-        Background: {backgroundType} (Ctrl+B to switch)
-      </div>
-    </>
+      </>
   )
 }
 
