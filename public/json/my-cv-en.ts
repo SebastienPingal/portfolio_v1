@@ -6,9 +6,9 @@ export const englishCV: CVData = {
   "title": "Full Stack Developer",
   "subtitle": "Node - React - Vue",
   "yearsOfExperience": 4,
-  "profileImage": "/img/seb.jpeg",
+  "profileImage": "/img/seb7.jpg",
   // "profileImage": "/img/me_black.png",
-  "profileImageDark": "/img/seb.jpeg",
+  "profileImageDark": "/img/seb7.jpg",
   // "profileImageDark": "/img/me_white.png",
   "activities": [
     "Music (composition, drums)",
@@ -248,10 +248,10 @@ export const englishCV: CVData = {
       "name": "English",
       "level": "Professional"
     },
-    {
-      "name": "German",
-      "level": "Basic"
-    }
+    // {
+    //   "name": "German",
+    //   "level": "Basic"
+    // }
   ],
   "experience": [
     {
@@ -282,7 +282,7 @@ export const englishCV: CVData = {
       "order": 1,
       "place": "KAFO",
       "placeDescription": "Social Network for remote workers",
-      "title": "Founder, Full Stack Developer Vue.js Node.js",
+      "title": "Founder, Full Stack Developer (Vue.js, Node.js, PostgreSQL) ",
       "period": "February 2023 - September 2023 (8 months)",
       "skills": ["Typescript", "Vue.js", "Node.js", "Xano", "Weweb", "Google Maps API", "AWS EC2", "GitHub CI/CD", "Primevue", "No-Code", "UX/UI", "UX Testing", "Agile", "Scrum"],
       "description": [
@@ -305,7 +305,7 @@ export const englishCV: CVData = {
       "link": "",
       "order": 2,
       "place": "Art Factory",
-      "title": "FullStack Developer and UX/UI Designer",
+      "title": "FullStack Developer (Next.js, Node.js, React.js, PostgreSQL) and UX/UI Designer",
       "period": "November 2023 - January 2024 (3 months)",
       "skills": ["Typescript", "Next.js", "React.js", "Node.js", "PostgreSQL", "Express.js", "shadcn/ui", "TailwindCSS", "API Development"],
       "description": [

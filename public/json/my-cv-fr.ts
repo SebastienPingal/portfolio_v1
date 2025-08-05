@@ -282,7 +282,7 @@ export const frenchCV: CVData = {
       "order": 1,
       "place": "KAFO",
       "placeDescription": "Réseau Social pour télétravailleurs",
-      "title": "Fondateur, développeur Full Stack (Vue.js, Node.js, PostgresSQL) ",
+      "title": "Fondateur, développeur Full Stack (Vue.js, Node.js, PostgreSQL) ",
       "period": "Février 2023 - Septembre 2023 (8 mois)",
       "skills": ["Typescript", "Vue.js", "Node.js", "Xano", "Weweb", "Google Maps API", "AWS EC2", "GitHub CI/CD", "Primevue", "No-Code", "UX/UI", "UX Testing", "Agile", "Scrum"],
       "description": [
