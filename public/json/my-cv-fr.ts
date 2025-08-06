@@ -231,7 +231,7 @@ export const frenchCV: CVData = {
     {
       "place": "Udemy et mentor personnel",
       "title": "Formations en ligne et mentorat",
-      "period": "Juin 2021 - Présent (3 ans)",
+      "period": "Juin 2021 - Présent (4 ans)",
       "description": [
         "Formation approfondie Vue.js et TypeScript",
         "Mentorat",
@@ -258,7 +258,7 @@ export const frenchCV: CVData = {
       "link": "https://moneodomus.com/",
       "order": 0,
       "place": "Moneo Domus",
-      "placeDescription": "Holding d'entreprise BTP - Apport d'affaire et accompagnement",
+      "placeDescription": "Holding d'entreprises BTP - Apport d'affaires et accompagnement",
       "title": "Développeur Full Stack React.js Node.js et UX/UI Designer",
       "period": "Depuis janvier 2024 (1,5 ans)",
       "skills": ["Typescript", "React.js", "Next.js", "Node.js", "PostgreSQL", "NextAuth", "shadcn/ui", "Calendly API", "MagicLink", "PDF Generation", "Relation client", "Vercel"],
@@ -268,12 +268,12 @@ export const frenchCV: CVData = {
         "* Formulaire de soumission de Projet avec une UX streamlined",
         "* Dashboards",
         "- Développement from scratch backend (Node.js, Next.js, NextAuth, PostgreSQL)",
-        "* Génération automatisée de devis et de factures. From scratch car personnalisée et basée sur une structure modulaire et modifiable.",
+        "* Génération automatisée de devis et de factures. From scratch car personnalisé et basé sur une structure modulaire et modifiable.",
         "* Authentification avec lien MagicLink envoyé par mail afin de simplifier la connexion.",
-        "* Conception et gestion d'une base de données PostgreSQL complexe (Structures Devis, Utilisateurs, Agences immobilières, Clients, Projets, Documents, images, etc...)",
+        "* Conception et gestion d'une base de données PostgreSQL complexe (Structures Devis, Utilisateurs, Agences immobilières, Clients, Projets, Documents, images, etc.)",
         "* Gestion des permissions et des rôles des utilisateurs.",
         "* Intégration de fonctionnalités complexes de Calendly (Round Robin) pour permettre la prise de rendez-vous en prenant en compte les emplois du temps de plusieurs personnes.",
-        "- Rendez-vous avec les différents acteurs du secteur (Agences immobilières, Clients, Société BTP) pour définir les besoins et les fonctionnalités du site.",
+        "- Rendez-vous avec les différents acteurs du secteur (Agences immobilières, Clients, Sociétés BTP) pour définir les besoins et les fonctionnalités du site.",
         "- Design UX/UI des pages et des composants mis à jour en fonction des retours des utilisateurs et des tests effectués."
       ]
     },
@@ -281,22 +281,22 @@ export const frenchCV: CVData = {
       "link": "https://www.linkedin.com/company/kafowork/posts/?feedView=all",
       "order": 1,
       "place": "KAFO",
-      "placeDescription": "Réseau Social pour télétravailleurs",
+      "placeDescription": "Réseau social pour télétravailleurs",
       "title": "Fondateur, développeur Full Stack (Vue.js, Node.js, PostgreSQL) ",
       "period": "Février 2023 - Septembre 2023 (8 mois)",
       "skills": ["Typescript", "Vue.js", "Node.js", "Xano", "Weweb", "Google Maps API", "AWS EC2", "GitHub CI/CD", "Primevue", "No-Code", "UX/UI", "UX Testing", "Agile", "Scrum"],
       "description": [
         "Création d'une startup. Un réseau social pour les télétravailleurs. Kafo avait des partenariats avec plusieurs écoles privées et communautés de freelances (dont Freelance Republik). Un article est paru dans Les Echos dédié à la plateforme.",
         "- Développement backend en no-code from scratch (Xano)",
-        "* Gestion génération d'événements.",
+        "* Gestion et génération d'événements.",
         "* Scraping de Google Maps pour trouver et répertorier des lieux publics favorables au travail.",
         "- Développement frontend en no-code from scratch et responsive (Weweb)",
         "* Implémentation de la carte interactive avec filtres (\"Ouvert\", \"Dans un rayon de x kilomètres\", \"Actifs\"...)",
-        "* Design, développement, et wording d'une Landing Page",
+        "* Design, développement et wording d'une Landing Page",
         "- Refonte totale du front en Vue 3",
         "* Afin d'optimiser la rapidité du site, et de simplifier sa maintenance, toutes les fonctionnalités précédemment développées en no-code ont été redéveloppées de zéro",
         "* Implémentation d'une bibliothèque de composants (Primevue)",
-        "* Développements de divers dashboards statistiques et administratifs",
+        "* Développement de divers dashboards statistiques et administratifs",
         "- Mise en place et réalisation de tests utilisateurs UX",
         "- Déploiement du front avec CI/CD GitHub sur un EC2 AWS"
       ]
@@ -311,7 +311,7 @@ export const frenchCV: CVData = {
       "description": [
         "Développement et maintenance d'un site de gestion d'événements artistiques privés pour une association. (Next.js, Node.js, PostgreSQL)",
         "- Développement frontend (React, TailwindCSS)",
-        "* Création d'une librairie de composants pour le site (basée sur shadcn/ui) :",
+        "* Création d'une bibliothèque de composants pour le site (basée sur shadcn/ui) :",
         "* Design et développement de dashboards statistiques",
         "* Design et développement d'une interface de gestion des événements (création, modification, suppression, consultation)",
         "- Développement backend (Node.js, Express, PostgreSQL)",
@@ -328,16 +328,16 @@ export const frenchCV: CVData = {
       "period": "Juin 2021 - Décembre 2023 (2,5 ans)",
       "skills": ["Typescript", "Vue.js", "Node.js", "Express.js", "Stripe", "Primevue", "Axios", "Puppeteer", "Clean Code", "PDF Generation", "Refactoring", "Agile", "Scrum"],
       "description": [
-        "Refacto et ajouts de features sur un site de simulation d'investissements immobiliers (Équipe de 3 dev fullstacks). Le site était très mal développé et le front autant que le back ont dû faire l'objet d'un grand nettoyage.",
+        "Refactorisation de features sur un site de simulation d'investissements immobiliers (Équipe de 3 développeurs fullstacks). Le site était très mal développé et le front autant que le back ont dû faire l'objet d'un grand nettoyage.",
         "- Refonte frontend (Vue 2)",
         "* Simplification de la totalité des interfaces afin de gagner en réactivité et en confort pour les utilisateurs.",
-        "* Intégration d'une librairie de composants (Primevue) et modularisation du site dans le but de créer de la cohérence sur tout le site et de faciliter sa maintenance.",
+        "* Intégration d'une bibliothèque de composants (Primevue) et modularisation du site dans le but de créer de la cohérence sur tout le site et de faciliter sa maintenance.",
         "* Refonte de la landing page",
-        "* Implémentation d'export PDF personnalisable des simulations",
+        "* Implémentation d'exports PDF personnalisés des simulations",
         "- Refonte du back (Node.js, Express, Axios)",
         "* Refonte totale de la logique métier et déplacement de celle-ci du côté back.",
         "* Refonte du système de facturation grâce à Stripe",
-        "* Ajout de fonctionnalités métier (Gestions d'équipe et de collaborateurs, Dispositifs Malraux)"
+        "* Ajout de fonctionnalités métier (Gestion d'équipe et de collaborateurs, dispositifs Malraux, etc.)"
       ]
     },
     {
@@ -351,13 +351,13 @@ export const frenchCV: CVData = {
         "- Développement frontend et backend from scratch et responsive (React.js, shadcn/ui, TailwindCSS, Next.js, Node.js, PostgreSQL)",
         "* Éditeur de CV me permettant de modifier et mettre à jour rapidement mes informations avec versioning et système de presets",
         "* Génération de bruit de Perlin pour créer un background dynamique et unique à chaque visite",
-        "* Développement d'une librairie de composants personnalisés pour le site",
+        "* Développement d'une bibliothèque de composants personnalisés pour le site",
         "* Gestion multilingue du site en utilisant i18n",
         "- Développement backend from scratch (Next.js, Node.js, PostgreSQL)",
         "* Authentification OAuth avec LinkedIn",
         "* Modularisation du site en stockant les informations dans une base de données PostgreSQL afin de séparer gestion des informations et du front",
         "",
-        "- DoctoNotes : Extension pour chrome et firefox affichant les notes google des medecins sur Doctolib.",
+        "- DoctoNotes : Extension pour Chrome et Firefox affichant les notes Google des médecins sur Doctolib.",
         "- Cerberes : Développement d'un chat minimaliste sécurisé de bout en bout (Vue3, Node.js, PostgreSQL, Docker, CI/CD). Déploiement sur un Raspberry Pi.",
         "- Livre 3D dynamique : Développement d'un livre 3D dynamique en React.js, Three.js. Génération des pages selon les fichiers en props du composant.",
         "- Remake du jeu 2048 : Développement d'un remake du jeu 2048 en Python sans bibliothèque externe."

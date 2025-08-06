@@ -21,11 +21,11 @@ const AdaptiveBackground = ({ className = '', defaultType = 'perlin' }) => {
 
   return (
       <>
-      {backgroundType === 'perlin' ? (
-        <PerlinBackground className={className} />
-      ) : (
-        <DitheredPerlinBackground className={className} />
-      )}
+        {backgroundType === 'perlin' ? (
+          <PerlinBackground className={className} />
+        ) : (
+          <DitheredPerlinBackground className={className} />
+        )}
       </>
   )
 }
