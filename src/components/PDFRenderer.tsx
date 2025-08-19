@@ -47,12 +47,12 @@ Font.register({
 // Theme colors from your globals.css
 const themeColors = {
   light: {
-    background: '#faf2fa',
+    background: '#ffffff',
     foreground: '#2E052E',
-    card: '#E1D7F9',
-    primary: '#7743CB',
+    card: '#CDD7F9',
+    primary: '#5343CB',
     secondary: '#92bf92',
-    accent: '#8F6AE7',
+    accent: '#666AE7',
   },
   dark: {
     background: '#202D20',
