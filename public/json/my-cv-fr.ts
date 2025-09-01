@@ -263,17 +263,17 @@ export const frenchCV: CVData = {
       "period": "Depuis janvier 2024 (1,5 ans)",
       "skills": ["Typescript", "React.js", "Next.js", "Node.js", "PostgreSQL", "NextAuth", "shadcn/ui", "Calendly API", "MagicLink", "PDF Generation", "Relation client", "Vercel"],
       "description": [
-        "Création d'un site web pour un holding d'entreprises en BTP. Le but était d'automatiser des tâches et ainsi de libérer 50% de charge de travail. MoneoDomus réalise environ 500 000€ de chiffre d'affaires par mois.",
+        "Conception d'une plateforme logicielle (SaaS) pour un holding d'entreprises en BTP. Le but était d'automatiser des tâches et ainsi de libérer 50% de charge de travail. MoneoDomus réalise environ 500 000€ de chiffre d'affaires par mois.",
         "- Développement frontend from scratch et responsive (React.js, shadcn/ui, TailwindCSS)",
         "* Formulaire de soumission de Projet avec une UX streamlined",
         "* Dashboards",
         "- Développement from scratch backend (Node.js, Next.js, NextAuth, PostgreSQL)",
-        "* Génération automatisée de devis et de factures. From scratch car personnalisé et basé sur une structure modulaire et modifiable.",
-        "* Authentification avec lien MagicLink envoyé par mail afin de simplifier la connexion.",
-        "* Conception et gestion d'une base de données PostgreSQL complexe (Structures Devis, Utilisateurs, Agences immobilières, Clients, Projets, Documents, images, etc.)",
-        "* Gestion des permissions et des rôles des utilisateurs.",
+        "* Conception de l’architecture d’API REST (ressources, versioning, pagination, modèle d’erreurs uniformisé).",
+        "* Définition des contrats et validation des entrées/sorties (schémas, cohérence métier).",
+        "* Authentification par MagicLink et gestion des rôles/permissions (RBAC).",
+        "* Conception et gestion d'une base de données PostgreSQL cohérente avec le domaine (Devis, Utilisateurs, Agences, Clients, Projets, Documents, Images…).",
         "* Intégration de fonctionnalités complexes de Calendly (Round Robin) pour permettre la prise de rendez-vous en prenant en compte les emplois du temps de plusieurs personnes.",
-        "- Rendez-vous avec les différents acteurs du secteur (Agences immobilières, Clients, Sociétés BTP) pour définir les besoins et les fonctionnalités du site.",
+        "- Rendez-vous avec les différents acteurs du secteur (Agences immobilières, Clients, Sociétés BTP) pour définir les besoins et les fonctionnalités de la plateforme.",
         "- Design UX/UI des pages et des composants mis à jour en fonction des retours des utilisateurs et des tests effectués."
       ]
     },
@@ -309,15 +309,15 @@ export const frenchCV: CVData = {
       "period": "Novembre 2023 - Janvier 2024 (3 mois)",
       "skills": ["Typescript", "Next.js", "React.js", "Node.js", "PostgreSQL", "Express.js", "shadcn/ui", "TailwindCSS", "API Development"],
       "description": [
-        "Développement et maintenance d'un site de gestion d'événements artistiques privés pour une association. (Next.js, Node.js, PostgreSQL)",
+        "Développement et maintenance d'une application de gestion d'événements artistiques privés pour une association. (Next.js, Node.js, PostgreSQL)",
         "- Développement frontend (React, TailwindCSS)",
-        "* Création d'une bibliothèque de composants pour le site (basée sur shadcn/ui) :",
+        "* Création d'une bibliothèque de composants pour l’application (basée sur shadcn/ui) :",
         "* Design et développement de dashboards statistiques",
         "* Design et développement d'une interface de gestion des événements (création, modification, suppression, consultation)",
         "- Développement backend (Node.js, Express, PostgreSQL)",
-        "* Création d'une API pour la gestion des événements",
-        "* Gestion des permissions et des rôles des utilisateurs",
-        "* Gestion des inscriptions aux événements, et des divers ateliers associés"
+        "* Conception de l’API dédiée aux événements (modèle de domaine, endpoints, filtres/pagination, statuts).",
+        "* Gestion des permissions et des rôles des utilisateurs (RBAC).",
+        "* Gestion des inscriptions aux événements et des ateliers associés"
       ]
     },
     {
@@ -328,14 +328,14 @@ export const frenchCV: CVData = {
       "period": "Juin 2021 - Décembre 2023 (2,5 ans)",
       "skills": ["Typescript", "Vue.js", "Node.js", "Express.js", "Stripe", "Primevue", "Axios", "Puppeteer", "Clean Code", "PDF Generation", "Refactoring", "Agile", "Scrum"],
       "description": [
-        "Refactorisation de features sur un site de simulation d'investissements immobiliers (Équipe de 3 développeurs fullstacks). Le site était très mal développé et le front autant que le back ont dû faire l'objet d'un grand nettoyage.",
+        "Refactorisation de fonctionnalités sur une application de simulation d'investissements immobiliers (Équipe de 3 développeurs fullstacks). Le produit était très mal développé et le front autant que le back ont dû faire l'objet d'un grand nettoyage.",
         "- Refonte frontend (Vue 2)",
         "* Simplification de la totalité des interfaces afin de gagner en réactivité et en confort pour les utilisateurs.",
-        "* Intégration d'une bibliothèque de composants (Primevue) et modularisation du site dans le but de créer de la cohérence sur tout le site et de faciliter sa maintenance.",
+        "* Intégration d'une bibliothèque de composants (Primevue) et modularisation de l’application afin de créer de la cohérence sur toute l’application et de faciliter sa maintenance.",
         "* Refonte de la landing page",
         "* Implémentation d'exports PDF personnalisés des simulations",
         "- Refonte du back (Node.js, Express, Axios)",
-        "* Refonte totale de la logique métier et déplacement de celle-ci du côté back.",
+        "* Refonte de la logique métier et déplacement côté back (séparation contrôleurs/services, contrats d’API clarifiés).",
         "* Refonte du système de facturation grâce à Stripe",
         "* Ajout de fonctionnalités métier (Gestion d'équipe et de collaborateurs, dispositifs Malraux, etc.)"
       ]
@@ -347,15 +347,15 @@ export const frenchCV: CVData = {
       "period": "Depuis juin 2021 (4 ans)",
       "skills": ["Typescript", "React.js", "Next.js", "PostgreSQL", "Tailwind CSS", "shadcn/ui", "i18n", "OAuth", "Perlin Noise", "Python", "Three.js", "Vue.js", "Docker", "Chrome Extension", "Firefox Extension"],
       "description": [
-        "Mon Portfolio (sebastienpingal.dev) : Création d'un site web pour mon portfolio.",
+        "Mon Portfolio (sebastienpingal.dev) : Création d'une application web pour mon portfolio.",
         "- Développement frontend et backend from scratch et responsive (React.js, shadcn/ui, TailwindCSS, Next.js, Node.js, PostgreSQL)",
         "* Éditeur de CV me permettant de modifier et mettre à jour rapidement mes informations avec versioning et système de presets",
         "* Génération de bruit de Perlin pour créer un background dynamique et unique à chaque visite",
-        "* Développement d'une bibliothèque de composants personnalisés pour le site",
-        "* Gestion multilingue du site en utilisant i18n",
+        "* Développement d'une bibliothèque de composants personnalisés pour l’application",
+        "* Gestion multilingue de l’application en utilisant i18n",
         "- Développement backend from scratch (Next.js, Node.js, PostgreSQL)",
         "* Authentification OAuth avec LinkedIn",
-        "* Modularisation du site en stockant les informations dans une base de données PostgreSQL afin de séparer gestion des informations et du front",
+        "* Conception et implémentation d’API REST (stacks, projets, presets de CV) et modularisation des données dans PostgreSQL pour découpler front et domaine.",
         "",
         "- DoctoNotes : Extension pour Chrome et Firefox affichant les notes Google des médecins sur Doctolib.",
         "- Cerberes : Développement d'un chat minimaliste sécurisé de bout en bout (Vue3, Node.js, PostgreSQL, Docker, CI/CD). Déploiement sur un Raspberry Pi.",
