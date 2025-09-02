@@ -3,15 +3,17 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import React, { useState, useEffect } from 'react'
 import { useToast } from '@/components/ui/use-toast'
-import CV from '../cv/CV'
+import { PDFRenderer } from '@/components/PDFRenderer'
 import { CVData as CVDataType } from '@/types/CV'
 import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 import TalkingLogo from '@/components/TalkingLogo'
+import { useTheme } from 'next-themes'
 
 const CVSebifyerPage: React.FC = () => {
   const t = useTranslations('CVSebifyer')
   const session = useSession()
+  const { theme } = useTheme()
   const [image, setImage] = useState<File | null>(null)
   const [processedImage, setProcessedImage] = useState<File | null>(null)
   const { toast } = useToast()
@@ -266,7 +268,15 @@ const CVSebifyerPage: React.FC = () => {
           </Button>
         )}
         {image && <p>{t('upload.imageUploaded')} {image.name} 📸</p>}
-        {CVData && <CV data={mockedCVData.cvData} language={language} isUserConnected={session.status === 'authenticated'} />}
+        {CVData && (
+          <div className='w-full h-[80vh]'>
+            <PDFRenderer
+              data={mockedCVData.cvData}
+              language={language === 'français' ? 'fr' : 'en'}
+              theme={theme === 'light' ? 'light' : 'dark'}
+            />
+          </div>
+        )}
       </div >
     </div>
   )

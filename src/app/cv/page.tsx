@@ -1,7 +1,7 @@
 'use client'
 import React, { useState, useEffect, useCallback } from 'react'
 import { CVData } from '../../types/CV'
-import CV from './CV'
+import { PDFRenderer } from '@/components/PDFRenderer'
 import { Button } from '@/components/ui/button'
 import { Save, Plus, Loader2, Trash2 } from 'lucide-react'
 import { frenchCV as cvFr } from '../../../public/json/my-cv-fr'
@@ -15,6 +15,7 @@ import { useToast } from '@/components/ui/use-toast'
 import { useTranslations } from 'next-intl'
 import { useLocale } from 'next-intl'
 import TalkingLogo from '@/components/TalkingLogo'
+import { useTheme } from 'next-themes'
 
 interface CVPreset {
   id: string
@@ -33,6 +34,7 @@ const CVPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [CVloading, setCVloading] = useState(false)
   const { data: session } = useSession()
+  const { theme } = useTheme()
 
   const loadPresets = useCallback(async () => {
     try {
@@ -234,13 +236,13 @@ const CVPage: React.FC = () => {
           <Loader2 className='w-10 h-10 animate-spin' />
         </div>
       ) : (
-        <CV
-          data={cvData}
-          language={locale}
-          showMe={true}
-          onDataChange={setCvData}
-          isUserConnected={!!session?.user && session.user.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL}
-        />
+        <div className='w-full h-[80vh]'>
+          <PDFRenderer
+            data={cvData}
+            language={locale}
+            theme={theme === 'light' ? 'light' : 'dark'}
+          />
+        </div>
       )}
     </div>
   )
