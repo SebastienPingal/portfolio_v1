@@ -6,9 +6,9 @@ export const frenchCV: CVData = {
   "title": "Développeur Full Stack",
   "subtitle": "Node - React - Vue",
   "yearsOfExperience": 4,
-  "profileImage": "/img/seb7.jpg",
+  "profileImage": "/img/seb8.jpg",
   // "profileImage": "/img/me_black.png",
-  "profileImageDark": "/img/seb7.jpg",
+  "profileImageDark": "/img/seb8.jpg",
   // "profileImageDark": "/img/me_white.png",
   "activities": [
     "Musique (composition, batterie)",
