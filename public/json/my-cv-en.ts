@@ -255,8 +255,29 @@ export const englishCV: CVData = {
   ],
   "experience": [
     {
-      "link": "https://moneodomus.com/",
+      "link": "https://jolimoi.com/",
       "order": 0,
+      "place": "Jolimoi",
+      "placeDescription": "Social selling platform for beauty products.",
+      "title": "Full Stack Developer Vue.js Node.js and UX/UI Designer",
+      "period": "October 2025 - January 2026 (3 months)",
+      "skills": ["Typescript", "Vue.js", "Node.js", "MySQL", "PHP", "PrestaShop", "Docker", "Jest", "GitHub Actions", "Notion", "Linear", "Agile", "Scrum"],
+      "description": [
+        "- Full‑stack development and maintenance of a PrestaShop e‑shop",
+        "* Update and optimization of PrestaShop components",
+        "* Implementation of discount rules and the gifts shop",
+        "* Added breadcrumbs on category and product pages to improve UX and SEO",
+        "- Back‑end development of the Stylist and Client API (Node.js, MySQL)",
+        "* Designed a product recommendation system",
+        "* Added KPIs to track stylist performance",
+        "- Front‑end development across multiple sites",
+        "* Layout and visualization of the new KPIs",
+        "* Added actions to access recommended products and display them on the product page"
+      ]
+    },
+    {
+      "link": "https://moneodomus.com/",
+      "order": 1,
       "place": "Moneo Domus",
       "placeDescription": "Construction company holding - Business development and support",
       "title": "Full Stack Developer React.js Node.js and UX/UI Designer",
@@ -279,7 +300,7 @@ export const englishCV: CVData = {
     },
     {
       "link": "https://www.linkedin.com/company/kafowork/posts/?feedView=all",
-      "order": 1,
+      "order": 2,
       "place": "KAFO",
       "placeDescription": "Social Network for remote workers",
       "title": "Founder, Full Stack Developer (Vue.js, Node.js, PostgreSQL) ",
@@ -303,7 +324,7 @@ export const englishCV: CVData = {
     },
     {
       "link": "",
-      "order": 2,
+      "order": 3,
       "place": "Art Factory",
       "title": "FullStack Developer (Next.js, Node.js, React.js, PostgreSQL) and UX/UI Designer",
       "period": "November 2023 - January 2024 (3 months)",
@@ -322,9 +343,9 @@ export const englishCV: CVData = {
     },
     {
       "link": "https://www.linkedin.com/company/aestima-immo/posts/",
-      "order": 3,
+      "order": 4,
       "place": "Aestima Immobilier",
-      "title": "FullStack Developer",
+      "title": "FullStack Developer (Vue.js, Node.js, Express.js, PostgreSQL, Stripe)",
       "period": "June 2021 - December 2023 (2.5 years)",
       "skills": ["Typescript", "Vue.js", "Node.js", "Express.js", "Stripe", "Primevue", "Axios", "Puppeteer", "Clean Code", "PDF Generation", "Refactoring", "Agile", "Scrum"],
       "description": [
@@ -341,7 +362,7 @@ export const englishCV: CVData = {
       ]
     },
     {
-      "order": 4,
+      "order": 5,
       "place": "My Office",
       "title": "Personal Projects",
       "period": "Since June 2021 (4 years)",
@@ -365,7 +386,7 @@ export const englishCV: CVData = {
     },
     {
       "link": "https://soundcloud.com/unbrouillard",
-      "order": 5,
+      "order": 6,
       "place": "Brouillard",
       "title": "Composer/Sound Engineer",
       "period": "2015 - 2021 (6 years)",
@@ -375,7 +396,7 @@ export const englishCV: CVData = {
       ]
     },
     {
-      "order": 6,
+      "order": 7,
       "place": "Freelance",
       "title": "Video Editor",
       "period": "2013 - 2015 (2 years)",

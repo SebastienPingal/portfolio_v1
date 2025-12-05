@@ -255,8 +255,29 @@ export const frenchCV: CVData = {
   ],
   "experience": [
     {
-      "link": "https://moneodomus.com/",
+      "link": "https://jolimoi.com/",
       "order": 0,
+      "place": "Jolimoi",
+      "placeDescription": "Plateforme de social selling pour les produits de beauté.",
+      "title": "Développeur Full Stack Vue.js Node.js et UX/UI Designer",
+      "period": "Octobre 2025 - janvier 2026 (3 mois)",
+      "skills": ["Typescript", "Vue.js", "Node.js", "MySQL", "php", "prestashop", "Docker", "Jest", "GitHub Actions", "Notion", "Linear", "Agile", "Scrum"],
+      "description": [
+        "- Développement et maintenance full stack d’un e‑shop Prestashop",
+        "* Mise à jour et optimisation de composants Prestashop",
+        "* Implémentation des règles de bons de réduction et de la boutique cadeaux",
+        "* Ajout de breadcrumbs sur les pages catégories et produits pour optimiser l’UX et le SEO",
+        "- Développement back-end de l’API styliste et client (Node.js, MySQL)",
+        "* Conception d’un système de recommandation de produits",
+        "* Ajout de KPI pour le suivi des performances des stylistes",
+        "- Développement front-end des différents sites",
+        "* Mise en page et visualisation des nouveaux KPI",
+        "* Ajout d’actions pour accéder aux produits recommandés et leur affichage sur la page produit",
+      ]
+    },
+    {
+      "link": "https://moneodomus.com/",
+      "order": 1,
       "place": "Moneo Domus",
       "placeDescription": "Holding d'entreprises BTP - Apport d'affaires et accompagnement",
       "title": "Développeur Full Stack React.js Node.js et UX/UI Designer",
@@ -279,7 +300,7 @@ export const frenchCV: CVData = {
     },
     {
       "link": "https://www.linkedin.com/company/kafowork/posts/?feedView=all",
-      "order": 1,
+      "order": 2,
       "place": "KAFO",
       "placeDescription": "Réseau social pour télétravailleurs",
       "title": "Fondateur, développeur Full Stack (Vue.js, Node.js, PostgreSQL) ",
@@ -303,7 +324,7 @@ export const frenchCV: CVData = {
     },
     {
       "link": "",
-      "order": 2,
+      "order": 3,
       "place": "Art Factory",
       "title": "Développeur FullStack (Next.js, Node.js, React.js, PostgreSQL) et UX/UI Designer",
       "period": "Novembre 2023 - Janvier 2024 (3 mois)",
@@ -322,7 +343,7 @@ export const frenchCV: CVData = {
     },
     {
       "link": "https://www.linkedin.com/company/aestima-immo/posts/",
-      "order": 3,
+      "order": 4,
       "place": "Aestima Immobilier",
       "title": "Développeur FullStack (Vue.js, Node.js, Express.js, PostgreSQL, Stripe)",
       "period": "Juin 2021 - Décembre 2023 (2,5 ans)",
@@ -341,7 +362,7 @@ export const frenchCV: CVData = {
       ]
     },
     {
-      "order": 4,
+      "order": 5,
       "place": "Mon Bureau",
       "title": "Projets personnels",
       "period": "Depuis juin 2021 (4 ans)",
@@ -365,7 +386,7 @@ export const frenchCV: CVData = {
     },
     {
       "link": "https://soundcloud.com/unbrouillard",
-      "order": 5,
+      "order": 6,
       "place": "Brouillard",
       "title": "Compositeur/Ingénieur du son",
       "period": "2015 - 2021 (6 ans)",
@@ -375,7 +396,7 @@ export const frenchCV: CVData = {
       ]
     },
     {
-      "order": 6,
+      "order": 7,
       "place": "Freelance",
       "title": "Monteur Vidéo",
       "period": "2013 - 2015 (2 ans)",
