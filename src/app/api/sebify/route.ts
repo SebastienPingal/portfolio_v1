@@ -4,6 +4,9 @@ import { put, del } from '@vercel/blob'
 import OpenAI from 'openai'
 import { CVData, CVDataSchema } from '@/types/CV'
 
+export const maxDuration = 60
+export const runtime = 'edge'
+
 export async function POST(req: NextRequest) {
   try {
     const formData = await req.formData()
@@ -17,12 +20,10 @@ export async function POST(req: NextRequest) {
     // Define the type structure for the AI prompt (dynamically imported from CV.ts)
     const typeDefinitions = JSON.stringify(CVDataSchema, null, 2)
 
-    let theBuffer: Buffer
-
     console.log('📸 File type:', file.type)
     console.log('📏 File size:', file.size, 'bytes')
 
-    const buffer = Buffer.from(await file.arrayBuffer())
+    const arrayBuffer = await file.arrayBuffer()
 
     // For now, we'll reject PDFs and ask users to convert them first
     if (file.type === 'application/pdf') {
@@ -32,15 +33,13 @@ export async function POST(req: NextRequest) {
       }, { status: 400 })
     }
 
-    theBuffer = buffer
-
     if (!process.env.OPENAI_API_KEY) {
       console.error('❌ Missing OpenAI API key')
       return NextResponse.json({ error: 'Missing API key' }, { status: 500 })
     }
 
     // Upload the file and get the URL
-    const blob = await put(file.name, theBuffer, {
+    const blob = await put(file.name, arrayBuffer, {
       access: 'public',
       contentType: file.type,
       addRandomSuffix: false,
