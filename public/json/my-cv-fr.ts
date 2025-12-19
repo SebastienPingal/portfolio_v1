@@ -258,7 +258,7 @@ export const frenchCV: CVData = {
       "link": "https://jolimoi.com/",
       "order": 0,
       "place": "Jolimoi",
-      "placeDescription": "Plateforme de social selling pour les produits de beauté.",
+      "placeDescription": "Plateforme de social selling pour les produits de beauté. \n 9000 utilisateurs actifs sur la plateforme eshop \n 5000 stylistes actifs \n 3M€ de chiffre d'affaires par ans",
       "title": "Développeur Full Stack Vue.js Node.js et UX/UI Designer",
       "period": "Octobre 2025 - janvier 2026 (3 mois)",
       "skills": ["Typescript", "Vue.js", "Node.js", "MySQL", "php", "prestashop", "Docker", "Jest", "GitHub Actions", "Notion", "Linear", "Agile", "Scrum"],
