@@ -2,12 +2,10 @@ import dynamic from 'next/dynamic'
 import { Document, Page, Text, View, StyleSheet, Font, Link, Image } from '@react-pdf/renderer'
 import { CVProps } from '@/types/CV'
 import React from 'react'
+import { themeColors, ThemeType } from './pdfTheme'
 
 // Dynamically import PDFViewer to ensure it's only used on the client side
 const PDFViewer = dynamic(() => import('@react-pdf/renderer').then(mod => mod.PDFViewer), { ssr: false })
-
-// Define a type for the theme keys
-type ThemeType = 'light' | 'dark';
 
 interface PDFDocumentProps extends CVProps {
   theme: ThemeType
@@ -43,26 +41,6 @@ Font.register({
     }
   ]
 })
-
-// Theme colors from your globals.css
-const themeColors = {
-  light: {
-    background: '#ffffff',
-    foreground: '#2E052E',
-    card: '#CDD7F9',
-    primary: '#5343CB',
-    secondary: '#92bf92',
-    accent: '#666AE7',
-  },
-  dark: {
-    background: '#202D20',
-    foreground: '#F1FDF1',
-    card: '#2E382E',
-    primary: '#D6F5D6',
-    secondary: '#BF92BF',
-    accent: '#B3CCB3',
-  }
-}
 
 // Separate the Document component from the PDFViewer wrapper
 const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {

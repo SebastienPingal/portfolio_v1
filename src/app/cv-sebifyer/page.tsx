@@ -4,11 +4,13 @@ import { Button } from '@/components/ui/button'
 import React, { useState, useEffect } from 'react'
 import { useToast } from '@/components/ui/use-toast'
 import { PDFRenderer } from '@/components/PDFRenderer'
+import { PDFRendererDense } from '@/components/PDFRendererDense'
 import { CVData as CVDataType } from '@/types/CV'
 import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 import TalkingLogo from '@/components/TalkingLogo'
 import { useTheme } from 'next-themes'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 
 const CVSebifyerPage: React.FC = () => {
   const t = useTranslations('CVSebifyer')
@@ -18,10 +20,11 @@ const CVSebifyerPage: React.FC = () => {
   const [processedImage, setProcessedImage] = useState<File | null>(null)
   const { toast } = useToast()
   const [CVData, setCVData] = useState<CVDataType | null>(null)
-  const [language, setLanguage] = useState<string>('en')
+  const [language, setLanguage] = useState<'en' | 'fr'>('en')
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [isProcessingPdf, setIsProcessingPdf] = useState<boolean>(false)
   const [pdfjsLib, setPdfjsLib] = useState<any>(null)
+  const [rendererVariant, setRendererVariant] = useState<'classic' | 'dense'>('classic')
 
   // Initialize PDF.js only on client side
   useEffect(() => {
@@ -123,7 +126,7 @@ const CVSebifyerPage: React.FC = () => {
         const data = await response.json()
         console.log('🤖 OpenAI response received', data)
         setCVData(data.cvData)
-        setLanguage(data.language === 'fr' ? 'français' : 'english')
+        setLanguage(data.language === 'fr' ? 'fr' : 'en')
       } else {
         const errorData = await response.json()
         throw new Error(errorData.error || 'Upload failed')
@@ -145,6 +148,18 @@ const CVSebifyerPage: React.FC = () => {
       <TalkingLogo littleHead tooltip text={t('talkingHead')} />
       <div className='flex flex-col gap-4 glassPanel' >
         <h1>{t('title')}</h1>
+        <div className='flex gap-2 items-center'>
+          <div className='text-sm'>Renderer</div>
+          <Select value={rendererVariant} onValueChange={(v) => setRendererVariant(v as 'classic' | 'dense')}>
+            <SelectTrigger className="w-[160px]">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="classic">Classic</SelectItem>
+              <SelectItem value="dense">Dense</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
         <Input
           type="file"
           accept="image/*,.pdf"
@@ -174,11 +189,19 @@ const CVSebifyerPage: React.FC = () => {
         {image && <p>{t('upload.imageUploaded')} {image.name} 📸</p>}
         {CVData && (
           <div className='w-full h-[80vh]'>
-            <PDFRenderer
-              data={CVData}
-              language={language === 'français' ? 'fr' : 'en'}
-              theme={theme === 'light' ? 'light' : 'dark'}
-            />
+            {rendererVariant === 'dense' ? (
+              <PDFRendererDense
+                data={CVData}
+                language={language}
+                theme={theme === 'light' ? 'light' : 'dark'}
+              />
+            ) : (
+              <PDFRenderer
+                data={CVData}
+                language={language}
+                theme={theme === 'light' ? 'light' : 'dark'}
+              />
+            )}
           </div>
         )}
       </div >
