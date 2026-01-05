@@ -237,6 +237,30 @@ export const englishCV: CVData = {
         "Mentorship",
         "Development of personal projects to apply acquired skills"
       ]
+    },
+    {
+      "place": "Cifacom Montreuil",
+      "title": "Audiovisual Editor Certification",
+      "period": "September 2012 - June 2014",
+      "description": []
+    },
+    {
+      "place": "Cifacom Montreuil",
+      "title": "Bachelor in Audiovisual Director",
+      "period": "September 2012 - June 2014",
+      "description": []
+    },
+    {
+      "place": "IUT de Cergy-Pontoise Sarcelles",
+      "title": "DUT (University Diploma in Technology) in Services and Communication Networks",
+      "period": "September 2010 - June 2012",
+      "description": []
+    },
+    {
+      "place": "Lycée Marien-Laurencin Mennecy",
+      "title": "Baccalaureate S (Science)",
+      "period": "September 2007 - June 2010",
+      "description": []
     }
   ],
   "languages": [
