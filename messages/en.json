@@ -173,7 +173,9 @@
       "initialValue": "Initial Value (x₀)",
       "cobwebPath": "Cobweb Path",
       "steps": "Steps",
-      "timeSeries": "Time Series"
+      "timeSeries": "Time Series",
+      "animate": "Animate R",
+      "speed": "Speed"
     }
   }
 }

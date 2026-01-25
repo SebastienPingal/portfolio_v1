@@ -4,16 +4,23 @@ import React, { useRef, useEffect, useState, useCallback } from 'react'
 import { logisticMap } from '@/lib/math/logisticMap'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
+import { Button } from '@/components/ui/button'
 import { useTranslations } from 'next-intl'
+import { Play, Pause } from 'lucide-react'
 
 export const CobwebPlot = () => {
   const t = useTranslations('Visualizations.cobweb')
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
+  
   const [r, setR] = useState(3.7)
   const [x0, setX0] = useState(0.5)
   const [iterations, setIterations] = useState(50)
   const [dimensions, setDimensions] = useState({ width: 0, height: 0, dpr: 1 })
+  
+  // Animation state
+  const [isAnimating, setIsAnimating] = useState(false)
+  const [animationSpeed, setAnimationSpeed] = useState(0.002)
 
   useEffect(() => {
     const updateDimensions = () => {
@@ -28,6 +35,35 @@ export const CobwebPlot = () => {
     updateDimensions()
     return () => observer.disconnect()
   }, [])
+
+  // Animation Loop
+  useEffect(() => {
+    let animationFrameId: number
+    
+    const animate = () => {
+      if (isAnimating) {
+        setR(prevR => {
+          let nextR = prevR + animationSpeed
+          if (nextR > 4) {
+            nextR = 4
+            setIsAnimating(false)
+          }
+          if (nextR < 0) {
+            nextR = 0
+            setIsAnimating(false)
+          }
+          return nextR
+        })
+        animationFrameId = requestAnimationFrame(animate)
+      }
+    }
+
+    if (isAnimating) {
+      animationFrameId = requestAnimationFrame(animate)
+    }
+
+    return () => cancelAnimationFrame(animationFrameId)
+  }, [isAnimating, animationSpeed])
 
   const draw = useCallback(() => {
     const canvas = canvasRef.current
@@ -143,8 +179,30 @@ export const CobwebPlot = () => {
 
   return (
     <Card className="w-full">
-      <CardHeader>
+      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-7">
         <CardTitle>{t('title')}</CardTitle>
+        <div className="flex items-center gap-4">
+          <div className="flex flex-col gap-1 items-end">
+            <Label className="text-[10px] uppercase tracking-wider text-muted-foreground">{t('speed')}</Label>
+            <input 
+              type="range" 
+              min="0.0005" 
+              max="0.01" 
+              step="0.0005"
+              value={animationSpeed} 
+              onChange={(e) => setAnimationSpeed(parseFloat(e.target.value))}
+              className="w-24 h-1 accent-primary"
+            />
+          </div>
+          <Button 
+            variant="outline" 
+            size="icon" 
+            onClick={() => setIsAnimating(!isAnimating)}
+            className="rounded-full h-10 w-10 border-2"
+          >
+            {isAnimating ? <Pause className="h-4 w-4 fill-current" /> : <Play className="h-4 w-4 fill-current ml-0.5" />}
+          </Button>
+        </div>
       </CardHeader>
       <CardContent className="flex flex-col gap-8">
         <div 

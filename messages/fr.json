@@ -173,7 +173,9 @@
       "initialValue": "Valeur Initiale (x₀)",
       "cobwebPath": "Trajectoire",
       "steps": "Étapes",
-      "timeSeries": "Série Temporelle"
+      "timeSeries": "Série Temporelle",
+      "animate": "Animer R",
+      "speed": "Vitesse"
     }
   }
 }
