@@ -22,6 +22,7 @@
       "professionalLinks": "Links",
       "demoLinks": "Demos",
       "gadgets": "Gadgets",
+      "visualizations": "Visualizations",
       "cvSebifyer": "CV Sebifyer",
       "online": "Online"
     }
@@ -156,5 +157,23 @@
     "sending": "Sending...",
     "success": "Message sent!",
     "successDescription": "I'll get back to you as soon as possible."
+  },
+  "Visualizations": {
+    "title": "Visualizations",
+    "logisticMap": {
+      "title": "The Logistic Map",
+      "description": "The logistic map is a polynomial mapping of degree 2, often cited as an archetypal example of how complex, chaotic behaviour can arise from very simple non-linear dynamical equations.",
+      "instruction": "The **Cobweb Plot** (left) shows how each iteration moves between the curve and the diagonal, while the **Time Series** (right) tracks the value of x over time."
+    },
+    "cobweb": {
+      "title": "Cobweb Plot & Time Series",
+      "growthRate": "Growth Rate (r)",
+      "functionCurve": "Function Curve",
+      "tryValues": "Try 3.0 (bifurcation), 3.5 (oscillations), or 3.9 (chaos)",
+      "initialValue": "Initial Value (x₀)",
+      "cobwebPath": "Cobweb Path",
+      "steps": "Steps",
+      "timeSeries": "Time Series"
+    }
   }
 }

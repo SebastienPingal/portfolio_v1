@@ -22,6 +22,7 @@
       "professionalLinks": "Liens",
       "demoLinks": "Démos",
       "gadgets": "Gadgets",
+      "visualizations": "Visualisations",
       "cvSebifyer": "CV Sebifyer",
       "online": "Me retrouver"
     }
@@ -156,5 +157,23 @@
     "sending": "Envoi en cours...",
     "success": "Message envoyé !",
     "successDescription": "Je vous répondrai dès que possible."
+  },
+  "Visualizations": {
+    "title": "Visualisations",
+    "logisticMap": {
+      "title": "La Suite Logistique",
+      "description": "La suite logistique est une suite mathématique souvent citée comme l'un des exemples les plus simples de comportement complexe et chaotique pouvant émerger d'équations non linéaires très simples.",
+      "instruction": "Le **Cobweb Plot** (à gauche) montre comment chaque itération se déplace entre la courbe et la diagonale, tandis que la **Série Temporelle** (à droite) suit la valeur de x au fil du temps."
+    },
+    "cobweb": {
+      "title": "Cobweb Plot & Série Temporelle",
+      "growthRate": "Taux de croissance (r)",
+      "functionCurve": "Courbe de la fonction",
+      "tryValues": "Testez 3.0 (bifurcation), 3.5 (oscillations), ou 3.9 (chaos)",
+      "initialValue": "Valeur Initiale (x₀)",
+      "cobwebPath": "Trajectoire",
+      "steps": "Étapes",
+      "timeSeries": "Série Temporelle"
+    }
   }
 }
