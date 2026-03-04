@@ -1,62 +1,69 @@
-import dynamic from 'next/dynamic'
-import { Document, Page, Text, View, StyleSheet, Font, Link, Image } from '@react-pdf/renderer'
-import { CVProps } from '@/types/CV'
-import React from 'react'
-import { themeColors, ThemeType } from './pdfTheme'
+import dynamic from "next/dynamic";
+import {
+  Document,
+  Page,
+  Text,
+  View,
+  StyleSheet,
+  Font,
+  Link,
+  Image,
+} from "@react-pdf/renderer";
+import { CVProps } from "@/types/CV";
+import React from "react";
+import { themeColors, ThemeType } from "./pdfTheme";
 
 // Dynamically import PDFViewer to ensure it's only used on the client side
-const PDFViewer = dynamic(() => import('@react-pdf/renderer').then(mod => mod.PDFViewer), { ssr: false })
+const PDFViewer = dynamic(
+  () => import("@react-pdf/renderer").then((mod) => mod.PDFViewer),
+  { ssr: false },
+);
 
 interface PDFDocumentProps extends CVProps {
-  theme: ThemeType
+  theme: ThemeType;
 }
 
 Font.register({
-  family: 'Montserrat',
-  src: 'https://fonts.gstatic.com/s/montserrat/v10/zhcz-_WihjSQC0oHJ9TCYC3USBnSvpkopQaUR-2r7iU.ttf'
-})
-
-Font.register({
-  family: 'Cereal',
+  family: "Cereal",
   fonts: [
     {
-      src: '/fonts/AirbnbCereal_W_Md.otf',
-      fontWeight: 'normal',
-      fontStyle: 'normal'
+      src: "/fonts/AirbnbCereal_W_Md.otf",
+      fontWeight: "normal",
+      fontStyle: "normal",
     },
     {
-      src: '/fonts/AirbnbCereal_W_Bd.otf',
-      fontWeight: 'bold',
-      fontStyle: 'normal'
+      src: "/fonts/AirbnbCereal_W_Bd.otf",
+      fontWeight: "bold",
+      fontStyle: "normal",
     },
     {
-      src: '/fonts/AirbnbCereal_W_Lt.otf',
-      fontWeight: 'light',
-      fontStyle: 'normal'
+      src: "/fonts/AirbnbCereal_W_Lt.otf",
+      fontWeight: "light",
+      fontStyle: "normal",
     },
     {
-      src: '/fonts/AirbnbCereal_W_XBd.otf',
-      fontWeight: 'ultrabold',
-      fontStyle: 'normal'
-    }
-  ]
-})
+      src: "/fonts/AirbnbCereal_W_XBd.otf",
+      fontWeight: "ultrabold",
+      fontStyle: "normal",
+    },
+  ],
+});
 
 // Separate the Document component from the PDFViewer wrapper
 const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
-  if (!data) return null
+  if (!data) return null;
 
-  const currentThemeColors = themeColors[theme] || themeColors.light
+  const currentThemeColors = themeColors[theme] || themeColors.light;
 
   const styles = StyleSheet.create({
     page: {
       padding: 20,
       backgroundColor: currentThemeColors.background,
       color: currentThemeColors.foreground,
-      fontFamily: 'Cereal'
+      fontFamily: "Cereal",
     },
     header: {
-      flexDirection: 'row',
+      flexDirection: "row",
       // justifyContent: 'space-between',
       gap: 20,
       marginBottom: 10,
@@ -67,35 +74,35 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
     profileImage: {
       height: 200,
       opacity: 0.8,
-      objectFit: 'cover',
+      objectFit: "cover",
       borderRadius: 10,
     },
     headerText: {
-      flexDirection: 'column'
+      flexDirection: "column",
     },
     headerLeft: {
-      flexDirection: 'row',
-      alignItems: 'flex-start',
+      flexDirection: "row",
+      alignItems: "flex-start",
       gap: 20,
     },
     headerRight: {
-      flexDirection: 'column',
-      justifyContent: 'space-between',
+      flexDirection: "column",
+      justifyContent: "space-between",
       gap: 4,
-      alignItems: 'flex-start',
+      alignItems: "flex-start",
       flex: 1,
-      minWidth: 0
+      minWidth: 0,
     },
     languagesContactContainer: {
-      flexDirection: 'row',
-      width: '100%',
-      justifyContent: 'space-between',
+      flexDirection: "row",
+      width: "100%",
+      justifyContent: "space-between",
       gap: 20,
     },
     languagesContainer: {
-      flexDirection: 'row',
+      flexDirection: "row",
       gap: 20,
-      alignItems: 'flex-end',
+      alignItems: "flex-end",
     },
     languagesContent: {
       fontSize: 14,
@@ -104,68 +111,68 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
     name: {
       fontSize: 24,
       color: currentThemeColors.accent,
-      fontWeight: 'ultrabold'
+      fontWeight: "ultrabold",
     },
     title: {
       fontSize: 24,
       color: currentThemeColors.primary,
-      fontWeight: 'bold'
+      fontWeight: "bold",
     },
     subtitle: {
       fontSize: 18,
       color: currentThemeColors.primary,
-      fontWeight: 'bold'
+      fontWeight: "bold",
     },
     contact: {
       fontSize: 9,
-      color: currentThemeColors.accent
+      color: currentThemeColors.accent,
     },
     contactContainer: {
-      flexDirection: 'column',
+      flexDirection: "column",
       gap: 4,
-      alignItems: 'flex-end'
+      alignItems: "flex-end",
     },
     section: {
-      flexDirection: 'column',
-      gap: 10,
+      flexDirection: "column",
+      gap: 5,
       marginBottom: 8,
       padding: 6,
-      borderRadius: 3
+      borderRadius: 3,
     },
     sectionTitle: {
       fontSize: 18,
-      fontWeight: 'bold',
+      fontWeight: "bold",
       marginBottom: 8,
       color: currentThemeColors.primary,
     },
     experienceRow: {
-      flexDirection: 'row',
+      flexDirection: "row",
       gap: 10,
-      justifyContent: 'space-between'
+      justifyContent: "space-between",
     },
     leftColumn: {
-      width: '30%',
-      flexDirection: 'column',
-      gap: 4
+      width: "30%",
+      flexDirection: "column",
+      gap: 4,
     },
     rightColumn: {
-      width: '65%',
-      flexDirection: 'column'
+      width: "65%",
+      flexDirection: "column",
     },
     placeDescription: {
       fontSize: 9,
       color: currentThemeColors.accent,
-      marginBottom: 4
+      marginBottom: 4,
     },
     experienceTitle: {
       fontSize: 14,
       marginBottom: 10,
-      fontWeight: 'bold',
+      fontWeight: "bold",
       color: currentThemeColors.primary,
     },
     experiencePeriod: {
       fontSize: 9,
-      color: currentThemeColors.primary
+      color: currentThemeColors.primary,
     },
     experienceDescription: {
       fontSize: 9,
@@ -182,44 +189,44 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
       marginLeft: 20,
     },
     link: {
-      textDecoration: 'underline',
+      textDecoration: "underline",
       color: currentThemeColors.primary,
-      fontWeight: 'bold'
+      fontWeight: "bold",
     },
     mainContent: {
-      flexDirection: 'column',
-      gap: 30,
+      flexDirection: "column",
+      gap: 10,
     },
     skillsSection: {
       marginBottom: 3,
-      flexDirection: 'column',
-      gap: 3
+      flexDirection: "column",
+      gap: 3,
     },
     skillCategory: {
-      flexDirection: 'column',
-      gap: 2
+      flexDirection: "column",
+      gap: 2,
     },
     skillCategoryTitle: {
       fontSize: 12,
-      fontWeight: 'extrabold',
+      fontWeight: "extrabold",
       marginTop: 30,
-      textDecoration: 'underline',
+      textDecoration: "underline",
       color: currentThemeColors.accent,
-      marginBottom: 2
+      marginBottom: 2,
     },
     skillsContent: {
-      flexDirection: 'row',
-      flexWrap: 'wrap',
+      flexDirection: "row",
+      flexWrap: "wrap",
       gap: 3,
-      marginTop: 20
+      marginTop: 20,
     },
     activitiesContent: {
-      flexDirection: 'column',
+      flexDirection: "column",
       gap: 20,
-      marginTop: 20
+      marginTop: 20,
     },
     skillItem: {
-      fontSize: 10
+      fontSize: 10,
     },
     experienceSkills: {
       marginTop: 5,
@@ -227,37 +234,54 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
     },
     experienceSkillsTitle: {
       fontSize: 10,
-      fontWeight: 'bold',
+      fontWeight: "bold",
       color: currentThemeColors.accent,
       marginBottom: 2,
     },
     experienceSkillsContent: {
-      flexDirection: 'row',
-      flexWrap: 'wrap',
+      flexDirection: "row",
+      flexWrap: "wrap",
       gap: 2,
     },
     experienceLinkSection: {
       marginTop: 8,
       padding: 3,
       backgroundColor: currentThemeColors.background,
-      borderRadius: 2
+      borderRadius: 2,
     },
     experienceLinkTitle: {
       fontSize: 8,
-      fontWeight: 'bold',
+      fontWeight: "bold",
       color: currentThemeColors.primary,
-      marginBottom: 2
+      marginBottom: 2,
     },
     experienceLink: {
       fontSize: 8,
       color: currentThemeColors.accent,
-      textDecoration: 'underline'
+      textDecoration: "underline",
     },
     experienceContent: {
-      flexDirection: 'column',
-      gap: 58,
+      flexDirection: "column",
+      gap: 20,
     },
-  })
+    aboutText: {
+      fontSize: 10,
+      lineHeight: 1.4,
+      color: currentThemeColors.foreground,
+    },
+    keywordsContainer: {
+      flexDirection: "row",
+      flexWrap: "wrap",
+      gap: 4,
+    },
+    keywordTag: {
+      fontSize: 1,
+      padding: 2,
+      paddingLeft: 6,
+      paddingRight: 6,
+      color: currentThemeColors.accent,
+    },
+  });
 
   return (
     <Document>
@@ -265,9 +289,15 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
         {/* Header */}
         <View style={styles.header}>
           <View style={styles.headerLeft}>
-            {data.profileImage && data.profileImageDark && (
+            {(data.profileImage || data.profileImagePdf) &&
+              (data.profileImageDark || data.profileImageDarkPdf) && (
               <Image
-                src={theme === 'light' ? data.profileImage : data.profileImageDark}
+                src={
+                  (theme === "light"
+                    ? (data.profileImagePdf ?? data.profileImage)
+                    : (data.profileImageDarkPdf ?? data.profileImageDark)
+                  ) as string
+                }
                 style={styles.profileImage}
               />
             )}
@@ -275,31 +305,46 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
           <View style={styles.headerRight}>
             <View style={styles.headerText}>
               <Text style={styles.name}>{data.name}</Text>
-              <Text style={styles.title}>
-                {data.title}
-              </Text>
+              <Text style={styles.title}>{data.title}</Text>
               <Text style={styles.subtitle}>{data.subtitle}</Text>
               {data.yearsOfExperience && (
-                <Text style={{ fontSize: 14, color: currentThemeColors.accent, fontWeight: 'normal' }}>
+                <Text
+                  style={{
+                    fontSize: 14,
+                    color: currentThemeColors.accent,
+                    fontWeight: "normal",
+                  }}
+                >
                   {data.yearsOfExperience}{" "}
-                  {language === 'en'
-                    ? `${data.yearsOfExperience > 1 ? 'years' : 'year'} of experience`
-                    : `${data.yearsOfExperience > 1 ? 'années' : 'année'} d'expérience`
-                  }
+                  {language === "en"
+                    ? `${data.yearsOfExperience > 1 ? "years" : "year"} of experience`
+                    : `${data.yearsOfExperience > 1 ? "années" : "année"} d'expérience`}
                 </Text>
               )}
             </View>
             <View style={styles.languagesContactContainer}>
               <View style={styles.languagesContainer}>
-                {data.languages && data.languages.map((lang) => (
-                  <Text key={lang.name} style={styles.languagesContent}>{lang.name}</Text>
-                ))}
+                {data.languages &&
+                  data.languages.map((lang) => (
+                    <Text key={lang.name} style={styles.languagesContent}>
+                      {lang.name}
+                    </Text>
+                  ))}
               </View>
               {data.contact && (
                 <View style={styles.contactContainer}>
-                  {data.contact.map((contact) => (
-                    contact.value && <Link key={contact.key} style={styles.contact} src={contact.link}>{contact.value}</Link>
-                  ))}
+                  {data.contact.map(
+                    (contact) =>
+                      contact.value && (
+                        <Link
+                          key={contact.key}
+                          style={styles.contact}
+                          src={contact.link}
+                        >
+                          {contact.value}
+                        </Link>
+                      ),
+                  )}
                 </View>
               )}
             </View>
@@ -308,19 +353,50 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
 
         {/* Main Content */}
         <View style={styles.mainContent}>
+          {/* About Section */}
+          {data.about && (
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>
+                {language === "en" ? "About" : "À propos"}
+              </Text>
+              <Text style={styles.aboutText}>{data.about}</Text>
+            </View>
+          )}
+
+          {/* Core Keywords and ATS Keywords Section */}
+          {data.coreKeywords && data.coreKeywords.length > 0 && (
+            <View style={styles.section}>
+              <View style={styles.keywordsContainer}>
+                {data.coreKeywords.map((keyword, index) => (
+                  <Text key={index} style={styles.keywordTag}>
+                    {keyword}
+                  </Text>
+                ))}
+              </View>
+              <View style={styles.keywordsContainer}>
+                {(data.atsKeywords ?? []).map((keyword, index) => (
+                  <Text key={index} style={styles.keywordTag}>
+                    {keyword}
+                  </Text>
+                ))}
+              </View>
+            </View>
+          )}
+
           {/* Experience Section */}
           {data.experience && (
             <View style={styles.section}>
               <Text style={styles.sectionTitle}>
-                {language === 'en' ? 'Professional Experience' : 'Expérience Professionnelle'}
+                {language === "en"
+                  ? "Professional Experience"
+                  : "Expérience Professionnelle"}
               </Text>
 
               <View style={styles.experienceContent}>
                 {data.experience
                   .sort((a, b) => (a.order || 0) - (b.order || 0))
                   .map((exp, index) => (
-
-                    <View key={index} >
+                    <View key={index}>
                       <View style={styles.experienceRow}>
                         <View style={styles.leftColumn}>
                           <Text style={styles.experienceTitle}>
@@ -335,25 +411,32 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
                         </View>
 
                         <View style={styles.rightColumn}>
-                          <Text style={styles.experienceTitle}>{exp.title}</Text>
+                          <Text style={styles.experienceTitle}>
+                            {exp.title}
+                          </Text>
                         </View>
                       </View>
 
                       <View style={styles.experienceRow}>
                         {/* Left Column - Basic Info Only */}
                         <View style={styles.leftColumn}>
-                          <Text style={styles.experiencePeriod}>{exp.period}</Text>
+                          <Text style={styles.experiencePeriod}>
+                            {exp.period}
+                          </Text>
                           {exp.placeDescription && (
-                            <Text style={styles.placeDescription}>{exp.placeDescription}</Text>
+                            <Text style={styles.placeDescription}>
+                              {exp.placeDescription}
+                            </Text>
                           )}
                         </View>
 
                         {/* Right Column - Detailed Descriptions + Skills */}
                         <View style={styles.rightColumn}>
-
                           {/* Subtitle for responsibilities */}
                           <Text style={styles.experienceSkillsTitle}>
-                            {language === 'en' ? 'My responsibilities / tasks performed:' : 'Mes responsabilités / tâches effectuées :'}
+                            {language === "en"
+                              ? "My responsibilities / tasks performed:"
+                              : "Mes responsabilités / tâches effectuées :"}
                           </Text>
 
                           {/* Descriptions */}
@@ -361,9 +444,9 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
                             <Text
                               key={i}
                               style={
-                                desc.startsWith('*')
+                                desc.startsWith("*")
                                   ? styles.experienceDescriptionAsterisk
-                                  : desc.startsWith('-')
+                                  : desc.startsWith("-")
                                     ? styles.experienceDescriptionDash
                                     : styles.experienceDescription
                               }
@@ -376,7 +459,9 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
                           {exp.skills && exp.skills.length > 0 && (
                             <View style={styles.experienceSkills}>
                               <Text style={styles.experienceSkillsTitle}>
-                                {language === 'en' ? 'Skills:' : 'Compétences :'}
+                                {language === "en"
+                                  ? "Skills:"
+                                  : "Compétences :"}
                               </Text>
                               <View style={styles.experienceSkillsContent}>
                                 {exp.skills.map((skill, skillIndex) => (
@@ -384,7 +469,8 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
                                     <Text style={styles.skillItem}>
                                       {skill}
                                     </Text>
-                                    {skillIndex !== (exp.skills?.length || 0) - 1 && (
+                                    {skillIndex !==
+                                      (exp.skills?.length || 0) - 1 && (
                                       <Text style={styles.skillItem}>·</Text>
                                     )}
                                   </React.Fragment>
@@ -397,9 +483,14 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
                           {exp.link && (
                             <View style={styles.experienceLinkSection}>
                               <Text style={styles.experienceLinkTitle}>
-                                {language === 'en' ? 'More details:' : 'Plus de détails :'}
+                                {language === "en"
+                                  ? "More details:"
+                                  : "Plus de détails :"}
                               </Text>
-                              <Link style={styles.experienceLink} src={exp.link}>
+                              <Link
+                                style={styles.experienceLink}
+                                src={exp.link}
+                              >
                                 {exp.link}
                               </Link>
                             </View>
@@ -416,14 +507,16 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
           {data.education && (
             <View style={styles.section}>
               <Text style={styles.sectionTitle}>
-                {language === 'en' ? 'Education' : 'Formation'}
+                {language === "en" ? "Education" : "Formation"}
               </Text>
               {data.education.map((edu, index) => (
                 <View key={index} style={styles.experienceRow}>
                   <View style={styles.leftColumn}>
                     <Text style={styles.experienceTitle}>{edu.title}</Text>
                     {edu.placeDescription && (
-                      <Text style={styles.placeDescription}>{edu.placeDescription}</Text>
+                      <Text style={styles.placeDescription}>
+                        {edu.placeDescription}
+                      </Text>
                     )}
                     <Text style={styles.experiencePeriod}>{edu.period}</Text>
                   </View>
@@ -432,9 +525,9 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
                       <Text
                         key={i}
                         style={
-                          desc.startsWith('*')
+                          desc.startsWith("*")
                             ? styles.experienceDescriptionAsterisk
-                            : desc.startsWith('-')
+                            : desc.startsWith("-")
                               ? styles.experienceDescriptionDash
                               : styles.experienceDescription
                         }
@@ -450,8 +543,8 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
         </View>
       </Page>
     </Document>
-  )
-}
+  );
+};
 
 // Export both a viewer version and a raw document version
 export const PDFRenderer = ({ data, language, theme }: PDFDocumentProps) => {
@@ -459,10 +552,14 @@ export const PDFRenderer = ({ data, language, theme }: PDFDocumentProps) => {
     <PDFViewer width="100%" height="100%">
       <PDFDocument data={data} language={language} theme={theme} />
     </PDFViewer>
-  )
-}
+  );
+};
 
 // Add this export for direct PDF generation
-export const PDFDocumentRenderer = ({ data, language, theme }: PDFDocumentProps) => {
-  return <PDFDocument data={data} language={language} theme={theme} />
-}
+export const PDFDocumentRenderer = ({
+  data,
+  language,
+  theme,
+}: PDFDocumentProps) => {
+  return <PDFDocument data={data} language={language} theme={theme} />;
+};

@@ -2,13 +2,15 @@ import { CVData } from '@/types/CV'
 
 export const englishCV: CVData = {
   "name": "Sébastien Pingal",
-  "about": "Full Stack Developer passionate about innovation, I recently designed and developed moneodomus.com, a complex web platform for managing real estate projects, enabling collaboration between different industry players (agencies, builders, architects). Co-founder of KAFO, a startup dedicated to reducing remote worker isolation, I rely on a previous 6-year experience in the music industry that has given me strong adaptability and creativity. I am comfortable with modern technologies like Docker and CI/CD, and I am always ready to learn new methods and languages.",
-  "title": "Full Stack Developer",
-  "subtitle": "Node - React - Vue",
+  "about": "Full Stack JavaScript Developer with 4 years of experience in designing web applications and SaaS platforms. Specialized in TypeScript, Node.js, React, Next.js and Vue.js, I design robust REST API architectures and modern product-oriented interfaces. I notably designed and developed moneodomus.com, a SaaS platform for managing real estate projects enabling collaboration between agencies, builders and architects. Co-founder of KAFO, a startup aimed at reducing remote worker isolation. Former composer and sound engineer for 6 years, I combine creativity, technical rigor and product sense. Comfortable with startup environments, from-scratch development, DevOps (Docker, CI/CD) and scalable architecture design.",
+  "title": "Full Stack JavaScript Developer",
+  "subtitle": "TypeScript · Node.js · React · Next.js · Vue.js · PostgreSQL",
   "yearsOfExperience": 4,
   "profileImage": "/img/seb8.jpg",
+  "profileImagePdf": "/img/seb8-pdf.jpg",
   // "profileImage": "/img/me_black.png",
   "profileImageDark": "/img/seb8.jpg",
+  "profileImageDarkPdf": "/img/seb8-pdf.jpg",
   // "profileImageDark": "/img/me_white.png",
   "activities": [
     "Music (composition, drums)",
@@ -56,7 +58,7 @@ export const englishCV: CVData = {
           "rating": 5
         },
         {
-          "name": "Shadcn/UI",
+          "name": "shadcn/ui",
           "rating": 5
         },
         {
@@ -200,6 +202,33 @@ export const englishCV: CVData = {
       }
     ]
   },
+
+  // 👇 Added for ATS optimization (quick keyword scanning)
+  "coreKeywords": [
+    "Full Stack Developer",
+    "JavaScript Developer",
+    "TypeScript",
+    "Node.js",
+    "React",
+    "Next.js",
+    "Vue.js",
+    "REST API",
+    "API Development",
+    "SaaS Development",
+    "Web Application Architecture",
+    "PostgreSQL",
+    "MySQL",
+    "Docker",
+    "CI/CD",
+    "AWS",
+    "Git",
+    "Agile",
+    "Scrum",
+    "UX/UI",
+    "Product Development",
+    "Startup Environment"
+  ],
+
   "contact": [
     {
       "key": "email",
@@ -231,7 +260,7 @@ export const englishCV: CVData = {
     {
       "place": "Udemy and Personal Mentor",
       "title": "Online Training and Mentorship",
-      "period": "June 2021 - Present (3 years)",
+      "period": "June 2021 - Present (4 years)",
       "description": [
         "In-depth Vue.js and TypeScript training",
         "Mentorship",
@@ -282,10 +311,10 @@ export const englishCV: CVData = {
       "link": "https://jolimoi.com/",
       "order": 0,
       "place": "Jolimoi",
-      "placeDescription": "Social selling platform for beauty products.",
-      "title": "Full Stack Developer Vue.js Node.js and UX/UI Designer",
+      "placeDescription": "Social selling platform for beauty products.\n 9000 active users on the eshop platform\n 5000 active stylists\n €3M annual revenue",
+      "title": "Full Stack Developer (Vue.js, Node.js, TypeScript)",
       "period": "October 2025 - January 2026 (3 months)",
-      "skills": ["Typescript", "Vue.js", "Node.js", "MySQL", "PHP", "PrestaShop", "Docker", "Jest", "GitHub Actions", "Notion", "Linear", "Agile", "Scrum"],
+      "skills": ["TypeScript", "Vue.js", "Node.js", "MySQL", "PHP", "PrestaShop", "Docker", "Jest", "GitHub Actions", "Notion", "Linear", "Agile", "Scrum"],
       "description": [
         "- Full‑stack development and maintenance of a PrestaShop e‑shop",
         "* Update and optimization of PrestaShop components",
@@ -304,9 +333,9 @@ export const englishCV: CVData = {
       "order": 1,
       "place": "Moneo Domus",
       "placeDescription": "Construction company holding - Business development and support",
-      "title": "Full Stack Developer React.js Node.js and UX/UI Designer",
+      "title": "Full Stack Developer (React.js, Node.js, TypeScript) / UX/UI",
       "period": "Since January 2024 (1.5 years)",
-      "skills": ["Typescript", "React.js", "Next.js", "Node.js", "PostgreSQL", "NextAuth", "shadcn/ui", "Calendly API", "MagicLink", "PDF Generation", "Client Relations", "Vercel"],
+      "skills": ["TypeScript", "React.js", "Next.js", "Node.js", "PostgreSQL", "NextAuth", "shadcn/ui", "Calendly API", "MagicLink", "PDF Generation", "Client Relations", "Vercel"],
       "description": [
         "Design of a software platform (SaaS) for a construction company holding. Goal: automate operational workflows and free ~50% workload. MoneoDomus generates approximately €500,000 in monthly revenue.",
         "- Frontend development from scratch and responsive (React.js, shadcn/ui, TailwindCSS)",
@@ -327,9 +356,9 @@ export const englishCV: CVData = {
       "order": 2,
       "place": "KAFO",
       "placeDescription": "Social Network for remote workers",
-      "title": "Founder, Full Stack Developer (Vue.js, Node.js, PostgreSQL) ",
+      "title": "Founder / Full Stack Developer (Vue.js, Node.js, PostgreSQL)",
       "period": "February 2023 - September 2023 (8 months)",
-      "skills": ["Typescript", "Vue.js", "Node.js", "Xano", "Weweb", "Google Maps API", "AWS EC2", "GitHub CI/CD", "Primevue", "No-Code", "UX/UI", "UX Testing", "Agile", "Scrum"],
+      "skills": ["TypeScript", "Vue.js", "Node.js", "Xano", "Weweb", "Google Maps API", "AWS EC2", "GitHub CI/CD", "Primevue", "No-Code", "UX/UI", "UX Testing", "Agile", "Scrum"],
       "description": [
         "Creation of a startup. A social network for remote workers. Kafo had partnerships with several private schools and freelance communities (including Freelance Republik). An article was published in Les Echos dedicated to the platform.",
         "- Backend development in no-code from scratch (Xano)",
@@ -350,9 +379,9 @@ export const englishCV: CVData = {
       "link": "",
       "order": 3,
       "place": "Art Factory",
-      "title": "FullStack Developer (Next.js, Node.js, React.js, PostgreSQL) and UX/UI Designer",
+      "title": "Full Stack Developer (Next.js, Node.js, React.js, PostgreSQL) / UX/UI",
       "period": "November 2023 - January 2024 (3 months)",
-      "skills": ["Typescript", "Next.js", "React.js", "Node.js", "PostgreSQL", "Express.js", "shadcn/ui", "TailwindCSS", "API Development"],
+      "skills": ["TypeScript", "Next.js", "React.js", "Node.js", "PostgreSQL", "Express.js", "shadcn/ui", "TailwindCSS", "API Development"],
       "description": [
         "Development and maintenance of a private artistic events management application for an association. (Next.js, Node.js, PostgreSQL)",
         "- Frontend development (React, TailwindCSS)",
@@ -371,7 +400,7 @@ export const englishCV: CVData = {
       "place": "Aestima Immobilier",
       "title": "FullStack Developer (Vue.js, Node.js, Express.js, PostgreSQL, Stripe)",
       "period": "June 2021 - December 2023 (2.5 years)",
-      "skills": ["Typescript", "Vue.js", "Node.js", "Express.js", "Stripe", "Primevue", "Axios", "Puppeteer", "Clean Code", "PDF Generation", "Refactoring", "Agile", "Scrum"],
+      "skills": ["TypeScript", "Vue.js", "Node.js", "Express.js", "Stripe", "Primevue", "Axios", "Puppeteer", "Clean Code", "PDF Generation", "Refactoring", "Agile", "Scrum"],
       "description": [
         "Refactoring and feature additions on a real estate investment simulation application (Team of 3 fullstack devs). The product had heavy technical debt and both frontend and backend needed major cleanup.",
         "- Frontend overhaul (Vue 2)",
@@ -390,7 +419,7 @@ export const englishCV: CVData = {
       "place": "My Office",
       "title": "Personal Projects",
       "period": "Since June 2021 (4 years)",
-      "skills": ["Typescript", "React.js", "Next.js", "PostgreSQL", "Tailwind CSS", "shadcn/ui", "i18n", "OAuth", "Perlin Noise", "Python", "Three.js", "Vue.js", "Docker", "Chrome Extension", "Firefox Extension"],
+      "skills": ["TypeScript", "React.js", "Next.js", "PostgreSQL", "Tailwind CSS", "shadcn/ui", "i18n", "OAuth", "Perlin Noise", "Python", "Three.js", "Vue.js", "Docker", "Chrome Extension", "Firefox Extension"],
       "description": [
         "My Portfolio (sebastienpingal.dev): Creation of a web application for my portfolio.",
         "- Frontend and backend development from scratch and responsive (React.js, shadcn/ui, TailwindCSS, Next.js, Node.js, PostgreSQL)",
@@ -429,5 +458,19 @@ export const englishCV: CVData = {
         ""
       ]
     }
+  ],
+
+  // 👇 Bonus ATS (synonyms of role often used by ATS + recruiters)
+  "atsKeywords": [
+    "Fullstack Developer",
+    "Backend Developer",
+    "Frontend Developer",
+    "Software Engineer",
+    "JavaScript Engineer",
+    "TypeScript Developer",
+    "Node.js Developer",
+    "React Developer",
+    "Next.js Developer",
+    "Vue.js Developer"
   ]
 } 

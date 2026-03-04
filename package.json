@@ -6,7 +6,8 @@
     "dev": "prisma generate && next dev --turbopack",
     "build": "prisma migrate deploy  && prisma generate && prisma db seed && next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "optimize-pdf-images": "node scripts/optimize-pdf-images.js"
   },
   "prisma": {
     "seed": "ts-node prisma/seed.ts"
