@@ -336,13 +336,19 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
                   {data.contact.map(
                     (contact) =>
                       contact.value && (
-                        <Link
-                          key={contact.key}
-                          style={styles.contact}
-                          src={contact.link}
-                        >
-                          {contact.value}
-                        </Link>
+                        contact.link ? (
+                          <Link
+                            key={contact.key}
+                            style={styles.contact}
+                            src={contact.link}
+                          >
+                            {contact.value}
+                          </Link>
+                        ) : (
+                          <Text key={contact.key} style={styles.contact}>
+                            {contact.value}
+                          </Text>
+                        )
                       ),
                   )}
                 </View>
