@@ -1,4 +1,4 @@
-import dynamic from "next/dynamic";
+import dynamic from "next/dynamic"
 import {
   Document,
   Page,
@@ -8,16 +8,16 @@ import {
   Font,
   Link,
   Image,
-} from "@react-pdf/renderer";
-import { CVProps } from "@/types/CV";
-import React from "react";
-import { themeColors, ThemeType } from "./pdfTheme";
+} from "@react-pdf/renderer"
+import { CVProps } from "@/types/CV"
+import React from "react"
+import { themeColors, ThemeType } from "./pdfTheme"
 
 // Dynamically import PDFViewer to ensure it's only used on the client side
 const PDFViewer = dynamic(
   () => import("@react-pdf/renderer").then((mod) => mod.PDFViewer),
   { ssr: false },
-);
+)
 
 interface PDFDocumentProps extends CVProps {
   theme: ThemeType;
@@ -47,13 +47,13 @@ Font.register({
       fontStyle: "normal",
     },
   ],
-});
+})
 
 // Separate the Document component from the PDFViewer wrapper
 const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
-  if (!data) return null;
+  if (!data) return null
 
-  const currentThemeColors = themeColors[theme] || themeColors.light;
+  const currentThemeColors = themeColors[theme] || themeColors.light
 
   const styles = StyleSheet.create({
     page: {
@@ -281,7 +281,7 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
       paddingRight: 6,
       color: currentThemeColors.accent,
     },
-  });
+  })
 
   return (
     <Document>
@@ -549,8 +549,8 @@ const PDFDocument = ({ data, language, theme }: PDFDocumentProps) => {
         </View>
       </Page>
     </Document>
-  );
-};
+  )
+}
 
 // Export both a viewer version and a raw document version
 export const PDFRenderer = ({ data, language, theme }: PDFDocumentProps) => {
@@ -558,8 +558,8 @@ export const PDFRenderer = ({ data, language, theme }: PDFDocumentProps) => {
     <PDFViewer width="100%" height="100%">
       <PDFDocument data={data} language={language} theme={theme} />
     </PDFViewer>
-  );
-};
+  )
+}
 
 // Add this export for direct PDF generation
 export const PDFDocumentRenderer = ({
@@ -567,5 +567,5 @@ export const PDFDocumentRenderer = ({
   language,
   theme,
 }: PDFDocumentProps) => {
-  return <PDFDocument data={data} language={language} theme={theme} />;
-};
+  return <PDFDocument data={data} language={language} theme={theme} />
+}
