@@ -2,7 +2,7 @@ import { CVData } from '@/types/CV'
 
 export const englishCV: CVData = {
   "name": "Sébastien Pingal",
-  "about": "Full Stack JavaScript Developer with 4 years of experience in designing web applications and SaaS platforms. Specialized in TypeScript, Node.js, React, Next.js and Vue.js, I design robust REST API architectures and modern product-oriented interfaces. I notably designed and developed moneodomus.com, a SaaS platform for managing real estate projects enabling collaboration between agencies, builders and architects. Co-founder of KAFO, a startup aimed at reducing remote worker isolation. Former composer and sound engineer for 6 years, I combine creativity, technical rigor and product sense. Comfortable with startup environments, from-scratch development, DevOps (Docker, CI/CD) and scalable architecture design.",
+  "about": "Full Stack JavaScript Developer with 4 years of software development experience (2021–present). Total professional experience: 10+ years (including 4 years in software engineering). Specialized in TypeScript, Node.js, React, Next.js and Vue.js, I design robust REST API architectures and modern product-oriented interfaces. I notably designed and developed moneodomus.com, a SaaS platform for managing real estate projects enabling collaboration between agencies, builders and architects. Co-founder of KAFO, a startup aimed at reducing remote worker isolation. Former composer and sound engineer (prior experience, non-tech), I combine creativity, technical rigor and product sense. Comfortable with startup environments, from-scratch development, DevOps (Docker, CI/CD) and scalable architecture design.",
   "title": "Full Stack JavaScript Developer",
   "subtitle": "TypeScript · Node.js · React · Next.js · Vue.js · PostgreSQL",
   "yearsOfExperience": 4,
@@ -440,7 +440,7 @@ export const englishCV: CVData = {
     {
       "link": "https://soundcloud.com/unbrouillard",
       "order": 6,
-      "place": "Brouillard",
+      "place": "Brouillard — Prior experience (non-tech)",
       "title": "Composer/Sound Engineer",
       "period": "2015 - 2021 (6 years)",
       "skills": ["Audio Engineering", "Composition", "Mix/Master", "Sound Design", "Music Production"],
@@ -450,7 +450,7 @@ export const englishCV: CVData = {
     },
     {
       "order": 7,
-      "place": "Freelance",
+      "place": "Freelance — Prior experience (non-tech)",
       "title": "Video Editor",
       "period": "2013 - 2015 (2 years)",
       "skills": ["Video Editing", "Adobe Premiere", "Motion Graphics", "Post-Production"],

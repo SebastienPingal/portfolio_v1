@@ -3,7 +3,7 @@ import { CVData } from '@/types/CV'
 export const frenchCV: CVData = {
   name: "Sébastien Pingal",
   about:
-    "Développeur Full Stack JavaScript avec 4 ans d'expérience dans la conception d'applications web et de plateformes SaaS. Spécialisé en TypeScript, Node.js, React, Next.js et Vue.js, je conçois des architectures d'API REST robustes et des interfaces modernes orientées produit. J'ai notamment conçu et développé moneodomus.com, une plateforme SaaS de gestion de projets immobiliers permettant la collaboration entre agences, constructeurs et architectes. Co-fondateur de KAFO, une startup visant à réduire l'isolement des télétravailleurs. Ancien compositeur et ingénieur du son pendant 6 ans, je combine créativité, rigueur technique et sens du produit. Habitué aux environnements startup, au développement from-scratch, au DevOps (Docker, CI/CD) et à la conception d'architectures évolutives.",
+    "Développeur Full Stack JavaScript avec 4 ans d'expérience en développement logiciel (2021–présent). Expérience professionnelle totale : 10+ ans (dont 4 ans en ingénierie logicielle). Spécialisé en TypeScript, Node.js, React, Next.js et Vue.js, je conçois des architectures d'API REST robustes et des interfaces modernes orientées produit. J'ai notamment conçu et développé moneodomus.com, une plateforme SaaS de gestion de projets immobiliers permettant la collaboration entre agences, constructeurs et architectes. Co-fondateur de KAFO, une startup visant à réduire l'isolement des télétravailleurs. Ancien compositeur et ingénieur du son (expérience antérieure, hors tech), je combine créativité, rigueur technique et sens du produit. Habitué aux environnements startup, au développement from-scratch, au DevOps (Docker, CI/CD) et à la conception d'architectures évolutives.",
   title: "Développeur Full Stack JavaScript",
   subtitle: "TypeScript · Node.js · React · Next.js · Vue.js · PostgreSQL",
   yearsOfExperience: 4,
@@ -272,7 +272,7 @@ export const frenchCV: CVData = {
     {
       link: "https://soundcloud.com/unbrouillard",
       order: 6,
-      place: "Brouillard",
+      place: "Brouillard — Expérience antérieure (hors tech)",
       title: "Compositeur / Ingénieur du son",
       period: "2015 - 2021 (6 ans)",
       skills: ["Audio Engineering", "Composition", "Mix/Master", "Sound Design", "Music Production"],
@@ -280,7 +280,7 @@ export const frenchCV: CVData = {
     },
     {
       order: 7,
-      place: "Freelance",
+      place: "Freelance — Expérience antérieure (hors tech)",
       title: "Monteur Vidéo",
       period: "2013 - 2015 (2 ans)",
       skills: ["Video Editing", "Adobe Premiere", "Motion Graphics", "Post-Production"],

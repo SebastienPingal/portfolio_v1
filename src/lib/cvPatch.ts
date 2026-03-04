@@ -15,6 +15,8 @@ export function buildPrompt(args: {
   jobOfferText: string
   cvSnapshot: unknown
 }) {
+  const yearsOfExperience = 4
+
   return [
     {
       role: "system",
@@ -46,6 +48,9 @@ export function buildPrompt(args: {
               "1 paragraph, dense keywords, French, highlight relevant stacks and responsibilities from currentCV.",
             keywordsStyle:
               "Put the job's most important keywords first. Prefer exact spellings from jobOfferText when possible.",
+            ...(yearsOfExperience != null && {
+              yearsOfExperienceConstraint: `CRITICAL: yearsOfExperience is ${yearsOfExperience}. In the about section, ALWAYS state exactly "${yearsOfExperience} ans" (or "${yearsOfExperience} années") for software development experience. Do NOT infer or modify years of experience. Use format: "Expérience professionnelle totale : X ans (dont ${yearsOfExperience} ans en développement logiciel)" when mentioning total experience. Never write 5, 6, 7, 8, 9, 10+ years for development experience.`,
+            }),
           },
         },
         null,
