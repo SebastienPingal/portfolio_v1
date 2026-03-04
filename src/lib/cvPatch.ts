@@ -35,7 +35,7 @@ export function buildPrompt(args: {
             atsKeywords: "string[] (optional, max 30)",
             skillsPriority: "string[] (optional)",
             experienceTweaks:
-              "Array<{ place: string; addBullets?: string[] }> (optional)",
+              "Array<{ place: string; addBullets?: string[] }> (optional, max 6 tweaks, addBullets: max 6 strings each 2-160 chars)",
           },
           jobOfferText: args.jobOfferText,
           currentCV: args.cvSnapshot,
@@ -124,36 +124,53 @@ export function parseAndValidateCVPatch(input: unknown): CVPatch {
     out.skillsPriority = patch.skillsPriority
   }
 
-  if (patch.experienceTweaks !== undefined) {
-    if (!Array.isArray(patch.experienceTweaks) || patch.experienceTweaks.length > 6) {
-      throw new Error("Invalid patch.experienceTweaks")
-    }
-
-    const tweaks: NonNullable<CVPatch["experienceTweaks"]> = []
-    for (const tweak of patch.experienceTweaks) {
-      if (!tweak || typeof tweak !== "object" || Array.isArray(tweak)) {
-        throw new Error("Invalid experience tweak entry")
+  if (patch.experienceTweaks !== undefined && patch.experienceTweaks !== null) {
+    if (!Array.isArray(patch.experienceTweaks)) {
+      // LLM sometimes returns null/object; skip invalid experienceTweaks
+      console.warn(
+        "⚠️ Skipping invalid patch.experienceTweaks: expected array, got",
+        typeof patch.experienceTweaks,
+      )
+    } else {
+      const rawTweaks = patch.experienceTweaks.slice(0, 6)
+      if (patch.experienceTweaks.length > 6) {
+        console.warn(
+          `⚠️ Truncating patch.experienceTweaks from ${patch.experienceTweaks.length} to 6`,
+        )
       }
 
-      const item = tweak as Record<string, unknown>
-      if (typeof item.place !== "string" || item.place.length < 1 || item.place.length > 80) {
-        throw new Error("Invalid experience tweak place")
-      }
-
-      const cleanTweak: NonNullable<CVPatch["experienceTweaks"]>[number] = {
-        place: item.place,
-      }
-
-      if (item.addBullets !== undefined) {
-        if (!isStringArray(item.addBullets, { max: 6, minLen: 5, maxLen: 160 })) {
-          throw new Error("Invalid experience tweak addBullets")
+      const tweaks: NonNullable<CVPatch["experienceTweaks"]> = []
+      for (const tweak of rawTweaks) {
+        if (!tweak || typeof tweak !== "object" || Array.isArray(tweak)) {
+          throw new Error("Invalid experience tweak entry")
         }
-        cleanTweak.addBullets = item.addBullets
-      }
 
-      tweaks.push(cleanTweak)
+        const item = tweak as Record<string, unknown>
+        if (typeof item.place !== "string" || item.place.length < 1 || item.place.length > 80) {
+          throw new Error("Invalid experience tweak place")
+        }
+
+        const cleanTweak: NonNullable<CVPatch["experienceTweaks"]>[number] = {
+          place: item.place,
+        }
+
+        if (item.addBullets !== undefined && item.addBullets !== null) {
+          if (!Array.isArray(item.addBullets)) {
+            console.warn("⚠️ Skipping invalid addBullets: expected array")
+          } else {
+            const valid = item.addBullets
+              .filter((b): b is string => typeof b === "string")
+              .map((s) => s.trim())
+              .filter((s) => s.length >= 2 && s.length <= 160)
+              .slice(0, 6)
+            if (valid.length > 0) cleanTweak.addBullets = valid
+          }
+        }
+
+        tweaks.push(cleanTweak)
+      }
+      out.experienceTweaks = tweaks
     }
-    out.experienceTweaks = tweaks
   }
 
   return out

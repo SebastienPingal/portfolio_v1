@@ -36,15 +36,12 @@ export async function POST(req: Request) {
 
     const messages = buildPrompt({ jobOfferText, cvSnapshot })
 
-    const response = await client.responses.create({
-      model: "gpt-4o-mini",
-      input: messages.map((m) => ({
-        role: m.role,
-        content: [{ type: "input_text", text: m.content }],
-      })),
+    const completion = await client.chat.completions.create({
+      model: "gpt-3.5-turbo",
+      messages: messages.map((m) => ({ role: m.role, content: m.content })),
     })
 
-    const raw = response.output_text?.trim()
+    const raw = completion.choices[0]?.message?.content?.trim()
     if (!raw) {
       return NextResponse.json(
         { error: "Empty model response" },
