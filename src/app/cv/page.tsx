@@ -338,10 +338,10 @@ const CVPage: React.FC = () => {
         className="w-full b-4 backdrop-blur-sm p-4 rounded-xl"
       />
 
-      <div className="w-full flex justify-center">
-        <div className="flex items-center w-full max-w-5xl px-4">
-          <div className="flex gap-2 flex-wrap">
-            {session?.user && (
+      {session?.user && (
+        <div className="w-full flex flex-col items-center justify-center">
+          <div className="flex items-center w-full max-w-5xl px-4">
+            <div className="flex gap-2 flex-wrap">
               <label>
                 <input
                   type="file"
@@ -356,34 +356,33 @@ const CVPage: React.FC = () => {
                   </span>
                 </Button>
               </label>
-            )}
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={handleOptimizeCV}
-              disabled={isOptimizing}
-            >
-              {isOptimizing ? (
-                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-              ) : (
-                <Wand2 className="w-4 h-4 mr-2" />
-              )}
-              Optimize for Job Offer
-            </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handleOptimizeCV}
+                disabled={isOptimizing}
+              >
+                {isOptimizing ? (
+                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                ) : (
+                  <Wand2 className="w-4 h-4 mr-2" />
+                )}
+                Optimize for Job Offer
+              </Button>
+            </div>
+          </div>
+          <div className="w-full flex justify-center">
+            <div className="w-full max-w-5xl px-4 mt-4">
+              <Textarea
+                value={jobOfferText}
+                onChange={(e) => setJobOfferText(e.target.value)}
+                placeholder="Paste the job offer text here to tailor the CV with AI..."
+                className="min-h-40"
+              />
+            </div>
           </div>
         </div>
-      </div>
-
-      <div className="w-full flex justify-center">
-        <div className="w-full max-w-5xl px-4">
-          <Textarea
-            value={jobOfferText}
-            onChange={(e) => setJobOfferText(e.target.value)}
-            placeholder="Paste the job offer text here to tailor the CV with AI..."
-            className="min-h-40"
-          />
-        </div>
-      </div>
+      )}
 
       <div className="w-full h-[80vh]">
         <PDFRenderer
