@@ -18,7 +18,7 @@ interface PDFDocumentProps extends CVProps {
 export const PDFRenderer = ({ data, language, theme }: PDFDocumentProps) => {
   return (
     <PDFViewer width="100%" height="100%">
-      <CVPdfDocument data={data} language={language ?? "en"} theme={theme} />
+      <CVPdfDocument data={data} language={language ?? "fr"} theme={theme} />
     </PDFViewer>
   )
 }
@@ -28,6 +28,6 @@ export const PDFDocumentRenderer = ({
   language,
   theme,
 }: PDFDocumentProps) => {
-  return <CVPdfDocument data={data} language={language ?? "en"} theme={theme} />
+  return <CVPdfDocument data={data} language={language ?? "fr"} theme={theme} />
 }
 

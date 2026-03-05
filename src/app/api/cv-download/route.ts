@@ -10,7 +10,7 @@ export const runtime = "nodejs"
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url)
-    const language = searchParams.get("lang") === "fr" ? "fr" : "en"
+    const language = searchParams.get("lang") === "en" ? "en" : "fr"
     const theme = searchParams.get("theme") === "dark" ? "dark" : "light"
     const shouldDownload = searchParams.get("download") !== "0"
 
