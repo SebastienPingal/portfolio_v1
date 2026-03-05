@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "prisma generate && next dev --turbopack",
-    "build": "prisma migrate deploy  && prisma generate && prisma db seed && next build",
+    "build": "prisma migrate deploy  && prisma generate && prisma db seed && tsx scripts/generate-cv-pdf.tsx && next build",
     "start": "next start",
     "lint": "next lint",
+    "generate-cv-pdf": "tsx scripts/generate-cv-pdf.tsx",
     "optimize-pdf-images": "node scripts/optimize-pdf-images.js"
   },
   "prisma": {
@@ -87,6 +88,7 @@
     "postcss": "^8.5.3",
     "prisma": "^6.5.0",
     "tailwindcss": "^3.4.17",
+    "tsx": "^4.21.0",
     "typescript": "^5.8.2"
   },
   "overrides": {
