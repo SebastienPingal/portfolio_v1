@@ -50,7 +50,7 @@ Font.register({
 })
 
 /** Convert a public-relative web path (e.g. /img/foo.jpg) to an absolute fs path. */
-function toAbsPath(webPath: string | undefined): string | undefined {
+function toAbsPath(webPath: string | null | undefined): string | undefined {
   if (!webPath) return undefined
   return path.join(PUBLIC, webPath.replace(/^\//, ""))
 }
