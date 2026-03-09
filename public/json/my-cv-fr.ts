@@ -3,7 +3,7 @@ import { CVData } from '@/types/CV'
 export const frenchCV: CVData = {
   name: "Sébastien Pingal",
   about:
-    "Développeur Full Stack TypeScript avec 4 ans d'expérience, spécialisé en Node.js, React, Next.js, Vue.js et PostgreSQL. J'interviens de bout en bout sur des produits web : architecture d'API REST, interfaces orientées produit, authentification, Docker et CI/CD. Habitué aux environnements startup, au développement from scratch et à la discovery produit.",
+    "Développeur Full Stack TypeScript avec 5 ans d'expérience, spécialisé en Node.js, React, Next.js, Vue.js et PostgreSQL. J'interviens de bout en bout sur des produits web : architecture d'API REST, interfaces orientées produit, authentification, Docker et CI/CD. Habitué aux environnements startup, au développement from scratch et à la discovery produit.",
   title: "Développeur Full Stack TypeScript",
   subtitle: "Node.js · React · Next.js · Vue.js · PostgreSQL",
   coreSkills: [
@@ -18,7 +18,7 @@ export const frenchCV: CVData = {
     "Docker",
     "CI/CD"
   ],
-  yearsOfExperience: 4,
+  yearsOfExperience: 5,
   profileImage: "/img/seb8.jpg",
   profileImagePdf: "/img/seb8-pdf.jpg",
   // "profileImage": "/img/me_black.png",
@@ -105,7 +105,7 @@ export const frenchCV: CVData = {
     {
       place: "Udemy et mentor personnel",
       title: "Formation continue en développement web",
-      period: "Juin 2021 - Présent (4 ans)",
+      period: "Juin 2021 - Présent (5 ans)",
       description: [
         "Approfondissement de Vue.js, TypeScript et de la conception d'applications full stack.",
         "Mentorat technique et mise en pratique continue via des projets personnels."
@@ -204,7 +204,7 @@ export const frenchCV: CVData = {
       order: 5,
       place: "Mon Bureau",
       title: "Projets personnels sélectionnés",
-      period: "Depuis juin 2021 (4 ans)",
+      period: "Depuis juin 2021 (5 ans)",
       skills: ["TypeScript", "Next.js", "React.js", "Node.js", "PostgreSQL", "Tailwind CSS", "shadcn/ui", "Docker", "Chrome Extension"],
       description: [
         "3 projets personnels sélectionnés pour expérimenter des produits, des interfaces et des architectures full stack.",

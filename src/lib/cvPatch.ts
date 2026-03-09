@@ -99,7 +99,7 @@ export function buildPrompt(args: {
   jobOfferText: string
   cvSnapshot: unknown
 }) {
-  const yearsOfExperience = 4
+  const yearsOfExperience = 5
 
   return [
     {
