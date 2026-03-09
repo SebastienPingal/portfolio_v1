@@ -8,7 +8,8 @@ export const themeColors = {
 		card: '#CDD7F9',
 		primary: '#5343CB',
 		secondary: '#92bf92',
-		accent: '#666AE7'
+		accent: '#666AE7',
+		sidebar: '#f1f4fd'
 	},
 	dark: {
 		background: '#202D20',
@@ -16,7 +17,8 @@ export const themeColors = {
 		card: '#2E382E',
 		primary: '#D6F5D6',
 		secondary: '#BF92BF',
-		accent: '#B3CCB3'
+		accent: '#B3CCB3',
+		sidebar: '#2E382E'
 	}
 }
 

@@ -24,6 +24,9 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({
   isUserConnected,
   className
 }) => {
+  const coreSkillsLabel = language === 'en' ? 'Core Skills' : 'Compétences clés'
+  const languagesLabel = language === 'en' ? 'Languages' : 'Langues'
+
   const handleSkillEditRating = (groupIndex: number, skillIndex: number) => {
     const updatedStacks = [...(data.skills?.stack || [])]
     updatedStacks[groupIndex][skillIndex] = {
@@ -69,6 +72,21 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({
   return (
     <Section title={language === 'en' ? 'Technical Skills' : 'Compétences techniques'}>
       <div className={cn('text-sm flex flex-col gap-10', className)}>
+        {data.coreSkills && data.coreSkills.length > 0 && (
+          <div className='flex flex-col gap-1'>
+            <p className='font-extrabold text-base'>
+              {coreSkillsLabel} :
+            </p>
+            <div className='flex flex-wrap gap-1 text-sm'>
+              {data.coreSkills.map((skill, i) => (
+                <div key={`${skill}-${i}`}>
+                  {skill}{i < data.coreSkills!.length - 1 && ','}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
         {data?.skills?.stack && (
           <div className="flex gap-2 items-center">
             {isUserConnected ? (
@@ -162,12 +180,12 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({
         {data?.languages && data?.languages?.length > 0 && (
           <div className='flex flex-col gap-1'>
             <p className='font-extrabold text-base'>
-              {language === 'en' ? 'Languages' : 'Langues'} :
+              {languagesLabel} :
             </p>
             <div className='flex flex-col gap-1 text-sm'>
               {data.languages.map((lang, i) => (
                 <div key={`${lang.name}-${i}`}>
-                  {lang.name} ({lang.level}){i < data.languages!.length - 1 && ','}
+                  {lang.name} : {lang.level?.toLowerCase() ?? ''}{i < data.languages!.length - 1 && ','}
                 </div>
               ))}
             </div>

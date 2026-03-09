@@ -264,7 +264,7 @@ const CV: React.FC<{
       </div>
       <div className='relative'>
         <div className="glassPanel flex flex-col gap-2 aspect-[1/1.4134]">
-          <header className='flex gap-2 items-center ml-8 justify-between px-4'>
+          <header className='flex gap-2 items-center justify-between px-4'>
             <div className='flex gap-2 items-center'>
               <div className={`relative cursor-pointer transition-transform flex-shrink-0 w-20 h-20`}>
                 {showMe && <Image src={me} alt="Me" fill={true} />}
@@ -275,17 +275,18 @@ const CV: React.FC<{
                     <Input
                       value={data.name ?? ''}
                       onChange={(e) => handleEdit({ name: e.target.value })}
-                      className="text-2xl font-bold"
+                      className="text-xl font-bold"
                     />
                     <Input
                       value={data.title ?? ''}
                       onChange={(e) => handleEdit({ title: e.target.value })}
+                      className="text-sm"
                     />
                   </>
                 ) : (
                   <>
-                    <p className="text-2xl font-bold">{data.name}</p>
-                    <p>{data.title}</p>
+                    <p className="text-xl font-bold">{data.name}</p>
+                    <p className="text-sm">{data.title}</p>
                   </>
                 )}
               </div>
@@ -328,26 +329,7 @@ const CV: React.FC<{
           } */}
 
           <div className='flex gap-2'>
-
-            {/* Sidebar */}
-            <div className='flex flex-col gap-5 w-1/4 flex-shrink-0'>
-              <SkillsSection
-                data={data}
-                language={language}
-                availableStacks={availableStacks}
-                onEdit={handleEdit}
-                isUserConnected={isUserConnected}
-              />
-              {data.activities && (
-                <ActivitiesSection
-                  data={data}
-                  language={language}
-                />
-              )}
-            </div>
-
-            {/* Main */}
-            <div className='flex flex-col gap-2'>
+            <div className='flex flex-col gap-2 flex-1'>
               {data.experience && data.experience.length > 0 && (
                 <DndContext
                   sensors={sensors}
@@ -389,6 +371,22 @@ const CV: React.FC<{
                 />
               }
 
+            </div>
+
+            <div className='flex flex-col gap-5 w-[30%] flex-shrink-0'>
+              <SkillsSection
+                data={data}
+                language={language}
+                availableStacks={availableStacks}
+                onEdit={handleEdit}
+                isUserConnected={isUserConnected}
+              />
+              {data.activities && (
+                <ActivitiesSection
+                  data={data}
+                  language={language}
+                />
+              )}
             </div>
           </div>
         </div>

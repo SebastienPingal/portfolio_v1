@@ -25,6 +25,10 @@ const PDFDocumentDense = ({ data, language, theme }: PDFDocumentProps) => {
 	if (!data) return null
 
 	const c = themeColors[theme] || themeColors.light
+	const coreSkillsTitle = language === 'en' ? 'Core Skills' : 'Compétences clés'
+	const languagesTitle = language === 'en' ? 'Languages' : 'Langues'
+	const profileTitle = language === 'en' ? 'Profile' : 'Profil'
+	const experienceTitle = language === 'en' ? 'Professional Experience' : 'Expérience professionnelle'
 
 	const styles = StyleSheet.create({
 		page: {
@@ -53,17 +57,17 @@ const PDFDocumentDense = ({ data, language, theme }: PDFDocumentProps) => {
 			maxWidth: '70%'
 		},
 		name: {
-			fontSize: 18,
+			fontSize: 16,
 			fontWeight: 'ultrabold',
 			color: c.accent
 		},
 		title: {
-			fontSize: 11,
+			fontSize: 10,
 			fontWeight: 'bold',
 			color: c.primary
 		},
 		subtitle: {
-			fontSize: 9,
+			fontSize: 8,
 			color: c.primary
 		},
 		meta: {
@@ -184,91 +188,24 @@ const PDFDocumentDense = ({ data, language, theme }: PDFDocumentProps) => {
 									: `${data.yearsOfExperience > 1 ? 'années' : 'année'}`}
 							</Text>
 						) : null}
-						{data.languages?.length ? (
-							<Text style={styles.metaItem}>
-								{data.languages.map(l => l.name).join(' · ')}
-							</Text>
-						) : null}
 					</View>
 				</View>
 
 				<View style={styles.body}>
-					{/* Sidebar */}
-					<View style={styles.sidebar}>
-						{data.contact?.length ? (
-							<View style={styles.section}>
-								<Text style={styles.sectionHeader}>
-									{language === 'en' ? 'Contact' : 'Contact'}
-								</Text>
-								<View style={{ flexDirection: 'column', gap: 2 }}>
-									{data.contact
-										.filter(cn => cn.value)
-										.map(cn =>
-											cn.link ? (
-												<Link key={cn.key} src={cn.link} style={styles.contactItem}>
-													{cn.value}
-												</Link>
-											) : (
-												<Text key={cn.key} style={styles.contactItem}>
-													{cn.value}
-												</Text>
-											)
-										)}
-								</View>
-							</View>
-						) : null}
-
-						{(data.skills?.stack && data.skills.stack.length > 0) || (data.skills?.other && data.skills.other.length > 0) ? (
-							<View style={styles.section}>
-								<Text style={styles.sectionHeader}>
-									{language === 'en' ? 'Technical Skills' : 'Compétences techniques'}
-								</Text>
-								<View style={{ flexDirection: 'column', gap: 6 }}>
-									{data.skills?.stack && data.skills.stack.length > 0 ? (
-										<View style={{ flexDirection: 'column', gap: 2 }}>
-											<Text style={styles.itemTitle}>
-												{language === 'en' ? 'Technical Stack' : 'Stack Technique'}
-											</Text>
-											<View style={{ flexDirection: 'column', gap: 2 }}>
-												{data.skills.stack.map((group: { name: string; rating: number | null }[], groupIndex: number) => (
-													<View key={groupIndex} style={styles.pills}>
-														{group.map((skill: { name: string; rating: number | null }, i: number) => (
-															<React.Fragment key={`${skill.name}-${i}`}>
-																<Text style={styles.pill}>{skill.name}</Text>
-																{i !== group.length - 1 && <Text style={styles.pill}>·</Text>}
-															</React.Fragment>
-														))}
-													</View>
-												))}
-											</View>
-										</View>
-									) : null}
-									{data.skills?.other && data.skills.other.length > 0 ? (
-										<View style={{ flexDirection: 'column', gap: 2 }}>
-											<Text style={styles.itemTitle}>
-												{language === 'en' ? 'Other Skills' : 'Autres Compétences'}
-											</Text>
-											<View style={styles.pills}>
-												{data.skills.other.map((s: { name: string; rating: number | null }, i: number) => (
-													<React.Fragment key={`${s.name}-${i}`}>
-														<Text style={styles.pill}>{s.name}</Text>
-														{i !== data.skills!.other!.length - 1 && <Text style={styles.pill}>·</Text>}
-													</React.Fragment>
-												))}
-											</View>
-										</View>
-									) : null}
-								</View>
-							</View>
-						) : null}
-					</View>
-
-					{/* Main */}
 					<View style={styles.main}>
+						{data.about ? (
+							<View style={styles.section}>
+								<Text style={styles.sectionHeader}>
+									{profileTitle}
+								</Text>
+								<Text style={styles.desc}>{data.about}</Text>
+							</View>
+						) : null}
+
 						{data.experience?.length ? (
 							<View style={styles.section}>
 								<Text style={styles.sectionHeader}>
-									{language === 'en' ? 'Experience' : 'Expérience'}
+									{experienceTitle}
 								</Text>
 								<View style={{ flexDirection: 'column', gap: 6 }}>
 									{[...data.experience]
@@ -334,6 +271,106 @@ const PDFDocumentDense = ({ data, language, theme }: PDFDocumentProps) => {
 											</View>
 										)
 									})}
+								</View>
+							</View>
+						) : null}
+					</View>
+
+					<View style={styles.sidebar}>
+						{data.contact?.length ? (
+							<View style={styles.section}>
+								<Text style={styles.sectionHeader}>
+									{language === 'en' ? 'Contact' : 'Contact'}
+								</Text>
+								<View style={{ flexDirection: 'column', gap: 2 }}>
+									{data.contact
+										.filter(cn => cn.value)
+										.map(cn =>
+											cn.link ? (
+												<Link key={cn.key} src={cn.link} style={styles.contactItem}>
+													{cn.value}
+												</Link>
+											) : (
+												<Text key={cn.key} style={styles.contactItem}>
+													{cn.value}
+												</Text>
+											)
+										)}
+								</View>
+							</View>
+						) : null}
+
+						{data.coreSkills?.length ? (
+							<View style={styles.section}>
+								<Text style={styles.sectionHeader}>
+									{coreSkillsTitle}
+								</Text>
+								<View style={styles.pills}>
+									{data.coreSkills.map((skill, i) => (
+										<React.Fragment key={`${skill}-${i}`}>
+											<Text style={styles.pill}>{skill}</Text>
+											{i !== data.coreSkills!.length - 1 && <Text style={styles.pill}>·</Text>}
+										</React.Fragment>
+									))}
+								</View>
+							</View>
+						) : null}
+
+						{data.languages?.length ? (
+							<View style={styles.section}>
+								<Text style={styles.sectionHeader}>
+									{languagesTitle}
+								</Text>
+								<View style={{ flexDirection: 'column', gap: 2 }}>
+									{data.languages.map((lang, i) => (
+										<Text key={`${lang.name}-${i}`} style={styles.contactItem}>
+											{lang.name} : {(lang.level ?? '').toLowerCase()}
+										</Text>
+									))}
+								</View>
+							</View>
+						) : null}
+
+						{(data.skills?.stack && data.skills.stack.length > 0) || (data.skills?.other && data.skills.other.length > 0) ? (
+							<View style={styles.section}>
+								<Text style={styles.sectionHeader}>
+									{language === 'en' ? 'Technical Skills' : 'Compétences techniques'}
+								</Text>
+								<View style={{ flexDirection: 'column', gap: 6 }}>
+									{data.skills?.stack && data.skills.stack.length > 0 ? (
+										<View style={{ flexDirection: 'column', gap: 2 }}>
+											<Text style={styles.itemTitle}>
+												{language === 'en' ? 'Technical Stack' : 'Stack Technique'}
+											</Text>
+											<View style={{ flexDirection: 'column', gap: 2 }}>
+												{data.skills.stack.map((group: { name: string; rating: number | null }[], groupIndex: number) => (
+													<View key={groupIndex} style={styles.pills}>
+														{group.map((skill: { name: string; rating: number | null }, i: number) => (
+															<React.Fragment key={`${skill.name}-${i}`}>
+																<Text style={styles.pill}>{skill.name}</Text>
+																{i !== group.length - 1 && <Text style={styles.pill}>·</Text>}
+															</React.Fragment>
+														))}
+													</View>
+												))}
+											</View>
+										</View>
+									) : null}
+									{data.skills?.other && data.skills.other.length > 0 ? (
+										<View style={{ flexDirection: 'column', gap: 2 }}>
+											<Text style={styles.itemTitle}>
+												{language === 'en' ? 'Other Skills' : 'Autres Compétences'}
+											</Text>
+											<View style={styles.pills}>
+												{data.skills.other.map((s: { name: string; rating: number | null }, i: number) => (
+													<React.Fragment key={`${s.name}-${i}`}>
+														<Text style={styles.pill}>{s.name}</Text>
+														{i !== data.skills!.other!.length - 1 && <Text style={styles.pill}>·</Text>}
+													</React.Fragment>
+												))}
+											</View>
+										</View>
+									) : null}
 								</View>
 							</View>
 						) : null}

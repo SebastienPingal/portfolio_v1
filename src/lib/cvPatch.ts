@@ -2,6 +2,7 @@ export interface CVPatch {
   title?: string
   subtitle?: string
   about?: string
+  coreSkills?: string[]
   skillsPriority?: string[]
   otherSkillsPriority?: string[]
   experienceTweaks?: Array<{
@@ -114,6 +115,8 @@ export function buildPrompt(args: {
             title: "string (optional)",
             subtitle: "string (optional)",
             about: "string (optional)",
+            coreSkills:
+              "string[] (optional, max 12 items, ATS-friendly role/tech keywords supported by currentCV and the job offer)",
             skillsPriority: "string[] (optional, use exact existing technical skill names from currentCV.skills.stack)",
             otherSkillsPriority: "string[] (optional, use exact existing skill names from currentCV.skills.other)",
             experienceTweaks:
@@ -128,8 +131,10 @@ export function buildPrompt(args: {
               "Use dot separators ' · ' and only technologies present in currentCV OR explicitly in jobOfferText. Keep it short and technical. The system may derive the final subtitle from prioritized technical skills.",
             aboutStyle:
               "1 paragraph, dense keywords, French, highlight relevant stacks and responsibilities from currentCV.",
+            coreSkillsStyle:
+              "The CV has a visible 'Compétences clés' section near the top. Return 6 to 12 concise ATS-friendly keywords that match the job offer and currentCV. Prefer job-family keywords and real technologies already supported by currentCV. Do not invent unsupported tools, certifications, seniority, or responsibilities.",
             skillsStyle:
-              "The CV has a visible 'Compétences techniques' section. Reorder existing skills to make that section fit the job offer better. Only use exact skill names already present in currentCV.skills.stack/currentCV.skills.other. Do not invent new skills. Prefer frameworks, backend, database, cloud, testing and product skills explicitly required by the job. Do not create standalone keyword lists or keyword stuffing sections.",
+              "The CV has a visible 'Compétences techniques' section. Reorder existing skills to make that section fit the job offer better. Only use exact skill names already present in currentCV.skills.stack/currentCV.skills.other. Do not invent new skills. Prefer frameworks, backend, database, cloud, testing and product skills explicitly required by the job.",
             ...(yearsOfExperience != null && {
               yearsOfExperienceConstraint: `CRITICAL: yearsOfExperience is ${yearsOfExperience}. In the about section, ALWAYS state exactly "${yearsOfExperience} ans" (or "${yearsOfExperience} années") for software development experience. Do NOT infer or modify years of experience. Use format: "Expérience professionnelle totale : X ans (dont ${yearsOfExperience} ans en développement logiciel)" when mentioning total experience. Never write 5, 6, 7, 8, 9, 10+ years for development experience.`,
             }),
@@ -183,6 +188,13 @@ export function parseAndValidateCVPatch(input: unknown): CVPatch {
       throw new Error("Invalid patch.about")
     }
     out.about = patch.about
+  }
+
+  if (patch.coreSkills !== undefined) {
+    if (!isStringArray(patch.coreSkills, { max: 12, minLen: 2, maxLen: 50 })) {
+      throw new Error("Invalid patch.coreSkills")
+    }
+    out.coreSkills = patch.coreSkills
   }
 
   if (patch.skillsPriority !== undefined) {
@@ -266,6 +278,15 @@ export function applyCVPatch<T extends Record<string, any>>(
 
   if (patch.title) out["title"] = patch.title
   if (patch.about) out["about"] = patch.about
+  if (patch.coreSkills?.length) {
+    out["coreSkills"] = Array.from(
+      new Set(
+        patch.coreSkills
+          .map((value) => value.trim())
+          .filter(Boolean),
+      ),
+    ).slice(0, 12)
+  }
 
   // Reorder visible technical skills by job relevance.
   if (patch.skillsPriority?.length && out.skills?.stack) {

@@ -24,6 +24,7 @@ interface CVData {
   name: string | null
   title: string | null
   subtitle: string | null
+  coreSkills?: string[] | null
   yearsOfExperience?: number | null
   contact: Contact[] | null
   languages: Language[] | null
@@ -58,6 +59,8 @@ interface CVProps {
 export const CVDataSchema = {
   name: "string | null",
   title: "string | null", 
+  subtitle: "string | null",
+  coreSkills: "string[] | null (optional)",
   yearsOfExperience: "number | null (optional)",
   contact: "Array<{key: string, value: string | undefined, link: string | undefined}> | null",
   languages: "Array<{name: string, level: string | null}> | null",
