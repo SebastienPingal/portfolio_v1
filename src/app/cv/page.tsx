@@ -164,12 +164,6 @@ const CVPage: React.FC = () => {
       profileImageDark: toStringOrNull(plain.profileImageDark),
       profileImagePdf: toStringOrNull(plain.profileImagePdf),
       profileImageDarkPdf: toStringOrNull(plain.profileImageDarkPdf),
-      coreKeywords: Array.isArray(plain.coreKeywords)
-        ? plain.coreKeywords.map((k) => String(k))
-        : [],
-      atsKeywords: Array.isArray(plain.atsKeywords)
-        ? plain.atsKeywords.map((k) => String(k))
-        : [],
       contact: Array.isArray(plain.contact)
         ? plain.contact.map((c) => ({
             key: String(c?.key ?? ""),

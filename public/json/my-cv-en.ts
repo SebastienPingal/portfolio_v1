@@ -2,7 +2,7 @@ import { CVData } from '@/types/CV'
 
 export const englishCV: CVData = {
   "name": "Sébastien Pingal",
-  "about": "Full Stack JavaScript Developer with 4 years of software development experience (2021–present). Specialized in TypeScript, Node.js, React, Next.js and Vue.js, I design robust REST API architectures and modern product-oriented interfaces. I notably designed and developed moneodomus.com, a SaaS platform for managing real estate projects enabling collaboration between agencies, builders and architects. Co-founder of KAFO, a startup aimed at reducing remote worker isolation. Former composer and sound engineer (prior experience, non-tech), I combine creativity, technical rigor and product sense. Comfortable with startup environments, from-scratch development, DevOps (Docker, CI/CD) and scalable architecture design.",
+  "about": "Full Stack JavaScript Developer with 4 years of experience, specializing in TypeScript, Node.js, React, Next.js, and Vue.js. I work across the full product stack: REST API architecture, product-oriented interfaces, PostgreSQL, authentication, Docker, and CI/CD. I am comfortable in startup environments, from-scratch development, and product discovery.",
   "title": "Full Stack JavaScript Developer",
   "subtitle": "TypeScript · Node.js · React · Next.js · Vue.js · PostgreSQL",
   "yearsOfExperience": 4,
@@ -203,32 +203,6 @@ export const englishCV: CVData = {
     ]
   },
 
-  // 👇 Added for ATS optimization (quick keyword scanning)
-  "coreKeywords": [
-    "Full Stack Developer",
-    "JavaScript Developer",
-    "TypeScript",
-    "Node.js",
-    "React",
-    "Next.js",
-    "Vue.js",
-    "REST API",
-    "API Development",
-    "SaaS Development",
-    "Web Application Architecture",
-    "PostgreSQL",
-    "MySQL",
-    "Docker",
-    "CI/CD",
-    "AWS",
-    "Git",
-    "Agile",
-    "Scrum",
-    "UX/UI",
-    "Product Development",
-    "Startup Environment"
-  ],
-
   "contact": [
     {
       "key": "email",
@@ -258,13 +232,12 @@ export const englishCV: CVData = {
   ],
   "education": [
     {
-      "place": "Udemy and Personal Mentor",
-      "title": "Online Training and Mentorship",
+      "place": "Udemy and personal mentor",
+      "title": "Ongoing training in web development",
       "period": "June 2021 - Present (4 years)",
       "description": [
-        "In-depth Vue.js and TypeScript training",
-        "Mentorship",
-        "Development of personal projects to apply acquired skills"
+        "Advanced training in Vue.js, TypeScript, and full stack application design.",
+        "Technical mentoring and continuous hands-on practice through personal projects."
       ]
     },
     {
@@ -275,19 +248,19 @@ export const englishCV: CVData = {
     },
     {
       "place": "Cifacom Montreuil",
-      "title": "Bachelor in Audiovisual Director",
+      "title": "Bachelor in Audiovisual Directing",
       "period": "September 2012 - June 2014",
       "description": []
     },
     {
       "place": "IUT de Cergy-Pontoise Sarcelles",
-      "title": "DUT (University Diploma in Technology) in Services and Communication Networks",
+      "title": "University Diploma in Communication Services and Networks",
       "period": "September 2010 - June 2012",
       "description": []
     },
     {
       "place": "Lycée Marien-Laurencin Mennecy",
-      "title": "Baccalaureate S (Science)",
+      "title": "Scientific Baccalaureate",
       "period": "September 2007 - June 2010",
       "description": []
     }
@@ -311,21 +284,15 @@ export const englishCV: CVData = {
       "link": "https://jolimoi.com/",
       "order": 0,
       "place": "Jolimoi",
-      "placeDescription": "Social selling platform for beauty products.\n 9000 active users on the eshop platform\n 5000 active stylists\n €3M annual revenue",
+      "placeDescription": "Beauty social selling platform (9,000 e-shop users, 5,000 active stylists).",
       "title": "Full Stack Developer (Vue.js, Node.js, TypeScript)",
       "period": "October 2025 - January 2026 (3 months)",
       "skills": ["TypeScript", "Vue.js", "Node.js", "MySQL", "PHP", "PrestaShop", "Docker", "Jest", "GitHub Actions", "Notion", "Linear", "Agile", "Scrum"],
       "description": [
-        "- Full‑stack development and maintenance of a PrestaShop e‑shop",
-        "* Update and optimization of PrestaShop components",
-        "* Implementation of discount rules and the gifts shop",
-        "* Added breadcrumbs on category and product pages to improve UX and SEO",
-        "- Back‑end development of the Stylist and Client API (Node.js, MySQL)",
-        "* Designed a product recommendation system",
-        "* Added KPIs to track stylist performance",
-        "- Front‑end development across multiple sites",
-        "* Layout and visualization of the new KPIs",
-        "* Added actions to access recommended products and display them on the product page"
+        "Short-term contract on a beauty social selling platform generating EUR3M in annual revenue, with 9,000 e-shop users and 5,000 active stylists.",
+        "- Developed and maintained PrestaShop features, including discount vouchers, the gift shop, and SEO breadcrumbs.",
+        "- Designed a product recommendation engine and stylist performance KPIs on the Node.js/MySQL API side.",
+        "- Integrated the frontend views and actions needed to use these recommendations across the different sites."
       ]
     },
     {
@@ -337,42 +304,27 @@ export const englishCV: CVData = {
       "period": "Since January 2024 (1.5 years)",
       "skills": ["TypeScript", "React.js", "Next.js", "Node.js", "PostgreSQL", "NextAuth", "shadcn/ui", "Calendly API", "MagicLink", "PDF Generation", "Client Relations", "Vercel"],
       "description": [
-        "Design of a software platform (SaaS) for a construction company holding. Goal: automate operational workflows and free ~50% workload. MoneoDomus generates approximately €500,000 in monthly revenue.",
-        "- Frontend development from scratch and responsive (React.js, shadcn/ui, TailwindCSS)",
-        "* Project submission form with streamlined UX",
-        "* Dashboards",
-        "- Backend development from scratch (Node.js, Next.js, NextAuth, PostgreSQL)",
-        "* API architecture: resources, versioning, pagination, and a uniform error model.",
-        "* Definition of contracts and I/O validation (schemas, domain consistency).",
-        "* MagicLink authentication and roles/permissions management (RBAC).",
-        "* Database design aligned with the domain (Quotes, Users, Agencies, Clients, Projects, Documents, Images…).",
-        "* Integration of complex Calendly features (Round Robin) to allow appointment scheduling taking into account multiple people's schedules.",
-        "- Meetings with various industry players (Real Estate Agencies, Clients, Construction Companies) to define platform needs and features.",
-        "- UX/UI design of pages and components updated based on user feedback and tests performed."
+        "Designed and developed from scratch a SaaS platform for a construction group generating around EUR500k in monthly revenue, reducing operational workload by 50%.",
+        "- Defined the backend architecture: REST API, validation, RBAC, PostgreSQL, and error-handling conventions.",
+        "- Built the responsive React frontend with business forms, dashboards, and shadcn/ui components.",
+        "- Implemented Magic Link authentication and Calendly integration for multi-participant appointment booking.",
+        "- Led product discovery and UX iterations with agencies, clients, and construction companies."
       ]
     },
     {
       "link": "https://www.linkedin.com/company/kafowork/posts/?feedView=all",
       "order": 2,
       "place": "KAFO",
-      "placeDescription": "Social Network for remote workers",
+      "placeDescription": "Social network for remote workers",
       "title": "Founder / Full Stack Developer (Vue.js, Node.js, PostgreSQL)",
       "period": "February 2023 - September 2023 (8 months)",
       "skills": ["TypeScript", "Vue.js", "Node.js", "Xano", "Weweb", "Google Maps API", "AWS EC2", "GitHub CI/CD", "Primevue", "No-Code", "UX/UI", "UX Testing", "Agile", "Scrum"],
       "description": [
-        "Creation of a startup. A social network for remote workers. Kafo had partnerships with several private schools and freelance communities (including Freelance Republik). An article was published in Les Echos dedicated to the platform.",
-        "- Backend development in no-code from scratch (Xano)",
-        "* Event generation management.",
-        "* Google Maps scraping to find and list public places suitable for work.",
-        "- Frontend development in no-code from scratch and responsive (Weweb)",
-        "* Implementation of interactive map with filters (\"Open\", \"Within x kilometers radius\", \"Active\"...)",
-        "* Design, development, and wording of a Landing Page",
-        "- Complete frontend overhaul in Vue 3",
-        "* To optimize site speed and simplify maintenance, all previously no-code-developed features were redeveloped from scratch",
-        "* Implementation of a component library (Primevue)",
-        "* Development of various statistical and administrative dashboards",
-        "- Setup and execution of UX user testing",
-        "- Frontend deployment with CI/CD GitHub on AWS EC2"
+        "Built a startup social network for remote workers in 8 months, with several school and freelance partnerships and press coverage up to Les Echos.",
+        "- Prototyped the product in no-code with Xano and WeWeb to validate usage quickly.",
+        "- Designed the interactive map and search filters for work-friendly locations.",
+        "- Rebuilt the frontend in Vue 3 to improve performance, maintainability, and UI consistency.",
+        "- Deployed the application on AWS EC2 with GitHub CI/CD and ran UX user testing."
       ]
     },
     {
@@ -383,94 +335,50 @@ export const englishCV: CVData = {
       "period": "November 2023 - January 2024 (3 months)",
       "skills": ["TypeScript", "Next.js", "React.js", "Node.js", "PostgreSQL", "Express.js", "shadcn/ui", "TailwindCSS", "API Development"],
       "description": [
-        "Development and maintenance of a private artistic events management application for an association. (Next.js, Node.js, PostgreSQL)",
-        "- Frontend development (React, TailwindCSS)",
-        "* Creation of a component library for the app (based on shadcn/ui):",
-        "* Design and development of statistical dashboards",
-        "* Design and development of an event management interface (creation, modification, deletion, consultation)",
-        "- Backend development (Node.js, Express, PostgreSQL)",
-        "* Design of the event API (domain model, endpoints, filters/pagination, statuses).",
-        "* User permissions and roles management (RBAC).",
-        "* Management of event registrations and associated workshops"
+        "Short-term contract on a private artistic event management application to structure the product on both frontend and backend.",
+        "- Built the event administration interface and dashboards in React/Next.js.",
+        "- Designed the events API with filters, pagination, statuses, and registration management.",
+        "- Set up the component library and role/permission management."
       ]
     },
     {
       "link": "https://www.linkedin.com/company/aestima-immo/posts/",
       "order": 4,
       "place": "Aestima Immobilier",
-      "title": "FullStack Developer (Vue.js, Node.js, Express.js, PostgreSQL, Stripe)",
+      "title": "Full Stack Developer (Vue.js, Node.js, Express.js, PostgreSQL, Stripe)",
       "period": "June 2021 - December 2023 (2.5 years)",
       "skills": ["TypeScript", "Vue.js", "Node.js", "Express.js", "Stripe", "Primevue", "Axios", "Puppeteer", "Clean Code", "PDF Generation", "Refactoring", "Agile", "Scrum"],
       "description": [
-        "Refactoring and feature additions on a real estate investment simulation application (Team of 3 fullstack devs). The product had heavy technical debt and both frontend and backend needed major cleanup.",
-        "- Frontend overhaul (Vue 2)",
-        "* Simplification of all interfaces to improve responsiveness and user comfort.",
-        "* Integration of a component library (Primevue) and app modularization to create consistency across the application and facilitate maintenance.",
-        "* Landing page overhaul",
-        "* Implementation of customizable PDF export of simulations",
-        "- Backend overhaul (Node.js, Express, Axios)",
-        "* Business logic moved server-side with clearer API contracts and controller/service separation.",
-        "* Billing system overhaul with Stripe",
-        "* Addition of business features (Team and collaborator management, Malraux devices)"
+        "Progressive overhaul of a legacy real estate simulation application within a team of 3 full stack developers.",
+        "- Simplified the Vue 2 interfaces and integrated PrimeVue to improve consistency, responsiveness, and maintainability.",
+        "- Refactored the backend business logic in Node.js/Express with clearer separation of responsibilities.",
+        "- Reworked Stripe billing and added key business features, including team management.",
+        "- Built custom PDF exports for client simulations."
       ]
     },
     {
       "order": 5,
       "place": "My Office",
-      "title": "Personal Projects",
+      "title": "Selected personal projects",
       "period": "Since June 2021 (4 years)",
-      "skills": ["TypeScript", "React.js", "Next.js", "PostgreSQL", "Tailwind CSS", "shadcn/ui", "i18n", "OAuth", "Perlin Noise", "Python", "Three.js", "Vue.js", "Docker", "Chrome Extension", "Firefox Extension"],
+      "skills": ["TypeScript", "Next.js", "React.js", "Node.js", "PostgreSQL", "Tailwind CSS", "shadcn/ui", "Docker", "Chrome Extension"],
       "description": [
-        "My Portfolio (sebastienpingal.dev): Creation of a web application for my portfolio.",
-        "- Frontend and backend development from scratch and responsive (React.js, shadcn/ui, TailwindCSS, Next.js, Node.js, PostgreSQL)",
-        "* CV editor allowing me to quickly modify and update my information with versioning and preset system",
-        "* Perlin noise generation to create a dynamic and unique background for each visit",
-        "* Development of a custom component library for the app",
-        "* Multilingual application management using i18n",
-        "- Backend development from scratch (Next.js, Node.js, PostgreSQL)",
-        "* OAuth authentication with LinkedIn",
-        "* Design and implementation of REST APIs (stacks, projects, CV presets) and data modularization in PostgreSQL to decouple frontend and domain.",
-        "",
-        "- DoctoNotes: Chrome and Firefox extension displaying Google ratings of doctors on Doctolib.",
-        "- Cerberes: Development of a minimalist end-to-end encrypted chat (Vue3, Node.js, PostgreSQL, Docker, CI/CD). Deployment on a Raspberry Pi.",
-        "- Dynamic 3D Book: Development of a dynamic 3D book in React.js, Three.js. Page generation based on component props files.",
-        "- 2048 Game Remake: Development of a 2048 game remake in Python without external libraries."
+        "3 selected personal projects to experiment with products, interfaces, and full stack architectures.",
+        "- Portfolio: CV editor with presets, PDF generation, i18n, and a Next.js/PostgreSQL backend.",
+        "- DoctoNotes: Chrome/Firefox extension that enriches Doctolib with doctors' Google reviews.",
+        "- Cerberes: Minimal E2E chat deployed with Docker and CI/CD on Raspberry Pi."
       ]
     },
     {
       "link": "https://soundcloud.com/unbrouillard",
       "order": 6,
-      "place": "Brouillard — Prior experience (non-tech)",
-      "title": "Composer/Sound Engineer",
-      "period": "2015 - 2021 (6 years)",
-      "skills": ["Audio Engineering", "Composition", "Mix/Master", "Sound Design", "Music Production"],
+      "place": "Prior experience (non-tech)",
+      "title": "Composition, sound engineering, and video editing",
+      "period": "2013 - 2021 (8 years)",
+      "skills": ["Composition", "Audio Engineering", "Mix/Master", "Sound Design", "Video Editing"],
       "description": [
-        "Composition, Mix/Master of tracks for artists, films, video games and theater plays"
-      ]
-    },
-    {
-      "order": 7,
-      "place": "Freelance — Prior experience (non-tech)",
-      "title": "Video Editor",
-      "period": "2013 - 2015 (2 years)",
-      "skills": ["Video Editing", "Adobe Premiere", "Motion Graphics", "Post-Production"],
-      "description": [
-        ""
+        "Freelance and creative background in music composition, sound design, mix/master, and video editing for artists, live performances, and audiovisual content."
       ]
     }
-  ],
-
-  // 👇 Bonus ATS (synonyms of role often used by ATS + recruiters)
-  "atsKeywords": [
-    "Fullstack Developer",
-    "Backend Developer",
-    "Frontend Developer",
-    "Software Engineer",
-    "JavaScript Engineer",
-    "TypeScript Developer",
-    "Node.js Developer",
-    "React Developer",
-    "Next.js Developer",
-    "Vue.js Developer"
   ]
 } 

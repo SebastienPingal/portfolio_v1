@@ -2,13 +2,96 @@ export interface CVPatch {
   title?: string
   subtitle?: string
   about?: string
-  coreKeywords?: string[]
-  atsKeywords?: string[]
   skillsPriority?: string[]
+  otherSkillsPriority?: string[]
   experienceTweaks?: Array<{
     place: string
     addBullets?: string[]
   }>
+}
+
+function normalizeSkillName(value: string): string {
+  return value
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/\.js\b/g, "")
+    .replace(/\s*&\s*/g, " and ")
+    .replace(/\//g, " ")
+    .replace(/[^a-z0-9+]+/g, " ")
+    .trim()
+}
+
+function getSkillPriorityIndex(
+  skillName: string,
+  priority: Map<string, number>,
+): number | undefined {
+  const normalized = normalizeSkillName(skillName)
+  if (priority.has(normalized)) return priority.get(normalized)
+
+  const compact = normalized.replace(/\s+/g, "")
+  if (priority.has(compact)) return priority.get(compact)
+
+  return undefined
+}
+
+function sortSkillsByPriority<T extends { name: string }>(
+  skills: T[],
+  priority: Map<string, number>,
+): T[] {
+  return [...skills].sort((a, b) => {
+    const ai = getSkillPriorityIndex(String(a.name), priority)
+    const bi = getSkillPriorityIndex(String(b.name), priority)
+    if (ai == null && bi == null) return 0
+    if (ai == null) return 1
+    if (bi == null) return -1
+    return ai - bi
+  })
+}
+
+function buildSubtitleFromPrioritizedSkills(
+  skillGroups: Array<Array<{ name: string }>>,
+  skillsPriority: string[],
+  fallbackSubtitle?: string,
+): string | undefined {
+  const existingSkills = skillGroups.flatMap((group) => group.map((skill) => skill.name))
+  const existingByNormalized = new Map<string, string>()
+
+  for (const skill of existingSkills) {
+    const normalized = normalizeSkillName(skill)
+    if (!existingByNormalized.has(normalized)) {
+      existingByNormalized.set(normalized, skill)
+    }
+  }
+
+  const picked: string[] = []
+  const seen = new Set<string>()
+
+  for (const wantedSkill of skillsPriority) {
+    const normalized = normalizeSkillName(wantedSkill)
+    const existing = existingByNormalized.get(normalized)
+    if (!existing) continue
+    if (seen.has(normalized)) continue
+    seen.add(normalized)
+    picked.push(existing)
+    if (picked.length >= 6) break
+  }
+
+  if (picked.length < 4) {
+    for (const skill of existingSkills) {
+      const normalized = normalizeSkillName(skill)
+      if (seen.has(normalized)) continue
+      seen.add(normalized)
+      picked.push(skill)
+      if (picked.length >= 6) break
+    }
+  }
+
+  if (picked.length > 0) {
+    return picked.join(" · ")
+  }
+
+  return fallbackSubtitle
 }
 
 export function buildPrompt(args: {
@@ -31,9 +114,8 @@ export function buildPrompt(args: {
             title: "string (optional)",
             subtitle: "string (optional)",
             about: "string (optional)",
-            coreKeywords: "string[] (optional, max 40)",
-            atsKeywords: "string[] (optional, max 30)",
-            skillsPriority: "string[] (optional)",
+            skillsPriority: "string[] (optional, use exact existing technical skill names from currentCV.skills.stack)",
+            otherSkillsPriority: "string[] (optional, use exact existing skill names from currentCV.skills.other)",
             experienceTweaks:
               "Array<{ place: string; addBullets?: string[] }> (optional, max 6 tweaks, addBullets: max 6 strings each 2-160 chars)",
           },
@@ -43,11 +125,11 @@ export function buildPrompt(args: {
             titleStyle:
               "Use common ATS job titles (e.g. 'Frontend React Developer', 'Backend Node.js Developer', 'Full Stack JavaScript Developer').",
             subtitleStyle:
-              "Use dot separators ' · ' and only technologies present in currentCV OR explicitly in jobOfferText.",
+              "Use dot separators ' · ' and only technologies present in currentCV OR explicitly in jobOfferText. Keep it short and technical. The system may derive the final subtitle from prioritized technical skills.",
             aboutStyle:
               "1 paragraph, dense keywords, French, highlight relevant stacks and responsibilities from currentCV.",
-            keywordsStyle:
-              "Put the job's most important keywords first. Prefer exact spellings from jobOfferText when possible.",
+            skillsStyle:
+              "The CV has a visible 'Compétences techniques' section. Reorder existing skills to make that section fit the job offer better. Only use exact skill names already present in currentCV.skills.stack/currentCV.skills.other. Do not invent new skills. Prefer frameworks, backend, database, cloud, testing and product skills explicitly required by the job. Do not create standalone keyword lists or keyword stuffing sections.",
             ...(yearsOfExperience != null && {
               yearsOfExperienceConstraint: `CRITICAL: yearsOfExperience is ${yearsOfExperience}. In the about section, ALWAYS state exactly "${yearsOfExperience} ans" (or "${yearsOfExperience} années") for software development experience. Do NOT infer or modify years of experience. Use format: "Expérience professionnelle totale : X ans (dont ${yearsOfExperience} ans en développement logiciel)" when mentioning total experience. Never write 5, 6, 7, 8, 9, 10+ years for development experience.`,
             }),
@@ -103,25 +185,18 @@ export function parseAndValidateCVPatch(input: unknown): CVPatch {
     out.about = patch.about
   }
 
-  if (patch.coreKeywords !== undefined) {
-    if (!isStringArray(patch.coreKeywords, { max: 40, minLen: 2, maxLen: 60 })) {
-      throw new Error("Invalid patch.coreKeywords")
-    }
-    out.coreKeywords = patch.coreKeywords
-  }
-
-  if (patch.atsKeywords !== undefined) {
-    if (!isStringArray(patch.atsKeywords, { max: 30, minLen: 2, maxLen: 60 })) {
-      throw new Error("Invalid patch.atsKeywords")
-    }
-    out.atsKeywords = patch.atsKeywords
-  }
-
   if (patch.skillsPriority !== undefined) {
     if (!isStringArray(patch.skillsPriority, { max: 80, minLen: 2, maxLen: 60 })) {
       throw new Error("Invalid patch.skillsPriority")
     }
     out.skillsPriority = patch.skillsPriority
+  }
+
+  if (patch.otherSkillsPriority !== undefined) {
+    if (!isStringArray(patch.otherSkillsPriority, { max: 40, minLen: 2, maxLen: 60 })) {
+      throw new Error("Invalid patch.otherSkillsPriority")
+    }
+    out.otherSkillsPriority = patch.otherSkillsPriority
   }
 
   if (patch.experienceTweaks !== undefined && patch.experienceTweaks !== null) {
@@ -190,26 +265,75 @@ export function applyCVPatch<T extends Record<string, any>>(
   const out: Record<string, any> = structuredClone(base)
 
   if (patch.title) out["title"] = patch.title
-  if (patch.subtitle) out["subtitle"] = patch.subtitle
   if (patch.about) out["about"] = patch.about
-  if (patch.coreKeywords) out["coreKeywords"] = patch.coreKeywords
-  if (patch.atsKeywords) out["atsKeywords"] = patch.atsKeywords
 
-  // Reorder skills by priority (non-destructive).
+  // Reorder visible technical skills by job relevance.
   if (patch.skillsPriority?.length && out.skills?.stack) {
     const priority = new Map(
-      patch.skillsPriority.map((s, i) => [s.toLowerCase(), i]),
+      patch.skillsPriority.map((s, i) => [normalizeSkillName(s), i]),
     )
-    for (const group of out.skills.stack) {
-      group.sort((a: any, b: any) => {
-        const ai = priority.get(String(a.name).toLowerCase())
-        const bi = priority.get(String(b.name).toLowerCase())
-        if (ai == null && bi == null) return 0
-        if (ai == null) return 1
-        if (bi == null) return -1
-        return ai - bi
+
+    const sortedGroups = out.skills.stack.map((group: any[]) =>
+      sortSkillsByPriority(group, priority),
+    )
+
+    sortedGroups.sort((a: any[], b: any[]) => {
+      const aBest = a
+        .map((skill) => getSkillPriorityIndex(String(skill.name), priority))
+        .filter((value): value is number => value != null)
+      const bBest = b
+        .map((skill) => getSkillPriorityIndex(String(skill.name), priority))
+        .filter((value): value is number => value != null)
+
+      if (aBest.length === 0 && bBest.length === 0) return 0
+      if (aBest.length === 0) return 1
+      if (bBest.length === 0) return -1
+
+      const aMin = Math.min(...aBest)
+      const bMin = Math.min(...bBest)
+      if (aMin !== bMin) return aMin - bMin
+
+      return aBest.length - bBest.length
+    })
+
+    out.skills.stack = sortedGroups
+  }
+
+  if (patch.skillsPriority?.length && out.skills?.stack) {
+    const derivedSubtitle = buildSubtitleFromPrioritizedSkills(
+      out.skills.stack,
+      patch.skillsPriority,
+      patch.subtitle ?? out.subtitle,
+    )
+    if (derivedSubtitle) out["subtitle"] = derivedSubtitle
+  } else if (patch.subtitle) {
+    out["subtitle"] = patch.subtitle
+  }
+
+  if (patch.otherSkillsPriority?.length && out.skills?.other) {
+    const priority = new Map(
+      patch.otherSkillsPriority.map((s, i) => [normalizeSkillName(s), i]),
+    )
+    out.skills.other = sortSkillsByPriority(out.skills.other, priority)
+  }
+
+  if (!patch.otherSkillsPriority?.length && patch.skillsPriority?.length && out.skills?.other) {
+    const priority = new Map(
+      patch.skillsPriority.map((s, i) => [normalizeSkillName(s), i]),
+    )
+    out.skills.other = sortSkillsByPriority(out.skills.other, priority)
+  }
+
+  if (patch.skillsPriority?.length && out.skills?.stack) {
+    const seen = new Set<string>()
+    out.skills.stack = out.skills.stack.map((group: any[]) =>
+      group.filter((skill) => {
+        const key = normalizeSkillName(String(skill.name))
+        if (seen.has(key)) return false
+        seen.add(key)
+        return true
       })
-    }
+    )
   }
 
   // Inject small bullets into matching experiences.

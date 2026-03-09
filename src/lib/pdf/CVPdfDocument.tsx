@@ -18,6 +18,45 @@ export interface CVPdfDocumentProps {
   theme: ThemeType
 }
 
+const technicalSkillLabels: Record<"en" | "fr", string[]> = {
+  en: [
+    "Core",
+    "Frontend",
+    "Backend & Data",
+    "DevOps & Testing",
+    "Tools",
+    "Additional",
+  ],
+  fr: [
+    "Socle",
+    "Frontend",
+    "Backend & data",
+    "DevOps & tests",
+    "Outils",
+    "Compléments",
+  ],
+} as const
+
+const buildTechnicalSkillGroups = (data: CVData, language: string) => {
+  const labels = language === "en" ? technicalSkillLabels.en : technicalSkillLabels.fr
+  const stackGroups = (data.skills?.stack ?? [])
+    .filter((group) => group.length > 0)
+    .map((group, index) => ({
+      label: labels[index] ?? `${language === "en" ? "Technical Stack" : "Stack technique"} ${index + 1}`,
+      skills: group.map((skill) => skill.name).filter(Boolean),
+    }))
+
+  const otherSkills = (data.skills?.other ?? []).map((skill) => skill.name).filter(Boolean)
+  if (otherSkills.length > 0) {
+    stackGroups.push({
+      label: language === "en" ? "Other Skills" : "Autres compétences",
+      skills: otherSkills,
+    })
+  }
+
+  return stackGroups
+}
+
 Font.register({
   family: "Cereal",
   fonts: [
@@ -48,6 +87,7 @@ export const CVPdfDocument = ({ data, language, theme }: CVPdfDocumentProps) => 
   if (!data) return null
 
   const currentThemeColors = themeColors[theme] || themeColors.light
+  const technicalSkills = buildTechnicalSkillGroups(data, language)
 
   const styles = StyleSheet.create({
     page: {
@@ -137,6 +177,41 @@ export const CVPdfDocument = ({ data, language, theme }: CVPdfDocumentProps) => 
       fontWeight: "bold",
       marginBottom: 8,
       color: currentThemeColors.primary,
+    },
+    experienceItem: {
+      flexDirection: "column",
+      gap: 4,
+    },
+    experienceHeader: {
+      fontSize: 12,
+      fontWeight: "bold",
+      color: currentThemeColors.primary,
+    },
+    experienceContext: {
+      fontSize: 9,
+      lineHeight: 1.35,
+    },
+    experienceBullet: {
+      fontSize: 9,
+      lineHeight: 1.35,
+      marginLeft: 10,
+    },
+    experienceStack: {
+      fontSize: 9,
+      color: currentThemeColors.accent,
+    },
+    educationItem: {
+      flexDirection: "column",
+      gap: 3,
+    },
+    educationHeader: {
+      fontSize: 11,
+      fontWeight: "bold",
+      color: currentThemeColors.primary,
+    },
+    educationDescription: {
+      fontSize: 9,
+      lineHeight: 1.35,
     },
     experienceRow: {
       flexDirection: "row",
@@ -234,17 +309,24 @@ export const CVPdfDocument = ({ data, language, theme }: CVPdfDocumentProps) => 
       lineHeight: 1.4,
       color: currentThemeColors.foreground,
     },
-    keywordsContainer: {
-      flexDirection: "row",
-      flexWrap: "wrap",
+    technicalSkillsList: {
+      flexDirection: "column",
       gap: 4,
     },
-    keywordTag: {
-      fontSize: 1,
-      padding: 2,
-      paddingLeft: 6,
-      paddingRight: 6,
-      color: currentThemeColors.accent,
+    technicalSkillRow: {
+      flexDirection: "row",
+      gap: 6,
+    },
+    technicalSkillLabel: {
+      width: 92,
+      fontSize: 9,
+      fontWeight: "bold",
+      color: currentThemeColors.primary,
+    },
+    technicalSkillValue: {
+      flex: 1,
+      fontSize: 9,
+      lineHeight: 1.35,
     },
   })
 
@@ -316,31 +398,30 @@ export const CVPdfDocument = ({ data, language, theme }: CVPdfDocumentProps) => 
         </View>
 
         <View style={styles.mainContent}>
+          {technicalSkills.length > 0 && (
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>
+                {language === "en" ? "Technical Skills" : "Compétences techniques"}
+              </Text>
+              <View style={styles.technicalSkillsList}>
+                {technicalSkills.map((group) => (
+                  <View key={group.label} style={styles.technicalSkillRow}>
+                    <Text style={styles.technicalSkillLabel}>{group.label}</Text>
+                    <Text style={styles.technicalSkillValue}>
+                      {group.skills.join(" · ")}
+                    </Text>
+                  </View>
+                ))}
+              </View>
+            </View>
+          )}
+
           {data.about && (
             <View style={styles.section}>
               <Text style={styles.sectionTitle}>
                 {language === "en" ? "About" : "À propos"}
               </Text>
               <Text style={styles.aboutText}>{data.about}</Text>
-            </View>
-          )}
-
-          {data.coreKeywords && data.coreKeywords.length > 0 && (
-            <View style={styles.section}>
-              <View style={styles.keywordsContainer}>
-                {data.coreKeywords.map((keyword, index) => (
-                  <Text key={index} style={styles.keywordTag}>
-                    {keyword}
-                  </Text>
-                ))}
-              </View>
-              <View style={styles.keywordsContainer}>
-                {(data.atsKeywords ?? []).map((keyword, index) => (
-                  <Text key={index} style={styles.keywordTag}>
-                    {keyword}
-                  </Text>
-                ))}
-              </View>
             </View>
           )}
 
@@ -355,92 +436,46 @@ export const CVPdfDocument = ({ data, language, theme }: CVPdfDocumentProps) => 
               <View style={styles.experienceContent}>
                 {data.experience
                   .sort((a, b) => (a.order || 0) - (b.order || 0))
-                  .map((exp, index) => (
-                    <View key={index}>
-                      <View style={styles.experienceRow}>
-                        <View style={styles.leftColumn}>
-                          <Text style={styles.experienceTitle}>
-                            {exp.link ? (
-                              <Link style={styles.link} src={exp.link}>
-                                {exp.place}
-                              </Link>
-                            ) : (
-                              exp.place
-                            )}
+                  .map((exp, index) => {
+                    const description = exp.description ?? []
+                    const contextLine = description.find(
+                      (desc) => !desc.startsWith("-") && !desc.startsWith("*"),
+                    )
+                    const bulletLines = description.filter(
+                      (desc) => desc.startsWith("-") || desc.startsWith("*"),
+                    )
+                    const header = [exp.place, exp.title, exp.period]
+                      .filter(Boolean)
+                      .join(" · ")
+
+                    return (
+                      <View key={index} style={styles.experienceItem}>
+                        <Text style={styles.experienceHeader}>
+                          {exp.link ? (
+                            <Link style={styles.link} src={exp.link}>
+                              {header}
+                            </Link>
+                          ) : (
+                            header
+                          )}
+                        </Text>
+                        {contextLine ? (
+                          <Text style={styles.experienceContext}>{contextLine}</Text>
+                        ) : null}
+                        {bulletLines.map((desc, i) => (
+                          <Text key={i} style={styles.experienceBullet}>
+                            {desc.replace(/^(\*|-)\s*/, "• ")}
                           </Text>
-                        </View>
-
-                        <View style={styles.rightColumn}>
-                          <Text style={styles.experienceTitle}>{exp.title}</Text>
-                        </View>
-                      </View>
-
-                      <View style={styles.experienceRow}>
-                        <View style={styles.leftColumn}>
-                          <Text style={styles.experiencePeriod}>{exp.period}</Text>
-                          {exp.placeDescription && (
-                            <Text style={styles.placeDescription}>
-                              {exp.placeDescription}
-                            </Text>
-                          )}
-                        </View>
-
-                        <View style={styles.rightColumn}>
-                          <Text style={styles.experienceSkillsTitle}>
-                            {language === "en"
-                              ? "My responsibilities / tasks performed:"
-                              : "Mes responsabilités / tâches effectuées :"}
+                        ))}
+                        {exp.skills && exp.skills.length > 0 ? (
+                          <Text style={styles.experienceStack}>
+                            {language === "en" ? "Stack:" : "Stack :"}{" "}
+                            {exp.skills.join(" · ")}
                           </Text>
-
-                          {exp.description?.map((desc, i) => (
-                            <Text
-                              key={i}
-                              style={
-                                desc.startsWith("*")
-                                  ? styles.experienceDescriptionAsterisk
-                                  : desc.startsWith("-")
-                                    ? styles.experienceDescriptionDash
-                                    : styles.experienceDescription
-                              }
-                            >
-                              {desc}
-                            </Text>
-                          ))}
-
-                          {exp.skills && exp.skills.length > 0 && (
-                            <View style={styles.experienceSkills}>
-                              <Text style={styles.experienceSkillsTitle}>
-                                {language === "en" ? "Skills:" : "Compétences :"}
-                              </Text>
-                              <View style={styles.experienceSkillsContent}>
-                                {exp.skills.map((skill, skillIndex) => (
-                                  <React.Fragment key={skillIndex}>
-                                    <Text style={styles.skillItem}>{skill}</Text>
-                                    {skillIndex !== (exp.skills?.length || 0) - 1 && (
-                                      <Text style={styles.skillItem}>·</Text>
-                                    )}
-                                  </React.Fragment>
-                                ))}
-                              </View>
-                            </View>
-                          )}
-
-                          {exp.link && (
-                            <View style={styles.experienceLinkSection}>
-                              <Text style={styles.experienceLinkTitle}>
-                                {language === "en"
-                                  ? "More details:"
-                                  : "Plus de détails :"}
-                              </Text>
-                              <Link style={styles.experienceLink} src={exp.link}>
-                                {exp.link}
-                              </Link>
-                            </View>
-                          )}
-                        </View>
+                        ) : null}
                       </View>
-                    </View>
-                  ))}
+                    )
+                  })}
               </View>
             </View>
           )}
@@ -450,33 +485,24 @@ export const CVPdfDocument = ({ data, language, theme }: CVPdfDocumentProps) => 
               <Text style={styles.sectionTitle}>
                 {language === "en" ? "Education" : "Formation"}
               </Text>
-              {data.education.map((edu, index) => (
-                <View key={index} style={styles.experienceRow}>
-                  <View style={styles.leftColumn}>
-                    <Text style={styles.experienceTitle}>{edu.title}</Text>
-                    {edu.placeDescription && (
-                      <Text style={styles.placeDescription}>{edu.placeDescription}</Text>
-                    )}
-                    <Text style={styles.experiencePeriod}>{edu.period}</Text>
-                  </View>
-                  <View style={styles.rightColumn}>
-                    {edu.description?.map((desc, i) => (
-                      <Text
-                        key={i}
-                        style={
-                          desc.startsWith("*")
-                            ? styles.experienceDescriptionAsterisk
-                            : desc.startsWith("-")
-                              ? styles.experienceDescriptionDash
-                              : styles.experienceDescription
-                        }
-                      >
-                        {desc}
-                      </Text>
-                    ))}
-                  </View>
-                </View>
-              ))}
+              <View style={styles.experienceContent}>
+                {data.education.map((edu, index) => {
+                  const header = [edu.place, edu.title, edu.period]
+                    .filter(Boolean)
+                    .join(" · ")
+
+                  return (
+                    <View key={index} style={styles.educationItem}>
+                      <Text style={styles.educationHeader}>{header}</Text>
+                      {edu.description?.map((desc, i) => (
+                        <Text key={i} style={styles.educationDescription}>
+                          {desc}
+                        </Text>
+                      ))}
+                    </View>
+                  )
+                })}
+              </View>
             </View>
           )}
         </View>

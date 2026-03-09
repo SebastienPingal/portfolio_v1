@@ -41,8 +41,6 @@ interface CVData {
   education: Item[] | null
   experience: Item[] | null
   about: string | null
-  coreKeywords?: string[] | null
-  atsKeywords?: string[] | null
   profileImage?: string | null
   profileImageDark?: string | null
   /** PDF-optimized version (smaller resolution) to reduce PDF file size */
@@ -68,8 +66,6 @@ export const CVDataSchema = {
   education: "Array<{title: string | null, place: string | null, placeDescription?: string | null, period: string | null, description: string[] | null, link?: string | null, order?: number, skills?: string[] | null}> | null",
   experience: "Array<{title: string | null, place: string | null, placeDescription?: string | null, period: string | null, description: string[] | null, link?: string | null, order?: number, skills?: string[] | null}> | null",
   about: "string | null",
-  coreKeywords: "string[] | null (optional)",
-  atsKeywords: "string[] | null (optional)",
   profileImage: "string | null (optional)",
   profileImageDark: "string | null (optional)",
   profileImagePdf: "string | null (optional)",

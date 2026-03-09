@@ -121,6 +121,15 @@ const PDFDocumentDense = ({ data, language, theme }: PDFDocumentProps) => {
 			fontWeight: 'bold',
 			color: c.primary
 		},
+		stackLine: {
+			fontSize: 8,
+			color: c.accent
+		},
+		educationHeader: {
+			fontSize: 9,
+			fontWeight: 'bold',
+			color: c.primary
+		},
 		period: {
 			fontSize: 8,
 			color: c.accent
@@ -212,7 +221,7 @@ const PDFDocumentDense = ({ data, language, theme }: PDFDocumentProps) => {
 						{(data.skills?.stack && data.skills.stack.length > 0) || (data.skills?.other && data.skills.other.length > 0) ? (
 							<View style={styles.section}>
 								<Text style={styles.sectionHeader}>
-									{language === 'en' ? 'Skills' : 'Compétences'}
+									{language === 'en' ? 'Technical Skills' : 'Compétences techniques'}
 								</Text>
 								<View style={{ flexDirection: 'column', gap: 6 }}>
 									{data.skills?.stack && data.skills.stack.length > 0 ? (
@@ -264,57 +273,43 @@ const PDFDocumentDense = ({ data, language, theme }: PDFDocumentProps) => {
 								<View style={{ flexDirection: 'column', gap: 6 }}>
 									{[...data.experience]
 										.sort((a, b) => (a.order || 0) - (b.order || 0))
-										.map((exp, i) => (
-											<View key={i} style={{ flexDirection: 'column', gap: 3 }}>
-												<View style={styles.row}>
-													<View style={styles.left}>
-														<Text style={styles.itemTitle}>
-															{exp.place}
-														</Text>
-														{exp.placeDescription ? (
-															<Text style={styles.desc}>{exp.placeDescription}</Text>
-														) : null}
-														<Text style={styles.period}>{exp.period}</Text>
-													</View>
-													<View style={styles.right}>
-														<Text style={styles.itemTitle}>{exp.title}</Text>
-														{exp.description?.map((d, di) => {
-															const normalized = d.replace(/^(\*|-)\s?/, '• ')
-															return (
-																<Text
-																	key={di}
-																	style={styles.desc}
-																>
-																	{normalized}
-																</Text>
-															)
-														})}
-														{exp.skills?.length ? (
-															<View style={{ flexDirection: 'column', gap: 2 }}>
-																<Text style={{ fontSize: 8, color: c.accent, fontWeight: 'bold' }}>
-																	{language === 'en' ? 'Skills' : 'Compétences'}
-																</Text>
-																<View style={styles.pills}>
-																	{exp.skills!.map((s, si) => (
-																		<React.Fragment key={si}>
-																			<Text style={styles.pill}>{s}</Text>
-																			{si !== exp.skills!.length - 1 && <Text style={styles.pill}>·</Text>}
-																		</React.Fragment>
-																	))}
-																</View>
-															</View>
-														) : null}
+										.map((exp, i) => {
+											const description = exp.description ?? []
+											const contextLine = description.find(
+												d => !d.startsWith('-') && !d.startsWith('*')
+											)
+											const bulletLines = description.filter(
+												d => d.startsWith('-') || d.startsWith('*')
+											)
+											const header = [exp.place, exp.title, exp.period].filter(Boolean).join(' · ')
+
+											return (
+												<View key={i} style={{ flexDirection: 'column', gap: 2 }}>
+													<Text style={styles.itemTitle}>
 														{exp.link ? (
-															<View style={{ marginTop: 2 }}>
-																<Link style={styles.link} src={exp.link}>
-																	{language === 'en' ? 'More details' : 'Plus de détails'}
-																</Link>
-															</View>
-														) : null}
-													</View>
+															<Link style={styles.link} src={exp.link}>
+																{header}
+															</Link>
+														) : (
+															header
+														)}
+													</Text>
+													{contextLine ? (
+														<Text style={styles.desc}>{contextLine}</Text>
+													) : null}
+													{bulletLines.map((d, di) => (
+														<Text key={di} style={styles.desc}>
+															{d.replace(/^(\*|-)\s*/, '• ')}
+														</Text>
+													))}
+													{exp.skills?.length ? (
+														<Text style={styles.stackLine}>
+															{language === 'en' ? 'Stack:' : 'Stack :'} {exp.skills.join(' · ')}
+														</Text>
+													) : null}
 												</View>
-											</View>
-										))}
+											)
+										})}
 								</View>
 							</View>
 						) : null}
@@ -325,27 +320,20 @@ const PDFDocumentDense = ({ data, language, theme }: PDFDocumentProps) => {
 									{language === 'en' ? 'Education' : 'Formation'}
 								</Text>
 								<View style={{ flexDirection: 'column', gap: 4 }}>
-									{data.education.map((edu, i) => (
-										<View key={i} style={styles.row}>
-											<View style={styles.left}>
-												<Text style={styles.itemTitle}>{edu.title}</Text>
-												{edu.placeDescription ? (
-													<Text style={styles.desc}>{edu.placeDescription}</Text>
-												) : null}
-												<Text style={styles.period}>{edu.period}</Text>
+									{data.education.map((edu, i) => {
+										const header = [edu.place, edu.title, edu.period].filter(Boolean).join(' · ')
+
+										return (
+											<View key={i} style={{ flexDirection: 'column', gap: 2 }}>
+												<Text style={styles.educationHeader}>{header}</Text>
+												{edu.description?.map((d, di) => (
+													<Text key={di} style={styles.desc}>
+														{d}
+													</Text>
+												))}
 											</View>
-											<View style={styles.right}>
-												{edu.description?.map((d, di) => {
-													const normalized = d.replace(/^(\*|-)\s?/, '• ')
-													return (
-														<Text key={di} style={styles.desc}>
-															{normalized}
-														</Text>
-													)
-												})}
-											</View>
-										</View>
-									))}
+										)
+									})}
 								</View>
 							</View>
 						) : null}

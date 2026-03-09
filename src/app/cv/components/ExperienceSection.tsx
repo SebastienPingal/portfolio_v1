@@ -49,6 +49,10 @@ const SortableExperience = ({ exp, index, isUserConnected, onEdit, onDelete }: {
     position: 'relative' as const
   }
 
+  const summaryLine = [exp.place, exp.title, exp.period].filter(Boolean).join(' · ')
+  const contextLine = exp.description?.find((line: string) => !line.startsWith('-') && !line.startsWith('*'))
+  const bulletLines = exp.description?.filter((line: string) => line.startsWith('-') || line.startsWith('*')) ?? []
+
   return (
     <article
       ref={setNodeRef}
@@ -77,7 +81,7 @@ const SortableExperience = ({ exp, index, isUserConnected, onEdit, onDelete }: {
           </>
         )}
       </div>
-      <h4 className='text-md font-bold'>
+      <h4 className='text-md font-bold pr-16'>
         {exp.link ? (
           <a
             href={exp.link}
@@ -85,24 +89,29 @@ const SortableExperience = ({ exp, index, isUserConnected, onEdit, onDelete }: {
             rel="noopener noreferrer"
             className="hover:underline text-accent"
           >
-            {exp.place}
+            {summaryLine}
           </a>
         ) : (
-          exp.place
+          summaryLine
         )}
       </h4>
-      <p className='text-sm uppercase text-accent'><b>{exp.title}</b> - {exp.period}</p>
-      <div className="pl-4">
-        <div className='text-sm font-bold'>
-          {exp.description && exp.description.map((resp: string, respIndex: number) => {
-            const cleanedResp = resp.startsWith('*') ? `• ${resp.substring(1)}` : resp
-            return (
-              <p key={respIndex} className={`${resp.startsWith('-') ? 'pl-2 font-medium' : resp.startsWith('*') ? 'pl-6 text-foreground/80 font-medium' : ''}`}>
-                {cleanedResp}
-              </p>
-            )
-          })}
-        </div>
+      <div className="flex flex-col gap-1 text-sm">
+        {contextLine ? (
+          <p className='text-foreground/90'>{contextLine}</p>
+        ) : null}
+        {bulletLines.map((resp: string, respIndex: number) => {
+          const cleanedResp = resp.replace(/^(\*|-)\s*/, '• ')
+          return (
+            <p key={respIndex} className='pl-3 text-foreground/85'>
+              {cleanedResp}
+            </p>
+          )
+        })}
+        {exp.skills?.length ? (
+          <p className='text-xs text-muted-foreground'>
+            <span className='font-semibold text-foreground/80'>Stack :</span> {exp.skills.join(' · ')}
+          </p>
+        ) : null}
       </div>
     </article>
   )
