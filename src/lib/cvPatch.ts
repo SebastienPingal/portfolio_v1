@@ -132,7 +132,7 @@ export function buildPrompt(args: {
             aboutStyle:
               "1 paragraph, dense keywords, French, highlight relevant stacks and responsibilities from currentCV.",
             coreSkillsStyle:
-              "The CV has a visible 'Compétences clés' section near the top. Return 6 to 12 concise ATS-friendly keywords that match the job offer and currentCV. Prefer job-family keywords and real technologies already supported by currentCV. Do not invent unsupported tools, certifications, seniority, or responsibilities.",
+              "The CV has a visible 'Compétences clés' section near the top. Return only concise ATS-friendly keywords that are clearly relevant to the job offer and supported by currentCV. Remove weakly related or generic keywords even if they exist in the current CV. It is better to return fewer keywords than to keep irrelevant ones. Prefer job-family keywords and real technologies already supported by currentCV. Do not invent unsupported tools, certifications, seniority, or responsibilities.",
             skillsStyle:
               "The CV has a visible 'Compétences techniques' section. Reorder existing skills to make that section fit the job offer better. Only use exact skill names already present in currentCV.skills.stack/currentCV.skills.other. Do not invent new skills. Prefer frameworks, backend, database, cloud, testing and product skills explicitly required by the job.",
             ...(yearsOfExperience != null && {
