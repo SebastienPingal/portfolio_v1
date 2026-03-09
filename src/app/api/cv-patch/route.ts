@@ -6,6 +6,9 @@ import {
   parseLLMJson,
 } from "@/lib/cvPatch"
 
+export const maxDuration = 60
+export const runtime = "nodejs"
+
 const client = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 })
@@ -37,7 +40,7 @@ export async function POST(req: Request) {
     const messages = buildPrompt({ jobOfferText, cvSnapshot })
 
     const completion = await client.chat.completions.create({
-      model: "gpt-3.5-turbo",
+      model: "gpt-4.1-mini",
       messages: messages.map((m) => ({ role: m.role, content: m.content })),
     })
 
