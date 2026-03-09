@@ -114,7 +114,7 @@ export const frenchCV: CVData = {
     { place: "Cifacom Montreuil", title: "Certification de monteur audiovisuel", period: "Septembre 2012 - Juin 2014", description: [] },
     { place: "Cifacom Montreuil", title: "Bachelor Réalisateur Audiovisuel", period: "Septembre 2012 - Juin 2014", description: [] },
     { place: "IUT de Cergy-Pontoise Sarcelles", title: "DUT Service et Réseaux de communication", period: "Septembre 2010 - Juin 2012", description: [] },
-    { place: "Lycée Marien-Laurencin Mennecy", title: "Bac S", period: "Septembre 2007 - Juin 2010", description: [] }
+    { place: "Lycée Marie-Laurencin Mennecy", title: "Bac S", period: "Septembre 2007 - Juin 2010", description: [] }
   ],
 
   languages: [
