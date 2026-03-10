@@ -203,7 +203,7 @@ export const CVPdfDocument = ({ data, language, theme }: CVPdfDocumentProps) => 
     fullWidthGap: 6,
     sectionInset: 4,
     sectionGap: 5,
-    sectionContentGap: 6,
+    sectionContentGap: 5,
     itemGap: 3,
     technicalGroupGap: 3,
     technicalRowGap: 1,
@@ -312,7 +312,7 @@ export const CVPdfDocument = ({ data, language, theme }: CVPdfDocumentProps) => 
     },
     experienceContext: {
       fontSize: 9,
-      lineHeight: 1.35,
+      lineHeight: 1.1,
     },
     experienceBullet: {
       fontSize: 9,

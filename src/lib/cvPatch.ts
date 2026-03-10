@@ -128,7 +128,7 @@ export function buildPrompt(args: {
             skillsPriority: "string[] (optional, use exact existing technical skill names from currentCV.skills.stack)",
             otherSkillsPriority: "string[] (optional, use exact existing skill names from currentCV.skills.other)",
             experienceTweaks:
-              "Array<{ place: string; addBullets?: string[] }> (optional, max 6 tweaks, addBullets: max 6 strings each 2-160 chars)",
+              "Array<{ place: string; addBullets?: string[] }> (optional, max 4 tweaks, addBullets: max 1 string each 2-160 chars)",
           },
           jobOfferText: args.jobOfferText,
           currentCV: args.cvSnapshot,
@@ -143,6 +143,8 @@ export function buildPrompt(args: {
               "The CV has a visible 'Compétences clés' section near the top. Return only concise ATS-friendly keywords that are clearly relevant to the job offer and supported by currentCV. Remove weakly related or generic keywords even if they exist in the current CV. It is better to return fewer keywords than to keep irrelevant ones. Prefer job-family keywords and real technologies already supported by currentCV. Do not invent unsupported tools, certifications, seniority, or responsibilities.",
             skillsStyle:
               "The CV has a visible 'Compétences techniques' section. Reorder existing skills to make that section fit the job offer better. Only use exact skill names already present in currentCV.skills.stack/currentCV.skills.other. Do not invent new skills. Prefer frameworks, backend, database, cloud, testing and product skills explicitly required by the job.",
+            experienceTweaksStyle:
+              "Use experienceTweaks sparingly. Prefer 0 tweaks. Add a bullet only when it clearly improves ATS relevance for a requirement that is important in the job offer and already truthfully supported by currentCV, but not explicit enough in the current experience bullets. Never restate information already obvious elsewhere in the CV. Add at most 1 bullet per experience and target at most 4 experiences total.",
             ...(yearsOfExperience != null && {
               yearsOfExperienceConstraint: `CRITICAL: yearsOfExperience is ${yearsOfExperience}. In the about section, ALWAYS state exactly "${yearsOfExperience} ans" (or "${yearsOfExperience} années") for software development experience. Do NOT infer or modify years of experience. Use format: "Expérience professionnelle totale : X ans (dont ${yearsOfExperience} ans en développement logiciel)" when mentioning total experience. Never write 5, 6, 7, 8, 9, 10+ years for development experience.`,
             }),
@@ -233,10 +235,10 @@ export function parseAndValidateCVPatch(input: unknown): CVPatch {
         typeof patch.experienceTweaks,
       )
     } else {
-      const rawTweaks = patch.experienceTweaks.slice(0, 6)
-      if (patch.experienceTweaks.length > 6) {
+      const rawTweaks = patch.experienceTweaks.slice(0, 2)
+      if (patch.experienceTweaks.length > 2) {
         console.warn(
-          `⚠️ Truncating patch.experienceTweaks from ${patch.experienceTweaks.length} to 6`,
+          `⚠️ Truncating patch.experienceTweaks from ${patch.experienceTweaks.length} to 2`,
         )
       }
 
@@ -263,7 +265,7 @@ export function parseAndValidateCVPatch(input: unknown): CVPatch {
               .filter((b): b is string => typeof b === "string")
               .map((s) => s.trim())
               .filter((s) => s.length >= 2 && s.length <= 160)
-              .slice(0, 6)
+              .slice(0, 1)
             if (valid.length > 0) cleanTweak.addBullets = valid
           }
         }
