@@ -1,21 +1,23 @@
 import React from "react"
 import {
   Document,
+  Font,
+  Image,
+  Link,
   Page,
+  StyleSheet,
   Text,
   View,
-  StyleSheet,
-  Font,
-  Link,
-  Image,
 } from "@react-pdf/renderer"
-import { CVData } from "@/types/CV"
 import { themeColors, ThemeType } from "@/components/pdfTheme"
+import { CVData } from "@/types/CV"
+import { CVPdfAtsDocument } from "./CVPdfAtsDocument"
 
 export interface CVPdfDocumentProps {
   data: CVData | null
   language: string
   theme: ThemeType
+  variant?: "classic" | "ats"
 }
 
 const technicalSkillLabels: Record<"en" | "fr", string[]> = {
@@ -59,6 +61,16 @@ const buildTechnicalSkillGroups = (data: CVData, language: string) => {
 
 type CVExperience = NonNullable<CVData["experience"]>[number]
 
+const splitDescriptionLines = (description?: string[] | null) => {
+  const lines = description ?? []
+  return {
+    contextLine: lines.find((line) => !line.startsWith("-") && !line.startsWith("*")),
+    bulletLines: lines.filter((line) => line.startsWith("-") || line.startsWith("*")),
+  }
+}
+
+const sanitizeBullet = (line: string) => line.replace(/^(\*|-)\s*/, "")
+
 const estimateLineCount = (text: string, charsPerLine: number) => {
   const normalized = text.trim()
   if (!normalized) return 0
@@ -69,9 +81,7 @@ const estimateExperienceScore = (experience: CVExperience) => {
   const header = [experience.place, experience.title, experience.period]
     .filter(Boolean)
     .join(" · ")
-  const description = experience.description ?? []
-  const contextLine = description.find((line) => !line.startsWith("-") && !line.startsWith("*"))
-  const bulletLines = description.filter((line) => line.startsWith("-") || line.startsWith("*"))
+  const { contextLine, bulletLines } = splitDescriptionLines(experience.description)
   const skillsLine = experience.skills?.join(" · ") ?? ""
 
   return (
@@ -120,9 +130,6 @@ const splitExperiencesForFirstPage = ({
     splitIndex = 1
   }
 
-  // Avoid leaving a large empty area under the first experience on page 1.
-  // The sidebar often makes the heuristic too conservative, while two entries
-  // still fit comfortably in the left column for this CV layout.
   if (splitIndex === 1 && experiences.length > 1) {
     splitIndex = 2
   }
@@ -159,11 +166,18 @@ Font.register({
   ],
 })
 
-// Keep words intact in PDF output instead of splitting them mid-word.
 Font.registerHyphenationCallback((word) => [word])
 
-export const CVPdfDocument = ({ data, language, theme }: CVPdfDocumentProps) => {
+export const CVPdfDocument = ({
+  data,
+  language,
+  theme,
+  variant = "classic",
+}: CVPdfDocumentProps) => {
   if (!data) return null
+  if (variant === "ats") {
+    return <CVPdfAtsDocument data={data} language={language} theme={theme} />
+  }
 
   const currentThemeColors = themeColors[theme] || themeColors.light
   const technicalSkills = buildTechnicalSkillGroups(data, language)
@@ -189,6 +203,8 @@ export const CVPdfDocument = ({ data, language, theme }: CVPdfDocumentProps) => 
   const experienceTitle = language === "en"
     ? "Professional Experience"
     : "Expérience professionnelle"
+  const educationTitle = language === "en" ? "Education" : "Formation"
+  const technicalSkillsTitle = language === "en" ? "Technical Skills" : "Compétences techniques"
   const spacing = {
     pageInset: 15,
     pageStack: 10,
@@ -396,10 +412,8 @@ export const CVPdfDocument = ({ data, language, theme }: CVPdfDocumentProps) => 
     },
   })
 
-  const renderExperienceItem = (exp: CVExperience, index: number) => {
-    const description = exp.description ?? []
-    const contextLine = description.find((desc) => !desc.startsWith("-") && !desc.startsWith("*"))
-    const bulletLines = description.filter((desc) => desc.startsWith("-") || desc.startsWith("*"))
+  const renderClassicExperienceItem = (exp: CVExperience, index: number) => {
+    const { contextLine, bulletLines } = splitDescriptionLines(exp.description)
     const header = [exp.place, exp.title, exp.period].filter(Boolean).join(" · ")
 
     return (
@@ -416,7 +430,7 @@ export const CVPdfDocument = ({ data, language, theme }: CVPdfDocumentProps) => 
         {contextLine ? <Text style={styles.experienceContext}>{contextLine}</Text> : null}
         {bulletLines.map((desc, itemIndex) => (
           <Text key={itemIndex} style={styles.experienceBullet}>
-            {desc.replace(/^(\*|-)\s*/, "• ")}
+            {sanitizeBullet(desc).replace(/^/, "• ")}
           </Text>
         ))}
         {exp.skills && exp.skills.length > 0 ? (
@@ -428,14 +442,12 @@ export const CVPdfDocument = ({ data, language, theme }: CVPdfDocumentProps) => 
     )
   }
 
-  const renderEducationSection = () => {
+  const renderClassicEducationSection = () => {
     if (!data.education?.length) return null
 
     return (
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>
-          {language === "en" ? "Education" : "Formation"}
-        </Text>
+        <Text style={styles.sectionTitle}>{educationTitle}</Text>
         <View style={styles.sectionBody}>
           {data.education.map((edu, index) => {
             const header = [edu.place, edu.title, edu.period].filter(Boolean).join(" · ")
@@ -460,7 +472,7 @@ export const CVPdfDocument = ({ data, language, theme }: CVPdfDocumentProps) => 
     )
   }
 
-  const renderSidebar = () => (
+  const renderClassicSidebar = () => (
     <View style={styles.sidebarColumn}>
       {data.coreSkills && data.coreSkills.length > 0 && (
         <View style={styles.section} wrap={false}>
@@ -490,9 +502,7 @@ export const CVPdfDocument = ({ data, language, theme }: CVPdfDocumentProps) => 
 
       {technicalSkills.length > 0 && (
         <View style={styles.section} wrap={false}>
-          <Text style={styles.sectionTitle}>
-            {language === "en" ? "Technical Skills" : "Compétences techniques"}
-          </Text>
+          <Text style={styles.sectionTitle}>{technicalSkillsTitle}</Text>
           <View style={styles.technicalSkillsList}>
             {technicalSkills.map((group) => (
               <View key={group.label} style={styles.technicalSkillRow}>
@@ -581,15 +591,15 @@ export const CVPdfDocument = ({ data, language, theme }: CVPdfDocumentProps) => 
                 <View style={styles.section}>
                   <Text style={styles.sectionTitle}>{experienceTitle}</Text>
                   <View style={styles.sectionBody}>
-                    {firstPageExperiences.map((exp, index) => renderExperienceItem(exp, index))}
+                    {firstPageExperiences.map((exp, index) => renderClassicExperienceItem(exp, index))}
                   </View>
                 </View>
               )}
 
-              {shouldRenderEducationOnFirstPage ? renderEducationSection() : null}
+              {shouldRenderEducationOnFirstPage ? renderClassicEducationSection() : null}
             </View>
 
-            {renderSidebar()}
+            {renderClassicSidebar()}
           </View>
         </View>
       </Page>
@@ -602,12 +612,12 @@ export const CVPdfDocument = ({ data, language, theme }: CVPdfDocumentProps) => 
                 <View style={styles.section}>
                   <Text style={styles.sectionTitle}>{experienceTitle}</Text>
                   <View style={styles.sectionBody}>
-                    {remainingExperiences.map((exp, index) => renderExperienceItem(exp, index))}
+                    {remainingExperiences.map((exp, index) => renderClassicExperienceItem(exp, index))}
                   </View>
                 </View>
               )}
 
-              {!shouldRenderEducationOnFirstPage ? renderEducationSection() : null}
+              {!shouldRenderEducationOnFirstPage ? renderClassicEducationSection() : null}
             </View>
           </View>
         </Page>

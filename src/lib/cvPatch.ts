@@ -33,6 +33,25 @@ function getSkillPriorityIndex(
   const compact = normalized.replace(/\s+/g, "")
   if (priority.has(compact)) return priority.get(compact)
 
+  const normalizedTokens = normalized.split(/\s+/).filter(Boolean)
+  if (normalizedTokens.length > 0) {
+    for (const [candidate, index] of priority.entries()) {
+      const candidateTokens = candidate.split(/\s+/).filter(Boolean)
+      if (candidateTokens.length === 0) continue
+
+      const candidateFitsSkill = candidateTokens.every((token) =>
+        normalizedTokens.includes(token),
+      )
+      const skillFitsCandidate = normalizedTokens.every((token) =>
+        candidateTokens.includes(token),
+      )
+
+      if (candidateFitsSkill || skillFitsCandidate) {
+        return index
+      }
+    }
+  }
+
   return undefined
 }
 
@@ -103,6 +122,29 @@ function countWords(value: string): number {
     .length
 }
 
+function sanitizeAbout(value: unknown): string | undefined {
+  if (typeof value !== "string") return undefined
+
+  const singleParagraph = value.replace(/\s*\n+\s*/g, " ").replace(/\s+/g, " ").trim()
+  if (singleParagraph.length < 8) return undefined
+
+  const limitedWords = singleParagraph
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 60)
+    .join(" ")
+
+  if (limitedWords.length <= 320) return limitedWords
+
+  const trimmedToChars = limitedWords.slice(0, 320)
+  const lastSpaceIndex = trimmedToChars.lastIndexOf(" ")
+  const safeValue = (lastSpaceIndex > 0
+    ? trimmedToChars.slice(0, lastSpaceIndex)
+    : trimmedToChars).trim()
+
+  return safeValue.length >= 8 ? safeValue : undefined
+}
+
 export function buildPrompt(args: {
   jobOfferText: string
   cvSnapshot: unknown
@@ -113,7 +155,7 @@ export function buildPrompt(args: {
     {
       role: "system",
       content:
-        "You are an ATS optimization engine for a French CV. Output MUST be valid JSON only, matching the schema provided. No markdown, no comments. Never fabricate experience, companies, dates, metrics. Only rephrase existing content and prioritize keywords from the job offer. Keep French.",
+        "You are an ATS optimization engine for a French CV. Output MUST be valid JSON only, matching the schema provided. No markdown, no comments. Never fabricate experience, companies, dates, metrics. Only rephrase existing content and prioritize keywords from the job offer. Hard skills have the highest ATS impact: prioritize exact hard-skill wording from the job offer whenever it is truthfully supported by the current CV, and favor the skills that appear most often or most explicitly in the job offer. Keep French.",
     },
     {
       role: "user",
@@ -124,9 +166,9 @@ export function buildPrompt(args: {
             subtitle: "string (optional)",
             about: "string (optional, max 60 words)",
             coreSkills:
-              "string[] (optional, max 12 items, ATS-friendly role/tech keywords supported by currentCV and the job offer)",
-            skillsPriority: "string[] (optional, use exact existing technical skill names from currentCV.skills.stack)",
-            otherSkillsPriority: "string[] (optional, use exact existing skill names from currentCV.skills.other)",
+              "string[] (optional, max 12 items, hard-skill ATS keywords supported by currentCV and the job offer; use the exact wording from the job offer whenever it truthfully matches existing experience/skills)",
+            skillsPriority: "string[] (optional, ordered by ATS importance; prioritize hard skills repeated in the job offer, and prefer the job-offer spelling when it clearly maps to an existing technical skill in currentCV.skills.stack)",
+            otherSkillsPriority: "string[] (optional, ordered by ATS importance; prioritize hard skills repeated in the job offer, and prefer the job-offer spelling when it clearly maps to an existing skill in currentCV.skills.other)",
             experienceTweaks:
               "Array<{ place: string; addBullets?: string[] }> (optional, max 4 tweaks, addBullets: max 1 string each 2-160 chars)",
           },
@@ -136,15 +178,15 @@ export function buildPrompt(args: {
             titleStyle:
               "Use common ATS job titles (e.g. 'Frontend React Developer', 'Backend Node.js Developer', 'Full Stack JavaScript Developer').",
             subtitleStyle:
-              "Use dot separators ' · ' and only technologies present in currentCV OR explicitly in jobOfferText. Keep it short and technical. The system may derive the final subtitle from prioritized technical skills.",
+              "Use dot separators ' · '. Keep it short, technical, and biased toward hard skills with the highest ATS impact. Prioritize technologies repeated in the job offer. When a supported skill appears in the job offer, prefer the exact job-offer spelling in the subtitle.",
             aboutStyle:
               "Write exactly 1 paragraph in French, maximum 60 words. Maximize ATS impact with precise role keywords, strongest relevant stacks, business/domain context, and core responsibilities grounded in currentCV. Be concise, credible, and avoid filler.",
             coreSkillsStyle:
-              "The CV has a visible 'Compétences clés' section near the top. Return only concise ATS-friendly keywords that are clearly relevant to the job offer and supported by currentCV. Remove weakly related or generic keywords even if they exist in the current CV. It is better to return fewer keywords than to keep irrelevant ones. Prefer job-family keywords and real technologies already supported by currentCV. Do not invent unsupported tools, certifications, seniority, or responsibilities.",
+              "The CV has a visible 'Compétences clés' section near the top. This section should focus on hard skills because they have the highest ATS impact. Return only concise ATS-friendly hard-skill keywords or role keywords that are clearly relevant to the job offer and supported by currentCV. Prioritize the hard skills that appear most frequently or most explicitly in the job offer. Match the exact job-offer spelling whenever it is truthful and supported. Remove weakly related, generic, or soft-skill keywords even if they exist in the current CV. It is better to return fewer keywords than to keep irrelevant ones. Do not invent unsupported tools, certifications, seniority, or responsibilities.",
             skillsStyle:
-              "The CV has a visible 'Compétences techniques' section. Reorder existing skills to make that section fit the job offer better. Only use exact skill names already present in currentCV.skills.stack/currentCV.skills.other. Do not invent new skills. Prefer frameworks, backend, database, cloud, testing and product skills explicitly required by the job.",
+              "The CV has a visible 'Compétences techniques' section. Reorder existing skills to make that section fit the job offer better. Rank skills by ATS relevance, with repeated hard skills from the job offer first. Prefer frameworks, backend, database, cloud, testing, and product skills explicitly required by the job. Do not invent new skills: every returned item must clearly map to an existing skill in currentCV.skills.stack/currentCV.skills.other, even if you use the exact job-offer spelling.",
             experienceTweaksStyle:
-              "Use experienceTweaks sparingly. Prefer 0 tweaks. Add a bullet only when it clearly improves ATS relevance for a requirement that is important in the job offer and already truthfully supported by currentCV, but not explicit enough in the current experience bullets. Never restate information already obvious elsewhere in the CV. Add at most 1 bullet per experience and target at most 4 experiences total.",
+              "Use experienceTweaks sparingly. Prefer 0 tweaks. Add a bullet only when it clearly improves ATS relevance for an important hard-skill or responsibility requirement in the job offer that is already truthfully supported by currentCV, but not explicit enough in the current experience bullets. When helpful, mirror the exact job-offer wording for the relevant hard skill or responsibility. Never restate information already obvious elsewhere in the CV. Add at most 1 bullet per experience and target at most 4 experiences total.",
             ...(yearsOfExperience != null && {
               yearsOfExperienceConstraint: `CRITICAL: yearsOfExperience is ${yearsOfExperience}. In the about section, ALWAYS state exactly "${yearsOfExperience} ans" (or "${yearsOfExperience} années") for software development experience. Do NOT infer or modify years of experience. Use format: "Expérience professionnelle totale : X ans (dont ${yearsOfExperience} ans en développement logiciel)" when mentioning total experience. Never write 5, 6, 7, 8, 9, 10+ years for development experience.`,
             }),
@@ -171,6 +213,34 @@ function isStringArray(
   })
 }
 
+function sanitizeStringList(
+  value: unknown,
+  options?: { max?: number; minLen?: number; maxLen?: number },
+): string[] {
+  if (!Array.isArray(value)) return []
+
+  const seen = new Set<string>()
+  const out: string[] = []
+
+  for (const item of value) {
+    if (typeof item !== "string") continue
+
+    const cleaned = item.replace(/\s+/g, " ").trim()
+    if (!cleaned) continue
+    if (options?.minLen != null && cleaned.length < options.minLen) continue
+    if (options?.maxLen != null && cleaned.length > options.maxLen) continue
+
+    const dedupeKey = cleaned.toLowerCase()
+    if (seen.has(dedupeKey)) continue
+    seen.add(dedupeKey)
+    out.push(cleaned)
+
+    if (options?.max != null && out.length >= options.max) break
+  }
+
+  return out
+}
+
 export function parseAndValidateCVPatch(input: unknown): CVPatch {
   if (!input || typeof input !== "object" || Array.isArray(input)) {
     throw new Error("Patch must be an object")
@@ -194,23 +264,29 @@ export function parseAndValidateCVPatch(input: unknown): CVPatch {
   }
 
   if (patch.about !== undefined) {
-    const about = typeof patch.about === "string" ? patch.about.trim() : patch.about
-    if (
-      typeof about !== "string"
-      || about.length < 8
-      || about.length > 320
-      || countWords(about) > 60
-    ) {
-      throw new Error("Invalid patch.about")
+    const about = sanitizeAbout(patch.about)
+    if (!about) {
+      console.warn("⚠️ Skipping invalid patch.about")
+    } else {
+      if (countWords(about) > 60 || about.length > 320) {
+        console.warn("⚠️ Skipping invalid patch.about after sanitization")
+      } else {
+        out.about = about
+      }
     }
-    out.about = about
   }
 
   if (patch.coreSkills !== undefined) {
-    if (!isStringArray(patch.coreSkills, { max: 12, minLen: 2, maxLen: 50 })) {
-      throw new Error("Invalid patch.coreSkills")
+    const coreSkills = sanitizeStringList(patch.coreSkills, {
+      max: 12,
+      minLen: 2,
+      maxLen: 50,
+    })
+    if (coreSkills.length === 0) {
+      console.warn("⚠️ Skipping invalid patch.coreSkills")
+    } else {
+      out.coreSkills = coreSkills
     }
-    out.coreSkills = patch.coreSkills
   }
 
   if (patch.skillsPriority !== undefined) {
@@ -336,15 +412,15 @@ export function applyCVPatch<T extends Record<string, any>>(
     out.skills.stack = sortedGroups
   }
 
-  if (patch.skillsPriority?.length && out.skills?.stack) {
+  if (patch.subtitle) {
+    out["subtitle"] = patch.subtitle
+  } else if (patch.skillsPriority?.length && out.skills?.stack) {
     const derivedSubtitle = buildSubtitleFromPrioritizedSkills(
       out.skills.stack,
       patch.skillsPriority,
-      patch.subtitle ?? out.subtitle,
+      out.subtitle,
     )
     if (derivedSubtitle) out["subtitle"] = derivedSubtitle
-  } else if (patch.subtitle) {
-    out["subtitle"] = patch.subtitle
   }
 
   if (patch.otherSkillsPriority?.length && out.skills?.other) {

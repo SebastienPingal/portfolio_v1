@@ -180,14 +180,15 @@ const CV: React.FC<{
     handleEdit({ experience: updatedExperiences })
   }
 
-  const handleExportPDF = async () => {
-    console.log('🔄 Exporting PDF...')
+  const handleExportPDF = async (variant: 'classic' | 'ats' = 'classic') => {
+    console.log(`🔄 Exporting ${variant.toUpperCase()} PDF...`)
     try {
       const document = (
         <PDFDocumentRenderer
           data={data}
           language={language}
           theme={theme === 'light' ? 'light' : 'dark'}
+          variant={variant}
         />
       )
 
@@ -195,13 +196,13 @@ const CV: React.FC<{
       const blob = await pdf(document).toBlob()
 
       // Generate filename based on user's name or default
-      const filename = `${data.name?.replace(/\s+/g, '_').toLowerCase() || 'cv'}.pdf`
+      const filename = `${data.name?.replace(/\s+/g, '_').toLowerCase() || 'cv'}${variant === 'ats' ? '-ats' : ''}.pdf`
 
       // Save the file
       saveAs(blob, filename)
-      console.log('✅ PDF exported successfully!')
+      console.log(`✅ ${variant.toUpperCase()} PDF exported successfully!`)
     } catch (error) {
-      console.error('❌ Error exporting PDF:', error)
+      console.error(`❌ Error exporting ${variant.toUpperCase()} PDF:`, error)
     }
   }
 
@@ -226,8 +227,11 @@ const CV: React.FC<{
   return (
     <>
       <div className='flex gap-2 mb-4 items-center'>
-        <Button onClick={handleExportPDF} variant='secondaryshine'>
+        <Button onClick={() => handleExportPDF()} variant='secondaryshine'>
           <Download className='w-4 h-4 mr-2' /> {language === 'en' ? 'Export' : 'Exporter'}
+        </Button>
+        <Button onClick={() => handleExportPDF('ats')} variant='outline'>
+          <Download className='w-4 h-4 mr-2' /> {language === 'en' ? 'Export ATS' : 'Exporter ATS'}
         </Button>
         <Button onClick={() => setShowPDF(true)}>
           <Download className='w-4 h-4 mr-2' /> {language === 'en' ? 'Preview' : 'Aperçu'}

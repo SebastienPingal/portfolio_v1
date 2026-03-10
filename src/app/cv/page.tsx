@@ -1,9 +1,9 @@
 "use client"
 import React, { useState, useEffect } from "react"
 import { CVData } from "../../types/CV"
-import { PDFRenderer } from "@/components/PDFRenderer"
+import { PDFDocumentRenderer, PDFRenderer } from "@/components/PDFRenderer"
 import { Button } from "@/components/ui/button"
-import { Loader2, Upload, Wand2 } from "lucide-react"
+import { Download, Loader2, Upload, Wand2 } from "lucide-react"
 import { frenchCV as cvFr } from "../../../public/json/my-cv-fr"
 import { englishCV as cvEn } from "../../../public/json/my-cv-en"
 import { useSession } from "next-auth/react"
@@ -14,6 +14,8 @@ import TalkingLogo from "@/components/TalkingLogo"
 import { useTheme } from "next-themes"
 import { Textarea } from "@/components/ui/textarea"
 import { applyCVPatch, CVPatch } from "@/lib/cvPatch"
+import { pdf } from "@react-pdf/renderer"
+import { saveAs } from "file-saver"
 
 const CVPage: React.FC = () => {
   const { toast } = useToast()
@@ -204,7 +206,6 @@ const CVPage: React.FC = () => {
         ? plain.experience.map((exp) => ({
             title: toStringOrNull(exp?.title),
             place: toStringOrNull(exp?.place),
-            placeDescription: toStringOrNull(exp?.placeDescription),
             period: toStringOrNull(exp?.period),
             link: toStringOrNull(exp?.link),
             order: toNumberOrNull(exp?.order) ?? undefined,
@@ -220,7 +221,6 @@ const CVPage: React.FC = () => {
         ? plain.education.map((edu) => ({
             title: toStringOrNull(edu?.title),
             place: toStringOrNull(edu?.place),
-            placeDescription: toStringOrNull(edu?.placeDescription),
             period: toStringOrNull(edu?.period),
             link: toStringOrNull(edu?.link),
             order: toNumberOrNull(edu?.order) ?? undefined,
@@ -318,6 +318,33 @@ const CVPage: React.FC = () => {
     }
   }
 
+  const handleExportPDF = async (variant: "classic" | "ats" = "classic") => {
+    console.log(`🔄 Exporting ${variant.toUpperCase()} PDF from CV page...`)
+
+    try {
+      const document = (
+        <PDFDocumentRenderer
+          data={cvData}
+          language={locale}
+          theme={theme === "light" ? "light" : "dark"}
+          variant={variant}
+        />
+      )
+
+      const blob = await pdf(document).toBlob()
+      const filename = `${cvData.name?.replace(/\s+/g, "_").toLowerCase() || "cv"}${variant === "ats" ? "-ats" : ""}.pdf`
+
+      saveAs(blob, filename)
+      console.log(`✅ ${variant.toUpperCase()} PDF exported successfully from CV page!`)
+    } catch (error) {
+      console.error(`❌ Error exporting ${variant.toUpperCase()} PDF from CV page:`, error)
+      toast({
+        variant: "destructive",
+        title: variant === "ats" ? "Failed to export ATS PDF" : "Failed to export PDF",
+      })
+    }
+  }
+
   useEffect(() => {
     setCvData(locale === "en" ? cvEn : cvFr)
     setPdfRenderKey((prev) => prev + 1)
@@ -362,6 +389,14 @@ const CVPage: React.FC = () => {
                   <Wand2 className="w-4 h-4 mr-2" />
                 )}
                 Optimize for Job Offer
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => handleExportPDF("ats")}
+              >
+                <Download className="w-4 h-4 mr-2" />
+                Export ATS
               </Button>
             </div>
           </div>

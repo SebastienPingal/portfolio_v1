@@ -14,9 +14,10 @@ const PDFViewer = dynamic(
 
 interface PDFDocumentProps extends CVProps {
   theme: ThemeType
+  variant?: "classic" | "ats"
 }
 
-export const PDFRenderer = ({ data, language, theme }: PDFDocumentProps) => {
+export const PDFRenderer = ({ data, language, theme, variant = "classic" }: PDFDocumentProps) => {
   const [isMobile, setIsMobile] = React.useState(false)
 
   React.useEffect(() => {
@@ -38,7 +39,14 @@ export const PDFRenderer = ({ data, language, theme }: PDFDocumentProps) => {
 
     return (
       <BlobProvider
-        document={<CVPdfDocument data={data} language={language ?? "fr"} theme={theme} />}
+        document={
+          <CVPdfDocument
+            data={data}
+            language={language ?? "fr"}
+            theme={theme}
+            variant={variant}
+          />
+        }
       >
         {({ url, loading, error }) => {
           if (loading) {
@@ -85,7 +93,7 @@ export const PDFRenderer = ({ data, language, theme }: PDFDocumentProps) => {
 
   return (
     <PDFViewer width="100%" height="100%">
-      <CVPdfDocument data={data} language={language ?? "fr"} theme={theme} />
+      <CVPdfDocument data={data} language={language ?? "fr"} theme={theme} variant={variant} />
     </PDFViewer>
   )
 }
@@ -94,7 +102,8 @@ export const PDFDocumentRenderer = ({
   data,
   language,
   theme,
+  variant = "classic",
 }: PDFDocumentProps) => {
-  return <CVPdfDocument data={data} language={language ?? "fr"} theme={theme} />
+  return <CVPdfDocument data={data} language={language ?? "fr"} theme={theme} variant={variant} />
 }
 
