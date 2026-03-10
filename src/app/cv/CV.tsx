@@ -7,7 +7,6 @@ import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import { CVData } from '@/types/CV'
 import { PDFRenderer, PDFDocumentRenderer } from '@/components/PDFRenderer'
-import { PDFRendererDense, PDFDocumentRendererDense } from '@/components/PDFRendererDense'
 import { Input } from '@/components/ui/input'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { getStacks } from '@/app/actions'
@@ -24,7 +23,6 @@ import { SortableContext, sortableKeyboardCoordinates, verticalListSortingStrate
 import { pdf } from '@react-pdf/renderer'
 import { saveAs } from 'file-saver'
 import { ActivitiesSection } from './components/ActivitiesSection'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 
 const MeBlack = '/img/me_black.svg'
 const MeWhite = '/img/me_white.svg'
@@ -49,7 +47,6 @@ const CV: React.FC<{
   const [showExpDialog, setShowExpDialog] = useState(false)
   const [editingEdu, setEditingEdu] = useState<EducationFormData | null>(null)
   const [showEduDialog, setShowEduDialog] = useState(false)
-  const [rendererVariant, setRendererVariant] = useState<'classic' | 'dense'>('classic')
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -186,23 +183,13 @@ const CV: React.FC<{
   const handleExportPDF = async () => {
     console.log('🔄 Exporting PDF...')
     try {
-      // Use PDFDocumentRenderer instead of PDFRenderer for direct PDF generation
-      const document =
-        rendererVariant === 'dense'
-          ? (
-            <PDFDocumentRendererDense
-              data={data}
-              language={language}
-              theme={theme === 'light' ? 'light' : 'dark'}
-            />
-          )
-          : (
-            <PDFDocumentRenderer
-              data={data}
-              language={language}
-              theme={theme === 'light' ? 'light' : 'dark'}
-            />
-          )
+      const document = (
+        <PDFDocumentRenderer
+          data={data}
+          language={language}
+          theme={theme === 'light' ? 'light' : 'dark'}
+        />
+      )
 
       // Generate the blob
       const blob = await pdf(document).toBlob()
@@ -230,11 +217,7 @@ const CV: React.FC<{
           >
             Close
           </Button>
-          {rendererVariant === 'dense' ? (
-            <PDFRendererDense data={data} language={language} theme={theme === 'light' ? 'light' : 'dark'} />
-          ) : (
-            <PDFRenderer data={data} language={language} theme={theme === 'light' ? 'light' : 'dark'} />
-          )}
+          <PDFRenderer data={data} language={language} theme={theme === 'light' ? 'light' : 'dark'} />
         </div>
       </div>
     )
@@ -249,18 +232,6 @@ const CV: React.FC<{
         <Button onClick={() => setShowPDF(true)}>
           <Download className='w-4 h-4 mr-2' /> {language === 'en' ? 'Preview' : 'Aperçu'}
         </Button>
-        <div className='flex items-center gap-2'>
-          <div className='text-sm'>Renderer</div>
-          <Select value={rendererVariant} onValueChange={(v) => setRendererVariant(v as 'classic' | 'dense')}>
-            <SelectTrigger className="w-[160px]">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="classic">Classic</SelectItem>
-              <SelectItem value="dense">Dense</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
       </div>
       <div className='relative'>
         <div className="glassPanel flex flex-col gap-2 aspect-[1/1.4134]">
