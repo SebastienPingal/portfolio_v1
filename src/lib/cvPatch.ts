@@ -122,7 +122,7 @@ export function buildPrompt(args: {
           schema: {
             title: "string (optional)",
             subtitle: "string (optional)",
-            about: "string (optional, max 40 words)",
+            about: "string (optional, max 60 words)",
             coreSkills:
               "string[] (optional, max 12 items, ATS-friendly role/tech keywords supported by currentCV and the job offer)",
             skillsPriority: "string[] (optional, use exact existing technical skill names from currentCV.skills.stack)",
@@ -138,7 +138,7 @@ export function buildPrompt(args: {
             subtitleStyle:
               "Use dot separators ' · ' and only technologies present in currentCV OR explicitly in jobOfferText. Keep it short and technical. The system may derive the final subtitle from prioritized technical skills.",
             aboutStyle:
-              "Write exactly 1 paragraph in French, maximum 40 words. Maximize ATS impact with precise role keywords, strongest relevant stacks, business/domain context, and core responsibilities grounded in currentCV. Be concise, credible, and avoid filler.",
+              "Write exactly 1 paragraph in French, maximum 60 words. Maximize ATS impact with precise role keywords, strongest relevant stacks, business/domain context, and core responsibilities grounded in currentCV. Be concise, credible, and avoid filler.",
             coreSkillsStyle:
               "The CV has a visible 'Compétences clés' section near the top. Return only concise ATS-friendly keywords that are clearly relevant to the job offer and supported by currentCV. Remove weakly related or generic keywords even if they exist in the current CV. It is better to return fewer keywords than to keep irrelevant ones. Prefer job-family keywords and real technologies already supported by currentCV. Do not invent unsupported tools, certifications, seniority, or responsibilities.",
             skillsStyle:
@@ -199,7 +199,7 @@ export function parseAndValidateCVPatch(input: unknown): CVPatch {
       typeof about !== "string"
       || about.length < 8
       || about.length > 320
-      || countWords(about) > 40
+      || countWords(about) > 60
     ) {
       throw new Error("Invalid patch.about")
     }
