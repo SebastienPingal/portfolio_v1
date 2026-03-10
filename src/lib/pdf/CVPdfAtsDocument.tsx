@@ -484,8 +484,7 @@ export const CVPdfAtsDocument = ({
         ? "Independent Personal Projects"
         : "Projets personnels en indépendant"
       : exp.place
-    const maxBullets = index < 2 ? 3 : 2
-    const atsBullets = bulletLines.slice(0, maxBullets)
+    const atsBullets = bulletLines
     const atsSkills = (exp.skills ?? []).slice(0, 8)
 
     return (
