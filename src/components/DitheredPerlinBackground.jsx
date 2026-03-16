@@ -16,12 +16,18 @@ const DitheredPerlinBackground = ({ className = '' }) => {
     background: { h: 0, s: 0, l: 0 },
     primary: { h: 0, s: 0, l: 0 }
   })
+  const PRIMARY_SATURATION_FACTOR = 0.40
 
   // 🎯 Helper function to parse HSL from CSS variable
   const parseHSL = (hslString) => {
     const values = hslString.split(' ').map(v => parseFloat(v))
     return { h: values[0], s: values[1], l: values[2] }
   }
+
+  const desaturateHSL = (color, factor) => ({
+    ...color,
+    s: Math.max(0, Math.min(100, color.s * factor))
+  })
 
   // 🎯 Helper function to convert HSL to RGB
   const hslToRgb = (h, s, l) => {
@@ -44,10 +50,11 @@ const DitheredPerlinBackground = ({ className = '' }) => {
       const computedStyle = getComputedStyle(document.documentElement)
       const backgroundHSL = computedStyle.getPropertyValue('--background').trim()
       const primaryHSL = computedStyle.getPropertyValue('--primary').trim()
+      const primaryColor = parseHSL(primaryHSL)
       
       setThemeColors({
         background: parseHSL(backgroundHSL),
-        primary: parseHSL(primaryHSL)
+        primary: desaturateHSL(primaryColor, PRIMARY_SATURATION_FACTOR)
       })
     }
 
