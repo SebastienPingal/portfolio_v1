@@ -54,6 +54,7 @@ export const frenchCV: CVData = {
         { name: "Next.js", rating: 5 },
         { name: "Nuxt.js", rating: 5 },
         { name: "Express.js", rating: 5 },
+        { name: "Prisma", rating: 4 },
         { name: "Stripe", rating: 5 },
         { name: "PostgreSQL", rating: 5 },
         { name: "MySQL", rating: 5 },
@@ -142,12 +143,12 @@ export const frenchCV: CVData = {
       link: "https://moneodomus.com/",
       order: 1,
       place: "Moneo Domus",
-      title: "Développeur Full Stack (React.js, Node.js, TypeScript) / UX/UI",
+      title: "Développeur Full Stack (React.js, Node.js, TypeScript, Prisma) / UX/UI",
       period: "Depuis janvier 2024 (1,5 ans)",
-      skills: ["TypeScript", "React.js", "Next.js", "Node.js", "PostgreSQL", "NextAuth", "shadcn/ui", "Calendly API", "MagicLink", "PDF Generation", "Relation client", "Vercel"],
+      skills: ["TypeScript", "React.js", "Next.js", "Node.js", "Prisma", "PostgreSQL", "NextAuth", "shadcn/ui", "Calendly API", "MagicLink", "PDF Generation", "Relation client", "Vercel"],
       description: [
         "Holding d'entreprises BTP centré sur l'apport d'affaires et l'accompagnement. Conçu et développé from scratch une plateforme SaaS pour un groupe réalisant environ 500 k€ de CA mensuel, permettant une réduction de la charge opérationnelle de 50 %.",
-        "- Fiabilisé la plateforme dès sa base en définissant l'architecture backend : API REST, validation, RBAC, PostgreSQL et conventions d'erreurs.",
+        "- Fiabilisé la plateforme dès sa base en définissant l'architecture backend : API REST, validation, RBAC, Prisma, PostgreSQL et conventions d'erreurs.",
         "- Réduit le temps de traitement opérationnel avec un frontend React/Next.js responsive intégrant formulaires métier, dashboards et composants shadcn/ui.",
         "- Fluidifié l'accès et la prise de rendez-vous multi-intervenants grâce à l'authentification Magic Link et à l'intégration Calendly.",
         "- Amélioré l'adoption produit en menant la discovery et les itérations UX avec agences, clients et entreprises BTP."
@@ -157,14 +158,14 @@ export const frenchCV: CVData = {
       link: "https://www.linkedin.com/company/kafowork/posts/?feedView=all",
       order: 2,
       place: "KAFO",
-      title: "Fondateur / Développeur Full Stack (Vue.js, Node.js, PostgreSQL)",
+      title: "Fondateur / Développeur Full Stack (Vue.js, Node.js, Prisma, PostgreSQL)",
       period: "Février 2023 - Septembre 2023 (8 mois)",
-      skills: ["TypeScript", "Vue.js", "Node.js", "Xano", "Weweb", "Google Maps API", "AWS EC2", "GitHub CI/CD", "Primevue", "No-Code", "UX/UI", "UX Testing", "Agile", "Scrum"],
+      skills: ["TypeScript", "Vue.js", "Node.js", "Prisma", "Xano", "Weweb", "Google Maps API", "AWS EC2", "GitHub CI/CD", "Primevue", "No-Code", "UX/UI", "UX Testing", "Agile", "Scrum"],
       description: [
         "Réseau social pour télétravailleurs. Création d'une startup en 8 mois, avec plusieurs partenariats écoles/freelances et une visibilité presse jusqu'aux Echos.",
         "- Accéléré la validation de l'usage en prototypant le produit en no-code avec Xano et WeWeb.",
         "- Facilité la découverte de lieux adaptés au travail à distance avec une carte interactive et des filtres de recherche ciblés.",
-        "- Amélioré la performance, la maintenabilité et la cohérence UI en reprenant ensuite le frontend en Vue 3.",
+        "- Amélioré la performance, la maintenabilité et la cohérence UI en reprenant ensuite le frontend en Vue 3 et en structurant la couche de données avec Prisma.",
         "- Fiabilisé les mises en production et la boucle de feedback en déployant l'application sur AWS EC2 avec CI/CD GitHub et tests utilisateurs UX."
       ]
     },
@@ -172,13 +173,13 @@ export const frenchCV: CVData = {
       link: "",
       order: 3,
       place: "Art Factory",
-      title: "Développeur Full Stack (Next.js, Node.js, React.js, PostgreSQL) / UX/UI",
+      title: "Développeur Full Stack (Next.js, Node.js, React.js, Prisma, PostgreSQL) / UX/UI",
       period: "Novembre 2023 - Janvier 2024 (3 mois)",
-      skills: ["TypeScript", "Next.js", "React.js", "Node.js", "PostgreSQL", "Express.js", "shadcn/ui", "TailwindCSS", "API Development"],
+      skills: ["TypeScript", "Next.js", "React.js", "Node.js", "Prisma", "PostgreSQL", "Express.js", "shadcn/ui", "TailwindCSS", "API Development"],
       description: [
         "Mission courte sur une application de gestion d'événements artistiques privés pour structurer l'outil côté front et back.",
         "- Structuré le suivi opérationnel avec une interface d'administration des événements et des dashboards en React/Next.js.",
-        "- Accéléré la gestion des événements grâce à une API avec filtres, pagination, statuts et gestion des inscriptions.",
+        "- Accéléré la gestion des événements grâce à une API avec filtres, pagination, statuts, gestion des inscriptions et accès aux données via Prisma.",
         "- Renforcé la cohérence UI et le contrôle d'accès avec une bibliothèque de composants et la gestion des rôles/permissions."
       ]
     },

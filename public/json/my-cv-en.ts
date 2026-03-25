@@ -54,6 +54,7 @@ export const englishCV: CVData = {
         { name: "Next.js", rating: 5 },
         { name: "Nuxt.js", rating: 5 },
         { name: "Express.js", rating: 5 },
+        { name: "Prisma", rating: 4 },
         { name: "Stripe", rating: 5 },
         { name: "PostgreSQL", rating: 5 },
         { name: "MySQL", rating: 5 },
@@ -142,12 +143,12 @@ export const englishCV: CVData = {
       link: "https://moneodomus.com/",
       order: 1,
       place: "Moneo Domus",
-      title: "Full Stack Developer (React.js, Node.js, TypeScript) / UX/UI",
+      title: "Full Stack Developer (React.js, Node.js, TypeScript, Prisma) / UX/UI",
       period: "Since January 2024 (1.5 years)",
-      skills: ["TypeScript", "React.js", "Next.js", "Node.js", "PostgreSQL", "NextAuth", "shadcn/ui", "Calendly API", "MagicLink", "PDF Generation", "Client Relations", "Vercel"],
+      skills: ["TypeScript", "React.js", "Next.js", "Node.js", "Prisma", "PostgreSQL", "NextAuth", "shadcn/ui", "Calendly API", "MagicLink", "PDF Generation", "Client Relations", "Vercel"],
       description: [
         "Construction company holding focused on business development and support. Designed and developed from scratch a SaaS platform for a group generating around EUR 500k in monthly revenue, reducing operational workload by 50%.",
-        "- Strengthened the platform from the ground up by defining the backend architecture: REST API, validation, RBAC, PostgreSQL, and error conventions.",
+        "- Strengthened the platform from the ground up by defining the backend architecture: REST API, validation, RBAC, Prisma, PostgreSQL, and error conventions.",
         "- Reduced operational processing time with a responsive React/Next.js frontend including business forms, dashboards, and shadcn/ui components.",
         "- Streamlined access and multi-stakeholder appointment booking through Magic Link authentication and Calendly integration.",
         "- Improved product adoption by leading discovery and UX iterations with agencies, clients, and construction companies."
@@ -157,14 +158,14 @@ export const englishCV: CVData = {
       link: "https://www.linkedin.com/company/kafowork/posts/?feedView=all",
       order: 2,
       place: "KAFO",
-      title: "Founder / Full Stack Developer (Vue.js, Node.js, PostgreSQL)",
+      title: "Founder / Full Stack Developer (Vue.js, Node.js, Prisma, PostgreSQL)",
       period: "February 2023 - September 2023 (8 months)",
-      skills: ["TypeScript", "Vue.js", "Node.js", "Xano", "Weweb", "Google Maps API", "AWS EC2", "GitHub CI/CD", "Primevue", "No-Code", "UX/UI", "UX Testing", "Agile", "Scrum"],
+      skills: ["TypeScript", "Vue.js", "Node.js", "Prisma", "Xano", "Weweb", "Google Maps API", "AWS EC2", "GitHub CI/CD", "Primevue", "No-Code", "UX/UI", "UX Testing", "Agile", "Scrum"],
       description: [
         "Social network for remote workers. Built the startup in 8 months, with several school/freelancer partnerships and press visibility up to Les Echos.",
         "- Accelerated usage validation by prototyping the product in no-code with Xano and WeWeb.",
         "- Made it easier to discover remote-work-friendly places with an interactive map and targeted search filters.",
-        "- Improved performance, maintainability, and UI consistency by rebuilding the frontend in Vue 3.",
+        "- Improved performance, maintainability, and UI consistency by rebuilding the frontend in Vue 3 and structuring the data layer with Prisma.",
         "- Strengthened releases and the feedback loop by deploying the application on AWS EC2 with GitHub CI/CD and UX user testing."
       ]
     },
@@ -172,13 +173,13 @@ export const englishCV: CVData = {
       link: "",
       order: 3,
       place: "Art Factory",
-      title: "Full Stack Developer (Next.js, Node.js, React.js, PostgreSQL) / UX/UI",
+      title: "Full Stack Developer (Next.js, Node.js, React.js, Prisma, PostgreSQL) / UX/UI",
       period: "November 2023 - January 2024 (3 months)",
-      skills: ["TypeScript", "Next.js", "React.js", "Node.js", "PostgreSQL", "Express.js", "shadcn/ui", "TailwindCSS", "API Development"],
+      skills: ["TypeScript", "Next.js", "React.js", "Node.js", "Prisma", "PostgreSQL", "Express.js", "shadcn/ui", "TailwindCSS", "API Development"],
       description: [
         "Short-term assignment on a private artistic event management application to structure the tool on both frontend and backend.",
         "- Structured operational tracking with an event administration interface and dashboards in React/Next.js.",
-        "- Accelerated event management with an API featuring filters, pagination, statuses, and registration handling.",
+        "- Accelerated event management with an API featuring filters, pagination, statuses, registration handling, and data access through Prisma.",
         "- Reinforced UI consistency and access control with a component library and role/permission management."
       ]
     },
