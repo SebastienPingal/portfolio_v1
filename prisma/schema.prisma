@@ -49,6 +49,8 @@ model User {
   like          Like[]
   stack         Stack[]   @relation("UserStacks")
   cvs           CV[]
+  planningEventsCreated PlanningEvent[]      @relation("PlanningEventCreator")
+  planningAvailabilities PlanningAvailability[]
 }
 
 model ExternalLink {
@@ -146,4 +148,41 @@ model Project {
   updatedAt   DateTime @updatedAt
   post        Post?    @relation(fields: [postId], references: [id])
   postId      String?  @unique
+}
+
+model PlanningEvent {
+  id            String                @id @default(cuid())
+  title         String
+  slug          String                @unique
+  createdById   String?
+  createdBy     User?                 @relation("PlanningEventCreator", fields: [createdById], references: [id], onDelete: SetNull)
+  dateOptions   PlanningDateOption[]
+  availabilities PlanningAvailability[]
+  createdAt     DateTime              @default(now())
+  updatedAt     DateTime              @updatedAt
+}
+
+model PlanningDateOption {
+  id            String                @id @default(cuid())
+  eventId       String
+  event         PlanningEvent         @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  date          DateTime
+  availabilities PlanningAvailability[]
+
+  @@unique([eventId, date])
+}
+
+model PlanningAvailability {
+  id           String            @id @default(cuid())
+  eventId      String
+  dateOptionId String
+  userId       String?
+  participantName String
+  participantKey  String
+  event        PlanningEvent     @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  dateOption   PlanningDateOption @relation(fields: [dateOptionId], references: [id], onDelete: Cascade)
+  user         User?             @relation(fields: [userId], references: [id], onDelete: SetNull)
+  createdAt    DateTime          @default(now())
+
+  @@unique([eventId, dateOptionId, participantKey])
 }

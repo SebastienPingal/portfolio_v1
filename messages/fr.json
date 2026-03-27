@@ -24,6 +24,7 @@
       "gadgets": "Gadgets",
       "visualizations": "Visualisations",
       "cvSebifyer": "CV Sebifyer",
+      "datePlanner": "Date Planner",
       "online": "Me retrouver"
     }
   },
@@ -130,6 +131,48 @@
         "title": "Sauvegarde du preset",
         "description": "Veuillez patienter..."
       }
+    }
+  },
+  "DatePlanner": {
+    "title": "Date Planner",
+    "description": "Crée un événement et propose des dates pour trouver rapidement un créneau commun.",
+    "signin": {
+      "title": "Connexion requise",
+      "description": "Connecte-toi pour créer un événement et voter sur les disponibilités.",
+      "button": "Se connecter avec LinkedIn"
+    },
+    "create": {
+      "eventTitleLabel": "Nom de l'événement",
+      "eventTitlePlaceholder": "Ex : Soirée jeux, réunion projet, sortie",
+      "datePickerLabel": "Ajouter une date",
+      "addDate": "Ajouter cette date",
+      "previousMonth": "Mois précédent",
+      "nextMonth": "Mois suivant",
+      "selectedDatesTitle": "Dates sélectionnées",
+      "emptyDates": "Aucune date sélectionnée pour le moment.",
+      "removeHint": "Clique sur une date pour la retirer.",
+      "submit": "Créer l'événement",
+      "creating": "Création en cours...",
+      "errors": {
+        "titleRequired": "Le nom de l'événement est requis.",
+        "dateRequired": "Ajoute au moins une date.",
+        "createFailed": "Impossible de créer l'événement."
+      }
+    },
+    "event": {
+      "subtitle": "Clique sur les dates où tu es disponible.",
+      "signinToVote": "Connecte-toi pour pouvoir indiquer tes disponibilités.",
+      "selectButton": "Je suis disponible",
+      "unselectButton": "Retirer ma disponibilité",
+      "summaryTitle": "Résumé des disponibilités",
+      "signinToVoteHint": "Lecture seule active. Connecte-toi pour voter.",
+      "participantNameLabel": "Ton prénom ou pseudo",
+      "participantNamePlaceholder": "Ex : Alice",
+      "participantNameRequired": "Renseigne ton prénom ou pseudo avant de voter.",
+      "participantNameGateHint": "Renseigne ton prénom ou pseudo pour déverrouiller les disponibilités.",
+      "toggleFailed": "Impossible de mettre à jour ta disponibilité.",
+      "availableCount": "{count, plural, =0 {0 disponible} one {# disponible} other {# disponibles}}",
+      "noParticipants": "Personne n'est disponible pour l'instant."
     }
   },
   "API": {

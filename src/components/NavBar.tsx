@@ -23,7 +23,7 @@ import SignoutButton from "./SignoutButton"
 import ExternalLinksSession from "./ExternalLinksSession"
 
 // Icons
-import { FileText, BookUser, Github, Gitlab, Home, Linkedin, MoveUpRight, PencilRuler, Palette, LineChart } from "lucide-react"
+import { FileText, BookUser, Github, Gitlab, Home, Linkedin, MoveUpRight, PencilRuler, Palette, LineChart, CalendarDays } from "lucide-react"
 
 // Types
 import { ExternalLink, Post } from "@prisma/client"
@@ -76,6 +76,7 @@ const NavBar = ({ workPosts, blogPosts, externalLinks, className }: { workPosts:
             <NavigationMenuItem className="font-bold mb-2">{t('sections.gadgets')}</NavigationMenuItem>
             {renderMenuItem('/visualizations', <LineChart className="w-4 h-4" />, t('sections.visualizations'))}
             {renderMenuItem('/cv-sebifyer', <BookUser className="w-4 h-4" />, t('sections.cvSebifyer'))}
+            {renderMenuItem('/date-planner', <CalendarDays className="w-4 h-4" />, t('sections.datePlanner'))}
           </div>
 
           <div className='w-full'>
