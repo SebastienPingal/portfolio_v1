@@ -2,23 +2,23 @@ import { notFound } from "next/navigation"
 import { getTranslations } from "next-intl/server"
 
 import { auth } from "@/app/api/auth/[...nextauth]/auth"
-import { getPlanningEventBySlug } from "@/app/actions/planning"
+import { getPlanningEventById } from "@/app/actions/planning"
 import PlanningAvailabilityBoard from "@/components/PlanningAvailabilityBoard"
 
 interface DatePlannerEventPageProps {
   params: Promise<{
-    slug: string
+    id: string
   }>
 }
 
 const DatePlannerEventPage = async ({ params }: DatePlannerEventPageProps) => {
-  const [{ slug }, session, t] = await Promise.all([
+  const [{ id }, session, t] = await Promise.all([
     params,
     auth(),
     getTranslations("DatePlanner"),
   ])
 
-  const event = await getPlanningEventBySlug(slug)
+  const event = await getPlanningEventById(id)
   if (!event) {
     notFound()
   }

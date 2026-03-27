@@ -103,7 +103,7 @@ export async function createPlanningEvent({ title, dates }: CreatePlanningEventI
       },
     },
     select: {
-      slug: true,
+      id: true,
     },
   })
 
@@ -112,13 +112,13 @@ export async function createPlanningEvent({ title, dates }: CreatePlanningEventI
   return createdEvent
 }
 
-export async function getPlanningEventBySlug(slug: string) {
-  if (!slug?.trim()) {
+export async function getPlanningEventById(id: string) {
+  if (!id?.trim()) {
     return null
   }
 
   const event = await prisma.planningEvent.findUnique({
-    where: { slug },
+    where: { id },
     include: {
       createdBy: {
         select: {
@@ -202,7 +202,7 @@ export async function toggleAvailability({ eventId, dateOptionId, participantNam
     include: {
       event: {
         select: {
-          slug: true,
+          id: true,
         },
       },
     },
@@ -238,7 +238,7 @@ export async function toggleAvailability({ eventId, dateOptionId, participantNam
     })
   }
 
-  revalidatePath(`/date-planner/${option.event.slug}`)
+  revalidatePath(`/date-planner/${option.event.id}`)
 
   return { selected: !existingAvailability }
 }

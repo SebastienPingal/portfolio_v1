@@ -126,7 +126,7 @@ const PlanningCreateForm = () => {
           dates: selectedDates,
         })
 
-        router.push(`/date-planner/${result.slug}`)
+        router.push(`/date-planner/${result.id}`)
       } catch (error) {
         toast({
           title: t("errors.createFailed"),
