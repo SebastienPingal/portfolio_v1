@@ -174,12 +174,14 @@
       "availableCount": "{count, plural, =0 {0 available} one {# available} other {# available}}",
       "noParticipants": "Nobody is available yet.",
       "addDates": {
+        "openButton": "Add new dates",
         "title": "Add new dates",
-        "description": "Propose extra dates so everyone can vote on them.",
-        "stage": "Add to list",
+        "description": "Pick extra dates on the calendar so everyone can vote on them. Existing dates are disabled.",
+        "selectedTitle": "Dates to add",
+        "empty": "No date picked yet.",
         "submit": "Save new dates",
+        "cancel": "Cancel",
         "adding": "Saving...",
-        "alreadyAdded": "This date is already in the list.",
         "errors": {
           "dateRequired": "Pick at least one date first.",
           "addFailed": "Could not add the dates."
