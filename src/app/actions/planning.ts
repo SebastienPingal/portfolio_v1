@@ -5,6 +5,7 @@ import { auth } from '@/app/api/auth/[...nextauth]/auth'
 import prisma from '@/lib/db'
 import { cookies } from 'next/headers'
 import { revalidatePath } from 'next/cache'
+import { sendPlanningSelectedDateEmail } from '@/lib/planning/email'
 
 type CreatePlanningEventInput = {
   title: string
@@ -15,6 +16,12 @@ type ToggleAvailabilityInput = {
   eventId: string
   dateOptionId: string
   participantName?: string
+  participantEmail?: string
+}
+
+type SelectFinalDateInput = {
+  eventId: string
+  dateOptionId: string
 }
 
 type AddPlanningDatesInput = {
@@ -215,17 +222,28 @@ export async function addPlanningDates({ eventId, dates }: AddPlanningDatesInput
   return { added: normalizedDates.length }
 }
 
-export async function toggleAvailability({ eventId, dateOptionId, participantName }: ToggleAvailabilityInput) {
+function normalizeEmail(value?: string) {
+  const trimmed = value?.trim().toLowerCase()
+  if (!trimmed) return undefined
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed)) {
+    throw new Error('Invalid email address')
+  }
+  return trimmed
+}
+
+export async function toggleAvailability({ eventId, dateOptionId, participantName, participantEmail }: ToggleAvailabilityInput) {
   const session = await auth()
   const userId = session?.user?.id
   const cookieStore = await cookies()
 
   let participantKey = ''
   let effectiveParticipantName = ''
+  let effectiveParticipantEmail: string | undefined
 
   if (userId) {
     participantKey = `user:${userId}`
     effectiveParticipantName = session.user?.name || session.user?.email || 'User'
+    effectiveParticipantEmail = session.user?.email ?? undefined
   } else {
     const trimmedName = participantName?.trim()
     if (!trimmedName) {
@@ -243,6 +261,7 @@ export async function toggleAvailability({ eventId, dateOptionId, participantNam
 
     participantKey = `anon:${anonymousId}`
     effectiveParticipantName = trimmedName
+    effectiveParticipantEmail = normalizeEmail(participantEmail)
   }
 
   const option = await prisma.planningDateOption.findFirst({
@@ -285,11 +304,88 @@ export async function toggleAvailability({ eventId, dateOptionId, participantNam
         userId: userId ?? null,
         participantName: effectiveParticipantName,
         participantKey,
+        participantEmail: effectiveParticipantEmail ?? null,
       },
+    })
+  }
+
+  if (effectiveParticipantEmail) {
+    await prisma.planningContact.upsert({
+      where: { email: effectiveParticipantEmail },
+      update: { name: effectiveParticipantName },
+      create: { email: effectiveParticipantEmail, name: effectiveParticipantName },
     })
   }
 
   revalidatePath(`/date-planner/${option.event.id}`)
 
   return { selected: !existingAvailability }
+}
+
+export async function selectFinalDate({ eventId, dateOptionId }: SelectFinalDateInput) {
+  if (!eventId?.trim() || !dateOptionId?.trim()) {
+    throw new Error('Event id and date option id are required')
+  }
+
+  const option = await prisma.planningDateOption.findFirst({
+    where: { id: dateOptionId, eventId },
+    include: {
+      event: {
+        select: {
+          id: true,
+          title: true,
+          createdBy: { select: { email: true, name: true } },
+        },
+      },
+    },
+  })
+
+  if (!option) {
+    throw new Error('Date option not found')
+  }
+
+  await prisma.planningEvent.update({
+    where: { id: eventId },
+    data: { selectedDateOptionId: dateOptionId },
+  })
+
+  const availabilities = await prisma.planningAvailability.findMany({
+    where: { eventId },
+    include: {
+      user: { select: { email: true, name: true } },
+    },
+  })
+
+  const recipients = new Map<string, string>()
+  for (const availability of availabilities) {
+    const email = availability.user?.email ?? availability.participantEmail
+    if (!email) continue
+    const lower = email.toLowerCase()
+    if (recipients.has(lower)) continue
+    recipients.set(lower, availability.user?.name || availability.participantName)
+  }
+
+  if (option.event.createdBy?.email) {
+    const lower = option.event.createdBy.email.toLowerCase()
+    if (!recipients.has(lower)) {
+      recipients.set(lower, option.event.createdBy.name || 'Organizer')
+    }
+  }
+
+  const sendableRecipients = Array.from(recipients.entries())
+    .filter(([email]) => !email.endsWith('@local.invalid'))
+    .map(([email, name]) => ({ email, name }))
+
+  if (sendableRecipients.length > 0) {
+    await sendPlanningSelectedDateEmail({
+      eventTitle: option.event.title,
+      eventId,
+      selectedDate: option.date,
+      recipients: sendableRecipients,
+    })
+  }
+
+  revalidatePath(`/date-planner/${eventId}`)
+
+  return { notified: sendableRecipients.length }
 }
