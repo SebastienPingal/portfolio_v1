@@ -3,6 +3,7 @@ import { getTranslations } from "next-intl/server"
 
 import { auth } from "@/app/api/auth/[...nextauth]/auth"
 import { getPlanningEventById } from "@/app/actions/planning"
+import PlanningAddDates from "@/components/PlanningAddDates"
 import PlanningAvailabilityBoard from "@/components/PlanningAvailabilityBoard"
 
 interface DatePlannerEventPageProps {
@@ -52,6 +53,11 @@ const DatePlannerEventPage = async ({ params }: DatePlannerEventPageProps) => {
         dateOptions={dateOptions}
         currentUserId={session?.user?.id}
         currentUserName={session?.user?.name}
+      />
+
+      <PlanningAddDates
+        eventId={event.id}
+        existingDateKeys={event.dateOptions.map((option) => option.dateKey)}
       />
     </div>
   )
