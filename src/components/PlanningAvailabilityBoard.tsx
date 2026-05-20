@@ -426,7 +426,7 @@ const PlanningAvailabilityBoard = ({
           }
         }}
       >
-        <DialogContent>
+        <DialogContent className="sm:max-w-lg rounded-lg">
           <DialogHeader>
             <DialogTitle>{t("confirmFinalDateTitle")}</DialogTitle>
             <DialogDescription>
@@ -437,12 +437,12 @@ const PlanningAvailabilityBoard = ({
                 : ""}
             </DialogDescription>
           </DialogHeader>
-          <ul className="flex flex-col gap-2 text-sm text-muted-foreground">
-            <li>• {t("confirmFinalDateConsequenceSave")}</li>
-            <li>• {t("confirmFinalDateConsequenceEmail")}</li>
-            <li>• {t("confirmFinalDateConsequenceCalendar")}</li>
+          <ul className="flex list-disc flex-col gap-2 pl-5 text-sm text-muted-foreground">
+            <li>{t("confirmFinalDateConsequenceSave")}</li>
+            <li>{t("confirmFinalDateConsequenceEmail")}</li>
+            <li>{t("confirmFinalDateConsequenceCalendar")}</li>
           </ul>
-          <DialogFooter>
+          <DialogFooter className="gap-2 sm:gap-2">
             <Button
               type="button"
               variant="outline"
