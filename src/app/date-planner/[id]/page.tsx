@@ -51,8 +51,10 @@ const DatePlannerEventPage = async ({ params }: DatePlannerEventPageProps) => {
       <PlanningAvailabilityBoard
         eventId={event.id}
         dateOptions={dateOptions}
+        selectedDateOptionId={event.selectedDateOptionId}
         currentUserId={session?.user?.id}
         currentUserName={session?.user?.name}
+        currentUserEmail={session?.user?.email}
       />
 
       <PlanningAddDates

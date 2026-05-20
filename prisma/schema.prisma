@@ -158,6 +158,8 @@ model PlanningEvent {
   createdBy     User?                 @relation("PlanningEventCreator", fields: [createdById], references: [id], onDelete: SetNull)
   dateOptions   PlanningDateOption[]
   availabilities PlanningAvailability[]
+  selectedDateOptionId String?         @unique
+  selectedDateOption   PlanningDateOption? @relation("PlanningEventSelectedDate", fields: [selectedDateOptionId], references: [id], onDelete: SetNull)
   createdAt     DateTime              @default(now())
   updatedAt     DateTime              @updatedAt
 }
@@ -168,6 +170,7 @@ model PlanningDateOption {
   event         PlanningEvent         @relation(fields: [eventId], references: [id], onDelete: Cascade)
   date          DateTime
   availabilities PlanningAvailability[]
+  selectedForEvent PlanningEvent?      @relation("PlanningEventSelectedDate")
 
   @@unique([eventId, date])
 }
@@ -178,6 +181,7 @@ model PlanningAvailability {
   dateOptionId String
   userId       String?
   participantName String
+  participantEmail String?
   participantKey  String
   event        PlanningEvent     @relation(fields: [eventId], references: [id], onDelete: Cascade)
   dateOption   PlanningDateOption @relation(fields: [dateOptionId], references: [id], onDelete: Cascade)
@@ -185,4 +189,12 @@ model PlanningAvailability {
   createdAt    DateTime          @default(now())
 
   @@unique([eventId, dateOptionId, participantKey])
+}
+
+model PlanningContact {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

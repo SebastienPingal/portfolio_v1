@@ -1,9 +1,9 @@
 "use client"
 
-import { useEffect, useMemo, useState } from "react"
+import { useEffect, useMemo, useState, useTransition } from "react"
 import { useLocale, useTranslations } from "next-intl"
 
-import { toggleAvailability } from "@/app/actions/planning"
+import { selectFinalDate, toggleAvailability } from "@/app/actions/planning"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useToast } from "@/components/ui/use-toast"
@@ -30,23 +30,34 @@ type DateOption = {
 type PlanningAvailabilityBoardProps = {
   eventId: string
   dateOptions: DateOption[]
+  selectedDateOptionId?: string | null
   currentUserId?: string
   currentUserName?: string | null
+  currentUserEmail?: string | null
 }
+
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 const PlanningAvailabilityBoard = ({
   eventId,
   dateOptions,
+  selectedDateOptionId,
   currentUserId,
   currentUserName,
+  currentUserEmail,
 }: PlanningAvailabilityBoardProps) => {
   const t = useTranslations("DatePlanner.event")
   const locale = useLocale()
   const { toast } = useToast()
   const [participantName, setParticipantName] = useState(currentUserName ?? "")
+  const [participantEmail, setParticipantEmail] = useState(currentUserEmail ?? "")
   const [isLoadedFromStorage, setIsLoadedFromStorage] = useState(false)
   const [optimisticDateOptions, setOptimisticDateOptions] = useState<DateOption[]>(dateOptions)
   const [pendingDateOptionIds, setPendingDateOptionIds] = useState<string[]>([])
+  const [optimisticSelectedDateOptionId, setOptimisticSelectedDateOptionId] = useState<string | null>(
+    selectedDateOptionId ?? null
+  )
+  const [isSelectingFinalDate, startSelectFinalDateTransition] = useTransition()
 
   const dateFormatter = useMemo(
     () =>
@@ -64,8 +75,13 @@ const PlanningAvailabilityBoard = ({
   }, [dateOptions])
 
   useEffect(() => {
+    setOptimisticSelectedDateOptionId(selectedDateOptionId ?? null)
+  }, [selectedDateOptionId])
+
+  useEffect(() => {
     if (currentUserId) {
       setParticipantName(currentUserName || "")
+      setParticipantEmail(currentUserEmail || "")
       setIsLoadedFromStorage(true)
       return
     }
@@ -74,10 +90,17 @@ const PlanningAvailabilityBoard = ({
     if (cachedName) {
       setParticipantName(cachedName)
     }
+    const cachedEmail = window.localStorage.getItem("date-planner-participant-email")
+    if (cachedEmail) {
+      setParticipantEmail(cachedEmail)
+    }
     setIsLoadedFromStorage(true)
-  }, [currentUserId, currentUserName])
+  }, [currentUserId, currentUserName, currentUserEmail])
 
-  const canVote = !!currentUserId || participantName.trim().length > 0
+  const trimmedEmail = participantEmail.trim()
+  const hasInvalidEmail = trimmedEmail.length > 0 && !EMAIL_REGEX.test(trimmedEmail)
+  const canVote =
+    (!!currentUserId || participantName.trim().length > 0) && !hasInvalidEmail
 
   const isAvailabilityOwnedByCurrentParticipant = (
     availability: AvailabilityEntry,
@@ -99,7 +122,7 @@ const PlanningAvailabilityBoard = ({
       ? {
           id: currentUserId,
           name: currentUserName ?? null,
-          email: null,
+          email: currentUserEmail ?? null,
         }
       : null,
   })
@@ -107,7 +130,7 @@ const PlanningAvailabilityBoard = ({
   const onToggle = (dateOptionId: string) => {
     if (!canVote) {
       toast({
-        title: t("participantNameRequired"),
+        title: hasInvalidEmail ? t("invalidEmail") : t("participantNameRequired"),
         variant: "destructive",
       })
       return
@@ -118,8 +141,13 @@ const PlanningAvailabilityBoard = ({
     }
 
     const trimmedName = participantName.trim()
-    if (!currentUserId && trimmedName) {
-      window.localStorage.setItem("date-planner-participant-name", trimmedName)
+    if (!currentUserId) {
+      if (trimmedName) {
+        window.localStorage.setItem("date-planner-participant-name", trimmedName)
+      }
+      if (trimmedEmail) {
+        window.localStorage.setItem("date-planner-participant-email", trimmedEmail)
+      }
     }
 
     let wasSelected = false
@@ -156,9 +184,9 @@ const PlanningAvailabilityBoard = ({
       eventId,
       dateOptionId,
       participantName: currentUserId ? undefined : trimmedName,
+      participantEmail: currentUserId ? undefined : trimmedEmail || undefined,
     })
       .catch((error) => {
-        // Roll back only the date that failed.
         setOptimisticDateOptions((previousOptions) =>
           previousOptions.map((option) => {
             if (option.id !== dateOptionId) {
@@ -192,20 +220,76 @@ const PlanningAvailabilityBoard = ({
       })
   }
 
+  const onSelectFinalDate = (dateOptionId: string) => {
+    if (isSelectingFinalDate) return
+    const previousSelected = optimisticSelectedDateOptionId
+    setOptimisticSelectedDateOptionId(dateOptionId)
+
+    startSelectFinalDateTransition(async () => {
+      try {
+        const result = await selectFinalDate({ eventId, dateOptionId })
+        toast({
+          title: t("finalDateSelected"),
+          description: t("finalDateNotified", { count: result.notified }),
+        })
+      } catch (error) {
+        setOptimisticSelectedDateOptionId(previousSelected)
+        toast({
+          title: t("finalDateFailed"),
+          description: error instanceof Error ? error.message : undefined,
+          variant: "destructive",
+        })
+      }
+    })
+  }
+
+  const selectedDateOption = optimisticDateOptions.find(
+    (option) => option.id === optimisticSelectedDateOptionId
+  )
+
   return (
     <div className="flex flex-col gap-6">
+      {selectedDateOption && (
+        <div className="glassPanel flex flex-col gap-1 border-primary/40">
+          <p className="text-sm font-semibold uppercase tracking-wide text-primary">
+            {t("finalDateBadge")}
+          </p>
+          <p className="text-xl font-semibold">
+            {dateFormatter.format(new Date(selectedDateOption.dateISO))}
+          </p>
+        </div>
+      )}
+
       {!currentUserId && isLoadedFromStorage && (
-        <div className="glassPanel flex flex-col gap-2">
-          <label htmlFor="participant-name" className="text-sm font-medium">
-            {t("participantNameLabel")}
-          </label>
-          <Input
-            id="participant-name"
-            value={participantName}
-            onChange={(event) => setParticipantName(event.target.value)}
-            placeholder={t("participantNamePlaceholder")}
-          />
-          {!canVote && (
+        <div className="glassPanel flex flex-col gap-3">
+          <div className="flex flex-col gap-2">
+            <label htmlFor="participant-name" className="text-sm font-medium">
+              {t("participantNameLabel")}
+            </label>
+            <Input
+              id="participant-name"
+              value={participantName}
+              onChange={(event) => setParticipantName(event.target.value)}
+              placeholder={t("participantNamePlaceholder")}
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <label htmlFor="participant-email" className="text-sm font-medium">
+              {t("participantEmailLabel")}
+            </label>
+            <Input
+              id="participant-email"
+              type="email"
+              value={participantEmail}
+              onChange={(event) => setParticipantEmail(event.target.value)}
+              placeholder={t("participantEmailPlaceholder")}
+            />
+            <p className="text-xs text-muted-foreground">{t("participantEmailHint")}</p>
+            {hasInvalidEmail && (
+              <p className="text-xs text-destructive">{t("invalidEmail")}</p>
+            )}
+          </div>
+          {!canVote && !hasInvalidEmail && (
             <p className="text-sm text-muted-foreground">{t("participantNameGateHint")}</p>
           )}
         </div>
@@ -224,21 +308,45 @@ const PlanningAvailabilityBoard = ({
             dateOption.availabilities.some((availability) => {
               return isAvailabilityOwnedByCurrentParticipant(availability, trimmedParticipantName)
             })
+          const isFinalSelected = dateOption.id === optimisticSelectedDateOptionId
 
           return (
-            <article key={dateOption.id} className="glassPanel flex flex-col gap-4">
+            <article
+              key={dateOption.id}
+              className={cn(
+                "glassPanel flex flex-col gap-4",
+                isFinalSelected && "border-primary/60"
+              )}
+            >
               <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                <h2 className="text-xl font-semibold">
-                  {dateFormatter.format(new Date(dateOption.dateISO))}
-                </h2>
-                <Button
-                  type="button"
-                  variant={isSelectedByCurrentUser ? "default" : "outline"}
-                  onClick={() => onToggle(dateOption.id)}
-                  disabled={!canVote || pendingDateOptionIds.includes(dateOption.id)}
-                >
-                  {isSelectedByCurrentUser ? t("unselectButton") : t("selectButton")}
-                </Button>
+                <div className="flex items-center gap-2">
+                  <h2 className="text-xl font-semibold">
+                    {dateFormatter.format(new Date(dateOption.dateISO))}
+                  </h2>
+                  {isFinalSelected && (
+                    <span className="rounded-full bg-primary/15 px-2 py-0.5 text-xs font-semibold uppercase tracking-wide text-primary">
+                      {t("finalDateBadge")}
+                    </span>
+                  )}
+                </div>
+                <div className="flex flex-wrap items-center gap-2">
+                  <Button
+                    type="button"
+                    variant={isSelectedByCurrentUser ? "default" : "outline"}
+                    onClick={() => onToggle(dateOption.id)}
+                    disabled={!canVote || pendingDateOptionIds.includes(dateOption.id)}
+                  >
+                    {isSelectedByCurrentUser ? t("unselectButton") : t("selectButton")}
+                  </Button>
+                  <Button
+                    type="button"
+                    variant={isFinalSelected ? "default" : "outline"}
+                    onClick={() => onSelectFinalDate(dateOption.id)}
+                    disabled={isSelectingFinalDate || isFinalSelected}
+                  >
+                    {isFinalSelected ? t("finalDateChosen") : t("chooseFinalDate")}
+                  </Button>
+                </div>
               </div>
 
               <div className="flex flex-col gap-2">
@@ -274,7 +382,13 @@ const PlanningAvailabilityBoard = ({
           <h2 className="text-xl font-semibold">{t("summaryTitle")}</h2>
           <div className="flex flex-col gap-3">
             {optimisticDateOptions.map((dateOption) => (
-              <div key={dateOption.id} className="flex flex-col gap-1 rounded-lg border border-border/50 bg-card/60 p-3">
+              <div
+                key={dateOption.id}
+                className={cn(
+                  "flex flex-col gap-1 rounded-lg border border-border/50 bg-card/60 p-3",
+                  dateOption.id === optimisticSelectedDateOptionId && "border-primary/60"
+                )}
+              >
                 <p className="font-medium">{dateFormatter.format(new Date(dateOption.dateISO))}</p>
                 <p className="text-sm text-muted-foreground">
                   {t("availableCount", { count: dateOption.availabilities.length })}
