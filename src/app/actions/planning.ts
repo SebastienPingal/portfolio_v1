@@ -376,12 +376,19 @@ export async function selectFinalDate({ eventId, dateOptionId }: SelectFinalDate
     .filter(([email]) => !email.endsWith('@local.invalid'))
     .map(([email, name]) => ({ email, name }))
 
+  const organizerEmail = option.event.createdBy?.email
+  const organizer =
+    organizerEmail && !organizerEmail.endsWith('@local.invalid')
+      ? { email: organizerEmail, name: option.event.createdBy?.name || 'Organizer' }
+      : undefined
+
   if (sendableRecipients.length > 0) {
     await sendPlanningSelectedDateEmail({
       eventTitle: option.event.title,
       eventId,
       selectedDate: option.date,
       recipients: sendableRecipients,
+      organizer,
     })
   }
 

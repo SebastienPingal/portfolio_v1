@@ -10,6 +10,7 @@ type SendSelectedDateInput = {
   eventId: string
   selectedDate: Date
   recipients: Recipient[]
+  organizer?: Recipient
 }
 
 function pad(value: number) {
@@ -24,19 +25,36 @@ function toICSDate(date: Date) {
   )
 }
 
+function nowICSStamp() {
+  const now = new Date()
+  return (
+    `${now.getUTCFullYear()}${pad(now.getUTCMonth() + 1)}${pad(now.getUTCDate())}` +
+    `T${pad(now.getUTCHours())}${pad(now.getUTCMinutes())}${pad(now.getUTCSeconds())}Z`
+  )
+}
+
 function escapeICS(value: string) {
   return value.replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,').replace(/\n/g, '\\n')
 }
 
-function buildICS({ eventTitle, eventId, selectedDate }: { eventTitle: string; eventId: string; selectedDate: Date }) {
+function buildICS({
+  eventTitle,
+  eventId,
+  selectedDate,
+  organizer,
+  attendees,
+}: {
+  eventTitle: string
+  eventId: string
+  selectedDate: Date
+  organizer: Recipient
+  attendees: Recipient[]
+}) {
   const start = toICSDate(selectedDate)
   const next = new Date(selectedDate.getTime() + 24 * 60 * 60 * 1000)
   const end = toICSDate(next)
-  const stamp =
-    `${new Date().getUTCFullYear()}${pad(new Date().getUTCMonth() + 1)}${pad(new Date().getUTCDate())}` +
-    `T${pad(new Date().getUTCHours())}${pad(new Date().getUTCMinutes())}${pad(new Date().getUTCSeconds())}Z`
 
-  return [
+  const lines = [
     'BEGIN:VCALENDAR',
     'VERSION:2.0',
     'PRODID:-//Portfolio//Date Planner//EN',
@@ -44,14 +62,25 @@ function buildICS({ eventTitle, eventId, selectedDate }: { eventTitle: string; e
     'METHOD:REQUEST',
     'BEGIN:VEVENT',
     `UID:date-planner-${eventId}@portfolio`,
-    `DTSTAMP:${stamp}`,
+    `DTSTAMP:${nowICSStamp()}`,
     `DTSTART;VALUE=DATE:${start}`,
     `DTEND;VALUE=DATE:${end}`,
+    'SEQUENCE:0',
+    'STATUS:CONFIRMED',
+    'TRANSP:OPAQUE',
     `SUMMARY:${escapeICS(eventTitle)}`,
     `DESCRIPTION:${escapeICS(`Date confirmée pour ${eventTitle}.`)}`,
-    'END:VEVENT',
-    'END:VCALENDAR',
-  ].join('\r\n')
+    `ORGANIZER;CN=${escapeICS(organizer.name)}:mailto:${organizer.email}`,
+  ]
+
+  for (const attendee of attendees) {
+    lines.push(
+      `ATTENDEE;CN=${escapeICS(attendee.name)};RSVP=TRUE;ROLE=REQ-PARTICIPANT;PARTSTAT=NEEDS-ACTION:mailto:${attendee.email}`
+    )
+  }
+
+  lines.push('END:VEVENT', 'END:VCALENDAR')
+  return lines.join('\r\n')
 }
 
 function buildGoogleCalendarLink({ eventTitle, selectedDate }: { eventTitle: string; selectedDate: Date }) {
@@ -71,11 +100,23 @@ export async function sendPlanningSelectedDateEmail({
   eventId,
   selectedDate,
   recipients,
+  organizer,
 }: SendSelectedDateInput) {
   if (!process.env.RESEND_API_KEY || recipients.length === 0) return
 
   const resend = new Resend(process.env.RESEND_API_KEY)
-  const ics = buildICS({ eventTitle, eventId, selectedDate })
+  const effectiveOrganizer: Recipient = organizer ?? {
+    email: 'onboarding@resend.dev',
+    name: 'Date Planner',
+  }
+
+  const ics = buildICS({
+    eventTitle,
+    eventId,
+    selectedDate,
+    organizer: effectiveOrganizer,
+    attendees: recipients,
+  })
   const googleLink = buildGoogleCalendarLink({ eventTitle, selectedDate })
   const icsBase64 = Buffer.from(ics, 'utf-8').toString('base64')
 
@@ -104,16 +145,17 @@ export async function sendPlanningSelectedDateEmail({
                 <p>L'organisateur a confirmé la date pour <strong>${escapeHtml(eventTitle)}</strong>&nbsp;:</p>
                 <p style="font-size: 18px; font-weight: bold;">${escapeHtml(formattedDate)}</p>
                 <p>
+                  Cet email est une invitation calendrier — Gmail / Google Calendar et la plupart des clients mail
+                  l'ajoutent automatiquement à ton agenda avec un statut « en attente », et tu peux répondre directement
+                  Oui / Non / Peut-être.
+                </p>
+                <p>
                   <a
                     href="${googleLink}"
                     style="display: inline-block; background-color: #1a73e8; color: white; padding: 10px 18px; border-radius: 6px; text-decoration: none;"
                   >
-                    Ajouter à Google Calendar
+                    Ouvrir dans Google Calendar
                   </a>
-                </p>
-                <p style="font-size: 13px; color: #6c757d;">
-                  Une invitation est également jointe à ce mail (fichier .ics) — la plupart des clients mail proposent
-                  automatiquement de l'ajouter au calendrier.
                 </p>
               </div>
             </body>
@@ -123,6 +165,7 @@ export async function sendPlanningSelectedDateEmail({
           {
             filename: 'invitation.ics',
             content: icsBase64,
+            contentType: 'text/calendar; method=REQUEST; charset=UTF-8',
           },
         ],
       })

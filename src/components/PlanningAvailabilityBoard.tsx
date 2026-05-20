@@ -5,6 +5,14 @@ import { useLocale, useTranslations } from "next-intl"
 
 import { selectFinalDate, toggleAvailability } from "@/app/actions/planning"
 import { Button } from "@/components/ui/button"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { useToast } from "@/components/ui/use-toast"
 import { cn } from "@/lib/utils"
@@ -58,6 +66,7 @@ const PlanningAvailabilityBoard = ({
     selectedDateOptionId ?? null
   )
   const [isSelectingFinalDate, startSelectFinalDateTransition] = useTransition()
+  const [pendingFinalDateOptionId, setPendingFinalDateOptionId] = useState<string | null>(null)
 
   const dateFormatter = useMemo(
     () =>
@@ -220,8 +229,9 @@ const PlanningAvailabilityBoard = ({
       })
   }
 
-  const onSelectFinalDate = (dateOptionId: string) => {
-    if (isSelectingFinalDate) return
+  const confirmSelectFinalDate = () => {
+    const dateOptionId = pendingFinalDateOptionId
+    if (!dateOptionId || isSelectingFinalDate) return
     const previousSelected = optimisticSelectedDateOptionId
     setOptimisticSelectedDateOptionId(dateOptionId)
 
@@ -232,6 +242,7 @@ const PlanningAvailabilityBoard = ({
           title: t("finalDateSelected"),
           description: t("finalDateNotified", { count: result.notified }),
         })
+        setPendingFinalDateOptionId(null)
       } catch (error) {
         setOptimisticSelectedDateOptionId(previousSelected)
         toast({
@@ -245,6 +256,10 @@ const PlanningAvailabilityBoard = ({
 
   const selectedDateOption = optimisticDateOptions.find(
     (option) => option.id === optimisticSelectedDateOptionId
+  )
+
+  const pendingFinalDateOption = optimisticDateOptions.find(
+    (option) => option.id === pendingFinalDateOptionId
   )
 
   return (
@@ -338,14 +353,18 @@ const PlanningAvailabilityBoard = ({
                   >
                     {isSelectedByCurrentUser ? t("unselectButton") : t("selectButton")}
                   </Button>
-                  <Button
-                    type="button"
-                    variant={isFinalSelected ? "default" : "outline"}
-                    onClick={() => onSelectFinalDate(dateOption.id)}
-                    disabled={isSelectingFinalDate || isFinalSelected}
-                  >
-                    {isFinalSelected ? t("finalDateChosen") : t("chooseFinalDate")}
-                  </Button>
+                  {!isFinalSelected && (
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="sm"
+                      className="text-xs text-muted-foreground"
+                      onClick={() => setPendingFinalDateOptionId(dateOption.id)}
+                      disabled={isSelectingFinalDate}
+                    >
+                      {t("chooseFinalDate")}
+                    </Button>
+                  )}
                 </div>
               </div>
 
@@ -398,6 +417,46 @@ const PlanningAvailabilityBoard = ({
           </div>
         </aside>
       </div>
+
+      <Dialog
+        open={!!pendingFinalDateOptionId}
+        onOpenChange={(open) => {
+          if (!open && !isSelectingFinalDate) {
+            setPendingFinalDateOptionId(null)
+          }
+        }}
+      >
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>{t("confirmFinalDateTitle")}</DialogTitle>
+            <DialogDescription>
+              {pendingFinalDateOption
+                ? t("confirmFinalDateDescription", {
+                    date: dateFormatter.format(new Date(pendingFinalDateOption.dateISO)),
+                  })
+                : ""}
+            </DialogDescription>
+          </DialogHeader>
+          <ul className="flex flex-col gap-2 text-sm text-muted-foreground">
+            <li>• {t("confirmFinalDateConsequenceSave")}</li>
+            <li>• {t("confirmFinalDateConsequenceEmail")}</li>
+            <li>• {t("confirmFinalDateConsequenceCalendar")}</li>
+          </ul>
+          <DialogFooter>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => setPendingFinalDateOptionId(null)}
+              disabled={isSelectingFinalDate}
+            >
+              {t("confirmFinalDateCancel")}
+            </Button>
+            <Button type="button" onClick={confirmSelectFinalDate} disabled={isSelectingFinalDate}>
+              {isSelectingFinalDate ? t("confirmFinalDateSending") : t("confirmFinalDateConfirm")}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }
