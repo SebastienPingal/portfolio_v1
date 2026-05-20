@@ -172,7 +172,19 @@
       "participantNameGateHint": "Renseigne ton prénom ou pseudo pour déverrouiller les disponibilités.",
       "toggleFailed": "Impossible de mettre à jour ta disponibilité.",
       "availableCount": "{count, plural, =0 {0 disponible} one {# disponible} other {# disponibles}}",
-      "noParticipants": "Personne n'est disponible pour l'instant."
+      "noParticipants": "Personne n'est disponible pour l'instant.",
+      "addDates": {
+        "title": "Ajouter de nouvelles dates",
+        "description": "Propose des dates supplémentaires pour que tout le monde puisse voter.",
+        "stage": "Ajouter à la liste",
+        "submit": "Enregistrer les nouvelles dates",
+        "adding": "Enregistrement...",
+        "alreadyAdded": "Cette date est déjà dans la liste.",
+        "errors": {
+          "dateRequired": "Choisis au moins une date d'abord.",
+          "addFailed": "Impossible d'ajouter les dates."
+        }
+      }
     }
   },
   "API": {

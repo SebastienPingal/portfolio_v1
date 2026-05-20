@@ -17,6 +17,11 @@ type ToggleAvailabilityInput = {
   participantName?: string
 }
 
+type AddPlanningDatesInput = {
+  eventId: string
+  dates: string[]
+}
+
 function toDateKey(date: Date) {
   return date.toISOString().slice(0, 10)
 }
@@ -162,6 +167,52 @@ export async function getPlanningEventById(id: string) {
       dateKey: toDateKey(option.date),
     })),
   }
+}
+
+export async function addPlanningDates({ eventId, dates }: AddPlanningDatesInput) {
+  if (!eventId?.trim()) {
+    throw new Error('Event id is required')
+  }
+
+  const event = await prisma.planningEvent.findUnique({
+    where: { id: eventId },
+    include: {
+      dateOptions: {
+        select: { date: true },
+      },
+    },
+  })
+
+  if (!event) {
+    throw new Error('Event not found')
+  }
+
+  const existingDateKeys = new Set(event.dateOptions.map((option) => toDateKey(option.date)))
+
+  const normalizedDates = Array.from(
+    new Set(
+      dates
+        .map((dateString) => dateString.trim())
+        .filter(Boolean)
+    )
+  )
+    .filter((dateString) => !existingDateKeys.has(dateString))
+    .sort()
+
+  if (normalizedDates.length === 0) {
+    throw new Error('No new date to add')
+  }
+
+  await prisma.planningDateOption.createMany({
+    data: normalizedDates.map((dateString) => ({
+      eventId,
+      date: normalizeDate(dateString),
+    })),
+  })
+
+  revalidatePath(`/date-planner/${eventId}`)
+
+  return { added: normalizedDates.length }
 }
 
 export async function toggleAvailability({ eventId, dateOptionId, participantName }: ToggleAvailabilityInput) {

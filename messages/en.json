@@ -172,7 +172,19 @@
       "participantNameGateHint": "Enter your name or nickname to unlock availability voting.",
       "toggleFailed": "Could not update your availability.",
       "availableCount": "{count, plural, =0 {0 available} one {# available} other {# available}}",
-      "noParticipants": "Nobody is available yet."
+      "noParticipants": "Nobody is available yet.",
+      "addDates": {
+        "title": "Add new dates",
+        "description": "Propose extra dates so everyone can vote on them.",
+        "stage": "Add to list",
+        "submit": "Save new dates",
+        "adding": "Saving...",
+        "alreadyAdded": "This date is already in the list.",
+        "errors": {
+          "dateRequired": "Pick at least one date first.",
+          "addFailed": "Could not add the dates."
+        }
+      }
     }
   },
   "API": {
