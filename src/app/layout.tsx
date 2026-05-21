@@ -62,7 +62,7 @@ export default async function RootLayout({
           >
             <SessionProvider>
               {isIsolated ? (
-                <main className="min-h-screen w-full relative z-10">
+                <main className="min-h-screen w-full max-w-5xl mx-auto p-3 sm:p-8 relative z-10">
                   <PageTransition>
                     {children}
                   </PageTransition>
