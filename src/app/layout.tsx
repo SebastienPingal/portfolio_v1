@@ -2,6 +2,7 @@
 import type { Metadata } from "next"
 import { NextIntlClientProvider } from 'next-intl'
 import { getLocale, getMessages } from 'next-intl/server'
+import { headers } from 'next/headers'
 
 // Local styles and fonts
 import "./globals.css"
@@ -39,9 +40,13 @@ export default async function RootLayout({
   const locale = await getLocale()
   const messages = await getMessages()
 
-  const workPosts = await getPosts("WORK")
-  const blogPosts = await getPosts("BLOGPOST")
-  const externalLinks = await getExternalLinks()
+  const headersList = await headers()
+  const pathname = headersList.get("x-pathname") ?? ""
+  const isIsolated = pathname.startsWith("/date-planner")
+
+  const workPosts = isIsolated ? [] : await getPosts("WORK")
+  const blogPosts = isIsolated ? [] : await getPosts("BLOGPOST")
+  const externalLinks = isIsolated ? [] : await getExternalLinks()
 
   return (
     <html lang={locale} suppressHydrationWarning>
@@ -56,32 +61,40 @@ export default async function RootLayout({
             enableSystem
           >
             <SessionProvider>
-              <div className="min-h-screen overflow-x-hidden relative">
-                {/* Desktop theme/language togglers */}
-                <div className="hidden sm:flex glassPanel fixed top-10 right-10 z-30 rounded-full">
-                  <ThemeToggler />
-                  <LanguageSwitcher />
-                </div>
-
-                {/* Mobile theme/language togglers */}
-                <div className="sm:hidden flex glassPanel fixed rounded-full z-30 bottom-16 left-1/2 -translate-x-1/2">
-                  <ThemeToggler />
-                  <LanguageSwitcher />
-                </div>
-
-                {/* Desktop navbar */}
-                <Navbar workPosts={workPosts} blogPosts={blogPosts} externalLinks={externalLinks} className="hidden sm:flex fixed z-20 h-screen" />
-
-                {/* Main content */}
-                <main className="w-full sm:w-[calc(100vw-14rem)] p-3 sm:p-8 pb-20 sm:pb-8 sm:ml-[14rem] max-w-5xl sm:left-[calc(50%-7rem)] sm:-translate-x-1/2 relative z-10">
+              {isIsolated ? (
+                <main className="min-h-screen w-full relative z-10">
                   <PageTransition>
                     {children}
                   </PageTransition>
                 </main>
+              ) : (
+                <div className="min-h-screen overflow-x-hidden relative">
+                  {/* Desktop theme/language togglers */}
+                  <div className="hidden sm:flex glassPanel fixed top-10 right-10 z-30 rounded-full">
+                    <ThemeToggler />
+                    <LanguageSwitcher />
+                  </div>
 
-                {/* Mobile navbar */}
-                <MobileNavMenu workPosts={workPosts} blogPosts={blogPosts} externalLinks={externalLinks} />
-              </div>
+                  {/* Mobile theme/language togglers */}
+                  <div className="sm:hidden flex glassPanel fixed rounded-full z-30 bottom-16 left-1/2 -translate-x-1/2">
+                    <ThemeToggler />
+                    <LanguageSwitcher />
+                  </div>
+
+                  {/* Desktop navbar */}
+                  <Navbar workPosts={workPosts} blogPosts={blogPosts} externalLinks={externalLinks} className="hidden sm:flex fixed z-20 h-screen" />
+
+                  {/* Main content */}
+                  <main className="w-full sm:w-[calc(100vw-14rem)] p-3 sm:p-8 pb-20 sm:pb-8 sm:ml-[14rem] max-w-5xl sm:left-[calc(50%-7rem)] sm:-translate-x-1/2 relative z-10">
+                    <PageTransition>
+                      {children}
+                    </PageTransition>
+                  </main>
+
+                  {/* Mobile navbar */}
+                  <MobileNavMenu workPosts={workPosts} blogPosts={blogPosts} externalLinks={externalLinks} />
+                </div>
+              )}
               <AdaptiveBackground className="inset-0 -z-10" defaultType="dithered" />
             </SessionProvider>
           </ThemeProvider>
