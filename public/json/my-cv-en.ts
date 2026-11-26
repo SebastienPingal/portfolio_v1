@@ -127,13 +127,17 @@ export const englishCV: CVData = {
 
   experience: [
     {
-      link: "",
+      link: "https://www.bobbee.co/",
       order: 0,
       place: "Bobbee (Isagri)",
       title: "Senior Full Stack Developer (permanent contract)",
       period: cvPeriod('2026-04', null, 'en'),
-      skills: [],
-      description: []
+      skills: ["Vue.js", "Node.js", "AWS Lambda", "Agricultural accounting", "Agricultural profits tax (BA)", "Generative AI"],
+      description: [
+        "SaaS accounting production software from the Isagri group (document collection and OCR, AI-assisted bookkeeping, review, tax returns) for accounting firms and their clients.",
+        "- Building the agricultural management and agricultural profits (BA) scope: accounting and tax features specific to farms, on a Vue.js / Node.js / AWS Lambda stack.",
+        "- Company AI ambassador: driving the adoption of generative AI tools across teams and sharing best practices."
+      ]
     },
     {
       link: "https://jolimoi.com/",

@@ -127,13 +127,17 @@ export const frenchCV: CVData = {
 
   experience: [
     {
-      link: "",
+      link: "https://www.bobbee.co/",
       order: 0,
       place: "Bobbee (Isagri)",
       title: "Développeur Full Stack Senior (CDI)",
       period: cvPeriod('2026-04', null, 'fr'),
-      skills: [],
-      description: []
+      skills: ["Vue.js", "Node.js", "AWS Lambda", "Comptabilité agricole", "Bénéfices agricoles (BA)", "IA générative"],
+      description: [
+        "Logiciel SaaS de production comptable du groupe Isagri (collecte et OCR des pièces, saisie assistée par IA, révision, déclarations fiscales) destiné aux cabinets d'expertise comptable et à leurs clients.",
+        "- Développe le périmètre gestion agricole et bénéfices agricoles (BA) : fonctionnalités comptables et fiscales propres aux exploitations agricoles, sur une stack Vue.js / Node.js / AWS Lambda.",
+        "- Ambassadeur IA de l'entreprise : accompagne l'adoption des outils d'IA générative dans les équipes et diffuse les bonnes pratiques."
+      ]
     },
     {
       link: "https://jolimoi.com/",
