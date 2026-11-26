@@ -15,10 +15,8 @@ const MdEditor = ({ md, className, onMdChange }: { md: string; className?: strin
     onMdChange(e.target.value)
   }
 
-  const [textareaHeight, setTextareaHeight] = useState<string>('96')
-  const handleResize = (e: React.UIEvent<HTMLTextAreaElement>) => {
-    setTextareaHeight(e.currentTarget.style.height)
-  }
+  // Textareas never fire a resize event, so the preview keeps a fixed height
+  const textareaHeight = '96'
 
   const toggleFlexDirection = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
@@ -29,7 +27,6 @@ const MdEditor = ({ md, className, onMdChange }: { md: string; className?: strin
     <div className={`${className} relative flex flex-col ${isFlexRow ? 'lg:flex-row' : 'lg:flex-col'} gap-3`}>
       <Textarea
         onChange={handleChange}
-        onResize={handleResize}
         defaultValue={markdown}
         className='w-full h-96 p-2 rounded shadow-inner resize-y'
       />

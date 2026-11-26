@@ -32,7 +32,7 @@ export default function ExperienceSection() {
           const summary = exp.description?.[0]
 
           return (
-            <li key={`${exp.place}-${index}`} className="relative pl-6 sm:pl-8">
+            <li key={`${exp.place}-${index}`} className="relative pl-6 sm:pl-8 list-none">
               <span
                 className={`absolute -left-[9px] top-5 h-4 w-4 rounded-full border-2 border-background ${isCurrent ? 'bg-primary animate-pulse' : 'bg-primary/60'}`}
                 aria-hidden

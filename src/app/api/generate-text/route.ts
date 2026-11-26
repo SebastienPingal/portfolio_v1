@@ -52,7 +52,7 @@ export async function POST(req: Request) {
 
   const stacks = await getStacks()
   const cv = locale === 'en' ? englishCV : frenchCV
-  const experience = cv.experience
+  const experience = (cv.experience ?? [])
     .map(exp => `- ${exp.place} — ${exp.title} (${exp.period})`)
     .join('\n')
 
