@@ -1,13 +1,14 @@
 import { CVData } from '@/types/CV'
+import { cvPeriod, formatDuration, monthsBetween, yearsSince, DEV_CAREER_START } from '@/lib/cvDates'
 
 export const englishCV: CVData = {
   name: "Sébastien Pingal",
   about:
-    "Full Stack TypeScript Developer with 5 years of experience, specializing in Node.js, React, Next.js, Vue.js, and PostgreSQL. I work end-to-end on web products: REST API architecture, product-oriented interfaces, authentication, Docker, and CI/CD. I am used to startup environments, from-scratch development, and product discovery.",
-  title: "Full Stack TypeScript Developer",
+    `Senior Full Stack TypeScript Developer with ${yearsSince(DEV_CAREER_START)} years of experience, specializing in Node.js, React, Next.js, Vue.js, and PostgreSQL. I work end-to-end on web products: REST API architecture, product-oriented interfaces, authentication, Docker, and CI/CD. I am used to startup environments, from-scratch development, and product discovery.`,
+  title: "Senior Full Stack TypeScript Developer",
   subtitle: "Node.js · React · Next.js · Vue.js · PostgreSQL",
   coreSkills: [
-    "Full Stack TypeScript Developer",
+    "Senior Full Stack TypeScript Developer",
     "Node.js",
     "React.js",
     "Next.js",
@@ -18,7 +19,7 @@ export const englishCV: CVData = {
     "Docker",
     "CI/CD"
   ],
-  yearsOfExperience: 5,
+  yearsOfExperience: yearsSince(DEV_CAREER_START),
   profileImage: "/img/seb8.jpg",
   profileImagePdf: "/img/seb8-pdf.jpg",
   // "profileImage": "/img/me_black.png",
@@ -106,7 +107,7 @@ export const englishCV: CVData = {
     {
       place: "Udemy and personal mentor",
       title: "Ongoing training in web development",
-      period: "June 2021 - Present (5 years)",
+      period: `June 2021 - Present (${formatDuration(monthsBetween(DEV_CAREER_START), 'en')})`,
       description: [
         "Further training in Vue.js, TypeScript, and full stack application design.",
         "Technical mentoring and continuous hands-on practice through personal projects."
@@ -126,10 +127,19 @@ export const englishCV: CVData = {
 
   experience: [
     {
-      link: "https://jolimoi.com/",
+      link: "",
       order: 0,
+      place: "Bobbee (Isagri)",
+      title: "Senior Full Stack Developer (permanent contract)",
+      period: cvPeriod('2026-04', null, 'en'),
+      skills: [],
+      description: []
+    },
+    {
+      link: "https://jolimoi.com/",
+      order: 1,
       place: "Jolimoi",
-      title: "Full Stack Developer (Vue.js, Node.js, TypeScript)",
+      title: "Freelance Full Stack Developer (Vue.js, Node.js, TypeScript)",
       period: "October 2025 - January 2026 (3 months)",
       skills: ["TypeScript", "Vue.js", "Node.js", "MySQL", "PHP", "PrestaShop", "Docker", "Jest", "GitHub Actions", "Notion", "Linear", "Agile", "Scrum"],
       description: [
@@ -141,10 +151,10 @@ export const englishCV: CVData = {
     },
     {
       link: "https://moneodomus.com/",
-      order: 1,
+      order: 2,
       place: "Moneo Domus",
       title: "Full Stack Developer (React.js, Node.js, TypeScript, Prisma) / UX/UI",
-      period: "Since January 2024 (1.5 years)",
+      period: cvPeriod('2024-01', '2025-09', 'en'),
       skills: ["TypeScript", "React.js", "Next.js", "Node.js", "Prisma", "PostgreSQL", "NextAuth", "shadcn/ui", "Calendly API", "MagicLink", "PDF Generation", "Client Relations", "Vercel"],
       description: [
         "Construction company holding focused on business development and support. Designed and developed from scratch a SaaS platform for a group generating around EUR 500k in monthly revenue, reducing operational workload by 50%.",
@@ -156,7 +166,7 @@ export const englishCV: CVData = {
     },
     {
       link: "https://www.linkedin.com/company/kafowork/posts/?feedView=all",
-      order: 2,
+      order: 3,
       place: "KAFO",
       title: "Founder / Full Stack Developer (Vue.js, Node.js, Prisma, PostgreSQL)",
       period: "February 2023 - September 2023 (8 months)",
@@ -171,7 +181,7 @@ export const englishCV: CVData = {
     },
     {
       link: "",
-      order: 3,
+      order: 4,
       place: "Art Factory",
       title: "Full Stack Developer (Next.js, Node.js, React.js, Prisma, PostgreSQL) / UX/UI",
       period: "November 2023 - January 2024 (3 months)",
@@ -185,7 +195,7 @@ export const englishCV: CVData = {
     },
     {
       link: "https://www.linkedin.com/company/aestima-immo/posts/",
-      order: 4,
+      order: 5,
       place: "Aestima Immobilier",
       title: "Full Stack Developer (Vue.js, Node.js, Express.js, PostgreSQL, Stripe)",
       period: "June 2021 - December 2023 (2.5 years)",
@@ -199,10 +209,10 @@ export const englishCV: CVData = {
       ]
     },
     {
-      order: 5,
+      order: 6,
       place: "My Office",
       title: "Selected personal projects",
-      period: "Since June 2021 (5 years)",
+      period: cvPeriod(DEV_CAREER_START, null, 'en'),
       skills: ["TypeScript", "Next.js", "React.js", "Node.js", "PostgreSQL", "Tailwind CSS", "shadcn/ui", "Docker", "Chrome Extension"],
       description: [
         "3 selected personal projects to experiment with products, interfaces, and full stack architectures.",
@@ -214,7 +224,7 @@ export const englishCV: CVData = {
     },
     {
       link: "https://soundcloud.com/unbrouillard",
-      order: 6,
+      order: 7,
       place: "Prior experience (non-tech)",
       title: "Composition, sound engineering, and video editing",
       period: "2013 - 2021 (8 years)",

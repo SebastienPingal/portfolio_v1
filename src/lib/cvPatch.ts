@@ -1,3 +1,5 @@
+import { yearsSince, DEV_CAREER_START } from './cvDates'
+
 export interface CVPatch {
   title?: string
   subtitle?: string
@@ -149,7 +151,7 @@ export function buildPrompt(args: {
   jobOfferText: string
   cvSnapshot: unknown
 }) {
-  const yearsOfExperience = 5
+  const yearsOfExperience = yearsSince(DEV_CAREER_START)
 
   return [
     {
@@ -188,7 +190,7 @@ export function buildPrompt(args: {
             experienceTweaksStyle:
               "Use experienceTweaks sparingly. Prefer 0 tweaks. Add a bullet only when it clearly improves ATS relevance for an important hard-skill or responsibility requirement in the job offer that is already truthfully supported by currentCV, but not explicit enough in the current experience bullets. When helpful, mirror the exact job-offer wording for the relevant hard skill or responsibility. Never restate information already obvious elsewhere in the CV. Add at most 1 bullet per experience and target at most 4 experiences total.",
             ...(yearsOfExperience != null && {
-              yearsOfExperienceConstraint: `CRITICAL: yearsOfExperience is ${yearsOfExperience}. In the about section, ALWAYS state exactly "${yearsOfExperience} ans" (or "${yearsOfExperience} années") for software development experience. Do NOT infer or modify years of experience. Use format: "Expérience professionnelle totale : X ans (dont ${yearsOfExperience} ans en développement logiciel)" when mentioning total experience. Never write 5, 6, 7, 8, 9, 10+ years for development experience.`,
+              yearsOfExperienceConstraint: `CRITICAL: yearsOfExperience is ${yearsOfExperience}. In the about section, ALWAYS state exactly "${yearsOfExperience} ans" (or "${yearsOfExperience} années") for software development experience. Do NOT infer or modify years of experience. Use format: "Expérience professionnelle totale : X ans (dont ${yearsOfExperience} ans en développement logiciel)" when mentioning total experience. Never write any other number of years for development experience.`,
             }),
           },
         },
