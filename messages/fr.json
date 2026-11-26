@@ -104,7 +104,8 @@
       "title": "Mon parcours",
       "current": "Actuel",
       "seeCV": "Voir le CV complet"
-    }
+    },
+    "chatIntro": "Une question sur mon parcours, mes projets ou ma stack ? Posez-la-moi juste en dessous 👇"
   },
   "Stack": {
     "title": "Ma Stack Technique",

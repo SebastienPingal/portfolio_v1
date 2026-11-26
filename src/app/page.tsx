@@ -8,7 +8,7 @@ import TalkingLogo from '@/components/TalkingLogo'
 import ContactSection from '@/components/ContactSection'
 
 export default async function Home() {
-  const t = await getTranslations('LandingPage.hero')
+  const t = await getTranslations('LandingPage')
   const stacks = await getStacks()
   const projects = await getProjects()
 
@@ -37,14 +37,14 @@ export default async function Home() {
           <h1 className='text-5xl sm:text-7xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground/20 pb-2'>
             Sébastien Pingal
           </h1>
-          <p className='text-xl sm:text-2xl font-bold'>{t('tagline')}</p>
-          <p className='text-base sm:text-lg opacity-80 max-w-xl'>{t('availability')}</p>
+          <p className='text-xl sm:text-2xl font-bold'>{t('hero.tagline')}</p>
+          <p className='text-base sm:text-lg opacity-80 max-w-xl'>{t('hero.availability')}</p>
           <ContactSection compact />
         </div>
       </section>
 
       <Suspense>
-        <TalkingLogo className='w-full' />
+        <TalkingLogo className='w-full' littleHead text={t('chatIntro')} />
       </Suspense>
 
       <Suspense fallback={<div className="w-full animate-pulse" />}>

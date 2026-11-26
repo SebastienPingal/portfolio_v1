@@ -104,7 +104,8 @@
       "title": "Experience",
       "current": "Current",
       "seeCV": "See full resume"
-    }
+    },
+    "chatIntro": "Got a question about my experience, projects or stack? Ask me right below 👇"
   },
   "Stack": {
     "title": "My Tech Stack",
