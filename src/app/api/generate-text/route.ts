@@ -2,36 +2,59 @@ import { NextResponse } from 'next/server'
 import { OpenAI } from 'openai'
 import { getStacks } from '../../actions'
 import { getTranslations } from 'next-intl/server'
+import { frenchCV } from '../../../../public/json/my-cv-fr'
+import { englishCV } from '../../../../public/json/my-cv-en'
+
+const MAX_PROMPT_LENGTH = 500
+const SUPPORTED_LOCALES = ['fr', 'en'] as const
 
 const client = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 })
 
 export async function POST(req: Request) {
-  const { prompt, locale = 'en' } = await req.json()
-  const stacks = await getStacks()
-  const t = await getTranslations('API.generateText')
+  const body = await req.json().catch(() => ({}))
+  const prompt = typeof body.prompt === 'string' ? body.prompt.trim() : ''
+  const locale = SUPPORTED_LOCALES.includes(body.locale) ? body.locale : 'fr'
 
-  // const preprompt = t('preprompt', {
-  //   stacks: stacks.map(stack => stack.title).join(', ')
-  // })
+  const t = await getTranslations({ locale, namespace: 'API.generateText' })
+
+  if (!prompt) {
+    return NextResponse.json({ text: t('errors.emptyPrompt') }, { status: 400 })
+  }
+  if (prompt.length > MAX_PROMPT_LENGTH) {
+    return NextResponse.json({ text: t('errors.tooLong', { max: MAX_PROMPT_LENGTH }) }, { status: 400 })
+  }
+
+  const stacks = await getStacks()
+  const cv = locale === 'en' ? englishCV : frenchCV
+  const experience = cv.experience
+    .map(exp => `- ${exp.place} — ${exp.title} (${exp.period})`)
+    .join('\n')
+
+  const preprompt = t('preprompt', {
+    stacks: stacks.map(stack => stack.title).join(', '),
+    about: cv.about,
+    experience,
+    stackLink: `<a href="/stack">${locale === 'en' ? 'stack page' : 'page stack'}</a>`,
+  })
 
   try {
     const response = await client.chat.completions.create({
       model: 'gpt-4o-mini',
-      store: true,
+      max_tokens: 400,
       messages: [
-        { role: 'system', content: "tu es bob benco" },
-        { role: 'user', content: 'qui es tu ?' }
+        { role: 'system', content: preprompt },
+        { role: 'user', content: prompt },
       ],
     })
 
-    const generatedText = response.choices[0].message.content
+    const generatedText = response.choices[0]?.message.content ?? t('errors.generic')
     return NextResponse.json({ text: generatedText })
   } catch (error) {
-    console.log('❌ API Error:', error)
+    console.error('❌ API Error:', error)
 
-    if ((error as any).status === 429) {
+    if ((error as { status?: number }).status === 429) {
       return NextResponse.json({ text: t('errors.rateLimited') }, { status: 429 })
     }
 
