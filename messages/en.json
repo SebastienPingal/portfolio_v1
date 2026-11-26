@@ -108,11 +108,22 @@
     "chatIntro": "Got a question about my experience, projects or stack? Ask me right below 👇"
   },
   "Stack": {
-    "title": "My Tech Stack",
+    "title": "My stack",
     "addTech": {
       "button": "Add a tech",
       "link": "Add new technology"
-    }
+    },
+    "intro": "The tools I use day to day, how comfortable I am with each one, and where I've put them into practice.",
+    "groups": {
+      "languages": "Languages",
+      "frontend": "Front-end",
+      "backend": "Frameworks, back-end & data",
+      "devops": "DevOps, testing & cloud",
+      "tools": "Design & tools",
+      "practices": "Practices"
+    },
+    "rating": "Level {value}/5",
+    "personalProjects": "Side projects"
   },
   "StackCard": {
     "learnMore": "Learn More",

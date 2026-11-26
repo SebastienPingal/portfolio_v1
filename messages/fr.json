@@ -108,11 +108,22 @@
     "chatIntro": "Une question sur mon parcours, mes projets ou ma stack ? Posez-la-moi juste en dessous 👇"
   },
   "Stack": {
-    "title": "Ma Stack Technique",
+    "title": "Ma stack",
     "addTech": {
       "button": "Ajouter une technologie",
       "link": "Nouvelle technologie"
-    }
+    },
+    "intro": "Les technos que j'utilise au quotidien, mon niveau sur chacune et les projets où je les ai mises en pratique.",
+    "groups": {
+      "languages": "Langages",
+      "frontend": "Front-end",
+      "backend": "Frameworks, back-end & données",
+      "devops": "DevOps, tests & cloud",
+      "tools": "Design & outils",
+      "practices": "Pratiques"
+    },
+    "rating": "Niveau {value}/5",
+    "personalProjects": "Projets perso"
   },
   "StackCard": {
     "learnMore": "En savoir plus",
