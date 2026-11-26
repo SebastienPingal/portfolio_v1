@@ -6,6 +6,25 @@ import { frenchCV } from '../../../../public/json/my-cv-fr'
 import { englishCV } from '../../../../public/json/my-cv-en'
 
 const MAX_PROMPT_LENGTH = 500
+
+// Best-effort rate limit (in memory, per server instance) to protect the OpenAI bill
+const RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000
+const RATE_LIMIT_MAX_REQUESTS = 10
+const requestLog = new Map<string, number[]>()
+
+const isRateLimited = (key: string) => {
+  const now = Date.now()
+  const recent = (requestLog.get(key) ?? []).filter(time => now - time < RATE_LIMIT_WINDOW_MS)
+  if (recent.length >= RATE_LIMIT_MAX_REQUESTS) {
+    requestLog.set(key, recent)
+    return true
+  }
+  recent.push(now)
+  requestLog.set(key, recent)
+  if (requestLog.size > 5000) requestLog.clear()
+  return false
+}
+
 const SUPPORTED_LOCALES = ['fr', 'en'] as const
 
 const client = new OpenAI({
@@ -24,6 +43,11 @@ export async function POST(req: Request) {
   }
   if (prompt.length > MAX_PROMPT_LENGTH) {
     return NextResponse.json({ text: t('errors.tooLong', { max: MAX_PROMPT_LENGTH }) }, { status: 400 })
+  }
+
+  const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown'
+  if (isRateLimited(ip)) {
+    return NextResponse.json({ text: t('errors.rateLimited') }, { status: 429 })
   }
 
   const stacks = await getStacks()

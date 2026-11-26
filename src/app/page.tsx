@@ -44,7 +44,7 @@ export default async function Home() {
       </section>
 
       <Suspense>
-        <TalkingLogo className='w-full' tooltip />
+        <TalkingLogo className='w-full' />
       </Suspense>
 
       <Suspense fallback={<div className="w-full animate-pulse" />}>
