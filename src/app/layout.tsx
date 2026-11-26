@@ -24,12 +24,32 @@ import { getPosts, getExternalLinks } from "./actions"
 import ThemeToggler from "@/components/ThemeToggler"
 import LanguageSwitcher from "@/components/LanguageSwitcher"
 import PageTransition from "@/components/PageTransition"
-import Head from "next/head"
 import Script from "next/script"
 
+const SITE_URL = "https://sebastienpingal.dev"
+const SITE_DESCRIPTION = "Sébastien Pingal, développeur Full Stack TypeScript senior & UX/UI (React, Next.js, Vue.js, Node.js, PostgreSQL). Ouvert aux missions freelance."
+
 export const metadata: Metadata = {
-  title: "Sébastien Pingal",
-  description: "This is the website of Sébastien Pingal, a fullstack developer using node.js, react.js, and vue.js",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: "Sébastien Pingal · Développeur Full Stack TypeScript",
+    template: "%s · Sébastien Pingal",
+  },
+  description: SITE_DESCRIPTION,
+  openGraph: {
+    type: "website",
+    url: SITE_URL,
+    siteName: "Sébastien Pingal",
+    title: "Sébastien Pingal · Développeur Full Stack TypeScript",
+    description: SITE_DESCRIPTION,
+    images: [{ url: "/img/seb.jpeg", alt: "Sébastien Pingal" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Sébastien Pingal · Développeur Full Stack TypeScript",
+    description: SITE_DESCRIPTION,
+    images: ["/img/seb.jpeg"],
+  },
 }
 
 export default async function RootLayout({
