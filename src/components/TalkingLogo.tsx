@@ -11,7 +11,7 @@ import { useLocale } from 'next-intl'
 const MeBlack = '/img/me_black.svg'
 const MeWhite = '/img/me_white.svg'
 
-const TalkingLogo = ({ className, text, littleHead = false, tooltip = false }: { className?: string, text?: string, littleHead?: boolean, tooltip?: boolean }) => {
+const TalkingLogo = ({ className, text, littleHead = false, tooltip = false, hideHead = false }: { className?: string, text?: string, littleHead?: boolean, tooltip?: boolean, hideHead?: boolean }) => {
   const t = useTranslations('TalkingLogo')
   const locale = useLocale()
   const { theme } = useTheme()
@@ -92,9 +92,11 @@ const TalkingLogo = ({ className, text, littleHead = false, tooltip = false }: {
   return (
     <div className={`${className} flex flex-col gap-8 talking-logo`} >
       <div className="flex flex-col sm:flex-row gap-2 items-end items-center sm:justify-start">
-        <div className={`relative cursor-pointer transition-transform flex-shrink-0 ${isAnimating ? 'animate-wiggle' : ''} ${littleHead ? 'w-20 h-20' : 'w-40 h-40'}`}>
-          <Image src={meImage} fill={true} alt='Sébastien' />
-        </div>
+        {!hideHead && (
+          <div className={`relative cursor-pointer transition-transform flex-shrink-0 ${isAnimating ? 'animate-wiggle' : ''} ${littleHead ? 'w-20 h-20' : 'w-40 h-40'}`}>
+            <Image src={meImage} fill={true} alt='Sébastien' />
+          </div>
+        )}
 
         <div className="flex flex-col gap-2">
           {displayTexts.map((text, index) => (

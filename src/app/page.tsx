@@ -44,7 +44,7 @@ export default async function Home() {
       </section>
 
       <Suspense>
-        <TalkingLogo className='w-full' littleHead text={t('chatIntro')} />
+        <TalkingLogo className='w-full' hideHead text={t('chatIntro')} />
       </Suspense>
 
       <Suspense fallback={<div className="w-full animate-pulse" />}>
