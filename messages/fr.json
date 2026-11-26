@@ -35,7 +35,53 @@
     "new": "Nouveau"
   },
   "Portfolio": {
-    "title": "Mon Portfolio"
+    "title": "Mon Portfolio",
+    "items": {
+      "moneo-domus-1": {
+        "title": "Moneo Domus - Page d'administration",
+        "summary": "Page d'administration pour la gestion des utilisateurs, des agences immobilières et des sociétés de rénovations. Depuis cette page l'administrateur peut aussi choisir le mode d'assignation des sociétés de rénovations aux agences immobilières."
+      },
+      "moneo-domus-2": {
+        "title": "Moneo Domus - Creation d'une demande de travaux",
+        "summary": "La demande de travaux est guidée pas à pas et regroupe toutes les informations nécessaires pour la préparation du devis."
+      },
+      "moneo-domus-4": {
+        "title": "Moneo Domus - Creation d'un devis",
+        "summary": "Le devis est généré en fonction des informations renseignées dans la demande de travaux."
+      },
+      "kafo-1": {
+        "title": "Kafo - Page Communauté",
+        "summary": "Depuis cette page, l'utilisateur peut entrer en contact avec d'autres utilisateurs et éventuellement organiser une session de travail."
+      },
+      "kafo-2": {
+        "title": "Kafo - Profil utilisateur",
+        "summary": "Depuis cette page, l'utilisateur peut modifier ses informations personnelles. Il peut indiquer ses centres d'intérêts et ses disponibilités."
+      },
+      "kafo-3": {
+        "title": "Kafo - Carte interactive",
+        "summary": "La carte interactive permet de trouver des lieux publics favorables au travail. L'utilisateur peut filtrer les lieux en fonction de ses disponibilités et de ses centres d'intérêts."
+      },
+      "kafo-5": {
+        "title": "Kafo - Landing",
+        "summary": "La landing page de Kafo. Elle permet de présenter la plateforme et de convaincre les utilisateurs de l'utiliser."
+      },
+      "aestima-immo-1": {
+        "title": "Aestima-Immo - Page Tarification",
+        "summary": "Cette page a fait l'objet d'une refonte totale."
+      },
+      "aestima-immo-2": {
+        "title": "Aestima-Immo - Tableau de bord",
+        "summary": "Cette page permet de créer des profils clients, et de créer des projets qui leur seront associés."
+      },
+      "aestima-immo-4": {
+        "title": "Aestima-Immo - Résumé d'un projet",
+        "summary": "Cette page permet de visualiser un résumé des résultats issus de la simulation d'un projet."
+      },
+      "aestima-immo-5": {
+        "title": "Aestima-Immo - Rapport de simulation",
+        "summary": "Cette page extraite d'un fichier PDF généré par le simulateur, permet de visualiser les résultats de la simulation d'un projet."
+      }
+    }
   },
   "LandingPage": {
     "myStacks": {
