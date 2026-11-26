@@ -1,12 +1,14 @@
 import { Suspense } from 'react'
+import Image from 'next/image'
+import { getTranslations } from 'next-intl/server'
 import LandingPage from './LandingPage'
 import { getStacks, getProjects } from './actions'
 import { auth } from './api/auth/[...nextauth]/auth'
 import TalkingLogo from '@/components/TalkingLogo'
-
-
+import ContactSection from '@/components/ContactSection'
 
 export default async function Home() {
+  const t = await getTranslations('LandingPage.hero')
   const stacks = await getStacks()
   const projects = await getProjects()
 
@@ -18,10 +20,28 @@ export default async function Home() {
   }
 
   return (
-    <div className='flex flex-col w-full items-center gap-5 overflow-y-visible'>
-      <h1 className='text-5xl sm:text-8xl flex font-extrabold sm:text-left text-center bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground/20 pb-2'>
-        Sébastien Pingal
-      </h1>
+    <div className='flex flex-col w-full items-center gap-16 overflow-y-visible'>
+      <section className='flex flex-col sm:flex-row items-center gap-6 sm:gap-10 w-full pt-4 sm:pt-12'>
+        <div className='relative w-40 h-40 sm:w-56 sm:h-56 flex-shrink-0 rounded-full overflow-hidden border-4 border-primary/50 shadow-lg'>
+          <Image
+            src='/img/seb8.jpg'
+            alt='Sébastien Pingal'
+            fill
+            priority
+            sizes='(min-width: 640px) 224px, 160px'
+            className='object-cover'
+          />
+        </div>
+
+        <div className='flex flex-col gap-4 items-center sm:items-start text-center sm:text-left'>
+          <h1 className='text-5xl sm:text-7xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground/20 pb-2'>
+            Sébastien Pingal
+          </h1>
+          <p className='text-xl sm:text-2xl font-bold'>{t('tagline')}</p>
+          <p className='text-base sm:text-lg opacity-80 max-w-xl'>{t('availability')}</p>
+          <ContactSection compact />
+        </div>
+      </section>
 
       <Suspense>
         <TalkingLogo className='w-full' tooltip />

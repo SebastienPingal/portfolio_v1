@@ -49,7 +49,16 @@
       "moneoDomus": "Moneo Domus",
       "aestimaImmo": "Aestima-Immo"
     },
-    "stacks": "My Stack"
+    "stacks": "My Stack",
+    "hero": {
+      "tagline": "Senior Full Stack TypeScript Developer & UX/UI",
+      "availability": "Currently a full-time developer at Bobbee (Isagri). Open to freelance missions and meaningful opportunities: let's talk about your project."
+    },
+    "experience": {
+      "title": "Experience",
+      "current": "Current",
+      "seeCV": "See full resume"
+    }
   },
   "Stack": {
     "title": "My Tech Stack",
