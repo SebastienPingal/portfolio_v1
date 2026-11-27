@@ -1,9 +1,7 @@
 "use client"
 import { useEffect, useRef } from 'react'
 
-// 🎯 PlayStation-flavoured background: blue gradient, glowing XMB-style wave ribbons
-// and floating soap bubbles. With `bubblesOnly` it draws just the bubbles on a
-// transparent canvas so it can sit on top of another background.
+// 🎯 Aqua background: blue gradient, glowing XMB-style wave ribbons and floating soap bubbles.
 
 const PALETTES = {
   light: {
@@ -47,7 +45,7 @@ const createBubble = (w, h, anywhere) => {
   }
 }
 
-const PSBackground = ({ className = '', bubblesOnly = false }) => {
+const AquaBackground = ({ className = '' }) => {
   const canvasRef = useRef(null)
 
   useEffect(() => {
@@ -166,11 +164,8 @@ const PSBackground = ({ className = '', bubblesOnly = false }) => {
       const dt = Math.min(64, now - last)
       last = now
 
-      if (bubblesOnly) ctx.clearRect(0, 0, w, h)
-      else {
-        drawGradient()
-        drawWaves(now)
-      }
+      drawGradient()
+      drawWaves(now)
 
       bubbles.forEach((b, i) => {
         if (!reduceMotion) b.y -= b.speed * dt * 0.06
@@ -202,7 +197,7 @@ const PSBackground = ({ className = '', bubblesOnly = false }) => {
       observer.disconnect()
       window.removeEventListener('resize', onResize)
     }
-  }, [bubblesOnly])
+  }, [])
 
   return (
     <canvas
@@ -213,4 +208,4 @@ const PSBackground = ({ className = '', bubblesOnly = false }) => {
   )
 }
 
-export default PSBackground
+export default AquaBackground

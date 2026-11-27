@@ -11,7 +11,7 @@ import { cereal } from './font'
 // Local providers
 import SessionProvider from "./SessionProvider"
 import { ThemeProvider } from "./theme-provider"
-import { PaletteProvider, paletteInitScript } from "@/components/PaletteProvider"
+import { PaletteProvider, paletteInitScript, DEFAULT_PALETTE } from "@/components/PaletteProvider"
 
 // Components
 import Navbar from "@/components/NavBar"
@@ -71,7 +71,7 @@ export default async function RootLayout({
   const externalLinks = isIsolated ? [] : await getExternalLinks()
 
   return (
-    <html lang={locale} suppressHydrationWarning>
+    <html lang={locale} data-palette={DEFAULT_PALETTE} suppressHydrationWarning>
       <body className={cereal.className}>
         <script dangerouslySetInnerHTML={{ __html: paletteInitScript }} />
         <Script defer src="https://cloud.umami.is/script.js" data-website-id="93d15f75-6182-4d42-9109-5b7d91dddd52"></Script>

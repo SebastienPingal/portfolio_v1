@@ -2,36 +2,28 @@
 import { createContext, useCallback, useContext, useEffect, useState } from 'react'
 
 // 🎯 Colour palettes layered on top of light/dark (next-themes keeps owning that axis).
-// "ps" and "ps-perlin" share the PlayStation colours and only differ by background,
-// so both background variants can be compared while the look is being tested.
-export const PALETTES = ['default', 'ps', 'ps-perlin'] as const
+// The active palette is mirrored on <html data-palette="...">, which globals.css keys on.
+export const PALETTES = ['aqua', 'classic'] as const
 export type Palette = (typeof PALETTES)[number]
 
-export const PALETTE_STORAGE_KEY = 'palette'
+export const DEFAULT_PALETTE: Palette = 'aqua'
+export const PALETTE_STORAGE_KEY = 'theme-palette'
 
 const isPalette = (value: unknown): value is Palette =>
   typeof value === 'string' && (PALETTES as readonly string[]).includes(value)
 
-const applyPalette = (palette: Palette) => {
-  const root = document.documentElement
-  if (palette === 'default') root.removeAttribute('data-palette')
-  else root.setAttribute('data-palette', palette)
-}
-
 type PaletteContextValue = {
   palette: Palette
   setPalette: (palette: Palette) => void
-  cyclePalette: () => void
 }
 
 const PaletteContext = createContext<PaletteContextValue>({
-  palette: 'default',
+  palette: DEFAULT_PALETTE,
   setPalette: () => {},
-  cyclePalette: () => {},
 })
 
 export function PaletteProvider({ children }: { children: React.ReactNode }) {
-  const [palette, setPaletteState] = useState<Palette>('default')
+  const [palette, setPaletteState] = useState<Palette>(DEFAULT_PALETTE)
 
   useEffect(() => {
     try {
@@ -41,7 +33,7 @@ export function PaletteProvider({ children }: { children: React.ReactNode }) {
   }, [])
 
   useEffect(() => {
-    applyPalette(palette)
+    document.documentElement.setAttribute('data-palette', palette)
   }, [palette])
 
   const setPalette = useCallback((next: Palette) => {
@@ -51,12 +43,8 @@ export function PaletteProvider({ children }: { children: React.ReactNode }) {
     } catch {}
   }, [])
 
-  const cyclePalette = useCallback(() => {
-    setPalette(PALETTES[(PALETTES.indexOf(palette) + 1) % PALETTES.length])
-  }, [palette, setPalette])
-
   return (
-    <PaletteContext.Provider value={{ palette, setPalette, cyclePalette }}>
+    <PaletteContext.Provider value={{ palette, setPalette }}>
       {children}
     </PaletteContext.Provider>
   )
@@ -64,5 +52,5 @@ export function PaletteProvider({ children }: { children: React.ReactNode }) {
 
 export const usePalette = () => useContext(PaletteContext)
 
-// 🎯 Inline script run before paint so a stored palette doesn't flash the default colours
-export const paletteInitScript = `(function(){try{var p=localStorage.getItem('${PALETTE_STORAGE_KEY}');if(p==='ps'||p==='ps-perlin')document.documentElement.setAttribute('data-palette',p)}catch(e){}})()`
+// 🎯 Inline script run before paint so a stored palette doesn't flash the default one
+export const paletteInitScript = `(function(){try{var p=localStorage.getItem('${PALETTE_STORAGE_KEY}');if(${JSON.stringify(PALETTES)}.indexOf(p)>-1)document.documentElement.setAttribute('data-palette',p)}catch(e){}})()`

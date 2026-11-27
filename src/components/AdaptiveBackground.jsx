@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react'
 import PerlinBackground from './perlinBackground.jsx'
 import DitheredPerlinBackground from './DitheredPerlinBackground.jsx'
-import PSBackground from './PSBackground.jsx'
+import AquaBackground from './AquaBackground.jsx'
 import { usePalette } from './PaletteProvider'
 
 const AdaptiveBackground = ({ className = '', defaultType = 'perlin' }) => {
@@ -22,8 +22,8 @@ const AdaptiveBackground = ({ className = '', defaultType = 'perlin' }) => {
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [])
 
-  // 🎯 PlayStation palette: dedicated waves + bubbles background
-  if (palette === 'ps') return <PSBackground className={className} />
+  // 🎯 Aqua palette: dedicated waves + bubbles background
+  if (palette === 'aqua') return <AquaBackground className={className} />
 
   return (
       <>
@@ -32,8 +32,6 @@ const AdaptiveBackground = ({ className = '', defaultType = 'perlin' }) => {
         ) : (
           <DitheredPerlinBackground className={className} />
         )}
-        {/* 🎯 PlayStation palette on the Perlin background: bubbles layered on top */}
-        {palette === 'ps-perlin' && <PSBackground className={className} bubblesOnly />}
       </>
   )
 }

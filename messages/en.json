@@ -325,5 +325,10 @@
       "animate": "Animate R",
       "speed": "Speed"
     }
+  },
+  "ThemePicker": {
+    "label": "Theme",
+    "aqua": "Aqua",
+    "classic": "Classic"
   }
 }
