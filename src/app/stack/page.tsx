@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { getLocale, getTranslations } from 'next-intl/server'
 import { Plus } from 'lucide-react'
 import { auth } from '@/app/api/auth/[...nextauth]/auth'
+import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { frenchCV } from '../../../public/json/my-cv-fr'
@@ -54,15 +55,15 @@ const StackPage = async () => {
 
   return (
     <div className="w-full flex flex-col gap-10 pt-4 sm:pt-12">
-      <div className="flex flex-col gap-3">
+      <div className="glassPanel rounded-2xl p-5 sm:p-8 flex flex-col gap-3">
         <h1 className="text-5xl sm:text-7xl font-black">{t('title')}</h1>
         <p className="text-lg opacity-80 max-w-2xl">{t('intro')}</p>
         <div className="flex flex-wrap items-center gap-4 text-sm opacity-80">
           <span className="flex items-center gap-2">
-            <span className="h-3 w-3 rounded-full bg-primary" aria-hidden /> {t('legend.core')}
+            <Badge variant="shine" aria-hidden>&nbsp;&nbsp;</Badge> {t('legend.core')}
           </span>
           <span className="flex items-center gap-2">
-            <span className="h-3 w-3 rounded-full border border-foreground/40" aria-hidden /> {t('legend.other')}
+            <Badge variant="outline" aria-hidden>&nbsp;&nbsp;</Badge> {t('legend.other')}
           </span>
         </div>
       </div>
@@ -77,13 +78,12 @@ const StackPage = async () => {
               <div className="flex flex-wrap items-center gap-2">
                 {group.skills.map(skill => {
                   const chip = (
-                    <span
-                      className={skill.isCore
-                        ? 'rounded-full bg-primary text-primary-foreground font-bold px-4 py-1.5 text-base shadow-sm cursor-default'
-                        : 'rounded-full border border-foreground/20 bg-background/50 px-3 py-1 text-sm cursor-default'}
+                    <Badge
+                      variant={skill.isCore ? 'shine' : 'outline'}
+                      className={`text-sm px-3 py-1 cursor-default ${skill.isCore ? '' : 'font-normal bg-background/50'}`}
                     >
                       {skill.name}
-                    </span>
+                    </Badge>
                   )
 
                   if (skill.usedAt.length === 0) return <span key={skill.name}>{chip}</span>
