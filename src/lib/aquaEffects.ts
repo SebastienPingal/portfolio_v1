@@ -9,7 +9,8 @@ export const AQUA_EFFECTS = [
   { id: 'pills', group: 'Interface', label: 'Pastilles gel', hint: 'Badges et menu actif' },
   { id: 'beads', group: 'Interface', label: 'Frise en perles', hint: 'Points de la timeline en billes de verre' },
   { id: 'ribbons', group: 'Fond', label: 'Rubans XMB lumineux', hint: 'Lignes fines qui brillent et s’additionnent' },
-  { id: 'sparkles', group: 'Fond', label: 'Scintillements + bokeh', hint: 'Étincelles et taches de lumière floues' },
+  { id: 'bokeh', group: 'Fond', label: 'Bokeh', hint: 'Taches de lumière floues qui dérivent' },
+  { id: 'sparkles', group: 'Fond', label: 'Scintillements', hint: 'Petites étincelles qui clignotent' },
   { id: 'rays', group: 'Fond', label: 'Rayons de lumière', hint: 'Faisceaux venant du haut' },
   { id: 'daycycle', group: 'Fond', label: 'Teinte selon l’heure', hint: 'Aube, jour, crépuscule, nuit' },
   { id: 'glowtype', group: 'Typo & détails', label: 'Titres lumineux', hint: 'Lueur blanche + police arrondie' },
@@ -24,10 +25,11 @@ export type AquaEffectId = (typeof AQUA_EFFECTS)[number]['id']
 
 export const AQUA_EFFECT_IDS = AQUA_EFFECTS.map((e) => e.id) as AquaEffectId[]
 
-export const AQUA_FX_STORAGE_KEY = 'aqua-fx'
+// v2: sparkles and bokeh were split, so earlier stored choices are reset to the defaults
+export const AQUA_FX_STORAGE_KEY = 'aqua-fx-v2'
 
 // 🎯 What a visitor gets before touching the panel
-export const DEFAULT_AQUA_EFFECTS: AquaEffectId[] = ['gel', 'pills', 'ribbons', 'sparkles', 'daycycle', 'orb']
+export const DEFAULT_AQUA_EFFECTS: AquaEffectId[] = ['gel', 'pills', 'ribbons', 'bokeh', 'daycycle', 'orb']
 export const DEFAULT_AQUA_FX_ATTR = DEFAULT_AQUA_EFFECTS.join(' ')
 
 export const parseAquaEffects = (raw: string | null): AquaEffectId[] =>

@@ -30,6 +30,7 @@ const AdaptiveBackground = ({ className = '', defaultType = 'perlin' }) => {
       className={className}
       ribbons={isOn('ribbons')}
       sparkles={isOn('sparkles')}
+      bokeh={isOn('bokeh')}
       rays={isOn('rays')}
       daycycle={isOn('daycycle')}
     />

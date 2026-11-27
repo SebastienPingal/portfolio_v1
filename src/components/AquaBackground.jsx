@@ -4,7 +4,8 @@ import { useEffect, useRef } from 'react'
 // 🎯 Aqua background: blue gradient, XMB-style wave ribbons and floating soap bubbles.
 // Optional layers (toggled from the Aqua effects panel):
 //   ribbons  – thin luminous XMB lines whose glow adds up where they cross
-//   sparkles – twinkling sparkles + soft out-of-focus bokeh discs
+//   sparkles – twinkling sparkles
+//   bokeh    – soft out-of-focus light discs drifting around
 //   rays     – light shafts coming from the top, like light under water
 //   daycycle – tint that follows the visitor's local time (dawn, day, dusk, night)
 
@@ -13,9 +14,7 @@ const PALETTES = {
     gradient: ['#e8f4ff', '#b9dcff', '#6fa8f0'],
     waves: ['rgba(255,255,255,0.55)', 'rgba(255,255,255,0.35)', 'rgba(120,190,255,0.35)'],
     waveEdge: 'rgba(255,255,255,0.9)',
-    bubbleRim: 'rgba(255,255,255,0.85)',
-    bubbleTint: 'rgba(90,160,240,0.18)',
-    highlight: 'rgba(255,255,255,0.95)',
+    bubble: { tint: [120, 180, 255], tintAlpha: 0.1, film: 0.55, rim: 0.75, gloss: 0.95, glow: 0.18 },
     blend: 'screen',
     ribbon: [255, 255, 255],
     sparkle: [255, 255, 255],
@@ -28,9 +27,7 @@ const PALETTES = {
     gradient: ['#010a24', '#03215e', '#0a4ab0'],
     waves: ['rgba(80,170,255,0.22)', 'rgba(140,210,255,0.16)', 'rgba(40,110,230,0.22)'],
     waveEdge: 'rgba(170,225,255,0.7)',
-    bubbleRim: 'rgba(150,215,255,0.75)',
-    bubbleTint: 'rgba(60,140,255,0.12)',
-    highlight: 'rgba(220,245,255,0.9)',
+    bubble: { tint: [80, 160, 255], tintAlpha: 0.08, film: 0.42, rim: 0.55, gloss: 0.8, glow: 0.12 },
     blend: 'lighter',
     ribbon: [140, 210, 255],
     sparkle: [200, 235, 255],
@@ -85,6 +82,120 @@ const tintForNow = () => {
   return { rgb: [Math.round(r), Math.round(g), Math.round(bl)], alpha }
 }
 
+// 🫧 Soap bubbles are pre-rendered once (per theme) into two sprites, then scaled:
+//   film  – near-clear body + iridescent thin-film rim; rotated per bubble so the
+//           colours swirl slowly
+//   gloss – window reflection, sparkle dot, back-side reflection; never rotated so
+//           the light always comes from the top-left
+const SPRITE_R = 96
+const SPRITE_PAD = 6
+
+const makeCanvas = (size) => {
+  const c = document.createElement('canvas')
+  c.width = size
+  c.height = size
+  return c
+}
+
+const buildBubbleSprites = (cfg) => {
+  const R = SPRITE_R
+  const size = (R + SPRITE_PAD) * 2
+  const c = size / 2
+
+  // ── Film ──
+  const film = makeCanvas(size)
+  const f = film.getContext('2d')
+
+  // Body: clear centre, faint tint thickening towards the edge
+  const body = f.createRadialGradient(c, c, 0, c, c, R)
+  body.addColorStop(0, rgba(cfg.tint, 0))
+  body.addColorStop(0.6, rgba(cfg.tint, cfg.tintAlpha * 0.35))
+  body.addColorStop(0.9, rgba(cfg.tint, cfg.tintAlpha))
+  body.addColorStop(1, rgba(cfg.tint, cfg.tintAlpha * 1.6))
+  f.fillStyle = body
+  f.beginPath()
+  f.arc(c, c, R, 0, Math.PI * 2)
+  f.fill()
+
+  // Iridescent band: conic rainbow masked to a ring near the edge
+  if (typeof f.createConicGradient === 'function') {
+    const ring = makeCanvas(size)
+    const g = ring.getContext('2d')
+    const conic = g.createConicGradient(0, c, c)
+    const hues = [
+      [255, 120, 210], [120, 210, 255], [255, 240, 150], [140, 255, 210],
+      [190, 140, 255], [255, 170, 120], [120, 230, 255], [255, 120, 210],
+    ]
+    hues.forEach((rgb, i) => conic.addColorStop(i / (hues.length - 1), rgba(rgb, 1)))
+    g.fillStyle = conic
+    g.beginPath()
+    g.arc(c, c, R, 0, Math.PI * 2)
+    g.fill()
+    g.globalCompositeOperation = 'destination-in'
+    const mask = g.createRadialGradient(c, c, 0, c, c, R)
+    mask.addColorStop(0, 'rgba(0,0,0,0)')
+    mask.addColorStop(0.72, 'rgba(0,0,0,0)')
+    mask.addColorStop(0.93, `rgba(0,0,0,${cfg.film})`)
+    mask.addColorStop(0.985, `rgba(0,0,0,${cfg.film * 0.6})`)
+    mask.addColorStop(1, 'rgba(0,0,0,0)')
+    g.fillStyle = mask
+    g.fillRect(0, 0, size, size)
+    f.drawImage(ring, 0, 0)
+  }
+
+  // Crisp outer edge
+  f.strokeStyle = `rgba(255,255,255,${cfg.rim})`
+  f.lineWidth = 1.6
+  f.beginPath()
+  f.arc(c, c, R - 0.8, 0, Math.PI * 2)
+  f.stroke()
+
+  // ── Gloss ──
+  const gloss = makeCanvas(size)
+  const k = gloss.getContext('2d')
+
+  // Arc-shaped band hugging the rim between two angles and two radii
+  const band = (from, to, inner, outer, alpha, blur) => {
+    k.save()
+    k.filter = blur ? `blur(${blur}px)` : 'none'
+    k.fillStyle = `rgba(255,255,255,${alpha})`
+    k.beginPath()
+    k.arc(c, c, R * outer, from, to)
+    k.arc(c, c, R * inner, to, from, true)
+    k.closePath()
+    k.fill()
+    k.restore()
+  }
+  const deg = (d) => (d * Math.PI) / 180
+
+  // Main window reflection, top-left, plus a fainter echo just inside it
+  band(deg(195), deg(262), 0.7, 0.86, cfg.gloss, 2.5)
+  band(deg(205), deg(250), 0.6, 0.66, cfg.gloss * 0.35, 2)
+  // Reflection of the back wall, bottom-right
+  band(deg(15), deg(75), 0.78, 0.9, cfg.gloss * 0.4, 3)
+
+  // Sharp sparkle dot
+  const dx = c - R * 0.36
+  const dy = c - R * 0.52
+  const dot = k.createRadialGradient(dx, dy, 0, dx, dy, R * 0.1)
+  dot.addColorStop(0, `rgba(255,255,255,${cfg.gloss})`)
+  dot.addColorStop(0.45, `rgba(255,255,255,${cfg.gloss * 0.6})`)
+  dot.addColorStop(1, 'rgba(255,255,255,0)')
+  k.fillStyle = dot
+  k.fillRect(dx - R * 0.1, dy - R * 0.1, R * 0.2, R * 0.2)
+
+  // Light passing through and gathering at the bottom
+  const glow = k.createRadialGradient(c, c + R * 0.55, 0, c, c + R * 0.55, R * 0.55)
+  glow.addColorStop(0, `rgba(255,255,255,${cfg.glow})`)
+  glow.addColorStop(1, 'rgba(255,255,255,0)')
+  k.fillStyle = glow
+  k.beginPath()
+  k.arc(c, c, R, 0, Math.PI * 2)
+  k.fill()
+
+  return { film, gloss, scale: (R + SPRITE_PAD) / R }
+}
+
 const createBubble = (w, h, anywhere) => {
   const r = rand(4, 46) * (Math.random() < 0.15 ? 1.6 : 1)
   return {
@@ -95,6 +206,12 @@ const createBubble = (w, h, anywhere) => {
     sway: rand(8, 30),
     swaySpeed: rand(0.0004, 0.0012),
     phase: rand(0, Math.PI * 2),
+    rot: rand(0, Math.PI * 2),
+    rotSpeed: rand(-0.00025, 0.00025),
+    wobble: rand(0.015, 0.04),
+    wobbleSpeed: rand(0.0015, 0.003),
+    // 🎯 Small bubbles read as further away: a bit fainter
+    depth: Math.min(1, 0.55 + r / 60),
   }
 }
 
@@ -124,7 +241,7 @@ const RAYS = [
   { x: 0.88, width: 0.06, lean: 0.21, phase: 4.6 },
 ]
 
-const AquaBackground = ({ className = '', ribbons = false, sparkles = false, rays = false, daycycle = false }) => {
+const AquaBackground = ({ className = '', ribbons = false, sparkles = false, bokeh = false, rays = false, daycycle = false }) => {
   const canvasRef = useRef(null)
 
   useEffect(() => {
@@ -140,12 +257,15 @@ const AquaBackground = ({ className = '', ribbons = false, sparkles = false, ray
     let sparkleList = []
     let bokehList = []
     let colors = PALETTES.light
+    let sprites = null
     let tint = tintForNow()
     let frame
     let last = performance.now()
 
     const readTheme = () => {
-      colors = root.classList.contains('dark') ? PALETTES.dark : PALETTES.light
+      const next = root.classList.contains('dark') ? PALETTES.dark : PALETTES.light
+      if (next !== colors || !sprites) sprites = buildBubbleSprites(next.bubble)
+      colors = next
     }
 
     const resize = () => {
@@ -335,31 +455,25 @@ const AquaBackground = ({ className = '', ribbons = false, sparkles = false, ray
       const x = b.x + Math.sin(t * b.swaySpeed + b.phase) * b.sway
       const y = b.y
       // 🎯 Fade bubbles in near the bottom and out near the top
-      const alpha = Math.max(0, Math.min(1, y / (h * 0.25), (h + b.r - y) / (h * 0.15)))
+      const alpha = Math.max(0, Math.min(1, y / (h * 0.25), (h + b.r - y) / (h * 0.15))) * b.depth
       if (alpha <= 0) return
 
-      ctx.globalAlpha = alpha
-      const body = ctx.createRadialGradient(x, y, b.r * 0.2, x, y, b.r)
-      body.addColorStop(0, 'rgba(255,255,255,0)')
-      body.addColorStop(0.75, colors.bubbleTint)
-      body.addColorStop(0.95, colors.bubbleRim)
-      body.addColorStop(1, 'rgba(255,255,255,0)')
-      ctx.fillStyle = body
-      ctx.beginPath()
-      ctx.arc(x, y, b.r, 0, Math.PI * 2)
-      ctx.fill()
+      // 🎯 Gentle "breathing" deformation
+      const wob = Math.sin(t * b.wobbleSpeed + b.phase) * b.wobble
+      const half = b.r * sprites.scale
 
-      // 🎯 Specular highlight, top-left
-      const hx = x - b.r * 0.38
-      const hy = y - b.r * 0.42
-      const hl = ctx.createRadialGradient(hx, hy, 0, hx, hy, b.r * 0.32)
-      hl.addColorStop(0, colors.highlight)
-      hl.addColorStop(1, 'rgba(255,255,255,0)')
-      ctx.fillStyle = hl
-      ctx.beginPath()
-      ctx.arc(hx, hy, b.r * 0.32, 0, Math.PI * 2)
-      ctx.fill()
-      ctx.globalAlpha = 1
+      ctx.save()
+      ctx.globalAlpha = alpha
+      ctx.translate(x, y)
+      ctx.scale(1 + wob, 1 - wob)
+
+      ctx.save()
+      ctx.rotate(b.rot + t * b.rotSpeed)
+      ctx.drawImage(sprites.film, -half, -half, half * 2, half * 2)
+      ctx.restore()
+
+      ctx.drawImage(sprites.gloss, -half, -half, half * 2, half * 2)
+      ctx.restore()
     }
 
     const render = (now) => {
@@ -371,7 +485,7 @@ const AquaBackground = ({ className = '', ribbons = false, sparkles = false, ray
       if (rays) drawRays(now)
       drawWaves(now)
       if (ribbons) drawRibbons(now)
-      if (sparkles) drawBokeh(dt)
+      if (bokeh) drawBokeh(dt)
 
       bubbles.forEach((b, i) => {
         if (!reduceMotion) b.y -= b.speed * dt * 0.06
@@ -384,6 +498,7 @@ const AquaBackground = ({ className = '', ribbons = false, sparkles = false, ray
       if (!reduceMotion) frame = requestAnimationFrame(render)
     }
 
+    ctx.imageSmoothingQuality = 'high'
     readTheme()
     resize()
     frame = requestAnimationFrame(render)
@@ -412,7 +527,7 @@ const AquaBackground = ({ className = '', ribbons = false, sparkles = false, ray
       observer.disconnect()
       window.removeEventListener('resize', onResize)
     }
-  }, [ribbons, sparkles, rays, daycycle])
+  }, [ribbons, sparkles, bokeh, rays, daycycle])
 
   return (
     <canvas
