@@ -26,8 +26,13 @@ export const AQUA_EFFECT_IDS = AQUA_EFFECTS.map((e) => e.id) as AquaEffectId[]
 
 export const AQUA_FX_STORAGE_KEY = 'aqua-fx'
 
+// 🎯 What a visitor gets before touching the panel
+export const DEFAULT_AQUA_EFFECTS: AquaEffectId[] = ['gel', 'pills', 'ribbons', 'sparkles', 'daycycle', 'orb']
+export const DEFAULT_AQUA_FX_ATTR = DEFAULT_AQUA_EFFECTS.join(' ')
+
 export const parseAquaEffects = (raw: string | null): AquaEffectId[] =>
   (raw ?? '').split(/\s+/).filter((id): id is AquaEffectId => (AQUA_EFFECT_IDS as string[]).includes(id))
 
-// 🎯 Inline script run before paint so enabled CSS effects don't flash in late
-export const aquaEffectsInitScript = `(function(){try{var v=localStorage.getItem('${AQUA_FX_STORAGE_KEY}');if(v)document.documentElement.setAttribute('data-aqua-fx',v)}catch(e){}})()`
+// 🎯 Inline script run before paint so stored choices replace the defaults without a flash
+// (null = never touched, keep defaults; "" = everything switched off)
+export const aquaEffectsInitScript = `(function(){try{var v=localStorage.getItem('${AQUA_FX_STORAGE_KEY}');if(v===null)return;if(v)document.documentElement.setAttribute('data-aqua-fx',v);else document.documentElement.removeAttribute('data-aqua-fx')}catch(e){}})()`

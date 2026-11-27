@@ -14,7 +14,7 @@ import { ThemeProvider } from "./theme-provider"
 import { PaletteProvider } from "@/components/PaletteProvider"
 import { AquaEffectsProvider } from "@/components/AquaEffectsProvider"
 import { DEFAULT_PALETTE, paletteInitScript } from "@/lib/palette"
-import { aquaEffectsInitScript } from "@/lib/aquaEffects"
+import { aquaEffectsInitScript, DEFAULT_AQUA_FX_ATTR } from "@/lib/aquaEffects"
 
 // Components
 import Navbar from "@/components/NavBar"
@@ -74,7 +74,7 @@ export default async function RootLayout({
   const externalLinks = isIsolated ? [] : await getExternalLinks()
 
   return (
-    <html lang={locale} data-palette={DEFAULT_PALETTE} suppressHydrationWarning>
+    <html lang={locale} data-palette={DEFAULT_PALETTE} data-aqua-fx={DEFAULT_AQUA_FX_ATTR} suppressHydrationWarning>
       <body className={`${cereal.className} ${aquaRounded.variable}`}>
         <script dangerouslySetInnerHTML={{ __html: paletteInitScript + aquaEffectsInitScript }} />
         <Script defer src="https://cloud.umami.is/script.js" data-website-id="93d15f75-6182-4d42-9109-5b7d91dddd52"></Script>

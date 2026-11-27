@@ -10,7 +10,7 @@ import { usePalette } from './PaletteProvider'
 const GROUPS = Array.from(new Set(AQUA_EFFECTS.map((e) => e.group)))
 
 export default function AquaEffectsPanel({ onClose }: { onClose: () => void }) {
-  const { effects, toggle, setAll } = useAquaEffects()
+  const { effects, toggle, setAll, resetDefaults } = useAquaEffects()
   const { palette, setPalette } = usePalette()
 
   return (
@@ -34,8 +34,9 @@ export default function AquaEffectsPanel({ onClose }: { onClose: () => void }) {
       )}
 
       <div className="flex gap-2">
-        <Button variant="ghost" className="h-7 px-2 flex-1 border" onClick={() => setAll(true)}>Tout activer</Button>
-        <Button variant="ghost" className="h-7 px-2 flex-1 border" onClick={() => setAll(false)}>Tout couper</Button>
+        <Button variant="ghost" className="h-7 px-2 flex-1 border" onClick={resetDefaults}>Par défaut</Button>
+        <Button variant="ghost" className="h-7 px-2 flex-1 border" onClick={() => setAll(true)}>Tout</Button>
+        <Button variant="ghost" className="h-7 px-2 flex-1 border" onClick={() => setAll(false)}>Rien</Button>
       </div>
 
       {GROUPS.map((group) => (

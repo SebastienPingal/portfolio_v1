@@ -48,7 +48,7 @@ const NavigationMenuItem = React.forwardRef<
     ref={ref}
     className={cn(
       "flex gap-4 px-1 py-1 pl-3 w-full rounded",
-      hover && "hover:bg-accent/15 hover:text-accent-foreground",
+      hover && "aqua-nav-item hover:bg-accent/15 hover:text-accent-foreground",
       className
     )}
     {...props}

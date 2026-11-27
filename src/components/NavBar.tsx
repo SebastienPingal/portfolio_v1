@@ -66,27 +66,27 @@ const NavBar = ({ workPosts, blogPosts, externalLinks, className }: { workPosts:
           {renderMenuItem('/', <Home className="w-4 h-4" />, t('sections.home'))}
 
           <div className='w-full'>
-            <NavigationMenuItem className="font-bold mb-2 cursor-default">{t('sections.me')}</NavigationMenuItem>
+            <NavigationMenuItem className="aqua-nav-heading font-bold mb-2 cursor-default">{t('sections.me')}</NavigationMenuItem>
             {renderMenuItem('/stack', <PencilRuler className="w-4 h-4" />, t('sections.stack'))}
             {renderMenuItem('/cv', <FileText className="w-4 h-4" />, t('sections.cv'))}
             {renderMenuItem('/portfolio', <Palette className="w-4 h-4" />, t('sections.portfolio'))}
           </div>
 
           <div className='w-full'>
-            <NavigationMenuItem className="font-bold mb-2">{t('sections.gadgets')}</NavigationMenuItem>
+            <NavigationMenuItem className="aqua-nav-heading font-bold mb-2">{t('sections.gadgets')}</NavigationMenuItem>
             {renderMenuItem('/visualizations', <LineChart className="w-4 h-4" />, t('sections.visualizations'))}
             {renderMenuItem('/cv-sebifyer', <BookUser className="w-4 h-4" />, t('sections.cvSebifyer'))}
             {renderMenuItem('/date-planner', <CalendarDays className="w-4 h-4" />, t('sections.datePlanner'))}
           </div>
 
           <div className='w-full'>
-            <NavigationMenuItem className="font-bold mb-2 cursor-default">{t('sections.professionalLinks')}</NavigationMenuItem>
+            <NavigationMenuItem className="aqua-nav-heading font-bold mb-2 cursor-default">{t('sections.professionalLinks')}</NavigationMenuItem>
             <ExternalLinksSession externalLinks={externalLinks.filter(link => link.type === 'PROFESSIONAL')} />
           </div>
 
           {externalLinks.filter(link => link.type === 'DEMO').length > 0 && (
             <div className='w-full'>
-              <NavigationMenuItem className="font-bold mb-2 cursor-default">{t('sections.demoLinks')}</NavigationMenuItem>
+              <NavigationMenuItem className="aqua-nav-heading font-bold mb-2 cursor-default">{t('sections.demoLinks')}</NavigationMenuItem>
               <ExternalLinksSession externalLinks={externalLinks.filter(link => link.type === 'DEMO')} />
             </div>
           )}
@@ -100,7 +100,7 @@ const NavBar = ({ workPosts, blogPosts, externalLinks, className }: { workPosts:
           )} */}
 
           <div className='w-full'>
-            <NavigationMenuItem className="font-bold mb-2 cursor-default">{t('sections.online')}</NavigationMenuItem>
+            <NavigationMenuItem className="aqua-nav-heading font-bold mb-2 cursor-default">{t('sections.online')}</NavigationMenuItem>
             {renderExternalLink("https://www.linkedin.com/in/s%C3%A9bastien-pingal-582795b3/", <Linkedin fill={darkMode ? 'white' : 'black'} className="w-4 h-4" />, 'Linkedin')}
             {renderExternalLink("https://github.com/SebastienPingal", <Github className="w-4 h-4" />, 'GitHub')}
           </div>

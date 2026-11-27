@@ -3,6 +3,7 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useState } 
 import {
   AQUA_EFFECT_IDS,
   AQUA_FX_STORAGE_KEY,
+  DEFAULT_AQUA_EFFECTS,
   parseAquaEffects,
   type AquaEffectId,
 } from '@/lib/aquaEffects'
@@ -17,6 +18,7 @@ type AquaEffectsContextValue = {
   isOn: (id: AquaEffectId) => boolean
   toggle: (id: AquaEffectId) => void
   setAll: (on: boolean) => void
+  resetDefaults: () => void
 }
 
 const AquaEffectsContext = createContext<AquaEffectsContextValue>({
@@ -24,17 +26,18 @@ const AquaEffectsContext = createContext<AquaEffectsContextValue>({
   isOn: () => false,
   toggle: () => {},
   setAll: () => {},
+  resetDefaults: () => {},
 })
 
 export function AquaEffectsProvider({ children }: { children: React.ReactNode }) {
   const { palette } = usePalette()
-  // 🎯 Everything is off by default: visitors see the plain Aqua theme
-  const [effects, setEffects] = useState<Set<AquaEffectId>>(new Set())
+  const [effects, setEffects] = useState<Set<AquaEffectId>>(() => new Set(DEFAULT_AQUA_EFFECTS))
   const [panelOpen, setPanelOpen] = useState(false)
 
   useEffect(() => {
     try {
-      setEffects(new Set(parseAquaEffects(localStorage.getItem(AQUA_FX_STORAGE_KEY))))
+      const stored = localStorage.getItem(AQUA_FX_STORAGE_KEY)
+      if (stored !== null) setEffects(new Set(parseAquaEffects(stored)))
     } catch {}
     if (new URLSearchParams(window.location.search).has('fx')) setPanelOpen(true)
   }, [])
@@ -77,12 +80,20 @@ export function AquaEffectsProvider({ children }: { children: React.ReactNode })
     setEffects(persist(new Set(on ? AQUA_EFFECT_IDS : [])))
   }, [])
 
+  const resetDefaults = useCallback(() => {
+    try {
+      localStorage.removeItem(AQUA_FX_STORAGE_KEY)
+    } catch {}
+    setEffects(new Set(DEFAULT_AQUA_EFFECTS))
+  }, [])
+
   const value = useMemo<AquaEffectsContextValue>(() => ({
     effects,
     isOn: (id) => palette === 'aqua' && effects.has(id),
     toggle,
     setAll,
-  }), [effects, palette, toggle, setAll])
+    resetDefaults,
+  }), [effects, palette, toggle, setAll, resetDefaults])
 
   return (
     <AquaEffectsContext.Provider value={value}>
