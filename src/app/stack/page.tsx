@@ -91,7 +91,7 @@ const StackPage = async () => {
                   return (
                     <Tooltip key={skill.name}>
                       <TooltipTrigger asChild>{chip}</TooltipTrigger>
-                      <TooltipContent className="max-w-xs">
+                      <TooltipContent className="max-w-xs bg-popover border border-foreground/10 px-3 py-2">
                         <p className="text-xs opacity-70 mb-1">{t('usedAt')}</p>
                         <p className="text-sm">{skill.usedAt.join(' · ')}</p>
                       </TooltipContent>
