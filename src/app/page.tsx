@@ -4,7 +4,6 @@ import { getTranslations } from 'next-intl/server'
 import LandingPage from './LandingPage'
 import { getStacks, getProjects } from './actions'
 import { auth } from './api/auth/[...nextauth]/auth'
-import TalkingLogo from '@/components/TalkingLogo'
 import ContactSection from '@/components/ContactSection'
 
 export default async function Home() {
@@ -43,9 +42,11 @@ export default async function Home() {
         </div>
       </section>
 
+      {/* AI chat hidden while there are no API credits. To re-enable:
       <Suspense>
         <TalkingLogo className='w-full' hideHead text={t('chatIntro')} />
       </Suspense>
+      */}
 
       <Suspense fallback={<div className="w-full animate-pulse" />}>
         <LandingPage stacks={stacks} session={session} projects={projects} />

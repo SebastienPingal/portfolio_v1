@@ -113,7 +113,7 @@
       "button": "Add a tech",
       "link": "Add new technology"
     },
-    "intro": "The tools I use day to day, how comfortable I am with each one, and where I've put them into practice.",
+    "intro": "The tools I work with. Hover over one to see where I've used it.",
     "groups": {
       "languages": "Languages",
       "frontend": "Front-end",
@@ -122,8 +122,12 @@
       "tools": "Design & tools",
       "practices": "Practices"
     },
-    "rating": "Level {value}/5",
-    "personalProjects": "Side projects"
+    "personalProjects": "Side projects",
+    "legend": {
+      "core": "Core skills (used across several roles)",
+      "other": "Also used"
+    },
+    "usedAt": "Used at"
   },
   "StackCard": {
     "learnMore": "Learn More",

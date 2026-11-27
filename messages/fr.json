@@ -113,7 +113,7 @@
       "button": "Ajouter une technologie",
       "link": "Nouvelle technologie"
     },
-    "intro": "Les technos que j'utilise au quotidien, mon niveau sur chacune et les projets où je les ai mises en pratique.",
+    "intro": "Les technos avec lesquelles je travaille. Survolez une techno pour voir où je l'ai utilisée.",
     "groups": {
       "languages": "Langages",
       "frontend": "Front-end",
@@ -122,8 +122,12 @@
       "tools": "Design & outils",
       "practices": "Pratiques"
     },
-    "rating": "Niveau {value}/5",
-    "personalProjects": "Projets perso"
+    "personalProjects": "Projets perso",
+    "legend": {
+      "core": "Cœur de métier (utilisée sur plusieurs postes)",
+      "other": "Déjà utilisée"
+    },
+    "usedAt": "Utilisée chez"
   },
   "StackCard": {
     "learnMore": "En savoir plus",
