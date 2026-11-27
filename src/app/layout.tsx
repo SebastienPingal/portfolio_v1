@@ -6,12 +6,15 @@ import { headers } from 'next/headers'
 
 // Local styles and fonts
 import "./globals.css"
-import { cereal } from './font'
+import { cereal, aquaRounded } from './font'
 
 // Local providers
 import SessionProvider from "./SessionProvider"
 import { ThemeProvider } from "./theme-provider"
-import { PaletteProvider, paletteInitScript, DEFAULT_PALETTE } from "@/components/PaletteProvider"
+import { PaletteProvider } from "@/components/PaletteProvider"
+import { AquaEffectsProvider } from "@/components/AquaEffectsProvider"
+import { DEFAULT_PALETTE, paletteInitScript } from "@/lib/palette"
+import { aquaEffectsInitScript } from "@/lib/aquaEffects"
 
 // Components
 import Navbar from "@/components/NavBar"
@@ -72,8 +75,8 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} data-palette={DEFAULT_PALETTE} suppressHydrationWarning>
-      <body className={cereal.className}>
-        <script dangerouslySetInnerHTML={{ __html: paletteInitScript }} />
+      <body className={`${cereal.className} ${aquaRounded.variable}`}>
+        <script dangerouslySetInnerHTML={{ __html: paletteInitScript + aquaEffectsInitScript }} />
         <Script defer src="https://cloud.umami.is/script.js" data-website-id="93d15f75-6182-4d42-9109-5b7d91dddd52"></Script>
 
         <NextIntlClientProvider messages={messages} locale={locale}>
@@ -84,6 +87,7 @@ export default async function RootLayout({
             enableSystem
           >
             <PaletteProvider>
+            <AquaEffectsProvider>
             <SessionProvider>
               {isIsolated ? (
                 <main className="min-h-screen w-full max-w-5xl mx-auto p-3 sm:p-8 relative z-10">
@@ -123,6 +127,7 @@ export default async function RootLayout({
               )}
               <AdaptiveBackground className="inset-0 -z-10" defaultType="dithered" />
             </SessionProvider>
+            </AquaEffectsProvider>
             </PaletteProvider>
           </ThemeProvider>
         </NextIntlClientProvider>

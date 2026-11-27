@@ -1,0 +1,33 @@
+// 🫧 Optional Frutiger Aero upgrades for the Aqua palette, each one toggleable from
+// the hidden effects panel (Alt+Shift+A, or ?fx in the URL).
+// Active effects are mirrored on <html data-aqua-fx="id id ..."> so CSS can key on
+// [data-aqua-fx~="id"]; background effects are read by AquaBackground.
+
+export const AQUA_EFFECTS = [
+  { id: 'gel', group: 'Interface', label: 'Boutons gel', hint: 'Dégradé coupé au milieu + reflet' },
+  { id: 'cards', group: 'Interface', label: 'Cartes brillantes', hint: 'Reflet en haut, ombre, balayage au survol' },
+  { id: 'pills', group: 'Interface', label: 'Pastilles gel', hint: 'Badges et menu actif' },
+  { id: 'beads', group: 'Interface', label: 'Frise en perles', hint: 'Points de la timeline en billes de verre' },
+  { id: 'ribbons', group: 'Fond', label: 'Rubans XMB lumineux', hint: 'Lignes fines qui brillent et s’additionnent' },
+  { id: 'sparkles', group: 'Fond', label: 'Scintillements + bokeh', hint: 'Étincelles et taches de lumière floues' },
+  { id: 'rays', group: 'Fond', label: 'Rayons de lumière', hint: 'Faisceaux venant du haut' },
+  { id: 'daycycle', group: 'Fond', label: 'Teinte selon l’heure', hint: 'Aube, jour, crépuscule, nuit' },
+  { id: 'glowtype', group: 'Typo & détails', label: 'Titres lumineux', hint: 'Lueur blanche + police arrondie' },
+  { id: 'orb', group: 'Typo & détails', label: 'Avatar orbe', hint: 'Reflet de verre sur la photo' },
+  { id: 'lime', group: 'Typo & détails', label: 'Accent vert lime', hint: 'Le duo bleu + vert du style' },
+  { id: 'scrollbar', group: 'Typo & détails', label: 'Barre de défilement Aqua', hint: 'Poignée en gel bleu' },
+  { id: 'pop', group: 'Gadgets', label: 'Bulle au clic', hint: 'Une bulle éclate où on clique' },
+  { id: 'sound', group: 'Gadgets', label: 'Son XMB', hint: '« Tic » au survol de la navigation' },
+] as const
+
+export type AquaEffectId = (typeof AQUA_EFFECTS)[number]['id']
+
+export const AQUA_EFFECT_IDS = AQUA_EFFECTS.map((e) => e.id) as AquaEffectId[]
+
+export const AQUA_FX_STORAGE_KEY = 'aqua-fx'
+
+export const parseAquaEffects = (raw: string | null): AquaEffectId[] =>
+  (raw ?? '').split(/\s+/).filter((id): id is AquaEffectId => (AQUA_EFFECT_IDS as string[]).includes(id))
+
+// 🎯 Inline script run before paint so enabled CSS effects don't flash in late
+export const aquaEffectsInitScript = `(function(){try{var v=localStorage.getItem('${AQUA_FX_STORAGE_KEY}');if(v)document.documentElement.setAttribute('data-aqua-fx',v)}catch(e){}})()`

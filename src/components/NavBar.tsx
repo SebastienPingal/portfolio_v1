@@ -40,7 +40,7 @@ const NavBar = ({ workPosts, blogPosts, externalLinks, className }: { workPosts:
   }, [theme])
 
   const renderMenuItem = (href: string, icon: React.ReactNode, text: string) => (
-    <NavigationMenuItem className={pathname === href ? 'bg-accent/40 text-popover-foreground' : ''}>
+    <NavigationMenuItem className={pathname === href ? 'aqua-nav-active bg-accent/40 text-popover-foreground' : ''}>
       <Link href={href} className="w-full" legacyBehavior passHref>
         <NavigationMenuLink className="w-full">
           {icon}{text}

@@ -4,10 +4,12 @@ import PerlinBackground from './perlinBackground.jsx'
 import DitheredPerlinBackground from './DitheredPerlinBackground.jsx'
 import AquaBackground from './AquaBackground.jsx'
 import { usePalette } from './PaletteProvider'
+import { useAquaEffects } from './AquaEffectsProvider'
 
 const AdaptiveBackground = ({ className = '', defaultType = 'perlin' }) => {
   const [backgroundType, setBackgroundType] = useState(defaultType)
   const { palette } = usePalette()
+  const { isOn } = useAquaEffects()
 
   // 🎯 Keyboard shortcut to switch background types
   useEffect(() => {
@@ -23,7 +25,15 @@ const AdaptiveBackground = ({ className = '', defaultType = 'perlin' }) => {
   }, [])
 
   // 🎯 Aqua palette: dedicated waves + bubbles background
-  if (palette === 'aqua') return <AquaBackground className={className} />
+  if (palette === 'aqua') return (
+    <AquaBackground
+      className={className}
+      ribbons={isOn('ribbons')}
+      sparkles={isOn('sparkles')}
+      rays={isOn('rays')}
+      daycycle={isOn('daycycle')}
+    />
+  )
 
   return (
       <>

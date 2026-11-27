@@ -9,15 +9,15 @@ const badgeVariants = cva(
     variants: {
       variant: {
         default:
-          "border-transparent bg-primary text-primary-foreground hover:bg-primary/80",
+          "aqua-pill border-transparent bg-primary text-primary-foreground hover:bg-primary/80",
         secondary:
-          "border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80",
+          "aqua-pill aqua-pill-secondary border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80",
         destructive:
           "border-transparent bg-destructive text-destructive-foreground hover:bg-destructive/80",
         outline: "text-foreground",
         glow: "border-transparent bg-gradient-to-r from-secondary via-white to-secondary bg-[length:200%_100%] bg-clip-text text-transparent font-bold",
-        secondaryshine: "border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/90 relative overflow-hidden before:absolute before:inset-0 before:bg-[linear-gradient(110deg,transparent_20%,rgba(255,255,255,0.4)_50%,transparent_80%)] before:translate-x-[-100%] before:animate-[shine_5s_ease-in-out_infinite]",
-        shine: "border-transparent bg-primary text-primary-foreground hover:bg-primary/90 relative overflow-hidden before:absolute before:inset-0 before:bg-[linear-gradient(110deg,transparent_20%,rgba(255,255,255,0.4)_50%,transparent_80%)] before:translate-x-[-100%] before:animate-[shine_5s_ease-in-out_infinite]",
+        secondaryshine: "aqua-pill aqua-pill-secondary border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/90 relative overflow-hidden before:absolute before:inset-0 before:bg-[linear-gradient(110deg,transparent_20%,rgba(255,255,255,0.4)_50%,transparent_80%)] before:translate-x-[-100%] before:animate-[shine_5s_ease-in-out_infinite]",
+        shine: "aqua-pill border-transparent bg-primary text-primary-foreground hover:bg-primary/90 relative overflow-hidden before:absolute before:inset-0 before:bg-[linear-gradient(110deg,transparent_20%,rgba(255,255,255,0.4)_50%,transparent_80%)] before:translate-x-[-100%] before:animate-[shine_5s_ease-in-out_infinite]",
       },
     },
     defaultVariants: {

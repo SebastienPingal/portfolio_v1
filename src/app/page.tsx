@@ -21,7 +21,7 @@ export default async function Home() {
   return (
     <div className='flex flex-col w-full items-center gap-16 overflow-y-visible'>
       <section className='glassPanel rounded-2xl flex flex-col sm:flex-row items-center gap-6 sm:gap-10 w-full p-5 sm:p-8 mt-4 sm:mt-12'>
-        <div className='relative w-40 h-40 sm:w-56 sm:h-56 flex-shrink-0 rounded-full overflow-hidden border-4 border-primary/50 shadow-lg'>
+        <div className='aqua-orb relative w-40 h-40 sm:w-56 sm:h-56 flex-shrink-0 rounded-full overflow-hidden border-4 border-primary/50 shadow-lg'>
           <Image
             src='/img/seb8.jpg'
             alt='Sébastien Pingal'

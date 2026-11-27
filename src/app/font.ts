@@ -1,4 +1,5 @@
 import localFont from 'next/font/local'
+import { Nunito } from 'next/font/google'
 
 export const cereal = localFont({
   src: [
@@ -34,4 +35,13 @@ export const cereal = localFont({
     },
   ],
   variable: '--font-cereal',
-})  
+})
+
+// 🫧 Rounded humanist face for the Aqua "glowing titles" effect (loaded on demand)
+export const aquaRounded = Nunito({
+  subsets: ['latin'],
+  weight: ['700', '800', '900'],
+  variable: '--font-aqua',
+  display: 'swap',
+  preload: false,
+})

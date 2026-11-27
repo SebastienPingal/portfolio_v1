@@ -12,7 +12,8 @@ import {
 import { Palette as PaletteIcon } from "lucide-react"
 import { useTranslations } from "next-intl"
 import { useEffect, useState } from "react"
-import { PALETTES, usePalette, type Palette } from "./PaletteProvider"
+import { usePalette } from "./PaletteProvider"
+import { PALETTES, type Palette } from "@/lib/palette"
 
 // 🎯 Little colour chip shown next to each theme name
 const SWATCHES: Record<Palette, string> = {
