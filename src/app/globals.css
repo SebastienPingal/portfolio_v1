@@ -83,6 +83,65 @@
 
     --ring: 120 9% 68%;
   }
+
+  /* 🎮 PlayStation palette (opt-in via data-palette on <html>, layered on light/dark) */
+  :root[data-palette^="ps"] {
+    --background: 208 80% 95%;
+    --foreground: 222 60% 12%;
+
+    --card: 210 70% 88%;
+    --card-foreground: 222 60% 12%;
+
+    --popover: 205 90% 98%;
+    --popover-foreground: 222 60% 12%;
+
+    --primary: 216 100% 38%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 196 90% 42%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 210 50% 92%;
+    --muted-foreground: 216 25% 38%;
+
+    --accent: 222 75% 26%;
+    --accent-foreground: 0 0% 100%;
+
+    --border: 210 55% 80%;
+
+    --input: 208 70% 92%;
+
+    --ring: 216 90% 45%;
+  }
+
+  :root.dark[data-palette^="ps"] {
+    --background: 224 80% 7%;
+    --foreground: 205 80% 95%;
+
+    --card: 220 65% 14%;
+    --card-foreground: 205 80% 95%;
+
+    --popover: 224 70% 10%;
+    --popover-foreground: 205 80% 95%;
+
+    --primary: 200 100% 62%;
+    --primary-foreground: 224 80% 8%;
+
+    --secondary: 188 90% 70%;
+    --secondary-foreground: 224 80% 8%;
+
+    --muted: 222 50% 12%;
+    --muted-foreground: 210 35% 68%;
+
+    --accent: 200 80% 78%;
+    --accent-foreground: 224 80% 8%;
+
+    --border: 218 55% 22%;
+
+    --input: 220 60% 14%;
+
+    --ring: 200 90% 62%;
+  }
 }
 
 
@@ -146,6 +205,17 @@
 
   .glassPanel {
     @apply text-lg backdrop-blur-xs p-2 rounded bg-card/20
+  }
+
+  /* 🎮 PlayStation palette: glossy glass with a top sheen */
+  :root[data-palette^="ps"] .glassPanel {
+    background-image: linear-gradient(180deg, hsl(0 0% 100% / 0.35) 0%, hsl(0 0% 100% / 0.05) 45%, transparent 100%);
+    box-shadow: inset 0 1px 0 hsl(0 0% 100% / 0.6), inset 0 0 0 1px hsl(0 0% 100% / 0.35), 0 6px 24px -10px hsl(var(--primary) / 0.45);
+  }
+
+  :root.dark[data-palette^="ps"] .glassPanel {
+    background-image: linear-gradient(180deg, hsl(200 100% 80% / 0.14) 0%, hsl(200 100% 80% / 0.02) 45%, transparent 100%);
+    box-shadow: inset 0 1px 0 hsl(200 100% 85% / 0.25), inset 0 0 0 1px hsl(200 100% 80% / 0.14), 0 6px 28px -10px hsl(var(--primary) / 0.5);
   }
 
   .markdown a {

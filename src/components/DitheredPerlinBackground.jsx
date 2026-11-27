@@ -61,7 +61,7 @@ const DitheredPerlinBackground = ({ className = '' }) => {
     getThemeColors()
     // 🎯 Update colors when theme changes
     const observer = new MutationObserver(getThemeColors)
-    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] })
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class', 'data-palette'] })
 
     return () => observer.disconnect()
   }, [theme, isMounted])

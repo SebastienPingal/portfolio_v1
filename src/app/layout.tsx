@@ -11,6 +11,7 @@ import { cereal } from './font'
 // Local providers
 import SessionProvider from "./SessionProvider"
 import { ThemeProvider } from "./theme-provider"
+import { PaletteProvider, paletteInitScript } from "@/components/PaletteProvider"
 
 // Components
 import Navbar from "@/components/NavBar"
@@ -22,6 +23,7 @@ import { Toaster } from "@/components/ui/toaster"
 // Actions
 import { getPosts, getExternalLinks } from "./actions"
 import ThemeToggler from "@/components/ThemeToggler"
+import PaletteToggler from "@/components/PaletteToggler"
 import LanguageSwitcher from "@/components/LanguageSwitcher"
 import PageTransition from "@/components/PageTransition"
 import Script from "next/script"
@@ -71,6 +73,7 @@ export default async function RootLayout({
   return (
     <html lang={locale} suppressHydrationWarning>
       <body className={cereal.className}>
+        <script dangerouslySetInnerHTML={{ __html: paletteInitScript }} />
         <Script defer src="https://cloud.umami.is/script.js" data-website-id="93d15f75-6182-4d42-9109-5b7d91dddd52"></Script>
 
         <NextIntlClientProvider messages={messages} locale={locale}>
@@ -80,6 +83,7 @@ export default async function RootLayout({
             defaultTheme="light"
             enableSystem
           >
+            <PaletteProvider>
             <SessionProvider>
               {isIsolated ? (
                 <main className="min-h-screen w-full max-w-5xl mx-auto p-3 sm:p-8 relative z-10">
@@ -92,12 +96,14 @@ export default async function RootLayout({
                   {/* Desktop theme/language togglers */}
                   <div className="hidden sm:flex glassPanel fixed top-10 right-10 z-30 rounded-full">
                     <ThemeToggler />
+                    <PaletteToggler />
                     <LanguageSwitcher />
                   </div>
 
                   {/* Mobile theme/language togglers */}
                   <div className="sm:hidden flex glassPanel fixed rounded-full z-30 bottom-16 left-1/2 -translate-x-1/2">
                     <ThemeToggler />
+                    <PaletteToggler />
                     <LanguageSwitcher />
                   </div>
 
@@ -117,6 +123,7 @@ export default async function RootLayout({
               )}
               <AdaptiveBackground className="inset-0 -z-10" defaultType="dithered" />
             </SessionProvider>
+            </PaletteProvider>
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>
